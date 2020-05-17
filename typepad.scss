@@ -1,0 +1,131 @@
+@import "../../lib/css/reset";
+@import "../../lib/css/utility";
+@import "variables";
+
+
+body{
+  background-color: $bg-second;
+}
+
+#app{
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.side-menu{
+
+  flex-shrink: 0;
+  width: 200px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+
+}
+
+.info{
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid $color-border;
+  &-item{
+    position: relative;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    &:before{
+      z-index: 1;
+      content: '';
+      top: 50%;
+      position: absolute;
+      width: 100%;
+      border-bottom: 1px dashed $color-border;
+    }
+
+    &:last-child{
+      margin-bottom: 0;
+    }
+    h6,p{
+      z-index: $z-mask;
+      background-color: white;
+      font-size: $font-size-info;
+    }
+    h6{
+      padding-right: 10px;
+    }
+    p{
+      padding-left: 10px;
+    }
+  }
+}
+
+.tool-bar{
+  display: flex;
+  justify-content: flex-start;
+  .btn {
+    margin-right: 5px;
+  }
+}
+
+
+.btn{
+  text-align: center;
+  padding: 5px 10px;
+  @extend .unselectable;
+  @include border-radius(3px);
+  border: 1px solid transparent;
+
+  &:active{
+    @include transform(translateY(2px));
+  }
+}
+
+$btns: (
+  'primary': $green,
+  'blue': $blue,
+);
+
+
+@each $name, $color in $btns {
+  .btn-#{$name}{
+    background-color: $color;
+    color: white;
+    border: 1px solid $color;
+    &:hover{
+      border-color: darken($color, 10%);
+    }
+    &:active{
+      background-color: darken($color, 10%);
+    }
+  }
+}
+
+.comparison{
+  background-color: white;
+  padding: 10px;
+  border: 1px solid $color-border;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.typing{
+  border: 1px solid $color-border;
+  textarea{
+    max-height: 200px;
+    width: 100%;
+    padding: 10px;
+    display: block;
+  }
+}
+
+
+.hidden{
+  display: none;
+}
+.text{
+  font-size: 2rem;
+  letter-spacing: 2px;
+  line-height: 1.5;
+}
+
