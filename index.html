@@ -4,32 +4,47 @@
     <meta charset="UTF-8">
     <title>Type Pad</title>
     <link rel="stylesheet" href="typepad.css">
+<!--    <script src="../../lib/js/vue.min.2.6.10.js"></script>-->
 </head>
 <body>
 
 <div id="app">
     <div class="side-menu">
-        <div class="info">
-            <div class="info-item word-az"><h6>A-Z</h6><p></p></div>
-            <div class="info-item word-space"><h6>Space</h6><p></p></div>
-            <div class="info-item word-backspace"><h6>BackSpace</h6><p></p></div>
-            <div class="info-item word-number"><h6>Number</h6><p></p></div>
-            <div class="info-item word-shift"><h6>Shift</h6><p></p></div>
-            <div class="info-item word-function"><h6>Function Key</h6><p></p></div>
-            <div class="info-item word-meta"><h6>Command</h6><p></p></div>
-            <div class="info-item word-alt"><h6>Alt</h6><p></p></div>
-            <div class="info-item word-ctrl"><h6>Ctrl</h6><p></p></div>
+        <div class="key-info info-item">
+            <div class="key-info-item word-az"><h6>A-Z</h6><p></p></div>
+            <div class="key-info-item word-space"><h6>Space</h6><p></p></div>
+            <div class="key-info-item word-backspace"><h6>BackSpace</h6><p></p></div>
+            <div class="key-info-item word-number"><h6>Number</h6><p></p></div>
+            <div class="key-info-item word-shift"><h6>Shift</h6><p></p></div>
+            <div class="key-info-item word-function"><h6>Function Key</h6><p></p></div>
+            <div class="key-info-item word-meta"><h6>Command</h6><p></p></div>
+            <div class="key-info-item word-alt"><h6>Alt</h6><p></p></div>
+            <div class="key-info-item word-ctrl"><h6>Ctrl</h6><p></p></div>
+        </div>
+
+        <div class="speed-info info-item">
+            <div class="time">
+                <div class="minute">--</div>
+                <div class="second">--</div>
+            </div>
+            <div class="speed">123</div>
+            <div class="count">
+                <p class="count-current">0</p>
+                <p class="count-total"></p>
+            </div>
 
         </div>
         <div class="tool-bar">
-            <div class="btn btn-primary" onclick="">乱序</div>
-            <div class="btn btn-blue" onclick="resetCount()">重置</div>
+            <div class="btn btn-primary" onclick="shuffleWords()">乱序</div>
+            <div class="btn btn-blue" onclick="engine.reset()">重置</div>
+            <div class="btn btn-blue" onclick="engine.pause()">暂停</div>
+            <div class="btn btn-blue" onclick="engine.resume()">继续</div>
         </div>
     </div>
 
     <div class="type-pad">
         <div class="comparison">
-            <p class="text"></p>
+            <p class="text">{{currentWords}}</p>
         </div>
         <div class="typing">
             <label for="pad" class="hidden"></label>
