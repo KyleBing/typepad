@@ -76,9 +76,9 @@ tt {
 
 .info-item {
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 15px;
   background-color: white;
-  border: 1px solid #cccccc; }
+  border: 1px solid #dddddd; }
 
 .key-info-item {
   position: relative;
@@ -91,7 +91,7 @@ tt {
     top: 50%;
     position: absolute;
     width: 100%;
-    border-bottom: 1px dashed #cccccc; }
+    border-bottom: 1px dashed #dddddd; }
   .key-info-item:last-child {
     margin-bottom: 0; }
   .key-info-item h6, .key-info-item p {
@@ -104,7 +104,9 @@ tt {
     padding-left: 10px; }
 
 .speed-info .time {
-  border-bottom: 1px dashed #cccccc;
+  color: #666;
+  padding: 10px 0 15px;
+  border-bottom: 1px dashed #dddddd;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -128,37 +130,45 @@ tt {
     .speed-info .time .minute:after {
       bottom: 15px; }
 .speed-info .speed {
+  font-family: Impact, sans-serif;
+  padding: 15px 0;
   text-align: center;
   font-size: 2rem; }
 .speed-info .count {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem; }
-  .speed-info .count .count-current {
+  font-size: 1.2rem; }
+  .speed-info .count > p {
     position: relative;
-    margin-right: 10px; }
-    .speed-info .count .count-current:after {
+    margin-right: 22px; }
+    .speed-info .count > p:after {
       content: '';
       position: absolute;
-      right: -6px;
+      right: -12px;
       height: 10px;
       width: 2px;
-      background-color: #cccccc;
+      background-color: #FF3B30;
       top: 50%;
       margin-top: -5px; }
+    .speed-info .count > p:last-child {
+      margin-right: 0; }
+      .speed-info .count > p:last-child:after {
+        content: none; }
 
 .tool-bar {
   display: flex;
   justify-content: flex-start;
-  flex-flow: row wrap; }
+  flex-flow: row wrap;
+  margin-bottom: 10px; }
   .tool-bar .btn {
-    margin-bottom: 5px;
     margin-right: 5px; }
 
 .btn {
+  cursor: pointer;
+  font-size: 12px;
   text-align: center;
-  padding: 5px 10px;
+  padding: 3px 6px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -195,6 +205,8 @@ body {
   background-color: #EBEBEB; }
 
 #app {
+  margin: 0 auto;
+  max-width: 1200px;
   display: flex;
   align-items: flex-start;
   padding: 10px; }
@@ -203,20 +215,25 @@ body {
   width: 100%; }
 
 .template {
+  margin-bottom: 10px;
   background-color: white;
   padding: 10px;
-  border: 1px solid #cccccc;
+  border: 2px solid #dddddd;
   max-height: 200px;
   overflow-y: scroll; }
 
 .typing {
-  border: 1px solid #cccccc; }
+  border: 1px solid #dddddd; }
   .typing textarea {
     resize: none;
     max-height: 200px;
     width: 100%;
     padding: 10px;
     display: block; }
+    .typing textarea:focus {
+      -webkit-box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.1); }
 
 .hidden {
   display: none; }

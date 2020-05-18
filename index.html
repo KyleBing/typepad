@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Type Pad</title>
     <link rel="stylesheet" href="css/typepad.css">
 </head>
@@ -15,23 +16,17 @@
                 <div class="minute">--</div>
                 <div class="second">--</div>
             </div>
-            <div class="speed">123</div>
+            <div class="speed">--</div>
             <div class="count">
                 <p class="count-current">0</p>
                 <p class="count-total"></p>
+                <p class="count-keyrate"></p>
             </div>
-        </div>
-
-        <!--buttons-->
-        <div class="tool-bar">
-            <div class="btn btn-primary" onclick="engine.wordsShuffle()">乱序</div>
-            <div class="btn btn-blue" onclick="engine.reset()">重置</div>
-            <div class="btn btn-blue" onclick="engine.pause()">暂停</div>
-            <div class="btn btn-blue" onclick="engine.resume()">继续</div>
         </div>
 
         <!--keys-->
         <div class="key-info info-item">
+            <div class="key-info-item word-all"><h6>ALL</h6><p></p></div>
             <div class="key-info-item word-az"><h6>A-Z</h6><p></p></div>
             <div class="key-info-item word-space"><h6>Space</h6><p></p></div>
             <div class="key-info-item word-backspace"><h6>BackSpace</h6><p></p></div>
@@ -44,20 +39,30 @@
             <div class="key-info-item word-semicolon"><h6>候选二</h6><p></p></div>
             <div class="key-info-item word-quot"><h6>候选三</h6><p></p></div>
         </div>
-
-
     </div>
 
     <div class="type-pad">
+        <!--buttons-->
+        <div class="tool-bar">
+            <div class="btn btn-primary" onclick="engine.wordsShuffle()">乱序</div>
+            <div class="btn btn-blue" onclick="engine.reset()">重置</div>
+            <div class="btn btn-blue" onclick="engine.pause()">暂停</div>
+            <div class="btn btn-blue" onclick="engine.resume()">继续</div>
+            <select name="" id="article" onchange="changeArticle()">
+                <option value="15">15字乱序</option>
+                <option value="25">25字乱序</option>
+                <option value="500">常用前500字</option>
+            </select>
+        </div>
         <div class="template">
             <p class="text"></p>
         </div>
+
         <div class="typing">
             <label for="pad" class="hidden"></label>
             <textarea class="text" id="pad" rows="3"></textarea>
         </div>
     </div>
-
 </div>
 
 <script src="typepad.js"></script>

@@ -2,6 +2,7 @@
 @import "../../../lib/css/utility";
 @import "../variables";
 @import "info";
+@import "button";
 
 .code{
   font-family: 'Roboto Mono', sans-serif;
@@ -12,6 +13,8 @@ body{
 }
 
 #app{
+  margin: 0 auto;
+  max-width: 1200px;
   display: flex;
   align-items: flex-start;
   padding: 10px;
@@ -22,9 +25,10 @@ body{
 }
 
 .template{
+  margin-bottom: $gap-block;
   background-color: white;
   padding: 10px;
-  border: 1px solid $color-border;
+  border: 2px solid $color-border;
   max-height: 200px;
   overflow-y: scroll;
 }
@@ -32,11 +36,15 @@ body{
 .typing{
   border: 1px solid $color-border;
   textarea{
+
     resize: none;
     max-height: 200px;
     width: 100%;
     padding: 10px;
     display: block;
+    &:focus{
+      @include box-shadow(inset 1px 1px 10px rgba(0,0,0,0.1));
+    }
   }
 }
 

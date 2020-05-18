@@ -1,0 +1,42 @@
+.tool-bar{
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  margin-bottom: 10px;
+  .btn {
+    margin-right: 5px;
+  }
+}
+
+.btn{
+  cursor: pointer;
+  font-size: $font-size-btn;
+  text-align: center;
+  padding: 3px 6px;
+  @extend .unselectable;
+  @include border-radius(3px);
+  border: 1px solid transparent;
+
+  &:active{
+    @include transform(translateY(2px));
+  }
+}
+
+$btns: (
+  'primary': $green,
+  'blue': $blue,
+);
+
+@each $name, $color in $btns {
+  .btn-#{$name}{
+    background-color: $color;
+    color: white;
+    border: 1px solid $color;
+    &:hover{
+      border-color: darken($color, 10%);
+    }
+    &:active{
+      background-color: darken($color, 10%);
+    }
+  }
+}

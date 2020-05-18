@@ -1,5 +1,6 @@
 // REG
 const REG = {
+  all: /.*/,
   az: /^[a-zA-Z]$/,
   number: /\d/,
   function : /^(Control|Alt|Meta|Shift|Tab)$/,
@@ -15,17 +16,21 @@ const REG = {
 }
 
 class Count {
-  az = 0;
-  number = 0;
-  ctrl = 0;
-  shift = 0;
-  meta = 0;
-  alt = 0;
-  function = 0;
-  space = 0;
-  backspace = 0;
-  semicolon = 0;
-  quot = 0;
+  constructor() {
+    this.all = 0;
+    this.az = 0;
+    this.number = 0;
+    this.ctrl = 0;
+    this.shift = 0;
+    this.meta = 0;
+    this.alt = 0;
+    this.function = 0;
+    this.space = 0;
+    this.backspace = 0;
+    this.semicolon = 0;
+    this.quot = 0;
+  }
+
   init (){
     for (let name in this) {
       this[name] = 0;
@@ -34,30 +39,32 @@ class Count {
 }
 
 class Engine {
-  isFinished = false;
-  isStarted = false;
-  isPaused = false;
-  timeStart; //ms
-  timeEnd; // ms
-  duration = 0; // ms
-  handleRefresh;
-  refreshRate = 500; // ms
+  constructor() {
+    this.isFinished = false;
+    this.isStarted = false;
+    this.isPaused = false;
+    this.timeStart; //ms
+    this.timeEnd; // ms
+    this.duration = 0; // ms
+    this.handleRefresh;
+    this.refreshRate = 500; // ms
+  }
 
   start(){
     this.isStarted = true;
     this.timeStart = (new Date()).getTime();
     this.startRefresh();
   }
-  end(){
 
-  }
   startRefresh(){
     this.handleRefresh = setInterval(()=>{
-      let timeNow = (new Date()).getTime()
+      let timeNow = (new Date()).getTime();
       this.duration = timeNow - this.timeStart;
+      this.updateInfo();
       this.showTime();
     }, this.refreshRate)
   }
+
   stopRefresh(){
     clearInterval(this.handleRefresh);
   }
@@ -138,14 +145,15 @@ class Engine {
     currentWords = shuffle(array).join('');
     template.innerText = currentWords;
     engine.reset();
-    updateInfo();
+    this.updateInfo();
   }
   reset(){
+    template.innerHTML = currentWords;
     this.isPaused = false;
     this.isStarted = false;
     pad.value = '';
     count.init();
-    updateInfo();
+    this.updateInfo();
     this.stopRefresh();
     this.showTime();
   }
@@ -154,7 +162,29 @@ class Engine {
     this.isFinished = true;
     this.stopRefresh();
     this.timeEnd = (new Date()).getTime();
-    updateInfo();
+    this.updateInfo();
+  }
+
+  updateInfo() {
+    // key count
+    for (let type in count){
+      $(`.word-${type} p`).innerText = count[type];
+    }
+    $('.count-total').innerText = currentWords.length;
+    $('.count-current').innerText = pad.value.length;
+
+    // speed
+    if (!engine.isStarted && !engine.isFinished) {
+      $('.speed').innerText = '--';
+      $('.count-keyrate').innerText = '--';
+    } else {
+      let speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
+      $('.speed').innerText = speed;
+
+      let keyCount = count.all - count.function;
+      let keyRate = (keyCount / engine.duration * 1000).toFixed(2);
+      $('.count-keyrate').innerText = keyRate;
+    }
   }
 }
 
@@ -179,7 +209,7 @@ let correctWordsCount = 0;
 window.onload = () => {
   // init
   template.innerText = currentWords;
-  updateInfo();
+  engine.updateInfo();
 
   pad.onblur = () => {
     if (engine.isStarted && !engine.isPaused){
@@ -230,9 +260,6 @@ window.onload = () => {
   }
 }
 
-
-
-
 // Count Key
 function countKeys(e) {
   for (let type in count){
@@ -242,24 +269,15 @@ function countKeys(e) {
       }
     }
   }
-  updateInfo()
 }
 
-
-
-// Update infos
-function updateInfo() {
-  for (let type in count){
-    $(`.word-${type} p`).innerText = count[type];
-  }
-  $('.count-total').innerText = currentWords.length;
-  $('.count-current').innerText = pad.value.length;
-
-  if (!engine.isStarted && !engine.isFinished) {
-    $('.speed').innerText = '--';
-  } else {
-    let speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2)
-    $('.speed').innerText = speed;
+function changeArticle() {
+  let article = $('#article').value;
+  switch (article) {
+    case '15': currentWords = ARTICLE.common15; engine.reset(); break;
+    case '25': currentWords = ARTICLE.common25; engine.reset(); break;
+    case '500': currentWords = Before500; engine.reset(); break;
+    default: break;
   }
 }
 

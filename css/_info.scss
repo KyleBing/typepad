@@ -1,5 +1,5 @@
 .side-menu{
-  margin-right: 10px;
+  margin-right: $gap-block;
   flex-shrink: 0;
   width: 200px;
   display: flex;
@@ -8,8 +8,8 @@
 }
 
 .info-item{
-  margin-bottom: 10px;
-  padding: 10px;
+  margin-bottom: $gap-block;
+  padding: 15px;
   background-color: white;
   border: 1px solid $color-border;
 }
@@ -47,6 +47,8 @@
 
 .speed-info{
   .time{
+    color: $text-subtitle;
+    padding: 10px 0 15px;
     border-bottom: 1px dashed $color-border;
     display: flex;
     justify-content: center;
@@ -76,9 +78,10 @@
     .second{
       @extend .code;
     }
-
   }
   .speed{
+    font-family: Impact, sans-serif;
+    padding: 15px 0;
     text-align: center;
     font-size: 2rem;
   }
@@ -86,10 +89,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
-    .count-current{
+    font-size: 1.2rem;
+    > p{
       $width: 2px;
-      $gap: 4px;
+      $gap: 10px;
       $height: 10px;
       position: relative;
       margin-right: $gap*2 + $width;
@@ -99,55 +102,17 @@
         right: -($gap + $width);
         height: $height;
         width: $width;
-        background-color: $color-border;
+        background-color: $red;
         top: 50%;
         margin-top: -($height/2);
       }
+      &:last-child{
+        margin-right: 0;
+        &:after{
+          content: none;
+        }
+      }
     }
     .count-total{}
-  }
-
-}
-
-.tool-bar{
-  display: flex;
-  justify-content: flex-start;
-  flex-flow: row wrap;
-  .btn {
-    margin-bottom: 5px;
-    margin-right: 5px;
-  }
-}
-
-
-.btn{
-  text-align: center;
-  padding: 5px 10px;
-  @extend .unselectable;
-  @include border-radius(3px);
-  border: 1px solid transparent;
-
-  &:active{
-    @include transform(translateY(2px));
-  }
-}
-
-$btns: (
-  'primary': $green,
-  'blue': $blue,
-);
-
-
-@each $name, $color in $btns {
-  .btn-#{$name}{
-    background-color: $color;
-    color: white;
-    border: 1px solid $color;
-    &:hover{
-      border-color: darken($color, 10%);
-    }
-    &:active{
-      background-color: darken($color, 10%);
-    }
   }
 }
