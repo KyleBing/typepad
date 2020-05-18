@@ -66,17 +66,6 @@ tt {
   -ms-user-select: none;
   user-select: none; }
 
-.code, .speed-info .time .minute, .speed-info .time .second {
-  font-family: 'Roboto Mono', sans-serif; }
-
-body {
-  background-color: #EBEBEB; }
-
-#app {
-  display: flex;
-  align-items: flex-start;
-  padding: 10px; }
-
 .side-menu {
   margin-right: 10px;
   flex-shrink: 0;
@@ -199,7 +188,21 @@ body {
   .btn-blue:active {
     background-color: #0062cc; }
 
-.comparison {
+.code, .speed-info .time .minute, .speed-info .time .second {
+  font-family: 'Roboto Mono', sans-serif; }
+
+body {
+  background-color: #EBEBEB; }
+
+#app {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px; }
+
+.type-pad {
+  width: 100%; }
+
+.template {
   background-color: white;
   padding: 10px;
   border: 1px solid #cccccc;
@@ -220,7 +223,12 @@ body {
 
 .text {
   font-size: 2rem;
-  letter-spacing: 2px;
-  line-height: 1.5; }
+  letter-spacing: 2px; }
+  .text .correct {
+    background-color: #4CD964;
+    color: white !important; }
+  .text .wrong {
+    background-color: #FF3B30;
+    color: white !important; }
 
 /*# sourceMappingURL=typepad.css.map */

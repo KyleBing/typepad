@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Type Pad</title>
-    <link rel="stylesheet" href="typepad.css">
+    <link rel="stylesheet" href="css/typepad.css">
 <!--    <script src="../../lib/js/vue.min.2.6.10.js"></script>-->
 </head>
 <body>
@@ -20,6 +20,8 @@
             <div class="key-info-item word-meta"><h6>Command</h6><p></p></div>
             <div class="key-info-item word-alt"><h6>Alt</h6><p></p></div>
             <div class="key-info-item word-ctrl"><h6>Ctrl</h6><p></p></div>
+            <div class="key-info-item word-semicolon"><h6>候选二</h6><p></p></div>
+            <div class="key-info-item word-quot"><h6>候选三</h6><p></p></div>
         </div>
 
         <div class="speed-info info-item">
@@ -43,12 +45,12 @@
     </div>
 
     <div class="type-pad">
-        <div class="comparison">
-            <p class="text">{{currentWords}}</p>
+        <div class="template">
+            <p class="text"></p>
         </div>
         <div class="typing">
             <label for="pad" class="hidden"></label>
-            <textarea class="text" id="pad" cols="30" rows="10"></textarea>
+            <textarea class="text" id="pad" rows="3"></textarea>
         </div>
     </div>
 

@@ -1,0 +1,57 @@
+@import "../../../lib/css/reset";
+@import "../../../lib/css/utility";
+@import "../variables";
+@import "info";
+
+.code{
+  font-family: 'Roboto Mono', sans-serif;
+}
+
+body{
+  background-color: $bg-second;
+}
+
+#app{
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.type-pad{
+  width: 100%;
+}
+
+.template{
+  background-color: white;
+  padding: 10px;
+  border: 1px solid $color-border;
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.typing{
+  border: 1px solid $color-border;
+  textarea{
+    resize: none;
+    max-height: 200px;
+    width: 100%;
+    padding: 10px;
+    display: block;
+  }
+}
+
+.hidden{
+  display: none;
+}
+.text{
+  font-size: 2rem;
+  letter-spacing: 2px;
+  .correct{
+    background-color: $green;
+    color: white !important;
+  }
+  .wrong{
+    background-color: $red;
+    color: white !important;
+  }
+}
