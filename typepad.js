@@ -34,13 +34,14 @@ class Count {
 }
 
 class Engine {
+  isFinished = false;
   isStarted = false;
   isPaused = false;
   timeStart; //ms
   timeEnd; // ms
-  duration; // ms
+  duration = 0; // ms
   handleRefresh;
-  refreshRate = 1000; // ms
+  refreshRate = 500; // ms
 
   start(){
     this.isStarted = true;
@@ -52,7 +53,6 @@ class Engine {
   }
   startRefresh(){
     this.handleRefresh = setInterval(()=>{
-      show(this.duration);
       let timeNow = (new Date()).getTime()
       this.duration = timeNow - this.timeStart;
       this.showTime();
@@ -63,6 +63,7 @@ class Engine {
   }
 
   compare(){
+    correctWordsCount = 0;
     let typedWords = pad.value;
     let arrayOrigin = currentWords.split('');
     let arrayTyped = typedWords.split('');
@@ -70,15 +71,21 @@ class Engine {
     let lastCharacterIsCorrect = false; // 上一个字符是正确的
     let wordsCorrect = '';
     let wordsWrong = '';
+    /**
+     * 对与错的词成块化，
+     * 如果上一个字跟当前字的对错一致，追加该字到对应字符串，
+     * 如果不是，输出相反字符串
+     */
     arrayTyped.forEach( (current, index) => {
       let origin = arrayOrigin[index];
+      origin = origin ? origin : ' ';
       let currentCharacterIsCorrect = current === origin;
       if (currentCharacterIsCorrect){
+        correctWordsCount ++;
         wordsCorrect = wordsCorrect.concat(origin);
       } else {
         wordsWrong = wordsWrong.concat(origin);
       }
-
       if (wordsCorrect && !lastCharacterIsCorrect && index){
         html = html.concat(`<span class="wrong">${wordsWrong}</span>`);
         wordsWrong = '';
@@ -126,6 +133,13 @@ class Engine {
     this.startRefresh();
 
   }
+  wordsShuffle() {
+    let array = currentWords.split('');
+    currentWords = shuffle(array).join('');
+    template.innerText = currentWords;
+    engine.reset();
+    updateInfo();
+  }
   reset(){
     this.isPaused = false;
     this.isStarted = false;
@@ -136,7 +150,11 @@ class Engine {
     this.showTime();
   }
   finish(){
-
+    this.isStarted = false;
+    this.isFinished = true;
+    this.stopRefresh();
+    this.timeEnd = (new Date()).getTime();
+    updateInfo();
   }
 }
 
@@ -145,7 +163,8 @@ const Before500 = '的一是了不在有个人这上中大为来我到出要以�
 
 // Articles
 const ARTICLE = {
-  common15: shuffle(Before500.split('')).slice(0,15).join('')
+  common15: shuffle(Before500.split('')).slice(0,15).join(''),
+  common25: shuffle(Before500.split('')).slice(0,25).join('')
 }
 
 const template = $('.template p');
@@ -153,7 +172,10 @@ const pad = $('#pad');
 let count = new Count();
 let engine = new Engine();
 let currentWords = ARTICLE.common15;
+let correctWordsCount = 0;
 
+
+// MAIN
 window.onload = () => {
   // init
   template.innerText = currentWords;
@@ -172,14 +194,25 @@ window.onload = () => {
   }
 
   // key pressed
+
+  /****
+   **** ⌘ + R: 重打当前段
+   **** ⌘ + L: 打乱当前段
+   **** ⌘ + N: 下一段
+   **** ⌘ + P: 上一段
+   **** ⌘ + H: 重新开始
+   ****/
   pad.onkeydown = (e) => {
-    if (e.key === 'Tab' ||
-      ((e.metaKey||e.ctrlKey) && e.key === 'r')||
-      ((e.metaKey||e.ctrlKey) && e.key === 's'))
+    if (e.key === 'Tab' || ((e.metaKey||e.ctrlKey) && e.key === 's') || ((e.metaKey||e.ctrlKey) && e.key === 's'))
     {
       e.preventDefault();
-    }
-    if (REG.az.test(e.key) && !engine.isStarted){
+    } else if ((e.metaKey||e.ctrlKey) && e.key === 'r') {
+      e.preventDefault();
+      engine.reset();
+    } else if ((e.metaKey||e.ctrlKey) && e.key === 'l') {
+      e.preventDefault();
+      engine.wordsShuffle();
+    } else if (REG.az.test(e.key) && !engine.isStarted){
       engine.start()
     }
   }
@@ -188,11 +221,14 @@ window.onload = () => {
     e.preventDefault();
     countKeys(e);
     engine.compare();
+    // 末字时结束的时候
+    if (pad.value.length >= currentWords.length){
+      if (pad.value === currentWords) {
+        engine.finish();
+      }
+    }
   }
 }
-
-
-
 
 
 
@@ -218,39 +254,14 @@ function updateInfo() {
   }
   $('.count-total').innerText = currentWords.length;
   $('.count-current').innerText = pad.value.length;
-}
 
-
-
-function shuffleWords() {
-  let array = currentWords.split('');
-  currentWords = shuffle(array).join('');
-  template.innerText = currentWords;
-  engine.reset();
-  updateInfo();
-}
-
-
-
-
-/*
-let app = new Vue({
-  el: '#app',
-  data: {
-    currentWords: ''
-  },
-  mounted: function () {
-    this.currentWords = ARTICLE.before500
-  },
-  watch: {
-
-  },
-  methods: {
-    shuffleWords: function () {
-
-    }
+  if (!engine.isStarted && !engine.isFinished) {
+    $('.speed').innerText = '--';
+  } else {
+    let speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2)
+    $('.speed').innerText = speed;
   }
-})*/
+}
 
 
 /**

@@ -4,12 +4,33 @@
     <meta charset="UTF-8">
     <title>Type Pad</title>
     <link rel="stylesheet" href="css/typepad.css">
-<!--    <script src="../../lib/js/vue.min.2.6.10.js"></script>-->
 </head>
 <body>
 
 <div id="app">
     <div class="side-menu">
+        <!--spped-->
+        <div class="speed-info info-item">
+            <div class="time">
+                <div class="minute">--</div>
+                <div class="second">--</div>
+            </div>
+            <div class="speed">123</div>
+            <div class="count">
+                <p class="count-current">0</p>
+                <p class="count-total"></p>
+            </div>
+        </div>
+
+        <!--buttons-->
+        <div class="tool-bar">
+            <div class="btn btn-primary" onclick="engine.wordsShuffle()">乱序</div>
+            <div class="btn btn-blue" onclick="engine.reset()">重置</div>
+            <div class="btn btn-blue" onclick="engine.pause()">暂停</div>
+            <div class="btn btn-blue" onclick="engine.resume()">继续</div>
+        </div>
+
+        <!--keys-->
         <div class="key-info info-item">
             <div class="key-info-item word-az"><h6>A-Z</h6><p></p></div>
             <div class="key-info-item word-space"><h6>Space</h6><p></p></div>
@@ -24,24 +45,7 @@
             <div class="key-info-item word-quot"><h6>候选三</h6><p></p></div>
         </div>
 
-        <div class="speed-info info-item">
-            <div class="time">
-                <div class="minute">--</div>
-                <div class="second">--</div>
-            </div>
-            <div class="speed">123</div>
-            <div class="count">
-                <p class="count-current">0</p>
-                <p class="count-total"></p>
-            </div>
 
-        </div>
-        <div class="tool-bar">
-            <div class="btn btn-primary" onclick="shuffleWords()">乱序</div>
-            <div class="btn btn-blue" onclick="engine.reset()">重置</div>
-            <div class="btn btn-blue" onclick="engine.pause()">暂停</div>
-            <div class="btn btn-blue" onclick="engine.resume()">继续</div>
-        </div>
     </div>
 
     <div class="type-pad">
