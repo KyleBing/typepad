@@ -145,12 +145,14 @@ class Engine {
     currentWords = shuffle(array).join('');
     template.innerText = currentWords;
     engine.reset();
+    this.isFinished = false;
     this.updateInfo();
   }
   reset(){
     template.innerHTML = currentWords;
     this.isPaused = false;
     this.isStarted = false;
+    this.isFinished = false;
     pad.value = '';
     count.init();
     this.updateInfo();
@@ -171,7 +173,7 @@ class Engine {
       $(`.word-${type} p`).innerText = count[type];
     }
     $('.count-total').innerText = currentWords.length;
-    $('.count-current').innerText = pad.value.length;
+    $('.count-current').innerText = pad.value.length ? pad.value.length : '--';
 
     // speed
     if (!engine.isStarted && !engine.isFinished) {
@@ -233,28 +235,30 @@ window.onload = () => {
    **** ⌘ + H: 重新开始
    ****/
   pad.onkeydown = (e) => {
-    if (e.key === 'Tab' || ((e.metaKey||e.ctrlKey) && e.key === 's') || ((e.metaKey||e.ctrlKey) && e.key === 's'))
+    if (e.key === 'Tab' || ((e.metaKey||e.ctrlKey) && (/[qwfg]/.test(e.key))))
     {
       e.preventDefault();
     } else if ((e.metaKey||e.ctrlKey) && e.key === 'r') {
       e.preventDefault();
       engine.reset();
-    } else if ((e.metaKey||e.ctrlKey) && e.key === 'l') {
+    } else if ((e.metaKey||e.ctrlKey) && e.key === 's') {
       e.preventDefault();
       engine.wordsShuffle();
-    } else if (REG.az.test(e.key) && !engine.isStarted){
+    } else if (REG.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished){
       engine.start()
     }
   }
 
   pad.onkeyup = (e) => {
     e.preventDefault();
-    countKeys(e);
-    engine.compare();
-    // 末字时结束的时候
-    if (pad.value.length >= currentWords.length){
-      if (pad.value === currentWords) {
-        engine.finish();
+    if (!engine.isFinished){
+      countKeys(e);
+      engine.compare();
+      // 末字时结束的时候
+      if (pad.value.length >= currentWords.length){
+        if (pad.value === currentWords) {
+          engine.finish();
+        }
       }
     }
   }
@@ -274,11 +278,19 @@ function countKeys(e) {
 function changeArticle() {
   let article = $('#article').value;
   switch (article) {
-    case '15': currentWords = ARTICLE.common15; engine.reset(); break;
-    case '25': currentWords = ARTICLE.common25; engine.reset(); break;
-    case '500': currentWords = Before500; engine.reset(); break;
+    case '15':
+      currentWords = ARTICLE.common15;
+      break;
+    case '25':
+      currentWords = ARTICLE.common25;
+      break;
+    case '500':
+      currentWords = Before500;
+      break;
     default: break;
   }
+  engine.reset();
+  engine.updateInfo();
 }
 
 

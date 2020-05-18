@@ -14,6 +14,7 @@
   border: 1px solid $color-border;
 }
 
+
 .key-info{
   &-item{
     position: relative;
@@ -48,7 +49,7 @@
 .speed-info{
   .time{
     color: $text-subtitle;
-    padding: 10px 0 15px;
+    padding: 5px 0 10px;
     border-bottom: 1px dashed $color-border;
     display: flex;
     justify-content: center;
@@ -81,19 +82,24 @@
   }
   .speed{
     font-family: Impact, sans-serif;
-    padding: 15px 0;
+    padding: 10px 0;
     text-align: center;
     font-size: 2rem;
+    border-bottom: 1px dashed $color-border;
   }
   .count{
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    > p{
+
+    &-item{
+      text-align: center;
+      width: 40px;
+      color: $text-main;
       $width: 2px;
       $gap: 10px;
-      $height: 10px;
+      $height: 15px;
       position: relative;
       margin-right: $gap*2 + $width;
       &:after{
@@ -112,7 +118,16 @@
           content: none;
         }
       }
+      p{
+        &:first-child{
+          font-family: Impact, sans-serif;
+          font-weight: bold;
+        }
+        &:last-child{
+          color: $text-comment;
+          font-size: $font-size-info - 2;
+        }
+      }
     }
-    .count-total{}
   }
 }

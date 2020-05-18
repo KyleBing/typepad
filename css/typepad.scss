@@ -36,14 +36,13 @@ body{
 .typing{
   border: 1px solid $color-border;
   textarea{
-
     resize: none;
     max-height: 200px;
     width: 100%;
     padding: 10px;
     display: block;
     &:focus{
-      @include box-shadow(inset 1px 1px 10px rgba(0,0,0,0.1));
+      @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.1));
     }
   }
 }
