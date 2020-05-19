@@ -16,11 +16,21 @@
   @extend .unselectable;
   @include border-radius(3px);
   border: 1px solid transparent;
-
   &:active{
     @include transform(translateY(2px));
   }
 }
+
+select {
+  @include border-radius(3px);
+  background-color: white;
+  border: 1px solid $color-border;
+  cursor: pointer;
+  font-size: $font-size-btn;
+  text-align: center;
+  padding: 3px 6px;
+}
+
 
 $btns: (
   'primary': $green,
@@ -39,4 +49,23 @@ $btns: (
       background-color: darken($color, 10%);
     }
   }
+}
+
+input[type=checkbox],
+input[type=radio],
+{
+  display: none;
+}
+input[type=checkbox] + label,
+input[type=radio] + label
+{
+  border-color: $green;
+  @extend .btn;
+}
+
+input[type=checkbox]:checked + label,
+input[type=radio]:checked + label
+{
+  background-color: $green;
+  color: white;
 }

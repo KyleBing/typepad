@@ -17,6 +17,9 @@ a {
 table {
   border-collapse: collapse; }
 
+select {
+  -webkit-appearance: none; }
+
 code,
 kbd,
 pre,
@@ -60,7 +63,8 @@ tt {
 /*
   Extension
 */
-.unselectable, .btn {
+.unselectable, .btn, input[type=checkbox] + label,
+input[type=radio] + label {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -315,10 +319,12 @@ tt {
   justify-content: flex-start;
   flex-flow: row wrap;
   margin-bottom: 10px; }
-  .tool-bar .btn {
+  .tool-bar .btn, .tool-bar input[type=checkbox] + label,
+  .tool-bar input[type=radio] + label {
     margin-right: 5px; }
 
-.btn {
+.btn, input[type=checkbox] + label,
+input[type=radio] + label {
   cursor: pointer;
   font-size: 12px;
   text-align: center;
@@ -327,12 +333,24 @@ tt {
   -moz-border-radius: 3px;
   border-radius: 3px;
   border: 1px solid transparent; }
-  .btn:active {
+  .btn:active, input[type=checkbox] + label:active,
+  input[type=radio] + label:active {
     -webkit-transform: translateY(2px);
     -moz-transform: translateY(2px);
     -ms-transform: translateY(2px);
     -o-transform: translateY(2px);
     transform: translateY(2px); }
+
+select {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: white;
+  border: 1px solid #dddddd;
+  cursor: pointer;
+  font-size: 12px;
+  text-align: center;
+  padding: 3px 6px; }
 
 .btn-primary {
   background-color: #4CD964;
@@ -351,6 +369,19 @@ tt {
     border-color: #0062cc; }
   .btn-blue:active {
     background-color: #0062cc; }
+
+input[type=checkbox],
+input[type=radio] {
+  display: none; }
+
+input[type=checkbox] + label,
+input[type=radio] + label {
+  border-color: #4CD964; }
+
+input[type=checkbox]:checked + label,
+input[type=radio]:checked + label {
+  background-color: #4CD964;
+  color: white; }
 
 .code, .speed-info .time .minute, .speed-info .time .second {
   font-family: 'Roboto Mono', sans-serif; }
@@ -396,7 +427,7 @@ body {
   font-size: 2rem;
   letter-spacing: 2px; }
   .text .correct {
-    background-color: #4CD964;
+    background-color: #EBEBEB;
     color: white !important; }
   .text .wrong {
     background-color: #FF3B30;
