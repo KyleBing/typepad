@@ -63,8 +63,7 @@ tt {
 /*
   Extension
 */
-.unselectable, .btn, input[type=checkbox] + label,
-input[type=radio] + label {
+.unselectable, .btn, .count-selector input[type=radio] + label {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -260,23 +259,25 @@ input[type=radio] + label {
   align-items: center;
   font-size: 2rem; }
   .speed-info .time .minute {
-    margin-right: 13px;
-    position: relative; }
-    .speed-info .time .minute:before, .speed-info .time .minute:after {
-      position: absolute;
-      right: -8px;
-      content: '';
-      width: 3px;
-      height: 3px;
-      display: block;
-      background-color: #333;
-      -webkit-border-radius: 20px;
-      -moz-border-radius: 20px;
-      border-radius: 20px; }
-    .speed-info .time .minute:before {
-      top: 15px; }
-    .speed-info .time .minute:after {
-      bottom: 15px; }
+    /*      @extend .number;
+          margin-right: 13px;
+          position: relative;
+          &:before, &:after{
+            position: absolute;
+            right: -8px;
+            content: '';
+            width: 3px;
+            height: 3px;
+            display: block;
+            background-color: $text-main;
+            @include border-radius(20px);
+          }
+          &:before{
+            top: 15px;
+          }
+          &:after{
+            bottom: 15px;
+          }*/ }
 .speed-info .speed {
   font-family: Impact, sans-serif;
   padding: 10px 0;
@@ -317,24 +318,33 @@ input[type=radio] + label {
 .tool-bar {
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   flex-flow: row wrap;
   margin-bottom: 10px; }
-  .tool-bar .btn, .tool-bar input[type=checkbox] + label,
-  .tool-bar input[type=radio] + label {
+  .tool-bar .btn {
     margin-right: 5px; }
 
-.btn, input[type=checkbox] + label,
-input[type=radio] + label {
+.tool-bar-group {
+  margin-right: 10px; }
+  .tool-bar-group:last-child {
+    margin-right: 0; }
+
+.operation-article, .operation-btns {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+
+.btn {
   cursor: pointer;
   font-size: 12px;
   text-align: center;
+  line-height: 14px;
   padding: 3px 6px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   border: 1px solid transparent; }
-  .btn:active, input[type=checkbox] + label:active,
-  input[type=radio] + label:active {
+  .btn:active {
     -webkit-transform: translateY(2px);
     -moz-transform: translateY(2px);
     -ms-transform: translateY(2px);
@@ -350,6 +360,7 @@ select {
   cursor: pointer;
   font-size: 12px;
   text-align: center;
+  line-height: 16px;
   padding: 3px 6px; }
 
 .btn-primary {
@@ -374,16 +385,98 @@ input[type=checkbox],
 input[type=radio] {
   display: none; }
 
-input[type=checkbox] + label,
-input[type=radio] + label {
-  border-color: #4CD964; }
+input[type=checkbox] + label {
+  position: relative;
+  display: block;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  background-color: #8E8E93;
+  border-color: #4CD964;
+  height: 24px;
+  width: 36px; }
+  input[type=checkbox] + label:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color: white;
+    -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; }
 
-input[type=checkbox]:checked + label,
-input[type=radio]:checked + label {
-  background-color: #4CD964;
-  color: white; }
+input[type=checkbox]:checked + label {
+  background-color: #4CD964; }
+  input[type=checkbox]:checked + label:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 14px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; }
 
-.code, .speed-info .time .minute, .speed-info .time .second {
+.count-selector {
+  display: flex;
+  justify-content: flex-start;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #dddddd; }
+  .count-selector input[type=radio] + label {
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+    line-height: 14px;
+    padding: 3px 6px;
+    border: 1px solid transparent;
+    background-color: white;
+    color: #FF9500; }
+  .count-selector input[type=radio]:checked + label {
+    background-color: #FF9500;
+    color: white; }
+
+.shuffle {
+  display: flex;
+  justify-content: center; }
+
+.option {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; }
+
+.number, .speed-info .time, .speed-info .time .second {
+  padding: 5px;
+  font-family: 'Digital2', sans-serif; }
+
+.current {
+  color: #FF9500; }
+
+.total {
+  color: black; }
+
+.code {
   font-family: 'Roboto Mono', sans-serif; }
 
 body {

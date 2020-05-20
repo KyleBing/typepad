@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Type Pad</title>
+    <link rel="shortcut icon" href="logo.png" type="image/png">
     <link rel="stylesheet" href="css/typepad.css">
 </head>
 <body>
@@ -13,26 +14,32 @@
         <!--spped-->
         <div class="speed-info info-item">
             <div class="time">
-                <div class="minute">--</div>
-                <div class="second">--</div>
+                <div class="minute number">00</div>:<div class="second number">00</div>
             </div>
             <div class="speed">--</div>
             <div class="count pt-2">
                 <div class="count-item">
-                    <p class="count-current">0</p>
-                    <p class="small">当前</p>
+                    <p class="count-key-backspace">--</p>
+                    <p class="small">回删</p>
                 </div>
                 <div class="count-item">
-                    <p class="count-total"></p>
-                    <p class="small">总字</p>
+                    <p class="count-key-length">--</p>
+                    <p class="small">码长</p>
                 </div>
                 <div class="count-item">
-                    <p class="count-keyrate"></p>
+                    <p class="count-key-rate">--</p>
                     <p class="small">击键</p>
                 </div>
             </div>
-            <div class="count">
+        </div>
 
+        <!--option display-->
+        <div class="option info-item">
+            <div class="item">
+                <span class="chapter-current number current"></span><span class="chapter-total total number"></span>
+            </div>
+            <div class="item">
+                <span class="count-current number current"></span><span class="count-total total number"></span>
             </div>
         </div>
 
@@ -53,7 +60,39 @@
         </div>
     </div>
 
+
     <div class="type-pad">
+        <!--buttons-->
+        <div class="tool-bar mt-2">
+            <div class="tool-bar-group operation-btns">
+                <div class="btn btn-primary" onclick="engine.wordsShuffle()">乱序</div>
+                <div class="btn btn-blue" onclick="engine.reset()">重置</div>
+                <div class="btn btn-blue" onclick="engine.pause()">暂停</div>
+                <div class="btn btn-blue" onclick="engine.resume()">继续</div>
+            </div>
+            <div class="tool-bar-group operation-article">
+                <select id="article" onchange="engine.changeArticle()">
+                    <option value="top500">常用单字 - 前500</option>
+                    <option value="mid500">常用单字 - 中500</option>
+                    <option value="tail500">常用单字 - 后500</option>
+                </select>
+                <div class="count-selector">
+                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count5" value="5"><label for="count5">5</label>
+                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count10" checked value="10"><label for="count10">10</label>
+                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count15" value="15"><label for="count15">15</label>
+                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count20" value="20"><label for="count20">20</label>
+                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count50" value="50"><label for="count50">50</label>
+                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count100" value="100"><label for="count100">100</label>
+                </div>
+            </div>
+            <div class="tool-bar-group shuffle">
+                <span>乱序</span>
+                <input type="checkbox" onchange="engine.changeArticle()" id="mode"><label for="mode"></label>
+            </div>
+
+
+        </div>
+
 
         <!--template-->
         <div class="template">
@@ -66,27 +105,7 @@
             <textarea class="text" id="pad" rows="3"></textarea>
         </div>
 
-        <!--buttons-->
-        <div class="tool-bar mt-2">
-            <div class="btn btn-primary" onclick="engine.wordsShuffle()">乱序</div>
-            <div class="btn btn-blue" onclick="engine.reset()">重置</div>
-            <div class="btn btn-blue" onclick="engine.pause()">暂停</div>
-            <div class="btn btn-blue" onclick="engine.resume()">继续</div>
-            <select id="article" onchange="engine.changeArticle()">
-                <option value="top500">常用单字 - 前500</option>
-                <option value="mid500">常用单字 - 中500</option>
-                <option value="tail500">常用单字 - 后500</option>
-            </select>
-            <div>
-                <input type="radio" onchange="engine.changeArticle()" name="count" id="count5" value="5"><label for="count5">5</label>
-                <input type="radio" onchange="engine.changeArticle()" name="count" id="count10" checked value="10"><label for="count10">10</label>
-                <input type="radio" onchange="engine.changeArticle()" name="count" id="count15" value="15"><label for="count15">15</label>
-                <input type="radio" onchange="engine.changeArticle()" name="count" id="count20" value="20"><label for="count20">20</label>
-                <input type="radio" onchange="engine.changeArticle()" name="count" id="count50" value="50"><label for="count50">50</label>
-                <input type="radio" onchange="engine.changeArticle()" name="count" id="count100" value="100"><label for="count100">100</label>
-                <input type="checkbox" onchange="engine.changeArticle()" id="mode"><label for="mode">乱序</label>
-            </div>
-        </div>
+
     </div>
 </div>
 

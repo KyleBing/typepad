@@ -1,8 +1,9 @@
 @import "../../../lib/css/reset";
 @import "../../../lib/css/utility";
-@import "../variables";
+@import "variables";
 @import "info";
 @import "button";
+@import "option";
 
 .code{
   font-family: 'Roboto Mono', sans-serif;
@@ -51,7 +52,7 @@ body{
   display: none;
 }
 .text{
-  font-size: 2rem;
+  font-size: $fz-typing;
   letter-spacing: 2px;
   .correct{
     background-color: $bg-second;

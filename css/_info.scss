@@ -35,7 +35,7 @@
     h6,p{
       z-index: $z-mask;
       background-color: white;
-      font-size: $font-size-info;
+      font-size: $fz-info;
     }
     h6{
       padding-right: 10px;
@@ -48,6 +48,7 @@
 
 .speed-info{
   .time{
+    @extend .number;
     color: $text-subtitle;
     padding: 5px 0 10px;
     border-bottom: 1px dashed $color-border;
@@ -56,7 +57,7 @@
     align-items: center;
     font-size: 2rem;
     .minute{
-      @extend .code;
+/*      @extend .number;
       margin-right: 13px;
       position: relative;
       &:before, &:after{
@@ -74,10 +75,10 @@
       }
       &:after{
         bottom: 15px;
-      }
+      }*/
     }
     .second{
-      @extend .code;
+      @extend .number;
     }
   }
   .speed{
@@ -125,7 +126,7 @@
         }
         &:last-child{
           color: $text-comment;
-          font-size: $font-size-info - 2;
+          font-size: $fz-info - 2;
         }
       }
     }

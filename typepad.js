@@ -38,15 +38,19 @@ class Count {
   }
 }
 
+
+// 跟打器参数
 class Option {
   constructor() {
     this.chapter = 1;
+    this.chapterTotal = 1;
     this.isShuffle = false;
     this.count = 15;
     this.article = ARTICLE.top500;
   }
 }
 
+// 跟打器内核
 class Engine {
   constructor() {
     this.isFinished = false;
@@ -78,59 +82,64 @@ class Engine {
     clearInterval(this.handleRefresh);
   }
 
+  // 上一段
   prevChapter(){
     if (option.chapter !== 1){
       currentWords = currentOriginWords.slice(option.count * (option.chapter - 2), option.count * (option.chapter - 1)).join('');
-      engine.reset();
       option.chapter--;
-    }
-  }
-
-  nextChapter(){
-    let originTol = currentOriginWords.length / option.count;
-    let tempTol = Math.floor(originTol);
-    let chapterTol = originTol > tempTol ? tempTol + 1 : tempTol;
-    if (option.chapter !== chapterTol) {
-      currentWords = currentOriginWords.slice(option.count * option.chapter, option.count * (option.chapter + 1)).join('');
       engine.reset();
-      option.chapter++;
     }
   }
 
+  // 下一段
+  nextChapter(){
+    if (option.chapter !== option.chapterTotal) {
+      currentWords = currentOriginWords.slice(option.count * option.chapter, option.count * (option.chapter + 1)).join('');
+      option.chapter++;
+      engine.reset();
+    }
+  }
+
+  // 改变文章内容
   changeArticle() {
     let article = $('#article').value;
     let isShuffle = $('#mode').checked;
     let radios = document.querySelectorAll('input[type=radio]');
-    let count = 0;
+    let perCount = 0;
     for (let i=0; i< radios.length; i++){
       if(radios[i].checked){
-        count = Number(radios[i].value);
+        perCount = Number(radios[i].value);
       }
     }
-    option.article = article;
-    option.isShuffle = isShuffle;
-    option.count = count;
-
     switch (article) {
       case 'top500':
         currentOriginWords = isShuffle ? shuffle(ARTICLE.top500.split('')):ARTICLE.top500.split('');
-        currentWords = currentOriginWords.slice(0, Number(count)).join('');
+        currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
         break;
       case 'mid500':
         currentOriginWords = isShuffle ? shuffle(ARTICLE.mid500.split('')) : ARTICLE.mid500.split('');
-        currentWords = currentOriginWords.slice(0, Number(count)).join('');
+        currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
         break;
       case 'tail500':
         currentOriginWords = isShuffle ? shuffle(ARTICLE.tail500.split('')) : ARTICLE.tail500.split('');
-        currentWords = currentOriginWords.slice(0, Number(count)).join('');
+        currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
         break;
       default:
         break;
     }
+
+    option.article = article;
+    option.isShuffle = isShuffle;
+    option.count = perCount;
+    let originTol = currentOriginWords.length / option.count;
+    let tempTol = Math.floor(originTol);
+    option.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
+
     this.reset();
     this.updateInfo();
   }
 
+  // 对比上屏字
   compare(){
     correctWordsCount = 0;
     let typedWords = pad.value;
@@ -176,9 +185,7 @@ class Engine {
     template.innerHTML = html;
   }
 
-  countSpeed(){
-
-  }
+  // 更新时间
   showTime(){
     if (this.isStarted){
       let secondAll = this.duration / 1000;
@@ -187,21 +194,26 @@ class Engine {
       $('.minute').innerText = minute >= 10? minute : `0${minute}`;
       $('.second').innerText = second >= 10? second : `0${second}`;
     } else {
-      $('.minute').innerText = '--';
-      $('.second').innerText = '--';
+      $('.minute').innerText = '00';
+      $('.second').innerText = '00';
     }
   }
 
+  // 暂停
   pause(){
     this.isPaused = true;
     this.stopRefresh()
   }
+
+  // 继续
   resume(){
     this.timeStart = (new Date()).getTime() - this.duration;
     this.isPaused = false;
     this.startRefresh();
 
   }
+
+  // 乱序当前段
   wordsShuffle() {
     let array = currentWords.split('');
     currentWords = shuffle(array).join('');
@@ -210,6 +222,8 @@ class Engine {
     this.isFinished = false;
     this.updateInfo();
   }
+
+  // 重置计数器
   reset(){
     template.innerHTML = currentWords;
     this.isPaused = false;
@@ -221,6 +235,8 @@ class Engine {
     this.stopRefresh();
     this.showTime();
   }
+
+  // 当前段打完
   finish(){
     this.isStarted = false;
     this.isFinished = true;
@@ -229,6 +245,7 @@ class Engine {
     this.updateInfo();
   }
 
+  // 更新界面信息
   updateInfo() {
     // key count
     for (let type in count){
@@ -240,21 +257,27 @@ class Engine {
     // speed
     if (!engine.isStarted && !engine.isFinished) {
       $('.speed').innerText = '--';
-      $('.count-keyrate').innerText = '--';
+      $('.count-key-rate').innerText = '--';
     } else {
       let speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
       $('.speed').innerText = speed;
 
       let keyCount = count.all - count.function;
       let keyRate = (keyCount / engine.duration * 1000).toFixed(2);
-      $('.count-keyrate').innerText = keyRate;
+      $('.count-key-rate').innerText = keyRate;
+
+      let keyLength = (keyCount / currentWords.length).toFixed(2);
+      $('.count-key-length').innerText = keyLength;
     }
+    // option
+    $('.chapter-current').innerText = option.chapter;
+    $('.chapter-total').innerText = option.chapterTotal;
   }
 }
 
 
 
-// Articles
+// 默认文章
 const ARTICLE = {
   top500: '的一是了不在有个人这上中大为来我到出要以时和地们得可下对生也子就过能他会多发说而于自之用年行家方后作成开面事好小心前所道法如进着同经分定都然与本还其当起动已两点从问里主实天高去现长此三将无国全文理明日些看只公等十意正外想间把情者没重相那向知因样学应又手但信关使种见力名二处门并口么先位头回话很再由身入内第平被给次别几月真立新通少机打水果最部何安接报声才体今合性西你放表目加常做己老四件解路更走比总金管光工结提任东原便美及教难世至气神山数利书代直色场变记张必受交非服化求风度太万各算边王什快许连五活思该步海指物则女或完马强言条特命感清带认保望转传儿制干计民白住字它义车像反象题却流且即深近形取往系量论告息让决未花收满每华业南觉电空眼听远师元请容她军士百办语期北林识半夫客战院城候单音台死视领失司亲始极双令改功程爱德复切随李员离轻观青足落叫根怎持精送众影八首包准兴红达早尽故房引火站似找备调断设格消拉照布友整术石展紧据终周式举飞片虽易运笑云建谈界务写钱商乐推注越千微若约英集示呢待坐议乎留称品志黑存六造低江念产刻节尔吃势依图共曾响底装具喜严九况跟罗须显热病证刚治绝群市阳确究久除闻答段官政类黄武七支费父统',
   mid500: '查般斯倒突号树拿克初广奇愿欢希母香破谁致线急古既句京甚仍晚争游龙余护另器细木权星哪苦孩试朝阿队居害独讲错局男差参社换选止际假汉够诉资密案史较环投静宝专修室区料帮衣竟模脸善兵考规联团冷玉施派纪采历顾春责夜画惊银负续吗简章左块索酒值态按陈河巴冲阵境助角户乱呼灵脚继楼景怕停铁异谢否伤兰置医良承福科属围需退基右速适药怀击买素背岁土忙充排价质遇端列印贵疑露哥杀标招血礼弟亮齐穿脑委州某顺省讨尚维板散项状追笔副层沙养读习永草胡济执察归富座雨堂威忽苏船罪敢妇村著食导免温莫掌激慢托胜险寻守波雷沉秀职验靠楚略族藏丽渐刘仅肯担扬盘唐钟级毛营坚松皮供店饭范哈赶吧雪斗效临农味恶烟园烈配杂短卫跳孙曲封抓移顿律卖艺旧朋救防脱翻划迎痛校窗宣乡杨叶警限湖软掉财词压挥超屋秋跑忘馆暗班党宗坏技困登姐预耳席梦朱组旁份禁套亚益探康增诗戏伯晓含劳恩顶君庄谓付田毕纸研虚怪宁替犯灯优您姓例丝盖误架幸隐股毒娘占智佛床米凡介征彩演射祖欲束获舞圣伙梅普借私源镇睡缓升纳织歌宫概野醒夏互积街牌休摇洋败监骨批兄刀网率庭熟创访硬仁菜丁绿牛避阴拍雄秘缺卷姑尼油恐玩释遍握球降虑荣策肉妈迷检伸欧攻练育危厅啊睛摆茶勇判材抱亦妻吸喝趣嘴逐操午吉浪轮默毫冰珠',
@@ -272,7 +295,7 @@ let currentWords = '';
 let currentOriginWords = [];
 
 
-// MAIN
+// 初始化
 window.onload = () => {
   // init
   engine.changeArticle();
@@ -291,8 +314,7 @@ window.onload = () => {
     }
   }
 
-  // key pressed
-
+  // 按键过滤器
   /****
    **** ⌘ + R: 重打当前段
    **** ⌘ + L: 打乱当前段
@@ -307,14 +329,13 @@ window.onload = () => {
     } else if ((e.metaKey||e.ctrlKey) && e.key === 'r') {
       e.preventDefault();
       engine.reset();
-    } else if ((e.metaKey||e.ctrlKey) && e.key === '6') {
+    } else if ((e.metaKey||e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
       engine.wordsShuffle();
-    } else if ((e.metaKey||e.ctrlKey) && e.key === '7') {
+    } else if ((e.metaKey||e.ctrlKey) && e.key === 'u') {
       engine.prevChapter();
       e.preventDefault();
-    } else if ((e.metaKey||e.ctrlKey) && e.key === '8') {
-      show(e);
+    } else if ((e.metaKey||e.ctrlKey) && e.key === 'j') {
       engine.nextChapter();
       e.preventDefault();
     } else if (REG.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished){
@@ -346,6 +367,7 @@ function countKeys(e) {
       }
     }
   }
+  $('.count-key-backspace').innerText = count.backspace;
 }
 
 
