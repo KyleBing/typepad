@@ -64,30 +64,38 @@
     <div class="type-pad">
         <!--buttons-->
         <div class="tool-bar mt-2">
-            <div class="tool-bar-group operation-btns">
-                <div class="btn btn-primary" onclick="engine.wordsShuffle()">乱序</div>
-                <div class="btn btn-blue" onclick="engine.reset()">重置</div>
-                <div class="btn btn-blue" onclick="engine.pause()">暂停</div>
-                <div class="btn btn-blue" onclick="engine.resume()">继续</div>
+            <div class="btn-group">
+                <div class="btn">One</div>
+                <div class="btn">Two</div>
+                <div class="btn">Three</div>
+                <div class="btn">Four</div>
             </div>
-            <div class="tool-bar-group operation-article">
-                <select id="article" onchange="engine.changeArticle()">
+            <div class="btn-group">
+                <div class="btn">当前段</div>
+                <div class="btn" onclick="engine.wordsShuffle()">打乱</div>
+                <div class="btn" onclick="engine.reset()">重打</div>
+                <div class="btn" onclick="engine.pause()">暂停</div>
+                <div class="btn" onclick="engine.resume()">继续</div>
+            </div>
+
+            <div class="btn-group">
+                <select class="btn" id="article" onchange="engine.changeArticle()">
                     <option value="top500">常用单字 - 前500</option>
                     <option value="mid500">常用单字 - 中500</option>
                     <option value="tail500">常用单字 - 后500</option>
                 </select>
-                <div class="count-selector">
-                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count5" value="5"><label for="count5">5</label>
-                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count10" checked value="10"><label for="count10">10</label>
-                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count15" value="15"><label for="count15">15</label>
-                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count20" value="20"><label for="count20">20</label>
-                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count50" value="50"><label for="count50">50</label>
-                    <input type="radio" onchange="engine.changeArticle()" name="count" id="count100" value="100"><label for="count100">100</label>
-                </div>
             </div>
-            <div class="tool-bar-group shuffle">
-                <span>乱序</span>
-                <input type="checkbox" onchange="engine.changeArticle()" id="mode"><label for="mode"></label>
+            <div class="btn-group">
+                <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>
+                <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count10" checked value="10"><label class="btn" for="count10">10</label>
+                <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count15" value="15"><label class="btn" for="count15">15</label>
+                <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count20" value="20"><label class="btn" for="count20">20</label>
+                <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count50" value="50"><label class="btn" for="count50">50</label>
+                <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count100" value="100"><label class="btn" for="count100">100</label>
+            </div>
+            <div class="btn-group shuffle">
+                <span class="btn">乱序</span>
+                <input class="btn" type="checkbox" onchange="engine.changeArticle()" id="mode"><label for="mode"></label>
             </div>
 
 
