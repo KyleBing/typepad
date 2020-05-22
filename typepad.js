@@ -1,3 +1,10 @@
+/**
+ * Count 所有按键记录
+ * Engine 主程序，开始结束暂停
+ *
+ * @type {string}
+ */
+
 const localStorageIndexName = 'TypePadIndex';
 
 // REG
@@ -17,6 +24,7 @@ const REG = {
   quot: /'/,
 }
 
+// 按键记录
 class Count {
   constructor() {
     this.all = 0;
@@ -39,7 +47,6 @@ class Count {
     }
   }
 }
-
 
 // 跟打器参数
 class Option {
@@ -287,12 +294,7 @@ class Engine {
   }
 }
 
-
-var DB;
-const DBName = "TypePad";
-let data;
-const OBJECT_NAME = 'TypingRecord';
-
+// 成绩记录
 class Record {
   constructor(speed, codeLength, hitRate, backspace, wordCount, timeStart, duration) {
     let index = localStorage[localStorageIndexName];
@@ -308,6 +310,7 @@ class Record {
   }
 }
 
+// IndexDB
 class Database {
   // 添加数据
   insert(record){
@@ -349,8 +352,8 @@ class Database {
                           <td>${cursor.value.hitRate}</td>
                           <td>${cursor.value.backspace}</td>
                           <td>${cursor.value.wordCount}</td>
-                          <td>${cursor.value.timeStart}</td>
-                          <td>${cursor.value.duration}</td>
+                          <td>${dateFormatter(new Date(cursor.value.timeStart))}</td>
+                          <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
                           <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
                         </tr>`;
         html = html + lineHtml;
@@ -390,6 +393,12 @@ let currentWords = '';
 let currentOriginWords = [];
 let record = new Record();
 
+// database
+var DB;
+const DBName = "TypePad";
+let data;
+const OBJECT_NAME = 'TypingRecord';
+
 
 // 初始化
 window.onload = () => {
@@ -403,7 +412,6 @@ window.onload = () => {
       engine.pause();
     }
   }
-
   pad.onfocus = () => {
     if (engine.isStarted && engine.isPaused){
       engine.resume();
@@ -501,7 +509,6 @@ function $(selector){
   return document.querySelector(selector)
 }
 
-
 /**
  * 数组乱序算法
  * @param arr
@@ -521,4 +528,46 @@ function shuffle(arr) {
 
 function show(msg) {
   console.log(msg)
+}
+
+/**
+ * 格式化时间，输出字符串
+ *
+ * @param   date    要格式化的时间
+ * @param   formatString    返回时间的格式：
+ * @return  格式化后的时间字符串
+ * */
+function dateFormatter (date, formatString) {
+  formatString = formatString? formatString : 'yyyy-MM-dd hh:mm:ss';
+  let dateRegArray = {
+    "M+": date.getMonth() + 1,                      // 月份
+    "d+": date.getDate(),                           // 日
+    "h+": date.getHours(),                          // 小时
+    "m+": date.getMinutes(),                        // 分
+    "s+": date.getSeconds(),                        // 秒
+    "q+": Math.floor((date.getMonth() + 3) / 3),    // 季度
+    "S": date.getMilliseconds()                     // 毫秒
+  };
+  if (/(y+)/.test(formatString)) {
+    formatString = formatString.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+  }
+  for (let section in dateRegArray) {
+    if (new RegExp("(" + section + ")").test(formatString)) {
+      formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (dateRegArray[section]) : (("00" + dateRegArray[section]).substr(("" + dateRegArray[section]).length)));
+    }
+  }
+  return formatString;
+}
+
+
+/**
+ * @param：timeLeft 倒计时秒数
+ * @return：输出倒计时字符串 时时:分分:秒秒
+ **/
+function formatTimeLeft(timeLeft){
+  timeLeft = Math.floor(timeLeft / 1000);
+  let mins = Math.floor(timeLeft / 60);
+  let seconds = timeLeft % 60;
+  // util.toast(`时分秒：${hours}:${mins}:${seconds}`);
+  return `${mins.toString().padStart(2,'00')}:${seconds.toString().padStart(2,'00')}`;
 }

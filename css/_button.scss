@@ -93,18 +93,15 @@ input[type=checkbox]:checked + label
 input[type=radio] + label{
   background-color: white;
   color: $orange;
+  //border-right: none !important;
   padding-left: $btn-padding-lr;
   padding-right: $btn-padding-lr;
 }
 
 input[type=radio]:checked + label{
+  font-weight: bold;
   background-color: $orange;
   color: white;
-}
-
-.shuffle{
-  display: flex;
-  justify-content: center;
 }
 
 
@@ -115,6 +112,9 @@ input[type=radio]:checked + label{
   justify-content: flex-start;
   overflow: hidden;
   border: 1px solid $color-border;
+  &.no-border{
+    border: none !important;
+  }
   .btn{
     cursor: pointer;
     margin: 0;

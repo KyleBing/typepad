@@ -4,6 +4,7 @@
 @import "info";
 @import "button";
 @import "option";
+@import "table";
 
 @font-face {
   font-family: "Digital2";
@@ -34,20 +35,26 @@ body{
 
 .type-pad{
   width: 100%;
+
 }
 
 .template{
   margin-bottom: $gap-block;
   background-color: white;
   padding: 10px;
-  border: 2px solid $color-border;
+  border: 1px solid $color-border;
   max-height: 200px;
+  min-height: 100px;
   overflow-y: scroll;
+  &:hover{
+    border-color: $green;
+  }
 }
 
 .typing{
-  border: 1px solid $color-border;
+
   textarea{
+    border: 1px solid $color-border;
     resize: none;
     max-height: 200px;
     width: 100%;
@@ -55,8 +62,10 @@ body{
     display: block;
     &:focus{
       @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.1));
+      border-color: $green;
     }
   }
+
 }
 
 .hidden{

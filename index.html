@@ -50,13 +50,13 @@
             <div class="key-info-item word-space"><h6>Space</h6><p></p></div>
             <div class="key-info-item word-backspace"><h6>BackSpace</h6><p></p></div>
             <div class="key-info-item word-number"><h6>Number</h6><p></p></div>
-            <div class="key-info-item word-shift"><h6>Shift</h6><p></p></div>
             <div class="key-info-item word-function"><h6>Function Key</h6><p></p></div>
-            <div class="key-info-item word-meta"><h6>Command</h6><p></p></div>
-            <div class="key-info-item word-alt"><h6>Alt</h6><p></p></div>
-            <div class="key-info-item word-ctrl"><h6>Ctrl</h6><p></p></div>
-            <div class="key-info-item word-semicolon"><h6>候选二</h6><p></p></div>
-            <div class="key-info-item word-quot"><h6>候选三</h6><p></p></div>
+            <div class="key-info-item word-shift"><h6>Shift</h6><p></p></div>
+            <div class="key-info-item word-meta"><h6>Command（⌘）</h6><p></p></div>
+            <div class="key-info-item word-alt"><h6>Option</h6><p></p></div>
+            <div class="key-info-item word-ctrl"><h6>Control</h6><p></p></div>
+            <div class="key-info-item word-semicolon"><h6>;</h6><p></p></div>
+            <div class="key-info-item word-quot"><h6>'</h6><p></p></div>
         </div>
     </div>
 
@@ -65,13 +65,6 @@
         <!--buttons-->
         <div class="tool-bar mt-2">
             <div class="btn-group">
-                <div class="btn">One</div>
-                <div class="btn">Two</div>
-                <div class="btn">Three</div>
-                <div class="btn">Four</div>
-            </div>
-            <div class="btn-group">
-                <div class="btn">当前段</div>
                 <div class="btn" onclick="engine.wordsShuffle()">打乱</div>
                 <div class="btn" onclick="engine.reset()">重打</div>
                 <div class="btn" onclick="engine.pause()">暂停</div>
@@ -79,21 +72,24 @@
             </div>
 
             <div class="btn-group">
+                <div class="btn" onclick="">清除记录</div>
+            </div>
+            <div class="btn-group">
                 <select class="btn" id="article" onchange="engine.changeArticle()">
                     <option value="top500">常用单字 - 前500</option>
                     <option value="mid500">常用单字 - 中500</option>
                     <option value="tail500">常用单字 - 后500</option>
                 </select>
-            </div>
-            <div class="btn-group">
                 <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>
                 <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count10" checked value="10"><label class="btn" for="count10">10</label>
                 <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count15" value="15"><label class="btn" for="count15">15</label>
                 <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count20" value="20"><label class="btn" for="count20">20</label>
                 <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count50" value="50"><label class="btn" for="count50">50</label>
                 <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count100" value="100"><label class="btn" for="count100">100</label>
+                <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count200" value="200"><label class="btn" for="count200">200</label>
+                <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count500" value="500"><label class="btn" for="count500">500</label>
             </div>
-            <div class="btn-group shuffle">
+            <div class="btn-group no-border shuffle">
                 <span class="btn">乱序</span>
                 <input class="btn" type="checkbox" onchange="engine.changeArticle()" id="mode"><label for="mode"></label>
             </div>
@@ -112,19 +108,19 @@
             <textarea class="text" id="pad" rows="3"></textarea>
         </div>
 
-        <div class="table">
-            <table>
+        <div class="table-container">
+            <table class="table">
                 <thead>
                 <tr>
-                    <td>id</td>
-                    <td>速度</td>
-                    <td>码长</td>
-                    <td>击键</td>
-                    <td>回退</td>
-                    <td>字数</td>
-                    <td>开始时间</td>
-                    <td>用时</td>
-                    <td>操作</td>
+                    <th>ID</th>
+                    <th>速度</th>
+                    <th>码长</th>
+                    <th>击键</th>
+                    <th>回退</th>
+                    <th>字数</th>
+                    <th>开始时间</th>
+                    <th>用时</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
