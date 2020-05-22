@@ -266,14 +266,26 @@ class Engine {
 
   // 更新界面信息
   updateInfo() {
-    // key count
+
+    // COLOR
+
+    if(engine.isStarted && !engine.isPaused){
+      $('.time').classList.add('text-green');
+    } else {
+      $('.time').classList.remove('text-green');
+    }
+
+    // KEY COUNT
     for (let type in count){
       $(`.word-${type} p`).innerText = count[type];
     }
     $('.count-total').innerText = currentWords.length;
     $('.count-current').innerText = pad.value.length ? pad.value.length : '--';
 
-    // speed
+
+    //
+    // SPEED
+    //
     if (!engine.isStarted && !engine.isFinished) {
       $('.speed').innerText = '--';
       $('.count-key-rate').innerText = '--';
@@ -288,7 +300,10 @@ class Engine {
       record.codeLength = (keyCount / currentWords.length).toFixed(2);
       $('.count-key-length').innerText = record.codeLength;
     }
-    // option
+
+    //
+    // OPTION
+    //
     $('.chapter-current').innerText = option.chapter;
     $('.chapter-total').innerText = option.chapterTotal;
   }
@@ -473,7 +488,7 @@ window.onload = () => {
 
   pad.onkeyup = (e) => {
     e.preventDefault();
-    if (!engine.isFinished){
+    if (!engine.isFinished && engine.isStarted){
       countKeys(e);
       engine.compare();
       // 末字时结束的时候

@@ -2,7 +2,6 @@ $table-padding-lr: 4px;
 
 
 .table-container{
-  height: 400px;
   overflow-y: auto;
   border: 1px solid $color-border;
   background-color: white;
@@ -66,8 +65,9 @@ td{
     cursor: pointer;
     @include border-radius(3px);
   }
+  &.time{
+    letter-spacing: 1px;
+    font-family: Digital2;
+  }
 }
 
-.time{
-  font-family: Digital2;
-}

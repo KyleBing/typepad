@@ -44,15 +44,10 @@ body{
   padding: 10px;
   border: 1px solid $color-border;
   max-height: 200px;
-  min-height: 100px;
   overflow-y: scroll;
-  &:hover{
-    border-color: $green;
-  }
 }
 
 .typing{
-
   textarea{
     border: 1px solid $color-border;
     resize: none;
@@ -62,7 +57,6 @@ body{
     display: block;
     &:focus{
       @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.1));
-      border-color: $green;
     }
   }
 
@@ -82,4 +76,8 @@ body{
     background-color: $red;
     color: white !important;
   }
+}
+
+.text-green{
+  color: $green !important;
 }

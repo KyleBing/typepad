@@ -460,7 +460,6 @@ input[type=radio]:checked + label {
   color: black; }
 
 .table-container {
-  height: 400px;
   overflow-y: auto;
   border: 1px solid #dddddd;
   background-color: white;
@@ -508,9 +507,9 @@ td {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px; }
-
-.time {
-  font-family: Digital2; }
+  td.time {
+    letter-spacing: 1px;
+    font-family: Digital2; }
 
 @font-face {
   font-family: "Digital2";
@@ -540,10 +539,7 @@ body {
   padding: 10px;
   border: 1px solid #dddddd;
   max-height: 200px;
-  min-height: 100px;
   overflow-y: scroll; }
-  .template:hover {
-    border-color: #4CD964; }
 
 .typing textarea {
   border: 1px solid #dddddd;
@@ -555,8 +551,7 @@ body {
   .typing textarea:focus {
     -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
-    border-color: #4CD964; }
+    box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1); }
 
 .hidden {
   display: none; }
@@ -570,5 +565,8 @@ body {
   .text .wrong {
     background-color: #FF3B30;
     color: white !important; }
+
+.text-green {
+  color: #4CD964 !important; }
 
 /*# sourceMappingURL=typepad.css.map */
