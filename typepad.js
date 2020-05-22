@@ -1,3 +1,5 @@
+const localStorageIndexName = 'TypePadIndex';
+
 // REG
 const REG = {
   all: /.*/,
@@ -102,6 +104,7 @@ class Engine {
 
   // 改变文章内容
   changeArticle() {
+    record = new Record();
     let article = $('#article').value;
     let isShuffle = $('#mode').checked;
     let radios = document.querySelectorAll('input[type=radio]');
@@ -225,6 +228,7 @@ class Engine {
 
   // 重置计数器
   reset(){
+    record = new Record();
     template.innerHTML = currentWords;
     this.isPaused = false;
     this.isStarted = false;
@@ -242,7 +246,15 @@ class Engine {
     this.isFinished = true;
     this.stopRefresh();
     this.timeEnd = (new Date()).getTime();
+    this.duration = this.timeEnd - this.timeStart;
+    // update record
+    record.backspace = count.backspace;
+    record.timeStart = this.timeStart;
+    record.duration = this.duration;
+    record.wordCount = currentWords.length;
     this.updateInfo();
+    data.insert(record);
+    show(record)
   }
 
   // 更新界面信息
@@ -259,19 +271,102 @@ class Engine {
       $('.speed').innerText = '--';
       $('.count-key-rate').innerText = '--';
     } else {
-      let speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
-      $('.speed').innerText = speed;
+      record.speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
+      $('.speed').innerText = record.speed;
 
       let keyCount = count.all - count.function;
-      let keyRate = (keyCount / engine.duration * 1000).toFixed(2);
-      $('.count-key-rate').innerText = keyRate;
+      record.hitRate = (keyCount / engine.duration * 1000).toFixed(2);
+      $('.count-key-rate').innerText = record.hitRate;
 
-      let keyLength = (keyCount / currentWords.length).toFixed(2);
-      $('.count-key-length').innerText = keyLength;
+      record.codeLength = (keyCount / currentWords.length).toFixed(2);
+      $('.count-key-length').innerText = record.codeLength;
     }
     // option
     $('.chapter-current').innerText = option.chapter;
     $('.chapter-total').innerText = option.chapterTotal;
+  }
+}
+
+
+var DB;
+const DBName = "TypePad";
+let data;
+const OBJECT_NAME = 'TypingRecord';
+
+class Record {
+  constructor(speed, codeLength, hitRate, backspace, wordCount, timeStart, duration) {
+    let index = localStorage[localStorageIndexName];
+    this.id = index? Number(index) : 1;
+    localStorage[localStorageIndexName] = this.id;
+    this.speed = speed;
+    this.codeLength = codeLength;
+    this.hitRate = hitRate;
+    this.backspace = backspace;
+    this.wordCount = wordCount;
+    this.timeStart = timeStart;
+    this.duration = duration;
+  }
+}
+
+class Database {
+  // 添加数据
+  insert(record){
+    let request = DB.transaction([OBJECT_NAME], 'readwrite')
+      .objectStore(OBJECT_NAME)
+      .add({
+        id: record.id,
+        speed: record.speed,
+        codeLength: record.codeLength,
+        hitRate: record.hitRate,
+        backspace: record.backspace,
+        wordCount: record.wordCount,
+        timeStart: record.timeStart,
+        duration: record.duration,
+      });
+    request.onsuccess = e => {
+      show('insert data success');
+      localStorage[localStorageIndexName] = Number(localStorage[localStorageIndexName]) + 1;
+      this.fetchAll();
+    }
+
+    request.onerror = e => {
+      show(e);
+      show('insert data error')
+    }
+  }
+
+  // 获取所有数据
+  fetchAll(){
+    let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+    let html = '';
+    let currentCursor = objectStore.openCursor().onsuccess = e => {
+      let cursor = e.target.result;
+      if (cursor) {
+        let lineHtml = `<tr>  
+                          <td class="text-center">${cursor.key}</td>
+                          <td>${cursor.value.speed}</td>
+                          <td>${cursor.value.codeLength}</td>
+                          <td>${cursor.value.hitRate}</td>
+                          <td>${cursor.value.backspace}</td>
+                          <td>${cursor.value.wordCount}</td>
+                          <td>${cursor.value.timeStart}</td>
+                          <td>${cursor.value.duration}</td>
+                          <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
+                        </tr>`;
+        html = html + lineHtml;
+        document.querySelector('tbody').innerHTML = html;
+        cursor.continue(); // 移到下一个位置
+      }
+    }
+  }
+
+  // 删除一条数据
+  delete(id){
+    let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+    objectStore.delete(id).onsuccess = e => {
+      show(`delete data ${id} success`);
+      this.fetchAll();
+    };
   }
 }
 
@@ -293,6 +388,7 @@ let option = new Option();
 let correctWordsCount = 0;
 let currentWords = '';
 let currentOriginWords = [];
+let record = new Record();
 
 
 // 初始化
@@ -312,6 +408,30 @@ window.onload = () => {
     if (engine.isStarted && engine.isPaused){
       engine.resume();
     }
+  }
+
+  // INDEX DB
+  data = new Database();
+  let request = window.indexedDB.open(DBName);
+  request.onsuccess = e =>{
+    show(e);
+    if (e.returnValue){
+      DB = request.result;
+      data.fetchAll();
+    } else {
+    }
+  }
+
+  request.onerror = e => {
+    show(e);
+  }
+
+  request.onupgradeneeded = e => {
+    if (DB){
+    } else {
+      DB = request.result;
+    }
+    var objectStore = DB.createObjectStore(OBJECT_NAME, { keyPath: 'id' });
   }
 
   // 按键过滤器
