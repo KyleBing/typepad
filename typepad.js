@@ -138,6 +138,7 @@ class Engine {
         break;
     }
 
+    option.chapter = 1;
     option.article = article;
     option.isShuffle = isShuffle;
     option.count = perCount;

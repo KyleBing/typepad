@@ -27,7 +27,7 @@ body{
 
 #app{
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1280px;
   display: flex;
   align-items: flex-start;
   padding: 10px;
@@ -44,6 +44,7 @@ body{
   padding: 10px;
   border: 1px solid $color-border;
   max-height: 200px;
+  background-color: lighten($bg-second, 5%);
   overflow-y: scroll;
 }
 
@@ -69,8 +70,9 @@ body{
   font-size: $fz-typing;
   letter-spacing: 2px;
   .correct{
-    background-color: $bg-second;
-    color: white !important;
+    text-shadow: none;
+    //background-color: $bg-second;
+    color: darken($bg-second, 5%) !important;
   }
   .wrong{
     background-color: $red;

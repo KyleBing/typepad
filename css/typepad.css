@@ -525,7 +525,7 @@ body {
 
 #app {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1280px;
   display: flex;
   align-items: flex-start;
   padding: 10px; }
@@ -539,6 +539,7 @@ body {
   padding: 10px;
   border: 1px solid #dddddd;
   max-height: 200px;
+  background-color: #f8f8f8;
   overflow-y: scroll; }
 
 .typing textarea {
@@ -560,8 +561,8 @@ body {
   font-size: 2rem;
   letter-spacing: 2px; }
   .text .correct {
-    background-color: #EBEBEB;
-    color: white !important; }
+    text-shadow: none;
+    color: #dedede !important; }
   .text .wrong {
     background-color: #FF3B30;
     color: white !important; }
