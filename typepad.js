@@ -41,7 +41,7 @@ class Count {
     this.quot = 0;
   }
 
-  init (){
+  reset (){
     for (let name in this) {
       this[name] = 0;
     }
@@ -242,7 +242,7 @@ class Engine {
     this.isStarted = false;
     this.isFinished = false;
     pad.value = '';
-    count.init();
+    count.reset();
     this.updateInfo();
     this.stopRefresh();
     this.showTime();
@@ -267,9 +267,7 @@ class Engine {
 
   // 更新界面信息
   updateInfo() {
-
     // COLOR
-
     if(engine.isStarted && !engine.isPaused){
       $('.time').classList.add('text-green');
     } else {
@@ -283,23 +281,35 @@ class Engine {
     $('.count-total').innerText = currentWords.length;
     $('.count-current').innerText = pad.value.length ? pad.value.length : '--';
 
-
     //
     // SPEED
     //
     if (!engine.isStarted && !engine.isFinished) {
       $('.speed').innerText = '--';
       $('.count-key-rate').innerText = '--';
+      $('.count-key-length').innerText = '--';
+      $('.count-key-backspace').innerText = '--';
+
     } else {
+      // speed
       record.speed = (correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
       $('.speed').innerText = record.speed;
 
+      // key count
       let keyCount = count.all - count.function;
       record.hitRate = (keyCount / engine.duration * 1000).toFixed(2);
       $('.count-key-rate').innerText = record.hitRate;
 
-      record.codeLength = (keyCount / currentWords.length).toFixed(2);
+      // code length
+      if (correctWordsCount) {
+        record.codeLength = (keyCount / correctWordsCount).toFixed(2);
+      } else {
+        record.codeLength = 0;
+      }
       $('.count-key-length').innerText = record.codeLength;
+
+      // backspace count
+      $('.count-key-backspace').innerText = count.backspace;
     }
 
     //
@@ -324,6 +334,33 @@ class Record {
     this.timeStart = timeStart;
     this.duration = duration;
   }
+
+  getHtml(){
+    return `<tr>  
+              <td class="text-center">${this.id}</td>
+              <td>${this.speed}</td>
+              <td>${this.codeLength}</td>
+              <td>${this.hitRate}</td>
+              <td>${this.backspace}</td>
+              <td>${this.wordCount}</td>
+              <td>${dateFormatter(new Date(this.timeStart))}</td>
+              <td class="time">${formatTimeLeft(this.duration)}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id})" type="button">删除</button></td>
+            </tr>`;
+  }
+  getHtmlWithCursor(cursor){
+    return `<tr>  
+              <td class="text-center">${cursor.key}</td>
+              <td>${cursor.value.speed}</td>
+              <td>${cursor.value.codeLength}</td>
+              <td>${cursor.value.hitRate}</td>
+              <td>${cursor.value.backspace}</td>
+              <td>${cursor.value.wordCount}</td>
+              <td>${dateFormatter(new Date(cursor.value.timeStart))}</td>
+              <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
+              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
+            </tr>`;
+  }
 }
 
 // IndexDB
@@ -345,7 +382,11 @@ class Database {
     request.onsuccess = e => {
       show('insert data success');
       localStorage[localStorageIndexName] = Number(localStorage[localStorageIndexName]) + 1;
-      this.fetchAll();
+      // 插入最后的数据到顶部
+      let tr = document.createElement('tr');
+      tr.innerHTML = record.getHtml();
+      let tbody = $('tbody');
+      tbody.insertBefore(tr, tbody.firstChild);
     }
 
     request.onerror = e => {
@@ -358,21 +399,10 @@ class Database {
   fetchAll(){
     let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
     let html = '';
-    let currentCursor = objectStore.openCursor().onsuccess = e => {
+    let currentCursor = objectStore.openCursor(IDBKeyRange.upperBound(record.id), "prev").onsuccess = e => {
       let cursor = e.target.result;
       if (cursor) {
-        let lineHtml = `<tr>  
-                          <td class="text-center">${cursor.key}</td>
-                          <td>${cursor.value.speed}</td>
-                          <td>${cursor.value.codeLength}</td>
-                          <td>${cursor.value.hitRate}</td>
-                          <td>${cursor.value.backspace}</td>
-                          <td>${cursor.value.wordCount}</td>
-                          <td>${dateFormatter(new Date(cursor.value.timeStart))}</td>
-                          <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
-                          <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
-                        </tr>`;
-        html = html + lineHtml;
+        html = html + record.getHtmlWithCursor(cursor);
         document.querySelector('tbody').innerHTML = html;
         cursor.continue(); // 移到下一个位置
       }
@@ -384,6 +414,14 @@ class Database {
     let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
     objectStore.delete(id).onsuccess = e => {
       show(`delete data ${id} success`);
+      this.fetchAll();
+    };
+  }
+
+  clear(){
+    let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+    objectStore.clear().onsuccess = e => {
+      localStorage[localStorageIndexName] = 1;
       this.fetchAll();
     };
   }
@@ -467,7 +505,7 @@ window.onload = () => {
    **** ⌘ + H: 重新开始
    ****/
   pad.onkeydown = (e) => {
-    if (e.key === 'Tab' || ((e.metaKey||e.ctrlKey) && (/[qewfgyplt]/.test(e.key))))
+    if (e.key === 'Tab' || ((e.metaKey||e.ctrlKey) && (/[nqewfgyplt]/.test(e.key))))
     {
       e.preventDefault();
     } else if ((e.metaKey||e.ctrlKey) && e.key === 'r') {
@@ -511,7 +549,6 @@ function countKeys(e) {
       }
     }
   }
-  $('.count-key-backspace').innerText = count.backspace;
 }
 
 
@@ -587,3 +624,6 @@ function formatTimeLeft(timeLeft){
   // util.toast(`时分秒：${hours}:${mins}:${seconds}`);
   return `${mins.toString().padStart(2,'00')}:${seconds.toString().padStart(2,'00')}`;
 }
+
+// TODO: 新数据从顶部插入
+// TODO: 不能获取按键信息时，如何计算速度
