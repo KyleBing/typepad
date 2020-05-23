@@ -345,7 +345,7 @@ class Record {
               <td>${this.wordCount}</td>
               <td>${dateFormatter(new Date(this.timeStart))}</td>
               <td class="time">${formatTimeLeft(this.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id})" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id}, this)" type="button">删除</button></td>
             </tr>`;
   }
   getHtmlWithCursor(cursor){
@@ -358,7 +358,7 @@ class Record {
               <td>${cursor.value.wordCount}</td>
               <td>${dateFormatter(new Date(cursor.value.timeStart))}</td>
               <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key})" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key}, this)" type="button">删除</button></td>
             </tr>`;
   }
 }
@@ -410,10 +410,11 @@ class Database {
   }
 
   // 删除一条数据
-  delete(id){
+  delete(id, sender){
     let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
     objectStore.delete(id).onsuccess = e => {
       show(`delete data ${id} success`);
+      sender.parentElement.parentElement.remove();
       this.fetchAll();
     };
   }
@@ -625,5 +626,4 @@ function formatTimeLeft(timeLeft){
   return `${mins.toString().padStart(2,'00')}:${seconds.toString().padStart(2,'00')}`;
 }
 
-// TODO: 新数据从顶部插入
 // TODO: 不能获取按键信息时，如何计算速度
