@@ -1,44 +1,48 @@
 /**
+ * Author: KyleBing(kylebing@163.com)
+ *
  * Count 所有按键记录
  * Engine 主程序，开始结束暂停
  *
  * @type {string}
  */
 
-const localStorageIndexName = 'TypePadIndex';
+const localStorageIndexName = 'type_pad_idb_index';
 
 // REG
 const REG = {
-  all: /.*/,
-  az: /^[a-zA-Z]$/,
-  number: /\d/,
-  function : /^(Control|Alt|Meta|Shift|Tab)$/,
-  ctrl : /^(Control|Alt|Meta|Shift)$/,
-  shift : /^Shift$/,
-  meta : /^Meta$/,
-  alt : /^Alt$/,
-  space : /^ $/,
-  backspace : /^Backspace$/,
-  delete : /^Delete$/,
-  semicolon: /;/,
-  quot: /'/,
+  all        : /.*/,
+  az         : /^[a-zA-Z]$/,
+  number     : /\d/,
+  function   : /^(Control|Alt|Meta|Shift|Tab)$/,
+  ctrl       : /^(Control|Alt|Meta|Shift)$/,
+  shift      : /^Shift$/,
+  meta       : /^Meta$/,
+  alt        : /^Alt$/,
+  space      : /^ $/,
+  backspace  : /^Backspace$/,
+  delete     : /^Delete$/,
+  semicolon  : /;/,
+  quot       : /'/,
+
 }
 
 // 按键记录
 class Count {
   constructor() {
-    this.all = 0;
-    this.az = 0;
-    this.number = 0;
-    this.ctrl = 0;
-    this.shift = 0;
-    this.meta = 0;
-    this.alt = 0;
-    this.function = 0;
-    this.space = 0;
-    this.backspace = 0;
-    this.semicolon = 0;
-    this.quot = 0;
+    this.all        = 0;
+    this.az         = 0;
+    this.number     = 0;
+    this.ctrl       = 0;
+    this.shift      = 0;
+    this.meta       = 0;
+    this.alt        = 0;
+    this.function   = 0;
+    this.space      = 0;
+    this.backspace  = 0;
+    this.semicolon  = 0;
+    this.quot       = 0;
+
   }
 
   reset (){
@@ -49,13 +53,55 @@ class Count {
 }
 
 // 跟打器参数
-class Option {
+class Config {
   constructor() {
-    this.chapter = 1;
-    this.chapterTotal = 1;
-    this.isShuffle = false;
-    this.count = 15;
-    this.article = ARTICLE.top500;
+    this.chapter       = 1;
+    this.chapterTotal  = 1;
+    this.isShuffle     = false;
+    this.count         = 15;
+    this.articleOption       = ARTICLE.top500;
+
+  }
+  static localStorageLabel = {
+    chapter      : 'type_pad_config_chapter',
+    chapterTotal : 'type_pad_config_chapter_total',
+    isShuffle    : 'type_pad_config_is_shuffle',
+    count        : 'type_pad_config_count',
+    articleOption      : 'type_pad_config_article_option',
+
+  }
+  save(){
+    localStorage[Config.localStorageLabel.chapter]       = this.chapter;
+    localStorage[Config.localStorageLabel.chapterTotal]  = this.chapterTotal;
+    localStorage[Config.localStorageLabel.isShuffle]     = this.isShuffle;
+    localStorage[Config.localStorageLabel.count]         = this.count;
+    localStorage[Config.localStorageLabel.articleOption]       = this.articleOption;
+
+  }
+  get(){
+    this.chapter       = localStorage[Config.localStorageLabel.chapter];
+    this.chapterTotal  = localStorage[Config.localStorageLabel.chapterTotal];
+    this.isShuffle     = Boolean(localStorage[Config.localStorageLabel.isShuffle] === 'true');
+    this.count         = Number(localStorage[Config.localStorageLabel.count]);
+    this.articleOption       = localStorage[Config.localStorageLabel.articleOption];
+
+  }
+  set(){
+    $('#mode').checked = this.isShuffle;
+    let radios = document.querySelectorAll('input[name=count]');
+    for (let i=0; i<radios.length; i++){
+      radios[i].checked = Number(radios[i].value) === this.count
+    }
+
+    let options = document.querySelectorAll('select option');
+    for (let i=0; i<options.length; i++){
+      options[i].checked = options[i].value === this.articleOption
+    }
+
+  }
+
+  static hasSavedData(){
+    return Boolean(localStorage[Config.localStorageLabel.articleOption]);
   }
 }
 
@@ -93,18 +139,18 @@ class Engine {
 
   // 上一段
   prevChapter(){
-    if (option.chapter !== 1){
-      currentWords = currentOriginWords.slice(option.count * (option.chapter - 2), option.count * (option.chapter - 1)).join('');
-      option.chapter--;
+    if (config.chapter !== 1){
+      currentWords = currentOriginWords.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)).join('');
+      config.chapter--;
       engine.reset();
     }
   }
 
   // 下一段
   nextChapter(){
-    if (option.chapter !== option.chapterTotal) {
-      currentWords = currentOriginWords.slice(option.count * option.chapter, option.count * (option.chapter + 1)).join('');
-      option.chapter++;
+    if (config.chapter !== config.chapterTotal) {
+      currentWords = currentOriginWords.slice(config.count * config.chapter, config.count * (config.chapter + 1)).join('');
+      config.chapter++;
       engine.reset();
     }
   }
@@ -112,7 +158,7 @@ class Engine {
   // 改变文章内容
   changeArticle() {
     record = new Record();
-    let article = $('#article').value;
+    let articleOption = $('#article').value;
     let isShuffle = $('#mode').checked;
     let radios = document.querySelectorAll('input[type=radio]');
     let perCount = 0;
@@ -121,7 +167,7 @@ class Engine {
         perCount = Number(radios[i].value);
       }
     }
-    switch (article) {
+    switch (articleOption) {
       case 'top500':
         currentOriginWords = isShuffle ? shuffle(ARTICLE.top500.split('')):ARTICLE.top500.split('');
         currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
@@ -138,13 +184,16 @@ class Engine {
         break;
     }
 
-    option.chapter = 1;
-    option.article = article;
-    option.isShuffle = isShuffle;
-    option.count = perCount;
-    let originTol = currentOriginWords.length / option.count;
+    config.chapter = 1;
+    config.articleOption = articleOption;
+    config.isShuffle = isShuffle;
+    config.count = perCount;
+    let originTol = currentOriginWords.length / config.count;
     let tempTol = Math.floor(originTol);
-    option.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
+    config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
+
+    config.save(); // save config
+    show(config);
 
     this.reset();
     this.updateInfo();
@@ -262,7 +311,6 @@ class Engine {
     record.wordCount = currentWords.length;
     this.updateInfo();
     data.insert(record);
-    show(record)
   }
 
   // 更新界面信息
@@ -315,8 +363,8 @@ class Engine {
     //
     // OPTION
     //
-    $('.chapter-current').innerText = option.chapter;
-    $('.chapter-total').innerText = option.chapterTotal;
+    $('.chapter-current').innerText = config.chapter;
+    $('.chapter-total').innerText = config.chapterTotal;
   }
 }
 
@@ -442,11 +490,17 @@ const templateBoard = $('.template');
 const pad = $('#pad');
 let count = new Count();
 let engine = new Engine();
-let option = new Option();
+let config = new Config();
 let correctWordsCount = 0;
 let currentWords = '';
 let currentOriginWords = [];
 let record = new Record();
+
+if (Config.hasSavedData()){
+  config.get();
+  config.set();
+  engine.updateInfo();
+}
 
 // database
 var DB;
@@ -477,7 +531,6 @@ window.onload = () => {
   data = new Database();
   let request = window.indexedDB.open(DBName);
   request.onsuccess = e =>{
-    show(e);
     if (e.returnValue){
       DB = request.result;
       data.fetchAll();

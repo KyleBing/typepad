@@ -541,8 +541,8 @@ body {
   width: 100%; }
 
 .template {
+  color: black;
   margin-bottom: 10px;
-  background-color: white;
   padding: 10px;
   border: 1px solid #dddddd;
   max-height: 200px;
