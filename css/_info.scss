@@ -7,13 +7,12 @@
   justify-content: flex-start;
 }
 
-.info-item{
+.info-panel{
   margin-bottom: $gap-block;
   padding: 15px;
   background-color: white;
   border: 1px solid $color-border;
 }
-
 
 .key-info{
   &-item{
@@ -33,6 +32,7 @@
       margin-bottom: 0;
     }
     h6,p{
+      color: $text-subtitle;
       z-index: $z-mask;
       background-color: white;
       font-size: $fz-info;
@@ -46,41 +46,24 @@
   }
 }
 
-.speed-info{
+.time-info{
   .time{
-    @extend .number;
     color: $text-subtitle;
-    padding: 5px 0 10px;
-    border-bottom: 1px dashed $color-border;
+    padding: 5px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 3rem;
     .minute{
-/*      @extend .number;
-      margin-right: 13px;
-      position: relative;
-      &:before, &:after{
-        position: absolute;
-        right: -8px;
-        content: '';
-        width: 3px;
-        height: 3px;
-        display: block;
-        background-color: $text-main;
-        @include border-radius(20px);
-      }
-      &:before{
-        top: 15px;
-      }
-      &:after{
-        bottom: 15px;
-      }*/
+      @extend .number
     }
     .second{
       @extend .number;
     }
   }
+}
+
+.speed-info{
   .speed{
     font-family: Impact, sans-serif;
     padding: 10px 0;
@@ -109,7 +92,7 @@
         right: -($gap + $width);
         height: $height;
         width: $width;
-        background-color: $red;
+        background-color: $orange;
         top: 50%;
         margin-top: -($height/2);
       }

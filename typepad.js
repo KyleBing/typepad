@@ -279,7 +279,7 @@ class Engine {
       $(`.word-${type} p`).innerText = count[type];
     }
     $('.count-total').innerText = currentWords.length;
-    $('.count-current').innerText = pad.value.length ? pad.value.length : '--';
+    $('.count-current').innerText = pad.value.length;
 
     //
     // SPEED
@@ -338,7 +338,7 @@ class Record {
   getHtml(){
     return `<tr>  
               <td class="text-center">${this.id}</td>
-              <td>${this.speed}</td>
+              <td class="bold">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
@@ -351,7 +351,7 @@ class Record {
   getHtmlWithCursor(cursor){
     return `<tr>  
               <td class="text-center">${cursor.key}</td>
-              <td>${cursor.value.speed}</td>
+              <td class="bold">${cursor.value.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>

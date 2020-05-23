@@ -1,0 +1,38 @@
+@font-face {
+  font-family: "Digital2";
+  src: url("../font/Digital2.ttf");
+}
+
+@font-face {
+  font-family: "Impact";
+  src: url("../font/Impact.ttf");
+}
+
+@font-face {
+  font-family: "DS Digital";
+  src: url("../font/DSDigital.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("../font/RobotoMono.ttf");
+}
+
+.roboto-mono{
+  font-family: 'Roboto Mono', sans-serif !important;
+}
+
+.number{
+  font-family: 'DS Digital', sans-serif !important;
+}
+
+.impact{
+  font-family: 'Impact', sans-serif !important;
+}
+.code{
+  font-family: 'Roboto Mono', sans-serif;
+}
+
+.bold{
+  font-weight: bold;
+}

@@ -11,11 +11,15 @@
 
 <div id="app">
     <div class="side-menu">
-        <!--spped-->
-        <div class="speed-info info-item">
-            <div class="time">
-                <div class="minute number">00</div>:<div class="second number">00</div>
+
+        <div class="time-info info-panel">
+            <div class="time number">
+                <div class="minute">00</div>:<div class="second">00</div>
             </div>
+        </div>
+        <!--spped-->
+        <div class="speed-info info-panel">
+
             <div class="speed">--</div>
             <div class="count pt-2">
                 <div class="count-item">
@@ -33,18 +37,8 @@
             </div>
         </div>
 
-        <!--option display-->
-        <div class="option info-item">
-            <div class="item">
-                <span class="chapter-current number current"></span><span class="chapter-total total number"></span>
-            </div>
-            <div class="item">
-                <span class="count-current number current"></span><span class="count-total total number"></span>
-            </div>
-        </div>
-
         <!--keys-->
-        <div class="key-info info-item">
+        <div class="key-info info-panel">
             <div class="key-info-item word-all"><h6>ALL</h6><p></p></div>
             <div class="key-info-item word-az"><h6>A-Z</h6><p></p></div>
             <div class="key-info-item word-space"><h6>Space</h6><p></p></div>
@@ -62,8 +56,18 @@
 
 
     <div class="type-pad">
+
         <!--buttons-->
-        <div class="tool-bar mt-2">
+        <div class="tool-bar">
+            <div class="btn-group">
+                <div class="btn number">
+                    <span class="count-current current number"></span> / <span class="count-total number total"></span>
+                </div>
+                <div class="btn number">
+                    <span class="chapter-current current number"></span> / <span class="chapter-total number total"></span>
+                </div>
+            </div>
+
             <div class="btn-group">
                 <div class="btn" onclick="engine.wordsShuffle()" title="⌘ + K">打乱</div>
                 <div class="btn" onclick="engine.reset()" title="⌘ + R">重打</div>
@@ -93,11 +97,11 @@
                 <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count200" value="200"><label class="btn" for="count200">200</label>
                 <input class="btn" type="radio" onchange="engine.changeArticle()" name="count" id="count500" value="500"><label class="btn" for="count500">500</label>
             </div>
-            <div class="btn-group no-border shuffle">
+            <div class="btn-group no-border">
                 <span class="btn">乱序</span>
-                <input class="btn" type="checkbox" onchange="engine.changeArticle()" id="mode"><label for="mode"></label>
+                <input type="checkbox" onchange="engine.changeArticle()" id="mode">
+                <label for="mode"></label>
             </div>
-
         </div>
 
 
@@ -131,8 +135,6 @@
                 </tbody>
             </table>
         </div>
-
-
     </div>
 </div>
 

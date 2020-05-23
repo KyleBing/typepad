@@ -8,6 +8,7 @@ $table-padding-lr: 4px;
   margin-top: $gap-block;
 }
 .table{
+  @extend .roboto-mono;
   width: 100%;
 }
 
@@ -15,6 +16,7 @@ thead{
   tr{
     border-bottom: 1px solid lighten($color-border, 5%);
     th{
+      color: $text-subtitle;
       text-align: left;
       padding: 8px $table-padding-lr;
       font-weight: bold;
@@ -57,17 +59,23 @@ td{
   padding: $table-padding-lr ;
   font-size: $fz-info;
   .btn{
+    border: 1px solid $color-border;
+    background-color: white;
     @extend .unselectable;
     padding: $btn-padding-tb - 2 $btn-padding-lr - 2;
-    background-color: lighten($red, 10%);
-    color: white;
+    color: $text-subtitle;
     font-weight: bold;
     cursor: pointer;
     @include border-radius(3px);
+    &:hover{
+      background-color: $red;
+      color: white;
+      border-color: $red;
+    }
   }
   &.time{
     letter-spacing: 1px;
-    font-family: Digital2;
+    @extend .number;
   }
 }
 

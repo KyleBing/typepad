@@ -1,27 +1,15 @@
 @import "../../../lib/css/reset";
 @import "../../../lib/css/utility";
 @import "variables";
+@import "font";
 @import "info";
 @import "button";
 @import "option";
 @import "table";
 
-@font-face {
-  font-family: "Digital2";
-  src: url("../font/Digital2.ttf");
-}
-
-@font-face {
-  font-family: "Impact";
-  src: url("../font/Impact.ttf");
-}
-
-
-.code{
-  font-family: 'Roboto Mono', sans-serif;
-}
 
 body{
+  color: $text-main;
   background-color: $bg-second;
 }
 
@@ -81,5 +69,5 @@ body{
 }
 
 .text-green{
-  color: $green !important;
+  color: $dark-green !important;
 }

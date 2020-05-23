@@ -1,23 +1,19 @@
 .option{
-  font-size: 1rem;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   &-item{
 
   }
 }
 
-.number{
-  padding: 5px;
-  font-family: 'Digital2', sans-serif;
-}
+
 
 .current{
   color: $orange;
 }
 .total{
   color: black;
-
 }
