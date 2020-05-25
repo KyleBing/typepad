@@ -254,6 +254,9 @@ tt {
   background-color: white;
   border: 1px solid #dddddd; }
 
+.info-panel-no-bg {
+  background-color: transparent; }
+
 .key-info-item {
   position: relative;
   margin-bottom: 5px;
@@ -526,6 +529,46 @@ td {
   td.time {
     letter-spacing: 1px; }
 
+.lv-6 {
+  color: #5856D6 !important; }
+
+.lv-5 {
+  color: #FF2D70 !important; }
+
+.lv-4 {
+  color: #FF9500 !important; }
+
+.lv-3 {
+  color: #26c57d !important; }
+
+.lv-2 {
+  color: #007AFF !important; }
+
+.lv-1 {
+  color: #8E8E93 !important; }
+
+.logo {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .logo img {
+    flex-shrink: 0;
+    width: 50px;
+    display: block; }
+  .logo h1 {
+    margin-left: 10px;
+    font-size: 13px;
+    color: #666; }
+
+.copyright {
+  border-top: 1px dashed #dddddd;
+  padding: 10px 10px 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #666; }
+
 body {
   color: #333;
   background-color: #EBEBEB; }
@@ -576,5 +619,10 @@ body {
 
 .text-green {
   color: #26c57d !important; }
+
+.link {
+  color: inherit; }
+  .link:hover {
+    color: #FF9500; }
 
 /*# sourceMappingURL=typepad.css.map */

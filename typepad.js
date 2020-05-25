@@ -24,8 +24,9 @@ const REG = {
   delete     : /^Delete$/,
   semicolon  : /;/,
   quot       : /'/,
-
 }
+
+const SPEED_GAP = 30;
 
 // 按键记录
 class Count {
@@ -55,36 +56,38 @@ class Count {
 // 跟打器参数
 class Config {
   constructor() {
-    this.chapter       = 1;
-    this.chapterTotal  = 1;
-    this.isShuffle     = false;
-    this.count         = 15;
-    this.articleOption       = ARTICLE.top500;
+    this.chapter          = 1;
+    this.chapterTotal     = 1;
+    this.isShuffle        = false;
+    this.count            = 15;
+    this.articleOption    = ARTICLE.top500;
+
 
   }
   static localStorageLabel = {
-    chapter      : 'type_pad_config_chapter',
-    chapterTotal : 'type_pad_config_chapter_total',
-    isShuffle    : 'type_pad_config_is_shuffle',
-    count        : 'type_pad_config_count',
-    articleOption      : 'type_pad_config_article_option',
+    chapter             : 'type_pad_config_chapter',
+    chapterTotal        : 'type_pad_config_chapter_total',
+    isShuffle           : 'type_pad_config_is_shuffle',
+    count               : 'type_pad_config_count',
+    articleOption       : 'type_pad_config_article_option',
+
 
   }
   save(){
-    localStorage[Config.localStorageLabel.chapter]       = this.chapter;
-    localStorage[Config.localStorageLabel.chapterTotal]  = this.chapterTotal;
-    localStorage[Config.localStorageLabel.isShuffle]     = this.isShuffle;
-    localStorage[Config.localStorageLabel.count]         = this.count;
-    localStorage[Config.localStorageLabel.articleOption]       = this.articleOption;
+    localStorage[Config.localStorageLabel.chapter]         = this.chapter;
+    localStorage[Config.localStorageLabel.chapterTotal]    = this.chapterTotal;
+    localStorage[Config.localStorageLabel.isShuffle]       = this.isShuffle;
+    localStorage[Config.localStorageLabel.count]           = this.count;
+    localStorage[Config.localStorageLabel.articleOption]   = this.articleOption;
+
 
   }
   get(){
-    this.chapter       = localStorage[Config.localStorageLabel.chapter];
-    this.chapterTotal  = localStorage[Config.localStorageLabel.chapterTotal];
-    this.isShuffle     = Boolean(localStorage[Config.localStorageLabel.isShuffle] === 'true');
-    this.count         = Number(localStorage[Config.localStorageLabel.count]);
-    this.articleOption       = localStorage[Config.localStorageLabel.articleOption];
-
+    this.chapter         = localStorage[Config.localStorageLabel.chapter];
+    this.chapterTotal    = localStorage[Config.localStorageLabel.chapterTotal];
+    this.isShuffle       = Boolean(localStorage[Config.localStorageLabel.isShuffle]  === 'true');
+    this.count           = Number(localStorage[Config.localStorageLabel.count]);
+    this.articleOption   = localStorage[Config.localStorageLabel.articleOption];
   }
   set(){
     $('#mode').checked = this.isShuffle;
@@ -262,6 +265,7 @@ class Engine {
   // 暂停
   pause(){
     this.isPaused = true;
+    pad.blur();
     this.stopRefresh()
   }
 
@@ -386,7 +390,7 @@ class Record {
   getHtml(){
     return `<tr>  
               <td class="text-center">${this.id}</td>
-              <td class="bold">${this.speed}</td>
+              <td class="bold lv-${Math.floor(this.speed/SPEED_GAP)}">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
@@ -399,7 +403,7 @@ class Record {
   getHtmlWithCursor(cursor){
     return `<tr>  
               <td class="text-center">${cursor.key}</td>
-              <td class="bold">${cursor.value.speed}</td>
+              <td class="bold lv-${Math.floor(cursor.value.speed/SPEED_GAP)}">${cursor.value.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
@@ -573,6 +577,9 @@ window.onload = () => {
       e.preventDefault();
     } else if ((e.metaKey||e.ctrlKey) && e.key === 'j') {
       engine.nextChapter();
+      e.preventDefault();
+    } else if (e.key === 'Escape') {
+      engine.pause();
       e.preventDefault();
     } else if (REG.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished){
       engine.start()

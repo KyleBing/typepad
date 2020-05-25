@@ -1,11 +1,12 @@
-@import "../../../lib/css/reset";
-@import "../../../lib/css/utility";
+@import "reset";
+@import "utility";
 @import "variables";
 @import "font";
 @import "info";
 @import "button";
 @import "option";
 @import "table";
+@import "copyright";
 
 
 body{
@@ -48,7 +49,6 @@ body{
       @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.1));
     }
   }
-
 }
 
 .hidden{
@@ -70,4 +70,11 @@ body{
 
 .text-green{
   color: $dark-green !important;
+}
+
+.link{
+  color: inherit;
+  &:hover{
+    color: $color-main;
+  }
 }

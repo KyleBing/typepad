@@ -1,6 +1,6 @@
 // Colors
 $green          : #4CD964;
-$dark-green: #26c57d;
+$dark-green     : #26c57d;
 $cyan           : #5AC8FA;
 $blue           : #007AFF;
 $purple         : #5856D6;
@@ -10,7 +10,7 @@ $orange         : #FF9500;
 $yellow         : #FFCC00;
 $gray           : #8E8E93;
 
-$color-main     : #B61111;
+$color-main     : $orange;
 $color-text     : #333;
 $color-subtitle : #848484;
 
@@ -35,6 +35,7 @@ $z-mask: 50;
 
 $fz-info: 12px;
 $fz-typing: 2rem;
+$fz-copyright: 10px;
 
 $gap-block: 10px;
 

@@ -13,6 +13,9 @@
   background-color: white;
   border: 1px solid $color-border;
 }
+.info-panel-no-bg {
+  background-color: transparent;
+}
 
 .key-info{
   &-item{
