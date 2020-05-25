@@ -2,8 +2,7 @@
   padding: 0;
   margin: 0;
   border: 0;
-  font-family: "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif;
-
+  font-family: inherit;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
@@ -40,7 +39,6 @@ tt {
   height: 3px; }
 
 ::-webkit-scrollbar-track {
-  border-bottom: 1px solid #eeeeee;
   border-right: 1px solid #eeeeee;
   background-color: rgba(0, 0, 0, 0); }
 

@@ -1,0 +1,177 @@
+$black-color-border: lighten(black, 20%);
+$black-bg: lighten(black, 10%);
+$black-color-text: lighten(black, 90%);
+$black-color-text-subtitle: lighten(black, 70%);
+$black-color-text-comment: lighten(black, 50%);
+$black-btn-bg: lighten(black, 20%);
+
+body.black {
+  background-color: black;
+
+  // INFOS
+  .info-panel{
+    background-color: $black-bg;
+    border-color: $black-color-border;
+    color: white;
+  }
+  .key-info{
+    &-item{
+      color: $black-color-text;
+      &:before{
+        border-color: $black-color-border;
+      }
+      h6,p{
+        background-color: $black-bg;
+      }
+    }
+  }
+
+  .time-info {
+    .time {
+      color: $black-color-text;
+    }
+  }
+
+  .speed-info {
+    .speed {
+      border-color: $black-color-border;
+    }
+    .count{
+      &-item {
+        color: $black-color-text;
+      }
+    }
+  }
+
+  .copyright{
+    border-top: 1px dashed $black-color-border;
+    color: $black-color-text-comment;
+  }
+
+
+
+  // TABLES
+  .table-container {
+    border: 1px solid $black-color-border;
+    background-color: $black-bg;
+  }
+
+  .table{
+    color: $black-color-text-subtitle;
+  }
+
+  thead {
+    tr {
+      border-bottom: $black-color-border;
+      th {
+        color: $black-color-text-subtitle;
+      }
+    }
+  }
+  tbody tr {
+    &:nth-child(2n+1) {
+      background-color: lighten(black, 5%);
+    }
+
+    &:nth-child(2n) {
+      background-color: black;
+    }
+
+    &:hover {
+      background-color: lighten(black, 15%);
+    }
+  }
+  td{
+    .btn {
+      color: $black-color-text-subtitle;
+      background-color: $black-color-border;
+      border: 1px solid $black-color-border;
+      &:hover{
+        color: white;
+        background-color: $red;
+      }
+    }
+  }
+
+//  TEMPLATE
+  .template{
+    color: $black-color-text;
+    border: 1px solid $black-color-border;
+    background-color: $black-bg;
+  }
+
+  .typing {
+    textarea {
+      border: 1px solid $black-color-border;
+      background-color: $black-bg;
+      color: white;
+      &:focus {
+        @include box-shadow(inset 1px 1px 5px rgba(0, 0, 0,1));
+      }
+    }
+  }
+  .text{
+    .correct{
+      color: lighten(black, 20%) !important;
+    }
+    .wrong{
+      background-color: $red;
+      color: white !important;
+    }
+  }
+
+
+  // BUTTONS
+  .btn-group{
+    border: 1px solid $black-color-border;
+    .btn{
+      color: white;
+      background-color: $black-bg;
+      border-right: 1px solid $black-color-border;
+      &:active{
+        @include box-shadow(inset 0 1px 2px rgba(0,0,0,1))
+      }
+      &:hover{
+        background-color: $black-color-border;
+        border-color: $black-color-border;
+      }
+      &:last-child{
+        border-right: none;
+      }
+    }
+  }
+
+  input[type=checkbox] + label:before {
+    background-color: $black-bg;
+  }
+
+  input[type=radio] + label{
+    color: $orange;
+  }
+
+  input[type=radio]:checked + label{
+    background-color: $orange;
+    color: white;
+  }
+
+
+  //  RESET
+  ::-webkit-scrollbar-track {
+    border-right: 1px solid $black-color-border;
+    background-color: $black-color-border;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #eee;
+    transition: all .2s;
+    height: 3px;
+  }
+
+  :hover::-webkit-scrollbar-thumb {
+    background-color: #dfdfdf;
+    transition: all .2s;
+  }
+}

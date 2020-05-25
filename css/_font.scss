@@ -36,3 +36,12 @@
 .bold{
   font-weight: bold;
 }
+
+.text{
+  &-right{
+    text-align: right;
+  }
+  &-left{
+    text-align: left;
+  }
+}

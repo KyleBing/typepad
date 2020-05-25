@@ -2,9 +2,11 @@
  * Author: KyleBing(kylebing@163.com)
  *
  * Count 所有按键记录
- * Engine 主程序，开始结束暂停
+ * Config 用户配置，字数、乱序与否
+ * Engine 主程序，开始、结束、暂停
+ * Record 每段的打字数据记录
+ * Database IndexedDB相关操作
  *
- * @type {string}
  */
 
 const localStorageIndexName = 'type_pad_idb_index';
@@ -26,7 +28,6 @@ const REG = {
   quot       : /'/,
 }
 
-const SPEED_GAP = 30;
 
 // 按键记录
 class Count {
@@ -61,8 +62,6 @@ class Config {
     this.isShuffle        = false;
     this.count            = 15;
     this.articleOption    = ARTICLE.top500;
-
-
   }
   static localStorageLabel = {
     chapter             : 'type_pad_config_chapter',
@@ -70,8 +69,6 @@ class Config {
     isShuffle           : 'type_pad_config_is_shuffle',
     count               : 'type_pad_config_count',
     articleOption       : 'type_pad_config_article_option',
-
-
   }
   save(){
     localStorage[Config.localStorageLabel.chapter]         = this.chapter;
@@ -79,8 +76,6 @@ class Config {
     localStorage[Config.localStorageLabel.isShuffle]       = this.isShuffle;
     localStorage[Config.localStorageLabel.count]           = this.count;
     localStorage[Config.localStorageLabel.articleOption]   = this.articleOption;
-
-
   }
   get(){
     this.chapter         = localStorage[Config.localStorageLabel.chapter];
@@ -100,7 +95,6 @@ class Config {
     for (let i=0; i<options.length; i++){
       options[i].checked = options[i].value === this.articleOption
     }
-
   }
 
   static hasSavedData(){
@@ -274,7 +268,6 @@ class Engine {
     this.timeStart = (new Date()).getTime() - this.duration;
     this.isPaused = false;
     this.startRefresh();
-
   }
 
   // 乱序当前段
@@ -389,8 +382,8 @@ class Record {
 
   getHtml(){
     return `<tr>  
-              <td class="text-center">${this.id}</td>
-              <td class="bold lv-${Math.floor(this.speed/SPEED_GAP)}">${this.speed}</td>
+              <td class="text-center roboto-mono">${this.id}</td>
+              <td class="bold roboto-mono lv-${Math.floor(this.speed/SPEED_GAP)}">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
@@ -402,8 +395,8 @@ class Record {
   }
   getHtmlWithCursor(cursor){
     return `<tr>  
-              <td class="text-center">${cursor.key}</td>
-              <td class="bold lv-${Math.floor(cursor.value.speed/SPEED_GAP)}">${cursor.value.speed}</td>
+              <td class="text-center roboto-mono">${cursor.key}</td>
+              <td class="bold roboto-mono lv-${Math.floor(cursor.value.speed/SPEED_GAP)}">${cursor.value.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
@@ -490,7 +483,8 @@ const ARTICLE = {
 }
 
 const template = $('.template p');
-const templateBoard = $('.template');
+const SPEED_GAP = 30; // 速度阶梯，每增30新增一个颜色
+
 const pad = $('#pad');
 let count = new Count();
 let engine = new Engine();
@@ -500,6 +494,7 @@ let currentWords = '';
 let currentOriginWords = [];
 let record = new Record();
 
+
 if (Config.hasSavedData()){
   config.get();
   config.set();
@@ -507,9 +502,9 @@ if (Config.hasSavedData()){
 }
 
 // database
-var DB;
+let DB;
 const DBName = "TypePad";
-let data;
+let data = new Database();
 const OBJECT_NAME = 'TypingRecord';
 
 
@@ -532,7 +527,6 @@ window.onload = () => {
   }
 
   // INDEX DB
-  data = new Database();
   let request = window.indexedDB.open(DBName);
   request.onsuccess = e =>{
     if (e.returnValue){
@@ -687,3 +681,13 @@ function formatTimeLeft(timeLeft){
 }
 
 // TODO: 不能获取按键信息时，如何计算速度
+// TODO: 清除记录的时候，重复提示
+
+function goBlack(){
+  let body = $('body');
+  if (body.classList.contains('black')){
+    body.classList.remove('black');
+  } else {
+    body.classList.add('black');
+  }
+}

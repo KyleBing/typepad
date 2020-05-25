@@ -8,8 +8,8 @@ $table-padding-lr: 4px;
   margin-top: $gap-block;
 }
 .table{
-  @extend .roboto-mono;
   width: 100%;
+  color: $text-subtitle;
 }
 
 thead{
@@ -63,7 +63,6 @@ td{
     background-color: white;
     @extend .unselectable;
     padding: $btn-padding-tb - 2 $btn-padding-lr - 2;
-    color: $text-subtitle;
     font-weight: bold;
     cursor: pointer;
     @include border-radius(3px);
