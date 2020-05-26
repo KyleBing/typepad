@@ -63,6 +63,7 @@ class Config {
     this.count            = 15;
     this.articleOption    = ARTICLE.top500.name;
     this.article          = ARTICLE.top500.content
+    this.darkMode         = false
   }
   static localStorageLabel = {
     chapter             : 'type_pad_config_chapter',
@@ -71,6 +72,7 @@ class Config {
     count               : 'type_pad_config_count',
     articleOption       : 'type_pad_config_article_option',
     article             : 'type_pad_config_article',
+    darkMode            : 'type_pad_config_dark_mode',
   }
   save(){
     localStorage[Config.localStorageLabel.chapter]         = this.chapter;
@@ -78,7 +80,8 @@ class Config {
     localStorage[Config.localStorageLabel.isShuffle]       = this.isShuffle;
     localStorage[Config.localStorageLabel.count]           = this.count;
     localStorage[Config.localStorageLabel.articleOption]   = this.articleOption;
-    localStorage[Config.localStorageLabel.article]         = currentOriginWords.join('');
+    localStorage[Config.localStorageLabel.article]         = this.article;
+    localStorage[Config.localStorageLabel.darkMode]        = this.darkMode
   }
   get(){
     this.chapter         = Number(localStorage[Config.localStorageLabel.chapter]);
@@ -87,6 +90,7 @@ class Config {
     this.count           = Number(localStorage[Config.localStorageLabel.count]);
     this.articleOption   = localStorage[Config.localStorageLabel.articleOption];
     this.article         = localStorage[Config.localStorageLabel.article];
+    this.darkMode        = Boolean(localStorage[Config.localStorageLabel.darkMode]  === 'true');
   }
 
   setWithCurrentConfig(){
@@ -95,14 +99,18 @@ class Config {
     for (let i=0; i<radios.length; i++){
       radios[i].checked = Number(radios[i].value) === this.count
     }
-
-    let options = document.querySelectorAll('select option');
-    for (let i=0; i<options.length; i++){
-      options[i].checked = options[i].value === this.articleOption
-    }
+    $('#article').value = this.articleOption;
     currentOriginWords = this.article.split('');
+
+    let body = $('body');
+    if (this.darkMode){
+      body.classList.add('black');
+    } else {
+      body.classList.remove('black');
+    }
   }
 
+  // 判断是否存储过配置信息
   static hasSavedData(){
     return Boolean(localStorage[Config.localStorageLabel.articleOption]);
   }
@@ -162,30 +170,18 @@ class Engine {
 
   // 改变文章内容
   changeArticle() {
-    record = new Record();
     config.articleOption = $('#article').value;
-    let radios = document.querySelectorAll('input[type=radio]');
-    let perCount = 0;
-    for (let i=0; i< radios.length; i++){
-      if(radios[i].checked){
-        perCount = Number(radios[i].value);
-      }
-    }
+    let article = ARTICLE[config.articleOption].content;
+    currentOriginWords = config.isShuffle ? shuffle(article.split('')) : article.split('');
+    config.article = currentOriginWords.join('');
+    this.changePerCount();
+  }
+
+  // 改变数字时
+  changePerCount(){
+    config.count = $('input[type=radio]:checked').value;
+    currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
     config.chapter = 1;
-    config.count = perCount;
-    switch (config.articleOption) {
-      case 'top500':
-        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
-        break;
-      case 'mid500':
-        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
-        break;
-      case 'tail500':
-        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
-        break;
-      default:
-        break;
-    }
     let originTol = currentOriginWords.length / config.count;
     let tempTol = Math.floor(originTol);
     config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
@@ -194,24 +190,12 @@ class Engine {
     this.updateInfo();
   }
 
+  // 切换乱序模式
   shuffleCurrentArticle(){
     config.isShuffle = $('#mode').checked;
-    switch (config.articleOption) {
-      case 'top500':
-        currentOriginWords = config.isShuffle ? shuffle(ARTICLE.top500.content.split('')) : ARTICLE.top500.content.split('');
-        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
-        break;
-      case 'mid500':
-        currentOriginWords = config.isShuffle ? shuffle(ARTICLE.mid500.content.split('')) : ARTICLE.mid500.content.split('');
-        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
-        break;
-      case 'tail500':
-        currentOriginWords = config.isShuffle ? shuffle(ARTICLE.tail500.content.split('')) : ARTICLE.tail500.content.split('');
-        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
-        break;
-      default:
-        break;
-    }
+    currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleOption].content.split('')) : ARTICLE[config.articleOption].content.split('');
+    config.article = currentOriginWords.join('');
+    currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
     config.chapter = 1;
     config.save(); // save config
     this.reset();
@@ -535,11 +519,7 @@ let config = new Config();
 let record = new Record();
 
 
-if (Config.hasSavedData()){
-  config.get();
-  config.setWithCurrentConfig();
-  engine.updateInfo();
-}
+
 
 // database
 let DB;
@@ -550,8 +530,17 @@ const OBJECT_NAME = 'TypingRecord';
 
 // 初始化
 window.onload = () => {
-  config.get();
-  config.setWithCurrentConfig();
+  // 最开始的时候，如果没有检测到存储的数据，初始化
+  if (Config.hasSavedData()){
+    config.get();
+    config.setWithCurrentConfig();
+    engine.updateInfo();
+  } else {
+    config.save();
+    config.get();
+    config.setWithCurrentConfig();
+    engine.updateInfo();
+  }
 
   // init
   currentWords = currentOriginWords.slice(config.count * (config.chapter - 1), config.count * (config.chapter)).join('');
@@ -727,11 +716,15 @@ function formatTimeLeft(timeLeft){
 // TODO: 不能获取按键信息时，如何计算速度
 // TODO: 清除记录的时候，重复提示
 
-function goBlack(){
+function enterDarkMode(){
   let body = $('body');
   if (body.classList.contains('black')){
     body.classList.remove('black');
+    config.darkMode = false;
+    config.save();
   } else {
     body.classList.add('black');
+    config.darkMode = true;
+    config.save();
   }
 }
