@@ -1,3 +1,6 @@
+# Type Pad
+
+<img width="300" src="img/logo.png"/>
 
 ## 前言
 自己是个五笔爱好者，也一直在使用五笔，从 Windows 转到 Mac 之后，也没有有可用的跟打器，每回想练练打字了都需要打开 Windows 模拟器来打字。

@@ -155,8 +155,7 @@ class Engine {
   // 改变文章内容
   changeArticle() {
     record = new Record();
-    let articleOption = $('#article').value;
-    let isShuffle = $('#mode').checked;
+    config.articleOption = $('#article').value;
     let radios = document.querySelectorAll('input[type=radio]');
     let perCount = 0;
     for (let i=0; i< radios.length; i++){
@@ -164,34 +163,48 @@ class Engine {
         perCount = Number(radios[i].value);
       }
     }
-    switch (articleOption) {
+    config.chapter = 1;
+    config.count = perCount;
+    switch (config.articleOption) {
       case 'top500':
-        currentOriginWords = isShuffle ? shuffle(ARTICLE.top500.split('')):ARTICLE.top500.split('');
-        currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
+        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
         break;
       case 'mid500':
-        currentOriginWords = isShuffle ? shuffle(ARTICLE.mid500.split('')) : ARTICLE.mid500.split('');
-        currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
+        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
         break;
       case 'tail500':
-        currentOriginWords = isShuffle ? shuffle(ARTICLE.tail500.split('')) : ARTICLE.tail500.split('');
-        currentWords = currentOriginWords.slice(0, Number(perCount)).join('');
+        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
         break;
       default:
         break;
     }
-
-    config.chapter = 1;
-    config.articleOption = articleOption;
-    config.isShuffle = isShuffle;
-    config.count = perCount;
     let originTol = currentOriginWords.length / config.count;
     let tempTol = Math.floor(originTol);
     config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
-
     config.save(); // save config
-    show(config);
+    this.reset();
+    this.updateInfo();
+  }
 
+  updateCurrentArticle(){
+    config.isShuffle = $('#mode').checked;
+    switch (config.articleOption) {
+      case 'top500':
+        currentOriginWords = config.isShuffle ? shuffle(ARTICLE.top500.split('')) : ARTICLE.top500.split('');
+        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
+        break;
+      case 'mid500':
+        currentOriginWords = config.isShuffle ? shuffle(ARTICLE.mid500.split('')) : ARTICLE.mid500.split('');
+        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
+        break;
+      case 'tail500':
+        currentOriginWords = config.isShuffle ? shuffle(ARTICLE.tail500.split('')) : ARTICLE.tail500.split('');
+        currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
+        break;
+      default:
+        break;
+    }
+    config.save(); // save config
     this.reset();
     this.updateInfo();
   }
@@ -511,7 +524,7 @@ const OBJECT_NAME = 'TypingRecord';
 // 初始化
 window.onload = () => {
   // init
-  engine.changeArticle();
+  engine.updateCurrentArticle();
   template.innerText = currentWords;
   engine.updateInfo();
 

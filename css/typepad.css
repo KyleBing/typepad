@@ -593,6 +593,8 @@ body.black {
   body.black .copyright {
     border-top: 1px dashed #333333;
     color: gray; }
+  body.black .logo img {
+    opacity: 0.5; }
   body.black .table-container {
     border: 1px solid #333333;
     background-color: #1a1a1a; }

@@ -48,6 +48,12 @@ body.black {
     color: $black-color-text-comment;
   }
 
+  .logo {
+    img {
+      opacity: 0.5;
+    }
+  }
+
 
 
   // TABLES
