@@ -213,9 +213,6 @@ tt {
   margin-right: 30px; }
 
 @font-face {
-  font-family: "Digital2";
-  src: url("../font/Digital2.ttf"); }
-@font-face {
   font-family: "Impact";
   src: url("../font/Impact.ttf"); }
 @font-face {
@@ -343,13 +340,13 @@ tt {
     margin-right: 0; }
 
 .btn-primary {
-  background-color: #4CD964;
+  background-color: #26c57d;
   color: white;
-  border: 1px solid #4CD964; }
+  border: 1px solid #26c57d; }
   .btn-primary:hover {
-    border-color: #2ac845; }
+    border-color: #1e9a62; }
   .btn-primary:active {
-    background-color: #2ac845; }
+    background-color: #1e9a62; }
 
 .btn-blue {
   background-color: #007AFF;
@@ -659,6 +656,10 @@ body.black {
       body.black .btn-group .btn.danger {
         background-color: #FF3B30;
         color: white; }
+  body.black input[type=checkbox] + label {
+    background-color: #666666; }
+  body.black input[type=checkbox]:checked + label {
+    background-color: #009652; }
   body.black input[type=checkbox] + label:before {
     background-color: #1a1a1a; }
   body.black input[type=radio] + label {

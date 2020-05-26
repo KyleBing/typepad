@@ -150,9 +150,17 @@ body.black {
     }
   }
 
+  input[type=checkbox] + label {
+    background-color: lighten(black, 40%);
+  }
+  input[type=checkbox]:checked + label {
+    background-color: $dark-green;
+  }
   input[type=checkbox] + label:before {
     background-color: $black-bg;
   }
+
+
 
   input[type=radio] + label{
     color: $orange;

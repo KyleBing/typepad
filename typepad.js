@@ -714,7 +714,6 @@ function formatTimeLeft(timeLeft){
 }
 
 // TODO: 不能获取按键信息时，如何计算速度
-// TODO: 清除记录的时候，重复提示
 
 function enterDarkMode(){
   let body = $('body');
