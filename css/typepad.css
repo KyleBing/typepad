@@ -567,6 +567,8 @@ td {
     margin-left: 10px;
     font-size: 13px;
     color: #666; }
+    .logo h1:hover {
+      color: #FF9500; }
 
 .copyright {
   border-top: 1px dashed #dddddd;
