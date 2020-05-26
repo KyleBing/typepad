@@ -96,7 +96,7 @@ input[type=checkbox]:checked + label
 
 input[type=radio] + label{
   background-color: white;
-  color: $orange;
+  color: $orange !important;
   //border-right: none !important;
   padding-left: $btn-padding-lr;
   padding-right: $btn-padding-lr;
@@ -105,7 +105,10 @@ input[type=radio] + label{
 input[type=radio]:checked + label{
   font-weight: bold;
   background-color: $orange;
-  color: white;
+  color: white !important;
+  &:hover{
+    background-color: lighten($orange, 5%);
+  }
 }
 
 
@@ -119,6 +122,7 @@ input[type=radio]:checked + label{
     border: none !important;
   }
   .btn{
+    color: inherit;
     line-height: 1;
     cursor: pointer;
     margin: 0;

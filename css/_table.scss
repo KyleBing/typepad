@@ -59,6 +59,7 @@ td{
   padding: $table-padding-lr ;
   font-size: $fz-info;
   .btn{
+    color: inherit;
     border: 1px solid $color-border;
     background-color: white;
     @extend .unselectable;

@@ -161,6 +161,9 @@ body.black {
   input[type=radio]:checked + label{
     background-color: $orange;
     color: white;
+    &:hover{
+      background-color: darken($orange, 5%);
+    }
   }
 
 

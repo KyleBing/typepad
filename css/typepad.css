@@ -421,14 +421,16 @@ input[type=checkbox]:checked + label {
 
 input[type=radio] + label {
   background-color: white;
-  color: #FF9500;
+  color: #FF9500 !important;
   padding-left: 8px;
   padding-right: 8px; }
 
 input[type=radio]:checked + label {
   font-weight: bold;
   background-color: #FF9500;
-  color: white; }
+  color: white !important; }
+  input[type=radio]:checked + label:hover {
+    background-color: #ffa01a; }
 
 .btn-group {
   display: flex;
@@ -441,6 +443,7 @@ input[type=radio]:checked + label {
   .btn-group.no-border {
     border: none !important; }
   .btn-group .btn {
+    color: inherit;
     line-height: 1;
     cursor: pointer;
     margin: 0;
@@ -520,6 +523,7 @@ td {
   padding: 4px;
   font-size: 12px; }
   td .btn {
+    color: inherit;
     border: 1px solid #dddddd;
     background-color: white;
     padding: 4px 6px;
@@ -662,6 +666,8 @@ body.black {
   body.black input[type=radio]:checked + label {
     background-color: #FF9500;
     color: white; }
+    body.black input[type=radio]:checked + label:hover {
+      background-color: #e68600; }
   body.black ::-webkit-scrollbar-track {
     border-right: 1px solid #333333;
     background-color: #333333; }
