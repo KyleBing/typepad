@@ -108,6 +108,9 @@ class Config {
     } else {
       body.classList.remove('black');
     }
+
+    let darkButton = $('#darkButton');
+    darkButton.innerText = this.darkMode ? '白色模式' : '暗黑模式'
   }
 
   // 判断是否存储过配置信息
@@ -519,8 +522,6 @@ let config = new Config();
 let record = new Record();
 
 
-
-
 // database
 let DB;
 const DBName = "TypePad";
@@ -715,15 +716,17 @@ function formatTimeLeft(timeLeft){
 
 // TODO: 不能获取按键信息时，如何计算速度
 
-function enterDarkMode(){
+function enterDarkMode(sender){
   let body = $('body');
-  if (body.classList.contains('black')){
+  if (config.darkMode){
     body.classList.remove('black');
     config.darkMode = false;
+    sender.innerText = "暗黑模式"
     config.save();
   } else {
     body.classList.add('black');
     config.darkMode = true;
+    sender.innerText = "白色模式"
     config.save();
   }
 }

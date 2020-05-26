@@ -2,8 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name='description' content="玫枫跟打器, 跟打器">
+    <meta name='keywords' content="跟打器,玫枫跟打器,玫枫">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>玫枫跟打器 （Type Pad）</title>
+    <title>玫枫跟打器 （Maple TypePad）</title>
     <link rel="shortcut icon" href="img/logo.png" type="image/png">
     <link rel="stylesheet" href="css/typepad.css">
 </head>
@@ -70,11 +72,16 @@
         <div class="tool-bar">
             <div class="btn-group">
                 <div class="btn number">
-                    <span class="count-current current number"></span> / <span class="count-total number total"></span>
+                    <span class="count-current bold current number"></span> / <span class="count-total number total"></span>
                 </div>
                 <div class="btn number">
-                    <span class="chapter-current current number"></span> / <span class="chapter-total number total"></span>
+                    <span class="chapter-current bold current number"></span> / <span class="chapter-total number total"></span>
                 </div>
+            </div>
+
+            <div class="btn-group">
+                <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
+                <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
             </div>
 
             <div class="btn-group">
@@ -86,10 +93,7 @@
             <div class="btn-group">
                 <div class="btn" onclick="data.clear(this)">清除记录</div>
             </div>
-            <div class="btn-group">
-                <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">上一段</div>
-                <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">下一段</div>
-            </div>
+
             <div class="btn-group">
                 <select class="btn" id="article" onchange="engine.changeArticle()">
                     <option value="top500">常用单字 - 前500</option>
@@ -106,7 +110,7 @@
                 <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count500" value="500"><label class="btn" for="count500">500</label>
             </div>
             <div class="btn-group">
-                <div class="btn" onclick="enterDarkMode()">暗黑模式</div>
+                <div id="darkButton" class="btn" onclick="enterDarkMode(this)">暗黑模式</div>
             </div>
             <div class="btn-group no-border">
                 <span class="btn">乱序</span>
