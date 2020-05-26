@@ -486,12 +486,20 @@ class Database {
     };
   }
 
-  clear(){
-    let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
-    objectStore.clear().onsuccess = e => {
-      localStorage[localStorageIndexName] = 1;
-      this.fetchAll();
-    };
+  // 清除记录
+  clear(sender){
+    if (sender.innerText !== '确定清除'){
+      sender.innerText = '确定清除';
+      sender.classList.add('danger');
+    } else {
+      let objectStore = DB.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+      let that = this;
+      objectStore.clear().onsuccess = e => {
+        localStorage[localStorageIndexName] = 1;
+        that.fetchAll();
+        location.reload();
+      };
+    }
   }
 }
 

@@ -465,6 +465,9 @@ input[type=radio]:checked + label {
       -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
       -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
       box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); }
+    .btn-group .btn.danger {
+      background-color: #FF3B30;
+      color: white; }
 
 .option {
   font-size: 1.5rem;
@@ -649,6 +652,9 @@ body.black {
         border-color: #333333; }
       body.black .btn-group .btn:last-child {
         border-right: none; }
+      body.black .btn-group .btn.danger {
+        background-color: #FF3B30;
+        color: white; }
   body.black input[type=checkbox] + label:before {
     background-color: #1a1a1a; }
   body.black input[type=radio] + label {

@@ -126,7 +126,6 @@ body.black {
     }
   }
 
-
   // BUTTONS
   .btn-group{
     border: 1px solid $black-color-border;
@@ -143,6 +142,10 @@ body.black {
       }
       &:last-child{
         border-right: none;
+      }
+      &.danger{
+        background-color: $red;
+        color: white;
       }
     }
   }
