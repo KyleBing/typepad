@@ -102,13 +102,13 @@ class Config {
     $('#article').value = this.articleOption;
     currentOriginWords = this.article.split('');
 
+    // Dark mode
     let body = $('body');
     if (this.darkMode){
       body.classList.add('black');
     } else {
       body.classList.remove('black');
     }
-
     let darkButton = $('#darkButton');
     darkButton.innerText = this.darkMode ? '白色模式' : '暗黑模式'
   }
@@ -535,17 +535,15 @@ window.onload = () => {
   if (Config.hasSavedData()){
     config.get();
     config.setWithCurrentConfig();
-    engine.updateInfo();
   } else {
     config.save();
     config.get();
     config.setWithCurrentConfig();
-    engine.updateInfo();
+    engine.changePerCount();
   }
 
   // init
   currentWords = currentOriginWords.slice(config.count * (config.chapter - 1), config.count * (config.chapter)).join('');
-
   template.innerText = currentWords;
   engine.updateInfo();
 
