@@ -1,5 +1,5 @@
 # 玫枫跟打器
-> Magenta Maple Type Pad
+> Roseo Maple Type Pad
 
 <img width="300" src="img/logo.png"/>
 

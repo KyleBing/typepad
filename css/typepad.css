@@ -63,7 +63,7 @@ tt {
 /*
   Extension
 */
-.unselectable, .btn-group .btn, td .btn {
+.unselectable, .btn-group .btn, td .btn, .logo img {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
