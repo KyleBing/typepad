@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   border: 0;
+  font-size: inherit;
   font-family: inherit;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -221,7 +222,7 @@ tt {
 @font-face {
   font-family: "Roboto Mono";
   src: url("../font/RobotoMono.ttf"); }
-.roboto-mono {
+.roboto-mono, .binding-key kbd {
   font-family: 'Roboto Mono', sans-serif !important; }
 
 .number, .time-info .time .minute, .time-info .time .second, td.time {
@@ -326,6 +327,26 @@ tt {
     .speed-info .count-item p:last-child {
       color: #999;
       font-size: 10px; }
+
+.binding-key {
+  display: flex;
+  justify-content: space-between; }
+  .binding-key kbd {
+    line-height: 1;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: black;
+    text-align: center;
+    padding: 2px 6px;
+    font-weight: bold;
+    min-width: 20px;
+    border: 2px solid #f7f7f7;
+    background-color: white !important;
+    margin-right: 3px;
+    -webkit-box-shadow: 1px 2px 0 #ababab;
+    -moz-box-shadow: 1px 2px 0 #ababab;
+    box-shadow: 1px 2px 0 #ababab; }
 
 .tool-bar {
   display: flex;
@@ -587,7 +608,7 @@ body.black {
   body.black .key-info-item {
     color: #e6e6e6; }
     body.black .key-info-item:before {
-      border-color: #333333; }
+      border-color: #4d4d4d; }
     body.black .key-info-item h6, body.black .key-info-item p {
       background-color: #1a1a1a; }
   body.black .time-info .time {

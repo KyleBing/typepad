@@ -118,3 +118,26 @@
     }
   }
 }
+
+$kbd-bg-color: darken(white, 3%);
+$kbd-shadow-color: darken($kbd-bg-color, 30%);
+$kbd-text: black;
+
+.binding-key{
+  display: flex;
+  justify-content: space-between;
+  kbd{
+    line-height: 1;
+    @extend .roboto-mono;
+    @include border-radius(3px);
+    color: $kbd-text;
+    text-align: center;
+    padding: 2px 6px;
+    font-weight: bold;
+    min-width: 20px;
+    border: 2px solid $kbd-bg-color;
+    background-color: white !important;
+    margin-right: 3px;
+    @include box-shadow(1px 2px 0 $kbd-shadow-color);
+  }
+}

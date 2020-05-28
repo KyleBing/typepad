@@ -18,7 +18,7 @@ body.black {
     &-item{
       color: $black-color-text;
       &:before{
-        border-color: $black-color-border;
+        border-color: lighten($black-color-border, 10%);
       }
       h6,p{
         background-color: $black-bg;
