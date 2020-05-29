@@ -634,6 +634,7 @@ window.onload = () => {
           engine.finish();
         }
       }
+    } else if (engine.isStarted) {
     } else {
       engine.start()
     }
