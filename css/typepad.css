@@ -254,7 +254,8 @@ tt {
   margin-bottom: 10px;
   padding: 15px;
   background-color: white;
-  border: 1px solid #dddddd; }
+  border: 1px solid #dddddd;
+  font-size: 12px; }
 
 .info-panel-no-bg {
   background-color: transparent; }
