@@ -10,7 +10,8 @@
 
 body {
   width: 100%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  font-family: "PingFang SC", "Microsoft Yahei UI", "Microsoft Yahei", "Helvetica", sans-serif; }
 
 a {
   text-decoration: none; }
@@ -256,6 +257,10 @@ tt {
   background-color: white;
   border: 1px solid #dddddd;
   font-size: 12px; }
+  .info-panel > p {
+    margin-bottom: 5px; }
+    .info-panel > p:last-child {
+      margin-bottom: 0; }
 
 .info-panel-no-bg {
   background-color: transparent; }

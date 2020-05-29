@@ -13,6 +13,12 @@
   background-color: white;
   border: 1px solid $color-border;
   font-size: $fz-info;
+  > p{
+    margin-bottom: 5px;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
 }
 .info-panel-no-bg {
   background-color: transparent;

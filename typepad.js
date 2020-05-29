@@ -62,35 +62,36 @@ class Config {
     this.isShuffle        = false;
     this.count            = 15;
     this.articleOption    = ARTICLE.top500.name;
-    this.article          = ARTICLE.top500.content
-    this.darkMode         = false
+    this.article          = ARTICLE.top500.content;
+    this.darkMode         = false;
+    this.localStorageLabel = {
+      chapter             : 'type_pad_config_chapter',
+      chapterTotal        : 'type_pad_config_chapter_total',
+      isShuffle           : 'type_pad_config_is_shuffle',
+      count               : 'type_pad_config_count',
+      articleOption       : 'type_pad_config_article_option',
+      article             : 'type_pad_config_article',
+      darkMode            : 'type_pad_config_dark_mode',
+    }
   }
-  static localStorageLabel = {
-    chapter             : 'type_pad_config_chapter',
-    chapterTotal        : 'type_pad_config_chapter_total',
-    isShuffle           : 'type_pad_config_is_shuffle',
-    count               : 'type_pad_config_count',
-    articleOption       : 'type_pad_config_article_option',
-    article             : 'type_pad_config_article',
-    darkMode            : 'type_pad_config_dark_mode',
-  }
+
   save(){
-    localStorage[Config.localStorageLabel.chapter]         = this.chapter;
-    localStorage[Config.localStorageLabel.chapterTotal]    = this.chapterTotal;
-    localStorage[Config.localStorageLabel.isShuffle]       = this.isShuffle;
-    localStorage[Config.localStorageLabel.count]           = this.count;
-    localStorage[Config.localStorageLabel.articleOption]   = this.articleOption;
-    localStorage[Config.localStorageLabel.article]         = this.article;
-    localStorage[Config.localStorageLabel.darkMode]        = this.darkMode
+    localStorage[this.localStorageLabel.chapter]         = this.chapter;
+    localStorage[this.localStorageLabel.chapterTotal]    = this.chapterTotal;
+    localStorage[this.localStorageLabel.isShuffle]       = this.isShuffle;
+    localStorage[this.localStorageLabel.count]           = this.count;
+    localStorage[this.localStorageLabel.articleOption]   = this.articleOption;
+    localStorage[this.localStorageLabel.article]         = this.article;
+    localStorage[this.localStorageLabel.darkMode]        = this.darkMode
   }
   get(){
-    this.chapter         = Number(localStorage[Config.localStorageLabel.chapter]);
-    this.chapterTotal    = Number(localStorage[Config.localStorageLabel.chapterTotal]);
-    this.isShuffle       = Boolean(localStorage[Config.localStorageLabel.isShuffle]  === 'true');
-    this.count           = Number(localStorage[Config.localStorageLabel.count]);
-    this.articleOption   = localStorage[Config.localStorageLabel.articleOption];
-    this.article         = localStorage[Config.localStorageLabel.article];
-    this.darkMode        = Boolean(localStorage[Config.localStorageLabel.darkMode]  === 'true');
+    this.chapter         = Number(localStorage[this.localStorageLabel.chapter]);
+    this.chapterTotal    = Number(localStorage[this.localStorageLabel.chapterTotal]);
+    this.isShuffle       = Boolean(localStorage[this.localStorageLabel.isShuffle]  === 'true');
+    this.count           = Number(localStorage[this.localStorageLabel.count]);
+    this.articleOption   = localStorage[this.localStorageLabel.articleOption];
+    this.article         = localStorage[this.localStorageLabel.article];
+    this.darkMode        = Boolean(localStorage[this.localStorageLabel.darkMode]  === 'true');
   }
 
   setWithCurrentConfig(){
@@ -114,8 +115,8 @@ class Config {
   }
 
   // 判断是否存储过配置信息
-  static hasSavedData(){
-    return Boolean(localStorage[Config.localStorageLabel.articleOption]);
+  hasSavedData(){
+    return Boolean(localStorage[this.localStorageLabel.articleOption]);
   }
 }
 
@@ -532,7 +533,7 @@ const OBJECT_NAME = 'TypingRecord';
 // 初始化
 window.onload = () => {
   // 最开始的时候，如果没有检测到存储的数据，初始化
-  if (Config.hasSavedData()){
+  if (config.hasSavedData()){
     config.get();
     config.setWithCurrentConfig();
   } else {
@@ -588,11 +589,11 @@ window.onload = () => {
    **** ⌘ + P: 上一段
    **** ⌘ + H: 重新开始
    ****/
-  typingPad.onkeydown = (e) => {
-    if (e.key === 'Tab' || ((e.metaKey||e.ctrlKey) && (/[nqewfgyplt]/.test(e.key))))
+  typingPad.onkeydown = e => {
+    if (e.key === 'Tab' || ((e.metaKey||e.ctrlKey) && (/[nqwefgplt]/.test(e.key))))
     {
       e.preventDefault();
-    } else if ((e.metaKey||e.ctrlKey) && e.key === 'r') {
+    } else if ((e.metaKey||e.ctrlKey) && e.key === 'y') {
       e.preventDefault();
       engine.reset();
     } else if ((e.metaKey||e.ctrlKey) && e.key === 'k') {
@@ -611,8 +612,7 @@ window.onload = () => {
       engine.start()
     }
   }
-
-  typingPad.onkeyup = (e) => {
+  typingPad.onkeyup = e => {
     e.preventDefault();
     if (!engine.isFinished && engine.isStarted){
       countKeys(e);
@@ -625,8 +625,21 @@ window.onload = () => {
       }
     }
   }
-}
+  typingPad.oninput = e => {
+    if (!engine.isFinished && engine.isStarted){
+      engine.compare();
+      // 末字时结束的时候
+      if (typingPad.value.length >= currentWords.length){
+        if (typingPad.value === currentWords) {
+          engine.finish();
+        }
+      }
+    } else {
+      engine.start()
+    }
+  }
 
+}
 // Count Key
 function countKeys(e) {
   for (let type in count){
@@ -685,7 +698,7 @@ function dateFormatter (date, formatString) {
     "h+": date.getHours(),                          // 小时
     "m+": date.getMinutes(),                        // 分
     "s+": date.getSeconds(),                        // 秒
-    "q+": Math.floor((date.getMonth() + 3) / 3),    // 季度
+    "q+": Math.floor((date.getMonth() + 3) / 3), // 季度
     "S": date.getMilliseconds()                     // 毫秒
   };
   if (/(y+)/.test(formatString)) {
@@ -708,11 +721,8 @@ function formatTimeLeft(timeLeft){
   timeLeft = Math.floor(timeLeft / 1000);
   let mins = Math.floor(timeLeft / 60);
   let seconds = timeLeft % 60;
-  // util.toast(`时分秒：${hours}:${mins}:${seconds}`);
   return `${mins.toString().padStart(2,'00')}:${seconds.toString().padStart(2,'00')}`;
 }
-
-// TODO: 不能获取按键信息时，如何计算速度
 
 function enterDarkMode(sender){
   let body = $('body');
