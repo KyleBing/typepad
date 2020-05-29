@@ -14,15 +14,8 @@ $btn-padding-lr: 8px;
   justify-content: space-between;
   align-items: center;
   flex-flow: row wrap;
-  margin-bottom: 10px;
 }
 
-.tool-bar-group{
-  margin-right: 10px;
-  &:last-child{
-    margin-right: 0;
-  }
-}
 
 
 $btns: (
@@ -49,6 +42,7 @@ input[type=radio],
 {
   display: none;
 }
+
 $height-radio: $height-btn;
 $radio-gap: 2px;
 
@@ -118,6 +112,10 @@ input[type=radio]:checked + label{
   justify-content: flex-start;
   overflow: hidden;
   border: 1px solid $color-border;
+  margin: 0 5px 5px 0;
+  &:last-child{
+    margin-right: 0;
+  }
   &.no-border{
     border: none !important;
   }

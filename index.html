@@ -4,20 +4,19 @@
     <meta charset="UTF-8">
     <meta name='description' content="玫枫跟打器, 跟打器">
     <meta name='keywords' content="跟打器,玫枫跟打器,玫枫">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>玫枫跟打器 （Roseo TypePad）</title>
     <link rel="shortcut icon" href="img/logo.png" type="image/png">
-    <link rel="stylesheet" href="css/typepad.css?v=20200529104231">
+    <link rel="stylesheet" href="css/typepad.css?v=20200529170242">
 </head>
 <body>
 
 <div id="app">
-    <div class="side-menu">
-
+    <!--侧边信息栏组-->
+    <div class="side-menu hidden-sm">
         <div class="info-panel">
             <p>目前只支持 macOS，其它平台可能会有问题</p>
         </div>
-
         <div class="time-info info-panel">
             <div class="time number">
                 <div class="minute">00</div>:<div class="second">00</div>
@@ -25,7 +24,6 @@
         </div>
         <!--speed-->
         <div class="speed-info info-panel">
-
             <div class="speed">--</div>
             <div class="count pt-2">
                 <div class="count-item">
@@ -78,13 +76,11 @@
         <div class="info-panel">
             <p>快捷键只在编辑区内生效</p>
         </div>
-
-
     </div>
 
-
+    <!--内容区-->
     <div class="type-pad">
-        <!--buttons-->
+        <!--工具栏-->
         <div class="tool-bar">
             <div class="btn-group">
                 <div class="btn number">
@@ -116,17 +112,24 @@
                     <option value="mid500">常用单字 - 中500</option>
                     <option value="tail500">常用单字 - 后500</option>
                 </select>
+            </div>
+            <div class="btn-group">
                 <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>
                 <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count10" checked value="10"><label class="btn" for="count10">10</label>
                 <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count15" value="15"><label class="btn" for="count15">15</label>
                 <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count20" value="20"><label class="btn" for="count20">20</label>
-                <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count50" value="50"><label class="btn" for="count50">50</label>
-                <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count100" value="100"><label class="btn" for="count100">100</label>
-                <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count200" value="200"><label class="btn" for="count200">200</label>
-                <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count500" value="500"><label class="btn" for="count500">500</label>
+                <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count50" value="50"><label class="btn hidden-sm" for="count50">50</label>
+                <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count100" value="100"><label class="btn hidden-sm" for="count100">100</label>
+                <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count200" value="200"><label class="btn hidden-sm" for="count200">200</label>
+                <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="count500" value="500"><label class="btn hidden-sm" for="count500">500</label>
             </div>
             <div class="btn-group">
                 <div id="darkButton" class="btn" onclick="enterDarkMode(this)">暗黑模式</div>
+            </div>
+
+            <div class="btn-group hidden-big">
+                <div class="btn number"><span class="btn-minute">00</span>:<span class="btn-second">00</span></div>
+                <div class="btn"><span class="btn-speed"></span> 字/分</div>
             </div>
             <div class="btn-group no-border">
                 <span class="btn">乱序</span>
@@ -136,17 +139,18 @@
         </div>
 
 
-        <!--template-->
+        <!--对照区-->
         <div class="template">
             <p class="text"></p>
         </div>
 
-        <!--typing pad-->
+        <!--打字区-->
         <div class="typing">
             <label for="pad" class="hidden"></label>
             <textarea class="text" id="pad" rows="3"></textarea>
         </div>
 
+        <!--成绩列表-->
         <div class="table-container">
             <table class="table">
                 <thead>
@@ -157,7 +161,7 @@
                     <th>击键</th>
                     <th>回退</th>
                     <th>字数</th>
-                    <th>开始时间</th>
+                    <th class="hidden-sm">开始时间</th>
                     <th>用时</th>
                     <th>操作</th>
                 </tr>
@@ -169,7 +173,7 @@
     </div>
 </div>
 
-<script src="typepad.js?v=20200529104231"></script>
+<script src="typepad.js?v=20200529170242"></script>
 
 <script>
     setTimeout(()=>{

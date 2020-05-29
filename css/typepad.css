@@ -358,13 +358,7 @@ tt {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-flow: row wrap;
-  margin-bottom: 10px; }
-
-.tool-bar-group {
-  margin-right: 10px; }
-  .tool-bar-group:last-child {
-    margin-right: 0; }
+  flex-flow: row wrap; }
 
 .btn-primary {
   background-color: #26c57d;
@@ -463,7 +457,10 @@ input[type=radio]:checked + label {
   border-radius: 3px;
   justify-content: flex-start;
   overflow: hidden;
-  border: 1px solid #dddddd; }
+  border: 1px solid #dddddd;
+  margin: 0 5px 5px 0; }
+  .btn-group:last-child {
+    margin-right: 0; }
   .btn-group.no-border {
     border: none !important; }
   .btn-group .btn {
@@ -714,7 +711,8 @@ body.black {
 
 body {
   color: #333;
-  background-color: #EBEBEB; }
+  background-color: #EBEBEB;
+  padding-bottom: 50px; }
 
 #app {
   margin: 0 auto;
@@ -734,6 +732,11 @@ body {
   max-height: 200px;
   background-color: #f8f8f8;
   overflow-y: scroll; }
+  @media (max-width: 768px) {
+    .template {
+      margin-bottom: 5px;
+      height: auto;
+      overflow-y: scroll; } }
 
 .typing textarea {
   border: 1px solid #dddddd;
@@ -747,9 +750,6 @@ body {
     -moz-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
     box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1); }
 
-.hidden {
-  display: none; }
-
 .text {
   font-size: 2rem;
   letter-spacing: 2px; }
@@ -759,6 +759,9 @@ body {
   .text .wrong {
     background-color: #FF3B30;
     color: white !important; }
+  @media (max-width: 768px) {
+    .text {
+      font-size: 1rem; } }
 
 .text-green {
   color: #26c57d !important; }
@@ -767,5 +770,16 @@ body {
   color: inherit; }
   .link:hover {
     color: #FF9500; }
+
+.hidden {
+  display: none; }
+
+@media (max-width: 768px) {
+  .hidden-sm {
+    display: none; } }
+
+@media (min-width: 768px) {
+  .hidden-big {
+    display: none; } }
 
 /*# sourceMappingURL=typepad.css.map */
