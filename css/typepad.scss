@@ -34,7 +34,7 @@ body{
   margin-bottom: $gap-block;
   padding: 10px;
   border: 1px solid $color-border;
-  max-height: 200px;
+  max-height: 150px;
   background-color: lighten($bg-second, 5%);
   overflow-y: scroll;
   @media (max-width: $separate-mobile){

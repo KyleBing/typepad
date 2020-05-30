@@ -1,5 +1,0 @@
-
-
-export {
-  ARTICLE, ArticleType
-}

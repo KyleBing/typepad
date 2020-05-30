@@ -729,7 +729,7 @@ body {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #dddddd;
-  max-height: 200px;
+  max-height: 150px;
   background-color: #f8f8f8;
   overflow-y: scroll; }
   @media (max-width: 768px) {

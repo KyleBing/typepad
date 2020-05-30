@@ -11,6 +11,7 @@
 
 const localStorageIndexName = 'type_pad_idb_index';
 const untypedStringClassName = 'untyped-part';
+const HEIGHT_TEMPLATE = 150; // 对照区高度
 
 const REG = {
   all        : /.*/,
@@ -222,13 +223,14 @@ class Engine {
         break;
       case ArticleType.article:
         config.article = content;
+        currentOriginWords = config.article.split('');
         break;
       case ArticleType.english:
         config.article = content;
+        currentOriginWords = config.article.split('');
         break;
       default: break;
     }
-
     this.changePerCount();
   }
 
@@ -316,9 +318,9 @@ class Engine {
     html = html.concat(untypedHtml)
     template.innerHTML = html;
 
-    // 滚动内容
+    // 滚动对照区到当前所输入的位置
     let offsetTop = $('.' + untypedStringClassName).offsetTop;
-    templateWrapper.scrollTo(0, offsetTop - 200/2);
+    templateWrapper.scrollTo(0, offsetTop - HEIGHT_TEMPLATE / 2);
   }
 
   // 更新时间
@@ -377,6 +379,7 @@ class Engine {
     this.updateInfo();
     this.stopRefresh();
     this.showTime();
+    templateWrapper.scrollTo(0, 0);
   }
 
   // 当前段打完
@@ -428,13 +431,13 @@ class Engine {
       $('.btn-speed').innerText = record.speed;
 
       // key count
-      let keyCount = keyCount.all - keyCount.function;
-      record.hitRate = (keyCount / engine.duration * 1000).toFixed(2);
+      let allKeyCount = keyCount.all - keyCount.function;
+      record.hitRate = (allKeyCount / engine.duration * 1000).toFixed(2);
       $('.count-key-rate').innerText = record.hitRate;
 
       // code length
       if (correctWordsCount) {
-        record.codeLength = (keyCount / correctWordsCount).toFixed(2);
+        record.codeLength = (allKeyCount / correctWordsCount).toFixed(2);
       } else {
         record.codeLength = 0;
       }
@@ -799,3 +802,6 @@ function enterDarkMode(sender){
     config.save();
   }
 }
+
+
+// TODO: 移动端滚动，对照区高度大小定义
