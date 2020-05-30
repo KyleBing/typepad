@@ -697,8 +697,7 @@ window.onload = () => {
           engine.finish();
         }
       }
-    } else if (engine.isStarted) {
-    } else {
+    } else if (!engine.isFinished) {
       engine.start()
     }
   }
