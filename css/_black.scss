@@ -1,22 +1,24 @@
-$black-color-border: lighten(black, 20%);
-$black-bg: lighten(black, 10%);
-$black-color-text: lighten(black, 90%);
-$black-color-text-subtitle: lighten(black, 70%);
-$black-color-text-comment: lighten(black, 50%);
-$black-btn-bg: lighten(black, 20%);
+$black-color-border        : lighten(black, 20%);
+$black-bg                  : lighten(black, 13%);
+$black-color-text          : lighten(black, 90%);
+$black-color-text-info     : lighten(black, 60%);
+$black-color-text-subtitle : lighten(black, 75%);
+$black-color-text-comment  : lighten(black, 50%);
+$black-btn-bg              : lighten(black, 20%);
+
 
 body.black {
   background-color: black;
+  @include transition(background-color 0.5s);
 
   // INFOS
   .info-panel{
+    color: $black-color-text-info;
     background-color: $black-bg;
     border-color: $black-color-border;
-    color: white;
   }
   .key-info{
     &-item{
-      color: $black-color-text;
       &:before{
         border-color: lighten($black-color-border, 10%);
       }
@@ -34,6 +36,7 @@ body.black {
 
   .speed-info {
     .speed {
+      color: white;
       border-color: $black-color-border;
     }
     .count{
@@ -45,7 +48,6 @@ body.black {
 
   .copyright{
     border-top: 1px dashed $black-color-border;
-    color: $black-color-text-comment;
   }
 
   .logo {
@@ -76,15 +78,15 @@ body.black {
   }
   tbody tr {
     &:nth-child(2n+1) {
-      background-color: lighten(black, 5%);
+      background-color: darken($black-bg, 5%);
     }
 
     &:nth-child(2n) {
-      background-color: black;
+      background-color: darken($black-bg, 2%);
     }
 
     &:hover {
-      background-color: lighten(black, 15%);
+      background-color: lighten($black-bg, 2%);
     }
   }
   td{
@@ -130,7 +132,7 @@ body.black {
   .btn-group{
     border: 1px solid $black-color-border;
     .btn{
-      color: white;
+      color: $black-color-text;
       background-color: $black-bg;
       border-right: 1px solid $black-color-border;
       &:active{
