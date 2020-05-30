@@ -739,6 +739,7 @@ body {
       overflow-y: scroll; } }
 
 .typing textarea {
+  white-space: pre-wrap;
   border: 1px solid #dddddd;
   resize: none;
   max-height: 200px;
@@ -752,13 +753,16 @@ body {
 
 .text {
   font-size: 2rem;
-  letter-spacing: 2px; }
+  letter-spacing: 2px;
+  white-space: pre-wrap; }
   .text .correct {
     text-shadow: none;
-    color: #dedede !important; }
+    color: #dedede !important;
+    white-space: inherit; }
   .text .wrong {
     background-color: #FF3B30;
-    color: white !important; }
+    color: white !important;
+    white-space: inherit; }
   @media (max-width: 768px) {
     .text {
       font-size: 1rem; } }

@@ -47,6 +47,7 @@ body{
 
 .typing{
   textarea{
+    white-space: pre-wrap;
     border: 1px solid $color-border;
     resize: none;
     max-height: 200px;
@@ -63,14 +64,17 @@ body{
 .text{
   font-size: $fz-typing;
   letter-spacing: 2px;
+  white-space: pre-wrap;
   .correct{
     text-shadow: none;
     //background-color: $bg-second;
     color: darken($bg-second, 5%) !important;
+    white-space: inherit;
   }
   .wrong{
     background-color: $red;
     color: white !important;
+    white-space: inherit;
   }
   @media (max-width: $separate-mobile){
     font-size: 1rem;
