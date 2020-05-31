@@ -65,7 +65,7 @@ tt {
 /*
   Extension
 */
-.unselectable, .btn-group .btn, td .btn, .logo img {
+.unselectable, .btn-group .btn, table .btn, .logo img {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -227,7 +227,7 @@ tt {
 .roboto-mono, .binding-key kbd {
   font-family: 'Roboto Mono', sans-serif !important; }
 
-.number, .time-info .time .minute, .time-info .time .second, td.time {
+.number, .time-info .time .minute, .time-info .time .second, table.time {
   font-family: 'DS Digital', sans-serif !important; }
 
 .impact {
@@ -542,10 +542,10 @@ tbody {
     tbody tr td:last-child {
       padding-right: 10px; }
 
-td {
+table {
   padding: 4px;
   font-size: 12px; }
-  td .btn {
+  table .btn {
     color: inherit;
     border: 1px solid #dddddd;
     background-color: white;
@@ -555,11 +555,11 @@ td {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px; }
-    td .btn:hover {
+    table .btn:hover {
       background-color: #FF3B30;
       color: white;
       border-color: #FF3B30; }
-  td.time {
+  table.time {
     letter-spacing: 1px; }
 
 .lv-6 {

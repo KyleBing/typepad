@@ -56,6 +56,11 @@ const ARTICLE = {
     name: 'love-your-life',
     type: ArticleType.english,
     content: 'However mean your life is, meet it and live it; do not shun it and call it hardnames. It is not so bad as you suppose. It looks poorest when you are richest. The faultfinder will find faults in paradise. Love your life, poor as it is. You may perhaps have some pleasant, thrilling, glorious hours, even in a poorhouse. The setting sun is reflected from the windows of the almshouse as brightly as from the rich man\'s abode; the snow melts before its door as early in the spring. I do not see but a quiet mind may live as contentedly there, and have as cheering thoughts, as in a palace. The town\'s poor seem to me often to live the most independent lives of any. May be they are simply great enough to receive without misgiving. Most think that they are above being supported by the town; but it often happens that they are not above supporting themselves by dishonest means. which should be more disreputable. Cultivate poverty like a garden herb, like sage. Do not trouble yourself much to get new things, whether clothes or friends, Turn the old, return to them. Things do not change; we change. Sell your clothes and keep your thoughts.'
+  },
+  classicSentences: {
+    name: 'Classic Sentences',
+    type: ArticleType.english,
+    content: "Love your parents. We are too busy growing up yet we forget that they are already growing old. The moment you think about giving up, think of the reason why you held on so long. I don't wanna be your 'number one' that implies there are a number two and maybe a number three. I want to be your only one. Total umbrella for someone else if he, you're just not for him in the rain. Hold my hand, you won't get lost even with eyes closed. We never really grow up. We only learn how to act in public. Each trauma, is another kind of maturity. Fortune favours the brave. You keep on concentrating on the things you wish you had or things you wish you didn't have and you sort of forget what you do have. Never put your happiness in someone else's hands. Sometimes you have to give up on someone in order to respect yourself. There is a time in life that is full of uneasiness. We have no other choice but to face it. Being single means you're strong and patient enough to wait for someone who deserves your worth. The more you care, the more you have to lose. One of the best things in life is seeing a smile on a person's face and knowing that you put it there. No matter how bad your life may seem in the moment, it will always get betterSometimes, it is better to turn around and leave than to insist on and pretend to be well. Patience with family is love, Patience with others is respect, Patience with self is confidence. Sometimes, the most painful not lose, but get later not happy. For those things I don't talk about, it does not mean I don't know. We both have no idea if we are gonna be together in the end. But one thing's for sure that I'll do everything I can to make it happen."
   }
 }
 
@@ -472,9 +477,17 @@ class Record {
 
   getHtml(){
     let level = Math.floor(this.speed/SPEED_GAP);
-    level = level > 6 ? 6 : level;
+    level = level > 6 ? 6 : level; // 速度等级为 6+ 时按 6 处理
+    let articleType;
+    switch (config.articleType) {
+      case ArticleType.character: articleType = '单字'; break;
+      case ArticleType.english: articleType = '英文'; break;
+      case ArticleType.article: articleType = '文章'; break;
+      default: break;
+    }
     return `<tr>  
               <td class="text-center roboto-mono">${this.id}</td>
+              <td class="text-center">${articleType}</td>
               <td class="bold roboto-mono lv-${level}">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
@@ -488,8 +501,16 @@ class Record {
   getHtmlWithCursor(cursor){
     let level = Math.floor(cursor.value.speed/SPEED_GAP);
     level = level > 6 ? 6 : level;
+    let articleType;
+    switch (cursor.value.articleType) {
+      case ArticleType.character: articleType = '单字'; break;
+      case ArticleType.english: articleType = '英文'; break;
+      case ArticleType.article: articleType = '文章'; break;
+      default: articleType = ''; break;
+    }
     return `<tr>  
               <td class="text-center roboto-mono">${cursor.key}</td>
+              <td class="text-center">${articleType}</td>
               <td class="bold roboto-mono lv-${level}">${cursor.value.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
@@ -517,6 +538,7 @@ class Database {
         wordCount: record.wordCount,
         timeStart: record.timeStart,
         duration: record.duration,
+        articleType: config.articleType,
       });
     request.onsuccess = e => {
       show('insert data success');
