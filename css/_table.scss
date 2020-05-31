@@ -55,15 +55,15 @@ tbody{
 }
 
 
-table{
-  padding: $table-padding-lr ;
+td{
+  padding: 2px $table-padding-lr ;
   font-size: $fz-info;
   .btn{
     color: inherit;
     border: 1px solid $color-border;
     background-color: white;
     @extend .unselectable;
-    padding: $btn-padding-tb - 2 $btn-padding-lr - 2;
+    padding: $btn-padding-tb - 4 $btn-padding-lr - 4;
     font-weight: bold;
     cursor: pointer;
     @include border-radius(3px);

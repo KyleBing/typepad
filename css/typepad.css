@@ -65,7 +65,7 @@ tt {
 /*
   Extension
 */
-.unselectable, .btn-group .btn, table .btn, .logo img {
+.unselectable, .btn-group .btn, td .btn, .logo img {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -217,7 +217,7 @@ tt {
 
 @font-face {
   font-family: "Impact";
-  src: url("../font/Impact.ttf"); }
+  src: url("../font/ImpactPureNumber.ttf"); }
 @font-face {
   font-family: "DS Digital";
   src: url("../font/DSDigital.ttf"); }
@@ -227,7 +227,7 @@ tt {
 .roboto-mono, .binding-key kbd {
   font-family: 'Roboto Mono', sans-serif !important; }
 
-.number, .time-info .time .minute, .time-info .time .second, table.time {
+.number, .time-info .time .minute, .time-info .time .second, td.time {
   font-family: 'DS Digital', sans-serif !important; }
 
 .impact {
@@ -542,24 +542,24 @@ tbody {
     tbody tr td:last-child {
       padding-right: 10px; }
 
-table {
-  padding: 4px;
+td {
+  padding: 2px 4px;
   font-size: 12px; }
-  table .btn {
+  td .btn {
     color: inherit;
     border: 1px solid #dddddd;
     background-color: white;
-    padding: 4px 6px;
+    padding: 2px 4px;
     font-weight: bold;
     cursor: pointer;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px; }
-    table .btn:hover {
+    td .btn:hover {
       background-color: #FF3B30;
       color: white;
       border-color: #FF3B30; }
-  table.time {
+  td.time {
     letter-spacing: 1px; }
 
 .lv-6 {
