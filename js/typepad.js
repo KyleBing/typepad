@@ -154,7 +154,7 @@ class Config {
       body.classList.remove('black');
     }
     let darkButton = $('#darkButton');
-    darkButton.innerText = this.darkMode ? '白色模式' : '暗黑模式'
+    darkButton.innerText = this.darkMode ? '白色' : '暗黑'
   }
 
   // 判断是否存储过配置信息
@@ -818,12 +818,12 @@ function enterDarkMode(sender){
   if (config.darkMode){
     body.classList.remove('black');
     config.darkMode = false;
-    sender.innerText = "暗黑模式"
+    sender.innerText = "暗黑"
     config.save();
   } else {
     body.classList.add('black');
     config.darkMode = true;
-    sender.innerText = "白色模式"
+    sender.innerText = "白色"
     config.save();
   }
 }

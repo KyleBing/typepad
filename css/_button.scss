@@ -38,7 +38,7 @@ $btns: (
 }
 
 input[type=checkbox],
-input[type=radio],
+input[type=radio]
 {
   display: none;
 }
@@ -46,7 +46,7 @@ input[type=radio],
 $height-radio: $height-btn;
 $radio-gap: 2px;
 
-input[type=checkbox] + label
+input[type=checkbox] + label.switch
 {
   position: relative;
   display: block;
@@ -71,7 +71,7 @@ input[type=checkbox] + label
   }
 }
 
-input[type=checkbox]:checked + label
+input[type=checkbox]:checked + label.switch
 {
   background-color: $green;
   @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
@@ -88,22 +88,21 @@ input[type=checkbox]:checked + label
   }
 }
 
-input[type=radio] + label{
-  background-color: white;
-  color: $orange !important;
-  //border-right: none !important;
-  padding-left: $btn-padding-lr;
-  padding-right: $btn-padding-lr;
+input[type=checkbox] + label.checker {
+  @extend .unselectable;
+  cursor: pointer;
+  display: block;
+  border-color: $green;
+  @include transition(all 0.3s);
 }
 
-input[type=radio]:checked + label{
-  font-weight: bold;
-  background-color: $orange;
-  color: white !important;
-  &:hover{
-    background-color: lighten($orange, 5%);
-  }
+input[type=checkbox]:checked + label.checker {
+  color: white;
+  @include transition(all 0.3s);
+  background-color: $green;
+  @include box-shadow(0 1px 2px rgba(0,0,0,0.1));
 }
+
 
 
 .btn-group{
@@ -147,3 +146,26 @@ input[type=radio]:checked + label{
     }
   }
 }
+
+input[type=radio] + label{
+  background-color: white;
+  color: $orange !important;
+}
+
+input[type=radio]:checked + label{
+  font-weight: bold;
+  background-color: $orange;
+  color: white !important;
+  &:hover{
+    background-color: lighten($orange, 5%);
+  }
+}
+
+
+label.btn{
+  min-width: 30px;
+  text-align: center;
+  padding-left: $btn-padding-lr - 2 !important;
+  padding-right: $btn-padding-lr - 2 !important;
+}
+

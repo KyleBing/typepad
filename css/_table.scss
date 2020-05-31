@@ -25,7 +25,11 @@ thead{
         padding-left: 10px;
       }
       &:last-child{
+        max-width: 60px;
         padding-right: 10px;
+      }
+      .link{
+        font-size: $fz-copyright;
       }
     }
   }

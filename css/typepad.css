@@ -65,7 +65,7 @@ tt {
 /*
   Extension
 */
-.unselectable, .btn-group .btn, td .btn, .logo img {
+.unselectable, input[type=checkbox] + label.checker, .btn-group .btn, td .btn, .logo img {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -384,7 +384,7 @@ input[type=checkbox],
 input[type=radio] {
   display: none; }
 
-input[type=checkbox] + label {
+input[type=checkbox] + label.switch {
   position: relative;
   display: block;
   -webkit-border-radius: 15px;
@@ -396,7 +396,7 @@ input[type=checkbox] + label {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   height: 24px;
   width: 40px; }
-  input[type=checkbox] + label:before {
+  input[type=checkbox] + label.switch:before {
     content: '';
     display: block;
     position: absolute;
@@ -417,12 +417,12 @@ input[type=checkbox] + label {
     -o-transition: all 0.3s;
     transition: all 0.3s; }
 
-input[type=checkbox]:checked + label {
+input[type=checkbox]:checked + label.switch {
   background-color: #26c57d;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); }
-  input[type=checkbox]:checked + label:before {
+  input[type=checkbox]:checked + label.switch:before {
     content: '';
     display: block;
     position: absolute;
@@ -439,18 +439,27 @@ input[type=checkbox]:checked + label {
     -o-transition: all 0.3s;
     transition: all 0.3s; }
 
-input[type=radio] + label {
-  background-color: white;
-  color: #FF9500 !important;
-  padding-left: 8px;
-  padding-right: 8px; }
+input[type=checkbox] + label.checker {
+  cursor: pointer;
+  display: block;
+  border-color: #26c57d;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s; }
 
-input[type=radio]:checked + label {
-  font-weight: bold;
-  background-color: #FF9500;
-  color: white !important; }
-  input[type=radio]:checked + label:hover {
-    background-color: #ffa01a; }
+input[type=checkbox]:checked + label.checker {
+  color: white;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  background-color: #26c57d;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
 
 .btn-group {
   display: flex;
@@ -495,6 +504,23 @@ input[type=radio]:checked + label {
       background-color: #FF3B30;
       color: white; }
 
+input[type=radio] + label {
+  background-color: white;
+  color: #FF9500 !important; }
+
+input[type=radio]:checked + label {
+  font-weight: bold;
+  background-color: #FF9500;
+  color: white !important; }
+  input[type=radio]:checked + label:hover {
+    background-color: #ffa01a; }
+
+label.btn {
+  min-width: 30px;
+  text-align: center;
+  padding-left: 6px !important;
+  padding-right: 6px !important; }
+
 .option {
   font-size: 1.5rem;
   display: flex;
@@ -525,7 +551,10 @@ thead tr {
     thead tr th:first-child {
       padding-left: 10px; }
     thead tr th:last-child {
+      max-width: 60px;
       padding-right: 10px; }
+    thead tr th .link {
+      font-size: 10px; }
 
 tbody {
   width: 100%; }
@@ -780,9 +809,12 @@ body {
   color: #26c57d !important; }
 
 .link {
+  cursor: pointer;
   color: inherit; }
   .link:hover {
     color: #FF9500; }
+  .link.danger {
+    color: #FF3B30; }
 
 .hidden {
   display: none; }

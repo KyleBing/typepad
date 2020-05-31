@@ -87,9 +87,13 @@ body{
 }
 
 .link{
+  cursor: pointer;
   color: inherit;
   &:hover{
     color: $color-main;
+  }
+  &.danger{
+    color: $red;
   }
 }
 

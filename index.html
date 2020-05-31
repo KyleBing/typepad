@@ -102,16 +102,13 @@
                 <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
                 <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
             </div>
-            <div class="btn-group">
-                <div class="btn" onclick="data.clear(this)">清除记录</div>
-            </div>
 
             <div class="btn-group">
                 <label class="hidden" for="article"></label>
                 <select class="btn" id="article" onchange="engine.changeArticle()">
-                    <option value="top500">常用单字 - 前500</option>
-                    <option value="mid500">常用单字 - 中500</option>
-                    <option value="tail500">常用单字 - 后500</option>
+                    <option value="top500">单字 - 常用前500</option>
+                    <option value="mid500">单字 - 常用中500</option>
+                    <option value="tail500">单字 - 常用后500</option>
                     <option value="loveYourLife">英文 - Love Your Life</option>
                     <option value="classicSentences">英文 - Classic Sentences</option>
                 </select>
@@ -128,7 +125,7 @@
                 <input class="btn" type="radio" onchange="engine.changePerCount()" name="count" id="all" value="ALL"><label class="btn hidden-sm" for="all">ALL</label>
             </div>
             <div class="btn-group">
-                <div id="darkButton" class="btn" onclick="enterDarkMode(this)">暗黑模式</div>
+                <div id="darkButton" class="btn" onclick="enterDarkMode(this)">暗黑</div>
             </div>
 
             <div class="btn-group hidden-big">
@@ -136,9 +133,8 @@
                 <div class="btn"><span class="btn-speed"></span> 字/分</div>
             </div>
             <div class="btn-group no-border">
-                <span class="btn">乱序</span>
                 <input type="checkbox" onchange="engine.shuffleCurrentArticle()" id="mode">
-                <label for="mode"></label>
+                <label class="checker btn" for="mode">乱序</label>
             </div>
         </div>
 
@@ -168,7 +164,7 @@
                     <th>字数</th>
                     <th class="hidden-sm">开始时间</th>
                     <th>用时</th>
-                    <th>操作 <a href="">清除</a></th>
+                    <th>操作 <a class="link" onclick="data.clear(this)">清除</a></th>
                 </tr>
                 </thead>
                 <tbody>
