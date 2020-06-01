@@ -75,7 +75,7 @@ const ARTICLE = {
     type: ArticleType.english,
     content: "Love your parents. We are too busy growing up yet we forget that they are already growing old. The moment you think about giving up, think of the reason why you held on so long. I don't wanna be your 'number one' that implies there are a number two and maybe a number three. I want to be your only one. Total umbrella for someone else if he, you're just not for him in the rain. Hold my hand, you won't get lost even with eyes closed. We never really grow up. We only learn how to act in public. Each trauma, is another kind of maturity. Fortune favours the brave. You keep on concentrating on the things you wish you had or things you wish you didn't have and you sort of forget what you do have. Never put your happiness in someone else's hands. Sometimes you have to give up on someone in order to respect yourself. There is a time in life that is full of uneasiness. We have no other choice but to face it. Being single means you're strong and patient enough to wait for someone who deserves your worth. The more you care, the more you have to lose. One of the best things in life is seeing a smile on a person's face and knowing that you put it there. No matter how bad your life may seem in the moment, it will always get betterSometimes, it is better to turn around and leave than to insist on and pretend to be well. Patience with family is love, Patience with others is respect, Patience with self is confidence. Sometimes, the most painful not lose, but get later not happy. For those things I don't talk about, it does not mean I don't know. We both have no idea if we are gonna be together in the end. But one thing's for sure that I'll do everything I can to make it happen."
   },
-  chairUp: {
+  cheerUp: {
     name: 'Cheer up',
     value: 'cheer-up',
     type: ArticleType.english,
@@ -281,8 +281,9 @@ class Engine {
 
   // 改变文章内容
   changeArticle() {
-    config.articleOption = $('#article').value;
-    let article = ARTICLE[config.articleOption];
+    let articleNameValue = $('#article').value;
+    let article = ARTICLE[articleNameValue];
+    config.articleOption = article.name;
     let content = article.content;
     config.articleType = article.type;
     switch (config.articleType) {
@@ -480,7 +481,7 @@ class Engine {
     record.duration = this.duration;
     record.wordCount = currentWords.length;
     this.updateInfo();
-    data.insert(record);
+    database.insert(record);
   }
 
   // 更新界面信息
@@ -542,7 +543,7 @@ class Engine {
 
 // 成绩记录
 class Record {
-  constructor(speed, codeLength, hitRate, backspace, wordCount, timeStart, duration) {
+  constructor(speed, codeLength, hitRate, backspace, wordCount, articleName,  timeStart, duration) {
     let index = localStorage[localStorageIndexName];
     this.id = index? Number(index) : 1;
     localStorage[localStorageIndexName] = this.id;
@@ -551,6 +552,7 @@ class Record {
     this.hitRate = hitRate;
     this.backspace = backspace;
     this.wordCount = wordCount;
+    this.articleName = articleName
     this.timeStart = timeStart;
     this.duration = duration;
   }
@@ -573,9 +575,10 @@ class Record {
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
               <td>${this.wordCount}</td>
+              <td>${config.articleOption}</td>
               <td class="hidden-sm">${dateFormatter(new Date(this.timeStart))}</td>
               <td class="time">${formatTimeLeft(this.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${this.id}, this)" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="database.delete(${this.id}, this)" type="button">删除</button></td>
             </tr>`;
   }
   getHtmlWithCursor(cursor){
@@ -596,9 +599,10 @@ class Record {
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
               <td>${cursor.value.wordCount}</td>
+              <td>${cursor.value.articleName ? cursor.value.articleName : ''}</td>
               <td class="hidden-sm">${dateFormatter(new Date(cursor.value.timeStart))}</td>
               <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="data.delete(${cursor.key}, this)" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="database.delete(${cursor.key}, this)" type="button">删除</button></td>
             </tr>`;
   }
 }
@@ -616,6 +620,7 @@ class Database {
         hitRate: record.hitRate,
         backspace: record.backspace,
         wordCount: record.wordCount,
+        articleName: config.articleOption,
         timeStart: record.timeStart,
         duration: record.duration,
         articleType: config.articleType,
@@ -695,7 +700,7 @@ let record = new Record();
 // database
 let DB;
 const DBName = "TypePad";
-let data = new Database();
+let database = new Database();
 const OBJECT_NAME = 'TypingRecord';
 
 
@@ -736,7 +741,7 @@ window.onload = () => {
   request.onsuccess = e =>{
     if (e.returnValue){
       DB = request.result;
-      data.fetchAll();
+      database.fetchAll();
     } else {
     }
   }
