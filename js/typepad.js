@@ -35,9 +35,9 @@ const ArticleType = {
   english: 'english',
   getTypeNameWith(type){
     switch (type) {
-      case this.article: return '文章';break;
-      case this.english: return '英文';break;
-      case this.character: return '单字';break;
+      case this.article    : return '文章';
+      case this.english    : return '英文';
+      case this.character  : return '单字';
       default:break;
     }
   }
@@ -151,7 +151,8 @@ class Config {
     this.isShuffle         = false;                   // 是否乱序模式
     this.isInEnglishMode   = false;                   // 是否处于英文打字状态
     this.count             = '15';                    // 单条数量
-    this.articleOption     = ARTICLE.top500.name;     // 文章名称
+    this.articleName       = ARTICLE.top500.name;     // 文章名称
+    this.articleIdentifier = 'top500';                // 文章标识
     this.article           = ARTICLE.top500.content;  // 文章内容
     this.darkMode          = false;                   // 暗黑模式
     this.articleType       = ArticleType.character;   // 文章类型
@@ -161,7 +162,8 @@ class Config {
       isShuffle           : 'type_pad_config_is_shuffle',
       isInEnglishMode     : 'type_pad_config_is_in_english_mode',
       count               : 'type_pad_config_count',
-      articleOption       : 'type_pad_config_article_option',
+      articleIdentifier   : 'type_pad_config_article_identifier',
+      articleName         : 'type_pad_config_article_name',
       article             : 'type_pad_config_article',
       darkMode            : 'type_pad_config_dark_mode',
       articleType         : 'type_pad_config_article_type',
@@ -169,26 +171,29 @@ class Config {
   }
 
   save(){
-    localStorage[this.localStorageLabel.chapter]         = this.chapter;
-    localStorage[this.localStorageLabel.chapterTotal]    = this.chapterTotal;
-    localStorage[this.localStorageLabel.isShuffle]       = this.isShuffle;
-    localStorage[this.localStorageLabel.isInEnglishMode] = this.isInEnglishMode;
-    localStorage[this.localStorageLabel.count]           = this.count;
-    localStorage[this.localStorageLabel.articleOption]   = this.articleOption;
-    localStorage[this.localStorageLabel.article]         = this.article;
-    localStorage[this.localStorageLabel.darkMode]        = this.darkMode
-    localStorage[this.localStorageLabel.articleType]     = this.articleType
+    localStorage[this.localStorageLabel.chapter]              = this.chapter;
+    localStorage[this.localStorageLabel.chapterTotal]         = this.chapterTotal;
+    localStorage[this.localStorageLabel.isShuffle]            = this.isShuffle;
+    localStorage[this.localStorageLabel.isInEnglishMode]      = this.isInEnglishMode;
+    localStorage[this.localStorageLabel.count]                = this.count;
+    localStorage[this.localStorageLabel.articleIdentifier]    = this.articleIdentifier;
+    localStorage[this.localStorageLabel.articleName]          = this.articleName;
+    localStorage[this.localStorageLabel.article]              = this.article;
+    localStorage[this.localStorageLabel.darkMode]             = this.darkMode
+    localStorage[this.localStorageLabel.articleType]          = this.articleType
+
   }
   get(){
-    this.chapter         = Number(localStorage[this.localStorageLabel.chapter]);
-    this.chapterTotal    = Number(localStorage[this.localStorageLabel.chapterTotal]);
-    this.isShuffle       = Boolean(localStorage[this.localStorageLabel.isShuffle]  === 'true');
-    this.isInEnglishMode = Boolean(localStorage[this.localStorageLabel.isInEnglishMode]  === 'true');
-    this.count           = localStorage[this.localStorageLabel.count];
-    this.articleOption   = localStorage[this.localStorageLabel.articleOption];
-    this.article         = localStorage[this.localStorageLabel.article];
-    this.darkMode        = Boolean(localStorage[this.localStorageLabel.darkMode]  === 'true');
-    this.articleType     = localStorage[this.localStorageLabel.articleType];
+    this.chapter            = Number(localStorage[this.localStorageLabel.chapter]);
+    this.chapterTotal       = Number(localStorage[this.localStorageLabel.chapterTotal]);
+    this.isShuffle          = Boolean(localStorage[this.localStorageLabel.isShuffle]  === 'true');
+    this.isInEnglishMode    = Boolean(localStorage[this.localStorageLabel.isInEnglishMode]  === 'true');
+    this.count              = localStorage[this.localStorageLabel.count];
+    this.articleIdentifier  = localStorage[this.localStorageLabel.articleIdentifier];
+    this.articleName        = localStorage[this.localStorageLabel.articleName];
+    this.article            = localStorage[this.localStorageLabel.article];
+    this.darkMode           = Boolean(localStorage[this.localStorageLabel.darkMode]  === 'true');
+    this.articleType        = localStorage[this.localStorageLabel.articleType];
   }
 
   setWithCurrentConfig(){
@@ -202,7 +207,7 @@ class Config {
         radios[i].checked = radios[i].value === this.count
       }
     }
-    $('#article').value = this.articleOption;
+    $('#article').value = this.articleIdentifier;
     currentOriginWords = this.article.split('');
 
     // English Mode
@@ -223,7 +228,7 @@ class Config {
 
   // 判断是否存储过配置信息
   hasSavedData(){
-    return Boolean(localStorage[this.localStorageLabel.articleOption]);
+    return Boolean(localStorage[this.localStorageLabel.articleIdentifier]);
   }
 }
 
@@ -283,7 +288,8 @@ class Engine {
   changeArticle() {
     let articleNameValue = $('#article').value;
     let article = ARTICLE[articleNameValue];
-    config.articleOption = article.name;
+    config.articleIdentifier = articleNameValue;
+    config.articleName = article.name;
     let content = article.content;
     config.articleType = article.type;
     switch (config.articleType) {
@@ -334,7 +340,7 @@ class Engine {
     if (config.articleType === ArticleType.english) {
 
     } else {
-      currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleOption].content.split('')) : ARTICLE[config.articleOption].content.split('');
+      currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleIdentifier].content.split('')) : ARTICLE[config.articleIdentifier].content.split('');
       config.article = currentOriginWords.join('');
       currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
       config.chapter = 1;
@@ -561,21 +567,22 @@ class Record {
     let level = Math.floor(this.speed/SPEED_GAP);
     level = level > 6 ? 6 : level; // 速度等级为 6+ 时按 6 处理
     let articleType;
+    let textClass = '';
     switch (config.articleType) {
-      case ArticleType.character: articleType = '单字'; break;
-      case ArticleType.english: articleType = '英文'; break;
-      case ArticleType.article: articleType = '文章'; break;
+      case ArticleType.character:articleType = '单字';textClass = 'text-orange';break;
+      case ArticleType.english:articleType = '英文';textClass = 'text-green';break;
+      case ArticleType.article:articleType = '文章';textClass = 'text-blue';break;
       default: break;
     }
     return `<tr>  
               <td class="text-center roboto-mono">${this.id}</td>
-              <td class="text-center">${articleType}</td>
               <td class="bold roboto-mono lv-${level}">${this.speed}</td>
               <td>${this.codeLength}</td>
               <td>${this.hitRate}</td>
               <td>${this.backspace}</td>
               <td>${this.wordCount}</td>
-              <td>${config.articleOption}</td>
+              <td class="text-center ${textClass}">${articleType}</td>
+              <td>${config.articleName}</td>
               <td class="hidden-sm">${dateFormatter(new Date(this.timeStart))}</td>
               <td class="time">${formatTimeLeft(this.duration)}</td>
               <td><button class="btn btn-danger btn-sm" onclick="database.delete(${this.id}, this)" type="button">删除</button></td>
@@ -585,20 +592,21 @@ class Record {
     let level = Math.floor(cursor.value.speed/SPEED_GAP);
     level = level > 6 ? 6 : level;
     let articleType;
+    let textClass = '';
     switch (cursor.value.articleType) {
-      case ArticleType.character: articleType = '单字'; break;
-      case ArticleType.english: articleType = '英文'; break;
-      case ArticleType.article: articleType = '文章'; break;
-      default: articleType = ''; break;
+      case ArticleType.character:articleType = '单字';textClass = 'text-orange';break;
+      case ArticleType.english:articleType = '英文';textClass = 'text-green';break;
+      case ArticleType.article:articleType = '文章';textClass = 'text-blue';break;
+      default: articleType = '' ;break;
     }
     return `<tr>  
               <td class="text-center roboto-mono">${cursor.key}</td>
-              <td class="text-center">${articleType}</td>
               <td class="bold roboto-mono lv-${level}">${cursor.value.speed}</td>
               <td>${cursor.value.codeLength}</td>
               <td>${cursor.value.hitRate}</td>
               <td>${cursor.value.backspace}</td>
               <td>${cursor.value.wordCount}</td>
+              <td class="text-center ${textClass}"">${articleType}</td>
               <td>${cursor.value.articleName ? cursor.value.articleName : ''}</td>
               <td class="hidden-sm">${dateFormatter(new Date(cursor.value.timeStart))}</td>
               <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
@@ -620,7 +628,8 @@ class Database {
         hitRate: record.hitRate,
         backspace: record.backspace,
         wordCount: record.wordCount,
-        articleName: config.articleOption,
+        articleIdentifier: config.articleIdentifier,
+        articleName: config.articleName,
         timeStart: record.timeStart,
         duration: record.duration,
         articleType: config.articleType,

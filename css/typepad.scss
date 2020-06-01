@@ -86,9 +86,7 @@ body{
   }
 }
 
-.text-green{
-  color: $green !important;
-}
+
 
 .link{
   cursor: pointer;
@@ -116,3 +114,21 @@ body{
   }
 }
 
+$colors  : (
+  'green'      : $green,
+  'dark-green' : $dark-green,
+  'cyan'       : $cyan,
+  'blue'       : $blue,
+  'purple'     : $purple,
+  'roseo'      : $roseo,
+  'red'        : $red,
+  'orange'     : $orange,
+  'yellow'     : $yellow,
+  'gray'       : $gray,
+);
+
+@each $name, $color in $colors {
+  .text-#{$name}{
+    color: $color !important;
+  }
+}
