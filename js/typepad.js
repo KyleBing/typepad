@@ -64,19 +64,19 @@ const ARTICLE = {
     content: '鼓阶孔徐固偏陆诸遗爷述帝闭补编巨透弄尤鲁拥录吴墙货弱敌挑宽迹抽忍折输稳皇桌献蒙纷麻洗评挂童尊舍唯博剧乃混弹附迟敬杯鱼控塞剑厚佳测训牙洞淡盛县芳雅革款横累择乘刺载猛逃构赵杜庆途奔虎巧抗针徒圆闪谷绍聚额健诚鲜泪闲均序震仿缘戴婚篇亡奶忠烦赛闹协杰残懂丹柳妹映桥叹愈旅授享暴偷蓝氏寒宜弃丰延辈抢颜赞典冒眉烧厂唱径库川辞伴怒型纯贝票隔穷拜审伦悲柔启减页纵扫伟迫振瑞丈梁洲枪央触予孤缩洛损促番罢宋奋销幕犹锁珍抬陪妙摸峰劲镜沈夺昨哭讯貌谋泰侧贫扶阻贴申岸彼赏版抵泽插迅凭伊潮咱仙符宇肩尝递燕洁拒郎凝净遭仪薄卡末勒乌森诺呀壮忧沿惯丢季企壁惜婆袋朗零辛忆努舒枝凤灭韩胆灰旦孟陷俗绕疾瞧洪甲帐糊泛皆碰吹码奉箱倾胸堆狂仲圈冬餐厉腿尖括佩鬼欣垂跃港骗融撞塔紫荡敏郑赖滑允鸟课暂瓦祥染滚浮粗刑辆狗扑稍秦扎魂岛腾臣琴悉络摩措域冠竹殊豪呆萨旋喊寄悄倍祝剩督旗返召彻宾甘吐乔腰拔幅违详臂尺饮颗涉逼竞培惠亏叔伏唤鸡邻池怨奥侯骑漫拖俊尾恨贯凌兼询碎晨罚铺浓伍宿泉井繁粉绪筑恢匹尘辉魔仰董描距盗渡勤劝莲坦搭挺踪幽截荒恰慧邦颇焦醉废掩签丧灾鼻侵陶肃裁俱磨析奖匆瓶泥拾凉麦钢涌潜隆津搞蛋奈扰耐傅锦播墨偶捕惑飘屈鸣挤毁斜啦污赤慰饰锋覆汤寿跨羊航'
   },
   loveYourLife: {
-    name: 'love your life',
+    name: 'Love your life',
     value: 'love-your-life',
     type: ArticleType.english,
-    content: 'However mean your life is, meet it and live it; do not shun it and call it hardvalues. It is not so bad as you suppose. It looks poorest when you are richest. The faultfinder will find faults in paradise. Love your life, poor as it is. You may perhaps have some pleasant, thrilling, glorious hours, even in a poorhouse. The setting sun is reflected from the windows of the almshouse as brightly as from the rich man\'s abode; the snow melts before its door as early in the spring. I do not see but a quiet mind may live as contentedly there, and have as cheering thoughts, as in a palace. The town\'s poor seem to me often to live the most independent lives of any. May be they are simply great enough to receive without misgiving. Most think that they are above being supported by the town; but it often happens that they are not above supporting themselves by dishonest means. which should be more disreputable. Cultivate poverty like a garden herb, like sage. Do not trouble yourself much to get new things, whether clothes or friends, Turn the old, return to them. Things do not change; we change. Sell your clothes and keep your thoughts.'
+    content: 'However mean your life is, meet it and live it; do not shun it and call it hardnames. It is not so bad as you suppose. It looks poorest when you are richest. The faultfinder will find faults in paradise. Love your life, poor as it is. You may perhaps have some pleasant, thrilling, glorious hours, even in a poorhouse. The setting sun is reflected from the windows of the almshouse as brightly as from the rich man\'s abode; the snow melts before its door as early in the spring. I do not see but a quiet mind may live as contentedly there, and have as cheering thoughts, as in a palace. The town\'s poor seem to me often to live the most independent lives of any. May be they are simply great enough to receive without misgiving. Most think that they are above being supported by the town; but it often happens that they are not above supporting themselves by dishonest means. which should be more disreputable. Cultivate poverty like a garden herb, like sage. Do not trouble yourself much to get new things, whether clothes or friends, Turn the old, return to them. Things do not change; we change. Sell your clothes and keep your thoughts.'
   },
   classicSentences: {
-    name: 'classic sentences',
+    name: 'Classic sentences',
     value: 'classic-sentences',
     type: ArticleType.english,
     content: "Love your parents. We are too busy growing up yet we forget that they are already growing old. The moment you think about giving up, think of the reason why you held on so long. I don't wanna be your 'number one' that implies there are a number two and maybe a number three. I want to be your only one. Total umbrella for someone else if he, you're just not for him in the rain. Hold my hand, you won't get lost even with eyes closed. We never really grow up. We only learn how to act in public. Each trauma, is another kind of maturity. Fortune favours the brave. You keep on concentrating on the things you wish you had or things you wish you didn't have and you sort of forget what you do have. Never put your happiness in someone else's hands. Sometimes you have to give up on someone in order to respect yourself. There is a time in life that is full of uneasiness. We have no other choice but to face it. Being single means you're strong and patient enough to wait for someone who deserves your worth. The more you care, the more you have to lose. One of the best things in life is seeing a smile on a person's face and knowing that you put it there. No matter how bad your life may seem in the moment, it will always get betterSometimes, it is better to turn around and leave than to insist on and pretend to be well. Patience with family is love, Patience with others is respect, Patience with self is confidence. Sometimes, the most painful not lose, but get later not happy. For those things I don't talk about, it does not mean I don't know. We both have no idea if we are gonna be together in the end. But one thing's for sure that I'll do everything I can to make it happen."
   },
   chairUp: {
-    name: 'cheer up',
+    name: 'Cheer up',
     value: 'cheer-up',
     type: ArticleType.english,
     content: "That you going to have some ups and you're going to have some downs. Most people gave up on themselves easily. You know that a human spirit is powerful? There is nothing as powerful - its hard to kill the human spirit! Anybody can feel good when they have their health, they bills are paid, they have happy relationships. Anybody can be positive then, anybody can have a large of vision then. Anybody can have a lot of faith under those kind of circumstances. The real challenge of growth, mentally, emotionally and spiritually. Comes when you get knocked down. It takes courage to act. Part of being hungry when you've been defeated. It takes courage to start over again. Fear kills dream. Fear kills hope. Fear put people in the hospital. Fear can age you. Can hold you back from doing something that you know within yourself that you are capable of doing, but it will paralyzed you. At the end of your feelings is nothing, but at the end of every principles is a promise. Behind your little feelings, it might not be absolutely nothing at the end of your little feelings. But behind every principles is a promise. And some of you in your life. The reason why you are not in your goal right now, because you just all about your feelings. All on your feelings, you don't feel like waking up, so who does? Everyday you say 'no' to your dreams, you might be pushing your dreams back a whole six months, a whole year! That one single day, that one day you didn't get up could have pushed your stuff back I don't know how long. Don't allow your emotion to control you. We are emotional but we wanna begin to discipline your emotion. If you don't discipline and contain your emotion, they will use you. You want it and you're going to go all out to have it. Its not going to be easy, when you want to change. Its not easy. If it were in fact easy, everybody would do it. But if you're serious, you'll go all out. I'm in control here. I'm not going to let this get me down, I'm not going to let this destroy me! I'm coming back! And I'll be stronger and better because of it. You have got to make a declaration. That this is what you stand for. You standing up for your dream. You standing up for piece of mind. You standing up for health. Take full responsibility for your life. Accepts where you are and the responsibility that you're going to take yourself where you want to go. You can decide that I am going to live each day as if it were my last. Live your life with passion. With some drive. Decide that you are going to push yourself. The last chapter to your life has not been written yet. And it doesn't matter about what happened yesterday. It doesn't matter about what happened to you, what matter is. What are you going to do about it? This year I will make this goal become a reality. I wont talk about it anymore. I Can, I Can! I CAN! To persevere I think its important for everybody. Don't give up, don't give in. There's always an answer to everything."
@@ -149,6 +149,7 @@ class Config {
     this.chapter           = 1;                       // 当前段号
     this.chapterTotal      = 1;                       // 总段数
     this.isShuffle         = false;                   // 是否乱序模式
+    this.isInEnglishMode   = false;                   // 是否处于英文打字状态
     this.count             = '15';                    // 单条数量
     this.articleOption     = ARTICLE.top500.name;     // 文章名称
     this.article           = ARTICLE.top500.content;  // 文章内容
@@ -158,6 +159,7 @@ class Config {
       chapter             : 'type_pad_config_chapter',
       chapterTotal        : 'type_pad_config_chapter_total',
       isShuffle           : 'type_pad_config_is_shuffle',
+      isInEnglishMode     : 'type_pad_config_is_in_english_mode',
       count               : 'type_pad_config_count',
       articleOption       : 'type_pad_config_article_option',
       article             : 'type_pad_config_article',
@@ -170,6 +172,7 @@ class Config {
     localStorage[this.localStorageLabel.chapter]         = this.chapter;
     localStorage[this.localStorageLabel.chapterTotal]    = this.chapterTotal;
     localStorage[this.localStorageLabel.isShuffle]       = this.isShuffle;
+    localStorage[this.localStorageLabel.isInEnglishMode] = this.isInEnglishMode;
     localStorage[this.localStorageLabel.count]           = this.count;
     localStorage[this.localStorageLabel.articleOption]   = this.articleOption;
     localStorage[this.localStorageLabel.article]         = this.article;
@@ -180,6 +183,7 @@ class Config {
     this.chapter         = Number(localStorage[this.localStorageLabel.chapter]);
     this.chapterTotal    = Number(localStorage[this.localStorageLabel.chapterTotal]);
     this.isShuffle       = Boolean(localStorage[this.localStorageLabel.isShuffle]  === 'true');
+    this.isInEnglishMode = Boolean(localStorage[this.localStorageLabel.isInEnglishMode]  === 'true');
     this.count           = localStorage[this.localStorageLabel.count];
     this.articleOption   = localStorage[this.localStorageLabel.articleOption];
     this.article         = localStorage[this.localStorageLabel.article];
@@ -201,7 +205,12 @@ class Config {
     $('#article').value = this.articleOption;
     currentOriginWords = this.article.split('');
 
-    // Dark mode
+    // English Mode
+    if (this.isInEnglishMode){
+      engine.englishModeEnter()
+    }
+
+    // Dark Mode
     let body = $('body');
     if (this.darkMode){
       body.classList.add('black');
@@ -280,13 +289,16 @@ class Engine {
       case ArticleType.character:
         currentOriginWords = config.isShuffle ? shuffle(content.split('')) : content.split('');
         config.article = currentOriginWords.join('');
+        engine.englishModeLeave();
         break;
       case ArticleType.article:
         config.article = content;
         currentOriginWords = config.article.split('');
+        engine.englishModeLeave();
         break;
       case ArticleType.english:
         config.article = content;
+        engine.englishModeEnter();
         currentOriginWords = config.article.split('');
         break;
       default: break;
@@ -381,6 +393,19 @@ class Engine {
     // 滚动对照区到当前所输入的位置
     let offsetTop = $('.' + untypedStringClassName).offsetTop;
     templateWrapper.scrollTo(0, offsetTop - HEIGHT_TEMPLATE / 2);
+  }
+
+  englishModeEnter(){
+    typingPad.classList.add('english');
+    template.classList.add('english');
+    config.isInEnglishMode = true;
+    config.save();
+  }
+  englishModeLeave(){
+    typingPad.classList.remove('english');
+    template.classList.remove('english');
+    config.isInEnglishMode = false;
+    config.save();
   }
 
   // 更新时间
@@ -677,7 +702,7 @@ const OBJECT_NAME = 'TypingRecord';
 // 初始化
 window.onload = () => {
   // 载入文章选项列表
-  loadArticles();
+  loadArticleOptions();
 
   // 最开始的时候，如果没有检测到存储的数据，初始化
   if (config.hasSavedData()){
@@ -798,7 +823,7 @@ function countKeys(e) {
 }
 
 // 载入文章列表选项
-function loadArticles() {
+function loadArticleOptions() {
   let optionHtml = '';
   for (let itemName in ARTICLE){
     let article = ARTICLE[itemName];

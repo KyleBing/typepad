@@ -794,7 +794,8 @@ body {
   letter-spacing: 2px;
   white-space: pre-wrap; }
   .text.english {
-    letter-spacing: 1px; }
+    letter-spacing: 0;
+    font-size: 1.8rem; }
   .text .correct {
     text-shadow: none;
     color: #dedede !important;
