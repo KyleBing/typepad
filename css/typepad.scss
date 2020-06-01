@@ -66,6 +66,9 @@ body{
   font-size: $fz-typing;
   letter-spacing: 2px;
   white-space: pre-wrap;
+  &.english {
+    letter-spacing: 1px;
+  }
   .correct{
     text-shadow: none;
     //background-color: $bg-second;
