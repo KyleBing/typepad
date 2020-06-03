@@ -323,24 +323,20 @@ class Engine {
         currentOriginWords = config.isShuffle ? shuffle(content.split('')) : content.split('');
         config.article = currentOriginWords.join('');
         engine.englishModeLeave();
-        engine.CETModeLeave();
         break;
       case ArticleType.article:
         config.article = content;
         currentOriginWords = config.article.split('');
         engine.englishModeLeave();
-        engine.CETModeLeave();
         break;
       case ArticleType.english:
         config.article = content;
         engine.englishModeEnter();
-        engine.CETModeLeave();
         currentOriginWords = config.article.split('');
         break;
       case ArticleType.word:
         config.article = content;
         engine.englishModeEnter();
-        engine.CETModeEnter();
         arrayWordAll = gettWordsArrayWith(content);
         currentOriginWords = config.article.split('');
         break;
@@ -449,8 +445,11 @@ class Engine {
     let offsetTop = $('.' + untypedStringClassName).offsetTop;
     templateWrapper.scrollTo(0, offsetTop - HEIGHT_TEMPLATE / 2);
 
-    // 获取单词释义
-    this.getCurrentCETWordTranslation(arrayTyped.length);
+
+    if (config.articleType === ArticleType.word){
+      // 获取单词释义
+      this.getCurrentCETWordTranslation(arrayTyped.length);
+    }
   }
 
   getCurrentCETWordTranslation(length){
@@ -458,18 +457,14 @@ class Engine {
     arrayWordDisplaying.forEach(item => {
       let afterString =  tempString +  item.word + ' ';
       if (length < afterString.length && length > tempString.length ){
-        $('.translation').innerText = item.translation;
+        let after = $('.untyped-part');
+        let translationPanel = document.createElement('div');
+        translationPanel.innerText = item.translation
+          translationPanel.classList.add('translation-panel');
+        after.appendChild(translationPanel);
       }
       tempString = afterString;
     })
-  }
-
-  CETModeEnter(){
-    $('.translation').classList.remove('hidden')
-  }
-
-  CETModeLeave(){
-    $('.translation').classList.add('hidden')
   }
 
   englishModeEnter(){

@@ -45,10 +45,29 @@ body{
   }
 }
 
-.translation-info{
-  .translation{
-    font-size: $fz-typing-english;
-  }
+.translation{
+
+}
+.translation-panel{
+  z-index: $z-toast;
+  white-space: nowrap;
+  position: absolute;
+  top: -0.5rem;
+  left: 0;
+  line-height: 1;
+  padding: 2px 5px;
+  color: $cyan;
+  font-weight: normal;
+  font-size: $fz-translation;
+  text-shadow: 0 1px 0 transparentize($cyan, 0.7);
+  //@include border-radius(2px);
+  //border: 1px solid $color-border;
+  //background-color: white;
+  //@include box-shadow(1px 1px 3px rgba(0,0,0,0.1))
+}
+
+.untyped-part{
+  position: relative;
 }
 
 

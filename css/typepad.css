@@ -228,6 +228,7 @@ tt {
   font-family: 'Roboto Mono', sans-serif !important; }
 
 .number, .time-info .time .minute, .time-info .time .second, td.time {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   font-family: 'DS Digital', sans-serif !important; }
 
 .impact {
@@ -776,8 +777,21 @@ body {
       height: auto;
       overflow-y: scroll; } }
 
-.translation-info .translation {
-  font-size: 1.8rem; }
+.translation-panel {
+  z-index: 100;
+  white-space: nowrap;
+  position: absolute;
+  top: -0.5rem;
+  left: 0;
+  line-height: 1;
+  padding: 2px 5px;
+  color: #00afff;
+  font-weight: normal;
+  font-size: 12px;
+  text-shadow: 0 1px 0 rgba(0, 175, 255, 0.3); }
+
+.untyped-part {
+  position: relative; }
 
 .typing textarea {
   white-space: pre-wrap;
@@ -837,7 +851,7 @@ body {
   color: #009652 !important; }
 
 .text-cyan {
-  color: #5AC8FA !important; }
+  color: #00afff !important; }
 
 .text-blue {
   color: #007AFF !important; }
