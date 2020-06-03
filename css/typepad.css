@@ -48,12 +48,12 @@ tt {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-color: #eee;
+  background-color: #ddd;
   transition: all .2s;
   height: 3px; }
 
 :hover::-webkit-scrollbar-thumb {
-  background-color: #dfdfdf;
+  background-color: #aaa;
   transition: all .2s; }
 
 ::-webkit-scrollbar-button {
@@ -747,6 +747,7 @@ body {
   color: #333;
   background-color: #EBEBEB;
   padding-bottom: 50px;
+  overflow-y: auto;
   -webkit-transition: background-color 0.5s;
   -moz-transition: background-color 0.5s;
   -ms-transition: background-color 0.5s;

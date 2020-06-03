@@ -352,7 +352,7 @@ class Engine {
 
     if (config.articleType === ArticleType.word){ // CET 单词时，count 为单词数
       let count = config.count === 'ALL' ? arrayWordAll.length : config.count;
-      arrayWordDisplaying = arrayWordAll.splice(0, count); // 截取当前需要显示的数组段
+      arrayWordDisplaying = arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
       let arrayCurrentWord = arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
       currentWords = arrayCurrentWord.join(' ');
       originTol = arrayWordAll.length / Number(config.count);
@@ -381,15 +381,25 @@ class Engine {
   // 切换乱序模式
   shuffleCurrentArticle() {
     config.isShuffle = $('#mode').checked;
-    if (config.articleType === ArticleType.english) {
-
+    if (config.articleType === ArticleType.word) {
+      if (config.isShuffle) {
+        arrayWordAll = shuffle(arrayWordAll);
+      } else {
+        arrayWordAll = gettWordsArrayWith(ARTICLE[config.articleIdentifier].content);
+      }
+      let tempArrayWordAll = arrayWordAll.map(item => {return item.word + '\t' + item.translation});
+      config.article = tempArrayWordAll.join('\t\t');
+      let count = config.count === 'ALL' ? arrayWordAll.length : config.count;
+      arrayWordDisplaying = arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
+      let arrayCurrentWord = arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
+      currentWords = arrayCurrentWord.join(' ');
     } else {
       currentOriginWords = config.isShuffle ? shuffle(ARTICLE[config.articleIdentifier].content.split('')) : ARTICLE[config.articleIdentifier].content.split('');
       config.article = currentOriginWords.join('');
       currentWords = currentOriginWords.slice(0, Number(config.count)).join('');
-      config.chapter = 1;
     }
 
+    config.chapter = 1;
     config.save(); // save config
     this.reset();
     this.updateInfo();
@@ -514,7 +524,7 @@ class Engine {
 
   // 乱序当前段
   wordsShuffle() {
-    if (config.articleType !== ArticleType.english) {
+    if (config.articleType !== ArticleType.english && config.articleType !== ArticleType.word) {
       let array = currentWords.split('');
       currentWords = shuffle(array).join('');
       template.innerText = currentWords;

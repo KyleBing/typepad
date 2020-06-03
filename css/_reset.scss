@@ -52,12 +52,12 @@ tt {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-color: #eee;
+  background-color: #ddd;
   transition: all .2s;
   height: 3px; }
 
 :hover::-webkit-scrollbar-thumb {
-  background-color: #dfdfdf;
+  background-color: #aaa;
   transition: all .2s; }
 
 ::-webkit-scrollbar-button {
