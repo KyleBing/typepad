@@ -776,11 +776,14 @@ body {
       height: auto;
       overflow-y: scroll; } }
 
+.translation-info .translation {
+  font-size: 1.8rem; }
+
 .typing textarea {
   white-space: pre-wrap;
   border: 1px solid #dddddd;
   resize: none;
-  height: 150px;
+  height: 100px;
   width: 100%;
   padding: 10px;
   display: block; }

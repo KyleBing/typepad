@@ -6,6 +6,7 @@
  * Engine 主程序，开始、结束、暂停
  * Record 每段的打字数据记录
  * Database IndexedDB 相关操作
+ * CETWord 单词元素
  *
  */
 
@@ -280,10 +281,8 @@ class Engine {
   prevChapter(){
     if (config.chapter !== 1){
       if (config.articleType === ArticleType.word) {
-        let tempSubArray = arrayWordAll.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)); // 截取当前需要显示的数组段
-        let arrayCurrentWord = tempSubArray.map(item => {
-          return item.word
-        }); // 取到英文，数组
+        arrayWordDisplaying = arrayWordAll.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)); // 截取当前需要显示的数组段
+        let arrayCurrentWord = arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
         currentWords = arrayCurrentWord.join(' ');
       } else {
         currentWords = currentOriginWords.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)).join('');
@@ -298,10 +297,8 @@ class Engine {
   nextChapter(){
     if (config.chapter !== config.chapterTotal) {
       if (config.articleType === ArticleType.word) {
-        let tempSubArray = arrayWordAll.slice(config.count * config.chapter, config.count * (config.chapter + 1)); // 截取当前需要显示的数组段
-        let arrayCurrentWord = tempSubArray.map(item => {
-          return item.word
-        }); // 取到英文，数组
+        arrayWordDisplaying = arrayWordAll.slice(config.count * config.chapter, config.count * (config.chapter + 1)); // 截取当前需要显示的数组段
+        let arrayCurrentWord = arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
         currentWords = arrayCurrentWord.join(' ');
       } else {
         currentWords = currentOriginWords.slice(config.count * config.chapter, config.count * (config.chapter + 1)).join('');
@@ -326,20 +323,24 @@ class Engine {
         currentOriginWords = config.isShuffle ? shuffle(content.split('')) : content.split('');
         config.article = currentOriginWords.join('');
         engine.englishModeLeave();
+        engine.CETModeLeave();
         break;
       case ArticleType.article:
         config.article = content;
         currentOriginWords = config.article.split('');
         engine.englishModeLeave();
+        engine.CETModeLeave();
         break;
       case ArticleType.english:
         config.article = content;
         engine.englishModeEnter();
+        engine.CETModeLeave();
         currentOriginWords = config.article.split('');
         break;
       case ArticleType.word:
         config.article = content;
         engine.englishModeEnter();
+        engine.CETModeEnter();
         arrayWordAll = gettWordsArrayWith(content);
         currentOriginWords = config.article.split('');
         break;
@@ -355,10 +356,8 @@ class Engine {
 
     if (config.articleType === ArticleType.word){ // CET 单词时，count 为单词数
       let count = config.count === 'ALL' ? arrayWordAll.length : config.count;
-      let arrayCurrentWord = [];
-      for (let i = 0; i< count; i++){
-        arrayCurrentWord.push(arrayWordAll[i].word);
-      }
+      arrayWordDisplaying = arrayWordAll.splice(0, count); // 截取当前需要显示的数组段
+      let arrayCurrentWord = arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
       currentWords = arrayCurrentWord.join(' ');
       originTol = arrayWordAll.length / Number(config.count);
 
@@ -449,6 +448,28 @@ class Engine {
     // 滚动对照区到当前所输入的位置
     let offsetTop = $('.' + untypedStringClassName).offsetTop;
     templateWrapper.scrollTo(0, offsetTop - HEIGHT_TEMPLATE / 2);
+
+    // 获取单词释义
+    this.getCurrentCETWordTranslation(arrayTyped.length);
+  }
+
+  getCurrentCETWordTranslation(length){
+    let tempString = '';
+    arrayWordDisplaying.forEach(item => {
+      let afterString =  tempString +  item.word + ' ';
+      if (length < afterString.length && length > tempString.length ){
+        $('.translation').innerText = item.translation;
+      }
+      tempString = afterString;
+    })
+  }
+
+  CETModeEnter(){
+    $('.translation').classList.remove('hidden')
+  }
+
+  CETModeLeave(){
+    $('.translation').classList.add('hidden')
   }
 
   englishModeEnter(){
@@ -641,12 +662,13 @@ class Record {
   getHtmlWithCursor(cursor){
     let level = Math.floor(cursor.value.speed/SPEED_GAP);
     level = level > 6 ? 6 : level;
-    let articleType;
+    let articleType = ArticleType.getTypeNameWith(cursor.value.articleType);
     let textClass = '';
     switch (cursor.value.articleType) {
-      case ArticleType.character:articleType = '单字';textClass = 'text-orange';break;
-      case ArticleType.english:articleType = '英文';textClass = 'text-green';break;
-      case ArticleType.article:articleType = '文章';textClass = 'text-blue';break;
+      case ArticleType.character: textClass = 'text-orange';break;
+      case ArticleType.english: textClass = 'text-green';break;
+      case ArticleType.article: textClass = 'text-blue';break;
+      case ArticleType.word: textClass = 'text-red';break;
       default: articleType = '' ;break;
     }
     return `<tr>  
@@ -720,7 +742,6 @@ class Database {
     objectStore.delete(id).onsuccess = e => {
       show(`delete data ${id} success`);
       sender.parentElement.parentElement.remove();
-      this.fetchAll();
     };
   }
 
@@ -749,7 +770,7 @@ let correctWordsCount = 0;
 let currentWords = '';
 let currentOriginWords = [];
 let arrayWordAll = [];
-let arrayWordCurrent = [];
+let arrayWordDisplaying = [];
 
 const typingPad = $('#pad');
 let keyCount = new KeyCount();
@@ -785,8 +806,8 @@ window.onload = () => {
   // CET 时
   if (config.articleType === ArticleType.word) {
     arrayWordAll = gettWordsArrayWith(config.article);
-    let tempSubArray = arrayWordAll.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)); // 截取当前需要显示的数组段
-    let arrayCurrentWord = tempSubArray.map(item => {return item.word}); // 取到英文，数组
+    arrayWordDisplaying = arrayWordAll.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)); // 截取当前需要显示的数组段
+    let arrayCurrentWord = arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
     currentWords = arrayCurrentWord.join(' ');
   } else {
     currentWords = currentOriginWords.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)).join('');

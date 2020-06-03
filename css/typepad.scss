@@ -45,13 +45,19 @@ body{
   }
 }
 
+.translation-info{
+  .translation{
+    font-size: $fz-typing-english;
+  }
+}
+
 
 .typing{
   textarea{
     white-space: pre-wrap;
     border: 1px solid $color-border;
     resize: none;
-    height: 150px;
+    height: 100px;
     width: 100%;
     padding: 10px;
     display: block;
