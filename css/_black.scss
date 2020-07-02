@@ -1,8 +1,8 @@
-$black-color-border        : lighten(black, 20%);
-$black-bg                  : lighten(black, 13%);
+$black-color-border        : lighten(black, 15%);
+$black-bg                  : lighten(black, 10%);
 $black-color-text          : lighten(black, 90%);
 $black-color-text-info     : lighten(black, 60%);
-$black-color-text-subtitle : lighten(black, 75%);
+$black-color-text-subtitle : lighten(black, 40%);
 $black-color-text-comment  : lighten(black, 50%);
 $black-btn-bg              : lighten(black, 20%);
 
@@ -120,7 +120,7 @@ body.black {
   }
   .text{
     .correct{
-      color: lighten(black, 20%) !important;
+      color: lighten(black, 30%) !important;
     }
     .wrong{
       background-color: $red;

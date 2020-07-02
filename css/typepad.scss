@@ -158,3 +158,36 @@ $colors  : (
     color: $color !important;
   }
 }
+
+
+
+.full-screen{
+  cursor: pointer;
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  z-index: $z-toast;
+  &-btn {
+    opacity: 0.3;
+    width: 30px;
+    @include transition(all 0.3s);
+    img {
+      display: block;
+      width: 100%;
+    }
+    &:hover{
+      opacity: 1;
+      @include transition(all 0.3s)
+    }
+  }
+  &-tip{
+    font-size: $fz-info;
+    color: $text-comment;
+  }
+  &-tip-mobile{
+    left: 20px;
+    bottom: 20px;
+    font-size: $fz-info;
+    color: $text-comment;
+  }
+}

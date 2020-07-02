@@ -19,6 +19,11 @@
     &:last-child{
       margin-bottom: 0;
     }
+    a {
+      @extend .link;
+      font-weight: bold;
+      text-decoration: underline;
+    }
   }
 }
 .info-panel-no-bg {

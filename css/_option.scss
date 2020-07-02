@@ -10,5 +10,7 @@
 }
 
 .current{
+  min-width: 15px;
+  display: inline-block;
   color: $red;
 }

@@ -415,6 +415,7 @@ class Engine {
     let lastCharacterIsCorrect = false; // 上一个字符是正确的
     let wordsCorrect = '';
     let wordsWrong = '';
+    let tempCharacterLength = 0; // 单字或汉字文章时，未上屏结尾英文的长度
     /**
      * 对与错的词成块化，
      * 如果上一个字跟当前字的对错一致，追加该字到对应字符串，
@@ -424,12 +425,28 @@ class Engine {
       let origin = arrayOrigin[index];
       origin = origin ? origin : ' '; // 当输入编码多于原字符串时，可能会出现 undefined 字符，这个用于消除它
       let currentCharacterIsCorrect = current === origin;
-      if (currentCharacterIsCorrect){
-        correctWordsCount ++;
-        wordsCorrect = wordsCorrect.concat(origin);
+      let currentCharacterIsEnglish = /[a-zA-Z]/i.test(current);
+
+      // 英文或单词时
+      if (config.articleType === ArticleType.word || config.articleType === ArticleType.english) {
+        if (currentCharacterIsCorrect){
+          correctWordsCount ++;
+          wordsCorrect = wordsCorrect.concat(origin);
+        } else {
+          wordsWrong = wordsWrong.concat(origin);
+        }
       } else {
-        wordsWrong = wordsWrong.concat(origin);
+        // 汉字内容时
+        if (currentCharacterIsCorrect){
+          correctWordsCount ++;
+          wordsCorrect = wordsCorrect.concat(origin);
+        } else if(currentCharacterIsEnglish) { // 错误且是英文时，隐藏不显示
+          tempCharacterLength++
+        } else { // 错字时显示红色
+          wordsWrong = wordsWrong.concat(origin);
+        }
       }
+
       if (wordsCorrect && !lastCharacterIsCorrect && index){
         html = html.concat(`<span class="wrong">${wordsWrong}</span>`);
         wordsWrong = '';
@@ -446,7 +463,7 @@ class Engine {
       }
       lastCharacterIsCorrect = current === origin;
     });
-    let untypedString = currentWords.substring(arrayTyped.length)
+    let untypedString = currentWords.substring(arrayTyped.length - tempCharacterLength)
     let untypedHtml = `<span class='${untypedStringClassName}'>${untypedString}</span>`;
     html = html.concat(untypedHtml)
     template.innerHTML = html;
@@ -943,6 +960,27 @@ function loadArticleOptions() {
   }
   $('#article').innerHTML = optionHtml;
 }
+
+
+function enterFullScreenMode() {
+  document.documentElement.requestFullscreen()
+}
+
+// 当全屏模式变化时
+document.documentElement.onfullscreenchange  = () => {
+  let didEnteredFullScreen = Boolean(document.fullscreenElement);
+  if (didEnteredFullScreen){
+    $('.full-screen-btn').classList.add('hidden');
+    $('.full-screen-tip').classList.remove('hidden');
+  } else {
+    $('.full-screen-btn').classList.remove('hidden');
+    $('.full-screen-tip').classList.add('hidden');
+  }
+}
+
+
+
+
 
 
 /**
