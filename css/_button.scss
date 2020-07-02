@@ -85,6 +85,7 @@ input[type=checkbox]:checked + label.switch
     height: $height-radio;
     @include border-radius(15px);
     @include transition(all 0.3s);
+
   }
 }
 
