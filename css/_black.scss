@@ -1,11 +1,12 @@
-$black-color-border        : lighten(black, 15%);
-$black-bg                  : lighten(black, 10%);
+$black-color-border        : lighten(black, 12%);
+$black-bg                  : lighten(black, 8%);
 $black-color-text          : lighten(black, 90%);
 $black-color-text-info     : lighten(black, 60%);
 $black-color-text-subtitle : lighten(black, 40%);
 $black-color-text-comment  : lighten(black, 50%);
 $black-btn-bg              : lighten(black, 20%);
 
+$black-orange: darken($orange, 20%);
 
 body.black {
   background-color: black;
@@ -91,7 +92,7 @@ body.black {
   }
   td{
     .btn {
-      color: $black-color-text-subtitle;
+      color: $black-color-text-info;
       background-color: $black-color-border;
       border: 1px solid $black-color-border;
       &:hover{
@@ -112,7 +113,7 @@ body.black {
     textarea {
       border: 1px solid $black-color-border;
       background-color: $black-bg;
-      color: white;
+      color: $black-color-text-subtitle;
       &:focus {
         @include box-shadow(inset 1px 1px 5px rgba(0, 0, 0,1));
       }
@@ -132,7 +133,7 @@ body.black {
   .btn-group{
     border: 1px solid $black-color-border;
     .btn{
-      color: $black-color-text;
+      color: $black-color-text-info;
       background-color: $black-bg;
       border-right: 1px solid $black-color-border;
       &:active{
@@ -165,14 +166,14 @@ body.black {
 
 
   input[type=radio] + label{
-    color: $orange;
+    color: $black-orange;
   }
 
   input[type=radio]:checked + label{
-    background-color: $orange;
+    background-color: $black-orange;
     color: white;
     &:hover{
-      background-color: darken($orange, 5%);
+      background-color: darken($black-orange, 5%);
     }
   }
 
@@ -187,7 +188,7 @@ body.black {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background-color: #eee;
+    background-color: $black-color-text-subtitle;
     transition: all .2s;
     height: 3px;
   }

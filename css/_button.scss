@@ -150,7 +150,6 @@ input[type=checkbox]:checked + label.checker {
 
 input[type=radio] + label{
   background-color: white;
-  color: $orange !important;
 }
 
 input[type=radio]:checked + label{
