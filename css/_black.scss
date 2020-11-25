@@ -1,15 +1,18 @@
-$black-color-border        : lighten(black, 12%);
-$black-bg                  : lighten(black, 8%);
-$black-color-text          : lighten(black, 90%);
-$black-color-text-info     : lighten(black, 60%);
-$black-color-text-subtitle : lighten(black, 40%);
-$black-color-text-comment  : lighten(black, 50%);
-$black-btn-bg              : lighten(black, 20%);
+$black-color-border           : lighten(black, 12%);
+$black-color-border-highlight : lighten(black, 20%);
+$black-body-bg                : lighten(black, 7%);
+$black-bg                     : lighten(black, 13%);
+$black-color-text             : lighten(black, 90%);
+$black-color-text-info        : lighten(black, 65%);
+$black-color-text-subtitle    : lighten(black, 45%);
+$black-color-text-comment     : lighten(black, 55%);
+$black-btn-bg                 : lighten(black, 25%);
+
 
 $black-orange: darken($orange, 20%);
 
 body.black {
-  background-color: black;
+  background-color: $black-body-bg;
   @include transition(background-color 0.5s);
 
   // INFOS
@@ -78,11 +81,11 @@ body.black {
     }
   }
   tbody tr {
-    &:nth-child(2n+1) {
-      background-color: darken($black-bg, 5%);
+    &:nth-child(odd) {
+      background-color: darken($black-bg, 4%);
     }
 
-    &:nth-child(2n) {
+    &:nth-child(even) {
       background-color: darken($black-bg, 2%);
     }
 
@@ -140,8 +143,7 @@ body.black {
         @include box-shadow(inset 0 1px 2px rgba(0,0,0,1))
       }
       &:hover{
-        background-color: $black-color-border;
-        border-color: $black-color-border;
+        background-color: $black-color-border-highlight;
       }
       &:last-child{
         border-right: none;
