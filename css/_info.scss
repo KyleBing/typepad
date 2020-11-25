@@ -149,7 +149,7 @@ $kbd-text: black;
     font-weight: bold;
     min-width: 20px;
     border: 2px solid $kbd-bg-color;
-    background-color: white !important;
+    background-color: white;
     margin-right: 3px;
     @include box-shadow(1px 2px 0 $kbd-shadow-color);
   }

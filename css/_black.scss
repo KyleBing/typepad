@@ -1,5 +1,5 @@
-$black-color-border           : lighten(black, 12%);
-$black-color-border-highlight : lighten(black, 20%);
+$black-color-border           : lighten(black, 18%);
+$black-color-border-highlight : lighten(black, 22%);
 $black-body-bg                : lighten(black, 7%);
 $black-bg                     : lighten(black, 13%);
 $black-color-text             : lighten(black, 90%);
@@ -198,5 +198,13 @@ body.black {
   :hover::-webkit-scrollbar-thumb {
     background-color: #dfdfdf;
     transition: all .2s;
+  }
+
+  kbd{
+    background-color: $black-btn-bg;
+    border: 2px solid lighten($black-btn-bg, 10%);
+    margin-right: 3px;
+    color: $black-color-text-info;
+    @include box-shadow(1px 2px 0 lighten($black-btn-bg, 5%));
   }
 }
