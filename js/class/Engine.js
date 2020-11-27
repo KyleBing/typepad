@@ -120,7 +120,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
                this.currentWords = this.currentOriginWords.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)).join('');
             }
             config.chapter--;
-            engine.reset();
+            this.reset();
             config.save();
          }
       }
@@ -139,8 +139,10 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
             }
 
             config.chapter++;
-            engine.reset();
+            this.reset();
             config.save();
+         } else {
+            // TODO: 没有下一段时，给个动画提示
          }
       }
 
@@ -167,21 +169,21 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
             case ArticleType.character:
                this.currentOriginWords = config.isShuffle ? shuffle(article.content.split('')) : article.content.split('');
                config.article = this.currentOriginWords.join('');
-               engine.englishModeLeave();
+               this.englishModeLeave();
                break;
             case ArticleType.article:
                config.article = article.content;
                this.currentOriginWords = config.article.split('');
-               engine.englishModeLeave();
+               this.englishModeLeave();
                break;
             case ArticleType.english:
                config.article = article.content;
-               engine.englishModeEnter();
+               this.englishModeEnter();
                this.currentOriginWords = config.article.split('');
                break;
             case ArticleType.word:
                config.article = article.content;
-               engine.englishModeEnter();
+               this.englishModeEnter();
                this.arrayWordAll = Article.CET4.getWordsArray();
                this.currentOriginWords = config.article.split('');
                break;
@@ -374,6 +376,21 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
          config.save();
       }
 
+      delete(id, sender){
+         database.delete(id,sender)
+      }
+
+      // 清除记录
+      clear(sender){
+         if (sender.innerText !== '确定清除'){
+            sender.innerText = '确定清除';
+            sender.classList.add('danger');
+         } else {
+            database.clear(config)
+         }
+      }
+
+
       // 更新时间
       showTime() {
          if (this.isStarted) {
@@ -412,7 +429,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
             let array = this.currentWords.split('');
             this.currentWords = shuffle(array).join('');
             template.innerText = this.currentWords;
-            engine.reset();
+            this.reset();
             this.isFinished = false;
             this.updateInfo();
          }
@@ -475,13 +492,13 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
 
          } else {
             // speed
-            record.speed = (this.correctWordsCount / engine.duration * 1000 * 60).toFixed(2);
+            record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
             $('.speed').innerText = record.speed;
             $('.btn-speed').innerText = record.speed;
 
             // key count
             let allKeyCount = keyCount.all - keyCount.function;
-            record.hitRate = (allKeyCount / engine.duration * 1000).toFixed(2);
+            record.hitRate = (allKeyCount / this.duration * 1000).toFixed(2);
             $('.count-key-rate').innerText = record.hitRate;
 
             // code length

@@ -34,7 +34,7 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
       save(){
          localStorage.setItem(CONFIG_NAME, JSON.stringify(this));
       }
-      setWithCurrentConfig(){
+      setWithCurrentConfig(engine){
          // 根据当前配置文件设置内容
          $('input[type=checkbox]#mode').checked = this.isShuffle;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
@@ -60,8 +60,8 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
          darkButton.innerText = this.darkMode ? '白色' : '暗黑';
 
          // 最开始的时候，如果没有检测到存储的数据，初始化
-         if (config.hasSavedData()) {
-            engine.currentOriginWords = config.article.split('');
+         if (this.hasSavedData()) {
+            engine.currentOriginWords = this.article.split('');
          }
          if (this.articleType === ArticleType.word) {
             // CET 时

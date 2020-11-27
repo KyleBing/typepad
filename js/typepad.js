@@ -15,11 +15,6 @@ const templateWrapper = $('.template');   // 对照区 容器
 const typingPad = $('#pad');
 const DBName = "TypePad";
 
-let engine;
-let database;
-let config;
-let keyCount;
-
 // require config
 require.config({
    baseUrl: "./js/class",
@@ -37,6 +32,8 @@ require.config({
    }
 });
 
+let engine;
+
 require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CETWord', 'Reg', 'Database', 'Utility'],
    function (ArticleType,
              Article,
@@ -50,13 +47,13 @@ require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CE
              Utility) {
 
       engine = new Engine();
-      record = new Record();
-      config = new Config();
-      keyCount = new KeyCount();
-      database = new Database();
+      let record = new Record();
+      let config = new Config();
+      let keyCount = new KeyCount();
+      let database = new Database();
 
       engine.loadArticleOptions(); // 载入文章选项列表
-      config.setWithCurrentConfig();  // 设置 config
+      config.setWithCurrentConfig(engine);  // 设置 config
       engine.updateInfo(); // 刷新界面
 
       typingPad.onblur = () => {

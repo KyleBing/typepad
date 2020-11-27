@@ -10,7 +10,7 @@ class Record {
       this.timeStart = timeStart;
       this.duration = duration;
    }
-   getHtml(id){
+   getHtml(config){
       let level = Math.floor(this.speed/SPEED_GAP);
       level = level > 6 ? 6 : level; // 速度等级为 6+ 时按 6 处理
       let articleType = ArticleType.getTypeNameWith(config.articleType);
@@ -23,7 +23,7 @@ class Record {
          default: break;
       }
       return `<tr>  
-              <td class="text-center roboto-mono">${id}</td> <!--id-->
+              <td class="text-center roboto-mono">${config.IDBIndex}</td> <!--id-->
               <td class="bold roboto-mono lv-${level}">${this.speed}</td> <!--速度-->
               <td>${this.codeLength}</td><!--码长-->
               <td>${this.hitRate}</td><!--击键-->
@@ -33,7 +33,7 @@ class Record {
               <td>${config.articleName}</td><!--文章名称-->
               <td class="hidden-sm">${dateFormatter(new Date(this.timeStart))}</td><!--开始时间-->
               <td class="time">${formatTimeLeft(this.duration)}</td><!--用时-->
-              <td><button class="btn btn-danger btn-sm" onclick="database.delete(${this.id}, this)" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="engine.delete(${config.IDBIndex}, this)" type="button">删除</button></td>
             </tr>`;
    }
 }

@@ -12,7 +12,7 @@ define(['Config'],function (Config) {
          request.onsuccess = e =>{
             if (e.returnValue){
                this.db = request.result;
-               database.fetchAll();
+               this.fetchAll();
             } else {
             }
          }
@@ -51,7 +51,7 @@ define(['Config'],function (Config) {
             show('insert data success');
             // 插入最后的数据到顶部
             let tr = document.createElement('tr');
-            tr.innerHTML = record.getHtml(config.IDBIndex);
+            tr.innerHTML = record.getHtml(config);
             let tbody = $('tbody');
             tbody.insertBefore(tr, tbody.firstChild);
             // id ++
@@ -112,14 +112,13 @@ define(['Config'],function (Config) {
               <td>${cursor.value.articleName ? cursor.value.articleName : ''}</td>
               <td class="hidden-sm">${dateFormatter(new Date(cursor.value.timeStart))}</td>
               <td class="time">${formatTimeLeft(cursor.value.duration)}</td>
-              <td><button class="btn btn-danger btn-sm" onclick="database.delete(${cursor.key}, this)" type="button">删除</button></td>
+              <td><button class="btn btn-danger btn-sm" onclick="engine.delete(${cursor.key}, this)" type="button">删除</button></td>
             </tr>`;
       }
 
 
       // 删除一条数据
       delete(id, sender){
-         show(this.db)
          let objectStore = this.db.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
          objectStore.delete(id).onsuccess = e => {
             show(`delete data ${id} success`);
@@ -128,19 +127,14 @@ define(['Config'],function (Config) {
       }
 
       // 清除记录
-      clear(sender){
-         if (sender.innerText !== '确定清除'){
-            sender.innerText = '确定清除';
-            sender.classList.add('danger');
-         } else {
-            let objectStore = this.db.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
-            let that = this;
-            objectStore.clear().onsuccess = e => {
-               config.IDBIndex = 1;config.save();
-               that.fetchAll();
-               location.reload();
-            };
-         }
+      clear(config){
+         let objectStore = this.db.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+         let that = this;
+         objectStore.clear().onsuccess = e => {
+            config.IDBIndex = 1;config.save();
+            that.fetchAll();
+            location.reload();
+         };
       }
    }
 
