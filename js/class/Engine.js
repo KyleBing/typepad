@@ -1,5 +1,5 @@
-define(['Article', 'Config', 'Record', 'Database'], function (
-   Article, Config, Record, Database) {
+define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
+   Article, Config, Record, Database, KeyCount) {
    const untypedStringClassName = 'untyped-part';
    const HEIGHT_TEMPLATE = 150; // 对照区高度
 
@@ -25,6 +25,65 @@ define(['Article', 'Config', 'Record', 'Database'], function (
          this.currentOriginWords   = [];       // 字体拆分的全部数组
          this.arrayWordAll         = [];       // 全部单词
          this.arrayWordDisplaying  = [];       // 展示的单词
+
+
+         // 按键过滤器
+         /****
+          **** ⌘ + R: 重打当前段
+          **** ⌘ + L: 打乱当前段
+          **** ⌘ + N: 下一段
+          **** ⌘ + P: 上一段
+          **** ⌘ + H: 重新开始
+          ****/
+         typingPad.onkeydown = e => {
+            if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[nqwefgplt]/.test(e.key)))) {
+               // 消除一些默认浏览器快捷键的效果
+               e.preventDefault();
+            } else if ((e.metaKey || e.ctrlKey) && e.key === 'y') {
+               e.preventDefault();
+               this.reset();
+            } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+               e.preventDefault();
+               this.wordsShuffle();
+            } else if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
+               this.prevChapter();
+               e.preventDefault();
+            } else if ((e.metaKey || e.ctrlKey) && e.key === 'j') {
+               this.nextChapter();
+               e.preventDefault();
+            } else if (e.key === 'Escape') {
+               this.pause();
+               e.preventDefault();
+            } else if (Reg.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !this.isStarted && !this.isFinished) {
+               this.start()
+            }
+         }
+         typingPad.onkeyup = e => {
+            e.preventDefault();
+            if (!this.isFinished && this.isStarted) {
+               keyCount.countKeys(e);
+               this.compare();
+               // 末字时结束的时候
+               if (typingPad.value.length >= this.currentWords.length) {
+                  if (typingPad.value === this.currentWords) {
+                     this.finish();
+                  }
+               }
+            }
+         }
+         typingPad.oninput = e => {
+            if (!this.isFinished && this.isStarted) {
+               this.compare();
+               // 末字时结束的时候
+               if (typingPad.value.length >= this.currentWords.length) {
+                  if (typingPad.value === this.currentWords) {
+                     this.finish();
+                  }
+               }
+            } else if (!this.isFinished) {
+               this.start()
+            }
+         }
 
       }
 

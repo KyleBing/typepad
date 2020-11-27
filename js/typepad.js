@@ -70,66 +70,8 @@ require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CE
          }
       }
 
-      // INDEX DB
+      // 显示历史记录
       database.fetchAll();
-
-
-      // 按键过滤器
-      /****
-       **** ⌘ + R: 重打当前段
-       **** ⌘ + L: 打乱当前段
-       **** ⌘ + N: 下一段
-       **** ⌘ + P: 上一段
-       **** ⌘ + H: 重新开始
-       ****/
-      typingPad.onkeydown = e => {
-         if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[nqwefgplt]/.test(e.key)))) {
-            e.preventDefault();
-         } else if ((e.metaKey || e.ctrlKey) && e.key === 'y') {
-            e.preventDefault();
-            engine.reset();
-         } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-            e.preventDefault();
-            engine.wordsShuffle();
-         } else if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
-            engine.prevChapter();
-            e.preventDefault();
-         } else if ((e.metaKey || e.ctrlKey) && e.key === 'j') {
-            engine.nextChapter();
-            e.preventDefault();
-         } else if (e.key === 'Escape') {
-            engine.pause();
-            e.preventDefault();
-         } else if (Reg.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !engine.isStarted && !engine.isFinished) {
-            engine.start()
-         }
-      }
-      typingPad.onkeyup = e => {
-         e.preventDefault();
-         if (!engine.isFinished && engine.isStarted) {
-            keyCount.countKeys(e);
-            engine.compare();
-            // 末字时结束的时候
-            if (typingPad.value.length >= engine.currentWords.length) {
-               if (typingPad.value === engine.currentWords) {
-                  engine.finish();
-               }
-            }
-         }
-      }
-      typingPad.oninput = e => {
-         if (!engine.isFinished && engine.isStarted) {
-            engine.compare();
-            // 末字时结束的时候
-            if (typingPad.value.length >= engine.currentWords.length) {
-               if (typingPad.value === engine.currentWords) {
-                  engine.finish();
-               }
-            }
-         } else if (!engine.isFinished) {
-            engine.start()
-         }
-      }
 
    })
 
