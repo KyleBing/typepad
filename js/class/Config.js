@@ -33,6 +33,38 @@ define(['Article'],function (Article) {
          this.articleType        = config.articleType;
          this.IDBIndex           = config.IDBIndex;
       }
+
+      setWithCurrentConfig(){
+         // 根据当前配置文件设置内容
+         $('input[type=checkbox]#mode').checked = this.isShuffle;
+         let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
+         let radios = [...radioNodes];
+         radios.forEach(item => {
+            item.checked = item.value === this.count
+            console.log(item.value, ':', item.value === this.count)
+         })
+         $('select#article').value = this.articleIdentifier;
+
+         // English Mode
+         if (this.isInEnglishMode) {
+            this.englishModeEnter()
+         }
+
+         // Dark Mode
+         let body = $('body');
+         if (this.darkMode) {
+            body.classList.add('black');
+         } else {
+            body.classList.remove('black');
+         }
+         let darkButton = $('#darkButton');
+         darkButton.innerText = this.darkMode ? '白色' : '暗黑'
+      }
+
+      getAndSet(){
+         this.get();
+         this.setWithCurrentConfig();
+      }
       // 判断是否存储过配置信息
       hasSavedData(){
          return Boolean(localStorage.getItem(CONFIG_NAME));

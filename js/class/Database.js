@@ -27,7 +27,7 @@ define(['Config'],function (Config) {
             } else {
                this.db = request.result;
             }
-            var objectStore = DB.createObjectStore(OBJECT_NAME, { keyPath: 'id' });
+            var objectStore = this.db.createObjectStore(OBJECT_NAME, { keyPath: 'id' });
          }
       }
       // 添加数据

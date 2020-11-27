@@ -63,12 +63,11 @@ require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CE
 
       // 最开始的时候，如果没有检测到存储的数据，初始化
       if (config.hasSavedData()) {
-         config.get();
-         engine.setWithCurrentConfig();
+         config.getAndSet();
+         engine.currentOriginWords = config.article.split('');
       } else {
          config.save();
-         config.get();
-         engine.setWithCurrentConfig();
+         config.getAndSet();
          engine.changePerCount();
       }
 
@@ -186,25 +185,4 @@ document.documentElement.onfullscreenchange = () => {
 
 function enterFullScreenMode() {
    document.documentElement.requestFullscreen()
-}
-
-function enterDarkMode(sender) {
-   let body = $('body');
-   require(['Config'], function (Config) {
-      let config = new Config();
-      config.get();
-      if (config.darkMode) {
-         body.classList.remove('black');
-         config.darkMode = false;
-         sender.innerText = "暗黑"
-         config.save();
-      } else {
-         body.classList.add('black');
-         config.darkMode = true;
-         sender.innerText = "白色"
-         config.save();
-      }
-   })
-
-
 }

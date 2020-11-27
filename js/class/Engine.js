@@ -1,5 +1,5 @@
-define(['Article','Config', 'Record', 'Database'],function (
-  Article, Config, Record, Database){
+define(['Article', 'Config', 'Record', 'Database'], function (
+   Article, Config, Record, Database) {
    const untypedStringClassName = 'untyped-part';
    const HEIGHT_TEMPLATE = 150; // 对照区高度
 
@@ -7,6 +7,7 @@ define(['Article','Config', 'Record', 'Database'],function (
    let config = new Config();
    let record = new Record();
    let database = new Database()
+
    // 跟打器内核
    class Engine {
       constructor() {
@@ -26,14 +27,14 @@ define(['Article','Config', 'Record', 'Database'],function (
          this.arrayWordDisplaying = [];
       }
 
-      start(){
+      start() {
          this.isStarted = true;
          this.timeStart = (new Date()).getTime();
          this.startRefresh();
       }
 
-      startRefresh(){
-         this.handleRefresh = setInterval(()=>{
+      startRefresh() {
+         this.handleRefresh = setInterval(() => {
             let timeNow = (new Date()).getTime();
             this.duration = timeNow - this.timeStart;
             this.updateInfo();
@@ -41,44 +42,19 @@ define(['Article','Config', 'Record', 'Database'],function (
          }, this.refreshRate)
       }
 
-      stopRefresh(){
+      stopRefresh() {
          clearInterval(this.handleRefresh);
-      }
-
-       setWithCurrentConfig(){
-         $('input[type=checkbox]#mode').checked = this.isShuffle;
-         let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
-         let radios = [...radioNodes];
-         radios.forEach(item => {
-            item.checked = item.value === config.count
-            console.log(config.count, ':' ,item.value === config.count)
-         })
-         $('select#article').value = config.articleIdentifier;
-         engine.currentOriginWords = config.article.split('');
-
-         // English Mode
-         if (config.isInEnglishMode){
-            config.englishModeEnter()
-         }
-
-         // Dark Mode
-         let body = $('body');
-         if (config.darkMode){
-            body.classList.add('black');
-         } else {
-            body.classList.remove('black');
-         }
-         let darkButton = $('#darkButton');
-         darkButton.innerText = config.darkMode ? '白色' : '暗黑'
       }
 
 
       // 上一段
-      prevChapter(){
-         if (config.chapter !== 1){
+      prevChapter() {
+         if (config.chapter !== 1) {
             if (config.articleType === ArticleType.word) {
                this.arrayWordDisplaying = this.arrayWordAll.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)); // 截取当前需要显示的数组段
-               let arrayCurrentWord = this.arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
+               let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+                  return item.word
+               }); // 取到英文，数组
                this.currentWords = arrayCurrentWord.join(' ');
             } else {
                this.currentWords = this.currentOriginWords.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)).join('');
@@ -90,11 +66,13 @@ define(['Article','Config', 'Record', 'Database'],function (
       }
 
       // 下一段
-      nextChapter(){
+      nextChapter() {
          if (config.chapter !== config.chapterTotal) {
             if (config.articleType === ArticleType.word) {
                this.arrayWordDisplaying = this.arrayWordAll.slice(config.count * config.chapter, config.count * (config.chapter + 1)); // 截取当前需要显示的数组段
-               let arrayCurrentWord = this.arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
+               let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+                  return item.word
+               }); // 取到英文，数组
                this.currentWords = arrayCurrentWord.join(' ');
             } else {
                this.currentWords = this.currentOriginWords.slice(config.count * config.chapter, config.count * (config.chapter + 1)).join('');
@@ -147,23 +125,26 @@ define(['Article','Config', 'Record', 'Database'],function (
                this.arrayWordAll = Article.CET4.getWordsArray();
                this.currentOriginWords = config.article.split('');
                break;
-            default: break;
+            default:
+               break;
          }
          this.changePerCount();
       }
 
       // 改变数字时
-      changePerCount(){
+      changePerCount() {
          let originTol = 0;
          config.count = $('input[type=radio]:checked').value;
-         if (config.articleType === ArticleType.word){ // CET 单词时，count 为单词数
+         if (config.articleType === ArticleType.word) { // CET 单词时，count 为单词数
             let count = config.count === 'ALL' ? this.arrayWordAll.length : config.count;
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
-            let arrayCurrentWord = this.arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
+            let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+               return item.word
+            }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
             originTol = this.arrayWordAll.length / Number(config.count);
          } else {
-            if (config.count === 'ALL'){
+            if (config.count === 'ALL') {
                this.currentWords = this.currentOriginWords.join('');
             } else {
                this.currentWords = this.currentOriginWords.slice(0, Number(config.count)).join('');
@@ -182,6 +163,22 @@ define(['Article','Config', 'Record', 'Database'],function (
          this.reset();
          this.updateInfo();
       }
+
+      enterDarkMode(sender) {
+         let body = $('body');
+         if (config.darkMode) {
+            body.classList.remove('black');
+            config.darkMode = false;
+            sender.innerText = "暗黑"
+            config.save();
+         } else {
+            body.classList.add('black');
+            config.darkMode = true;
+            sender.innerText = "白色"
+            config.save();
+         }
+      }
+
       // 切换乱序模式
       shuffleCurrentArticle() {
          config.isShuffle = $('#mode').checked;
@@ -191,11 +188,15 @@ define(['Article','Config', 'Record', 'Database'],function (
             } else {
                this.arrayWordAll = gettWordsArrayWith(Article[config.articleIdentifier].content);
             }
-            let tempArrayWordAll = this.arrayWordAll.map(item => {return item.word + '\t' + item.translation});
+            let tempArrayWordAll = this.arrayWordAll.map(item => {
+               return item.word + '\t' + item.translation
+            });
             config.article = tempArrayWordAll.join('\t\t');
             let count = config.count === 'ALL' ? this.arrayWordAll.length : config.count;
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
-            let arrayCurrentWord = this.arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
+            let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+               return item.word
+            }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
          } else {
             this.currentOriginWords = config.isShuffle ? shuffle(Article[config.articleIdentifier].content.split('')) : Article[config.articleIdentifier].content.split('');
@@ -210,7 +211,7 @@ define(['Article','Config', 'Record', 'Database'],function (
       }
 
       // 对比上屏字
-      compare(){
+      compare() {
          this.correctWordsCount = 0;
          let typedWords = typingPad.value;
          let arrayOrigin = this.currentWords.split('');
@@ -225,7 +226,7 @@ define(['Article','Config', 'Record', 'Database'],function (
           * 如果上一个字跟当前字的对错一致，追加该字到对应字符串，
           * 如果不是，输出相反字符串
           */
-         arrayTyped.forEach( (current, index) => {
+         arrayTyped.forEach((current, index) => {
             let origin = arrayOrigin[index];
             origin = origin ? origin : ' '; // 当输入编码多于原字符串时，可能会出现 undefined 字符，这个用于消除它
             let currentCharacterIsCorrect = current === origin;
@@ -233,25 +234,25 @@ define(['Article','Config', 'Record', 'Database'],function (
 
             // 英文或单词时
             if (config.articleType === ArticleType.word || config.articleType === ArticleType.english) {
-               if (currentCharacterIsCorrect){
-                  this.correctWordsCount ++;
+               if (currentCharacterIsCorrect) {
+                  this.correctWordsCount++;
                   wordsCorrect = wordsCorrect.concat(origin);
                } else {
                   wordsWrong = wordsWrong.concat(origin);
                }
             } else {
                // 汉字内容时
-               if (currentCharacterIsCorrect){
-                  this.correctWordsCount ++;
+               if (currentCharacterIsCorrect) {
+                  this.correctWordsCount++;
                   wordsCorrect = wordsCorrect.concat(origin);
-               } else if(currentCharacterIsEnglish) { // 错误且是英文时，隐藏不显示
+               } else if (currentCharacterIsEnglish) { // 错误且是英文时，隐藏不显示
                   tempCharacterLength++
                } else { // 错字时显示红色
                   wordsWrong = wordsWrong.concat(origin);
                }
             }
 
-            if (wordsCorrect && !lastCharacterIsCorrect && index){
+            if (wordsCorrect && !lastCharacterIsCorrect && index) {
                html = html.concat(`<span class="wrong">${wordsWrong}</span>`);
                wordsWrong = '';
             } else if (wordsWrong && lastCharacterIsCorrect && index) {
@@ -277,17 +278,17 @@ define(['Article','Config', 'Record', 'Database'],function (
          templateWrapper.scrollTo(0, offsetTop - HEIGHT_TEMPLATE / 2);
 
 
-         if (config.articleType === ArticleType.word){
+         if (config.articleType === ArticleType.word) {
             // 获取单词释义
             this.getCurrentCETWordTranslation(arrayTyped.length);
          }
       }
 
-      getCurrentCETWordTranslation(length){
+      getCurrentCETWordTranslation(length) {
          let tempString = '';
          this.arrayWordDisplaying.forEach(item => {
-            let afterString =  tempString +  item.word + ' ';
-            if (length < afterString.length && length > tempString.length ){
+            let afterString = tempString + item.word + ' ';
+            if (length < afterString.length && length > tempString.length) {
                let after = $('.untyped-part');
                let translationPanel = document.createElement('div');
                translationPanel.innerText = item.translation
@@ -298,13 +299,14 @@ define(['Article','Config', 'Record', 'Database'],function (
          })
       }
 
-      englishModeEnter(){
+      englishModeEnter() {
          typingPad.classList.add('english');
          template.classList.add('english');
          config.isInEnglishMode = true;
          config.save();
       }
-      englishModeLeave(){
+
+      englishModeLeave() {
          typingPad.classList.remove('english');
          template.classList.remove('english');
          config.isInEnglishMode = false;
@@ -312,15 +314,15 @@ define(['Article','Config', 'Record', 'Database'],function (
       }
 
       // 更新时间
-      showTime(){
-         if (this.isStarted){
+      showTime() {
+         if (this.isStarted) {
             let secondAll = this.duration / 1000;
             let minute = Math.floor(secondAll / 60);
             let second = Math.floor(secondAll % 60);
-            $('.minute').innerText = minute >= 10? minute : `0${minute}`;
-            $('.btn-minute').innerText = minute >= 10? minute : `0${minute}`;
-            $('.second').innerText = second >= 10? second : `0${second}`;
-            $('.btn-second').innerText = second >= 10? second : `0${second}`;
+            $('.minute').innerText = minute >= 10 ? minute : `0${minute}`;
+            $('.btn-minute').innerText = minute >= 10 ? minute : `0${minute}`;
+            $('.second').innerText = second >= 10 ? second : `0${second}`;
+            $('.btn-second').innerText = second >= 10 ? second : `0${second}`;
          } else {
             $('.minute').innerText = '00';
             $('.btn-minute').innerText = '00';
@@ -330,14 +332,14 @@ define(['Article','Config', 'Record', 'Database'],function (
       }
 
       // 暂停
-      pause(){
+      pause() {
          this.isPaused = true;
          typingPad.blur();
          this.stopRefresh()
       }
 
       // 继续
-      resume(){
+      resume() {
          this.timeStart = (new Date()).getTime() - this.duration;
          this.isPaused = false;
          this.startRefresh();
@@ -356,7 +358,7 @@ define(['Article','Config', 'Record', 'Database'],function (
       }
 
       // 重置计数器
-      reset(){
+      reset() {
          record = new Record();
          template.innerHTML = this.currentWords;
          this.isPaused = false;
@@ -371,7 +373,7 @@ define(['Article','Config', 'Record', 'Database'],function (
       }
 
       // 当前段打完
-      finish(){
+      finish() {
          this.isStarted = false;
          this.isFinished = true;
          this.stopRefresh();
@@ -389,14 +391,14 @@ define(['Article','Config', 'Record', 'Database'],function (
       // 更新界面信息
       updateInfo() {
          // COLOR
-         if(this.isStarted && !this.isPaused){
+         if (this.isStarted && !this.isPaused) {
             $('.time').classList.add('text-green');
          } else {
             $('.time').classList.remove('text-green');
          }
 
          // KEY COUNT
-         for (let type in keyCount){
+         for (let type in keyCount) {
             $(`.word-${type} p`).innerText = keyCount[type];
          }
          $('.count-total').innerText = this.currentWords.length;
@@ -442,5 +444,6 @@ define(['Article','Config', 'Record', 'Database'],function (
          $('.chapter-total').innerText = config.chapterTotal;
       }
    }
+
    return Engine
 })
