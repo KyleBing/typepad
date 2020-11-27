@@ -84,8 +84,11 @@ require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CE
          engine.currentWords = arrayCurrentWord.join(' ');
       } else {
          // 其它时
-         engine.currentWords = engine.currentOriginWords.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)).join('');
-         debugger
+         if(config.count === 'ALL'){
+            engine.currentWords = engine.currentOriginWords.join('');
+         } else {
+            engine.currentWords = engine.currentOriginWords.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)).join('');
+         }
       }
       template.innerText = engine.currentWords;
       engine.updateInfo();
