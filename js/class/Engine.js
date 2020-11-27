@@ -45,12 +45,14 @@ define(['Article','Config', 'Record', 'Database'],function (
          clearInterval(this.handleRefresh);
       }
 
-      setWithCurrentConfig(){
+       setWithCurrentConfig(){
          $('input[type=checkbox]#mode').checked = this.isShuffle;
-         let radios = document.querySelectorAll('input[name=count][type=radio]');
-         for (let i=0; i<radios.length; i++){
-            radios[i].checked = radios[i].value === config.count
-         }
+         let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
+         let radios = [...radioNodes];
+         radios.forEach(item => {
+            item.checked = item.value === config.count
+            console.log(config.count, ':' ,item.value === config.count)
+         })
          $('select#article').value = config.articleIdentifier;
          engine.currentOriginWords = config.article.split('');
 
@@ -154,14 +156,12 @@ define(['Article','Config', 'Record', 'Database'],function (
       changePerCount(){
          let originTol = 0;
          config.count = $('input[type=radio]:checked').value;
-
          if (config.articleType === ArticleType.word){ // CET 单词时，count 为单词数
             let count = config.count === 'ALL' ? this.arrayWordAll.length : config.count;
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
             let arrayCurrentWord = this.arrayWordDisplaying.map(item => {return item.word}); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
             originTol = this.arrayWordAll.length / Number(config.count);
-
          } else {
             if (config.count === 'ALL'){
                this.currentWords = this.currentOriginWords.join('');
@@ -169,7 +169,6 @@ define(['Article','Config', 'Record', 'Database'],function (
                this.currentWords = this.currentOriginWords.slice(0, Number(config.count)).join('');
             }
             originTol = this.currentOriginWords.length / Number(config.count);
-
          }
          config.chapter = 1;
          let tempTol = Math.floor(originTol);

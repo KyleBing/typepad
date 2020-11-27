@@ -1,11 +1,6 @@
 // 成绩记录
-const localStorageIndexName = 'type_pad_idb_index';
-
 class Record {
    constructor(speed, codeLength, hitRate, backspace, wordCount, articleName,  timeStart, duration) {
-      let index = localStorage[localStorageIndexName];
-      this.id = index? Number(index) : 1;
-      localStorage[localStorageIndexName] = this.id;
       this.speed = speed;
       this.codeLength = codeLength;
       this.hitRate = hitRate;
