@@ -406,9 +406,7 @@ define(['Article', 'Config', 'Record', 'Database'], function (
          $('.count-total').innerText = this.currentWords.length;
          $('.count-current').innerText = typingPad.value.length;
 
-         //
          // SPEED
-         //
          if (!this.isStarted && !this.isFinished) {
             $('.speed').innerText = '--';
             $('.btn-speed').innerText = '--';
@@ -439,13 +437,10 @@ define(['Article', 'Config', 'Record', 'Database'], function (
             $('.count-key-backspace').innerText = keyCount.backspace;
          }
 
-         //
          // OPTION
-         //
          $('.chapter-current').innerText = config.chapter;
          $('.chapter-total').innerText = config.chapterTotal;
       }
    }
-
    return Engine
 })

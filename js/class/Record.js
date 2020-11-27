@@ -10,7 +10,7 @@ class Record {
       this.timeStart = timeStart;
       this.duration = duration;
    }
-   getHtml(){
+   getHtml(id){
       let level = Math.floor(this.speed/SPEED_GAP);
       level = level > 6 ? 6 : level; // 速度等级为 6+ 时按 6 处理
       let articleType = ArticleType.getTypeNameWith(config.articleType);
@@ -23,7 +23,7 @@ class Record {
          default: break;
       }
       return `<tr>  
-              <td class="text-center roboto-mono">${this.id}</td> <!--id-->
+              <td class="text-center roboto-mono">${id}</td> <!--id-->
               <td class="bold roboto-mono lv-${level}">${this.speed}</td> <!--速度-->
               <td>${this.codeLength}</td><!--码长-->
               <td>${this.hitRate}</td><!--击键-->

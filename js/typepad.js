@@ -56,7 +56,7 @@ require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CE
       database = new Database();
 
       engine.loadArticleOptions(); // 载入文章选项列表
-      config.getAndSet();  // 设置 config
+      config.setWithCurrentConfig();  // 设置 config
       engine.updateInfo(); // 刷新界面
 
       typingPad.onblur = () => {

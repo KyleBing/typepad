@@ -3,7 +3,6 @@ const SPEED_GAP       = 30;      // 速度阶梯，每30新增一个颜色
 
 define(['Config'],function (Config) {
    let config = new Config();
-   config.get()
 
    // IndexDB
    class Database {
@@ -32,11 +31,11 @@ define(['Config'],function (Config) {
       }
       // 添加数据
       insert(record){
-         console.log(record)
+         console.log(config.IDBIndex,record)
          let request = this.db.transaction([OBJECT_NAME], 'readwrite')
             .objectStore(OBJECT_NAME)
             .add({
-               id: record.id,
+               id: config.IDBIndex,
                speed: record.speed,
                codeLength: record.codeLength,
                hitRate: record.hitRate,
@@ -50,12 +49,13 @@ define(['Config'],function (Config) {
             });
          request.onsuccess = e => {
             show('insert data success');
-            config.IDBIndex ++; config.save();
             // 插入最后的数据到顶部
             let tr = document.createElement('tr');
-            tr.innerHTML = record.getHtml();
+            tr.innerHTML = record.getHtml(config.IDBIndex);
             let tbody = $('tbody');
             tbody.insertBefore(tr, tbody.firstChild);
+            // id ++
+            config.IDBIndex = config.IDBIndex + 1; config.save();
          }
 
          request.onerror = e => {
@@ -72,7 +72,7 @@ define(['Config'],function (Config) {
                let result = request.result;
                let objectStore = this.db.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
                let html = '';
-               let currentCursor = objectStore.openCursor(IDBKeyRange.upperBound(config.IDBIndex), "prev").onsuccess = e => {
+               let currentCursor = objectStore.openCursor(IDBKeyRange.upperBound(9999), "prev").onsuccess = e => {
                   let cursor = e.target.result;
                   if (cursor) {
                      html = html + this.getHtmlWithCursor(cursor);
@@ -119,7 +119,8 @@ define(['Config'],function (Config) {
 
       // 删除一条数据
       delete(id, sender){
-         let objectStore = this.db.resultaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+         show(this.db)
+         let objectStore = this.db.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
          objectStore.delete(id).onsuccess = e => {
             show(`delete data ${id} success`);
             sender.parentElement.parentElement.remove();
@@ -132,7 +133,7 @@ define(['Config'],function (Config) {
             sender.innerText = '确定清除';
             sender.classList.add('danger');
          } else {
-            let objectStore = this.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
+            let objectStore = this.db.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
             let that = this;
             objectStore.clear().onsuccess = e => {
                config.IDBIndex = 1;config.save();
