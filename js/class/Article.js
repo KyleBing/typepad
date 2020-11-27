@@ -1,3 +1,6 @@
+/**
+ * 文章列表
+ */
 define(['ArticleType'], function () {
    return {
       top500: {

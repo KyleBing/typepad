@@ -1,7 +1,9 @@
 const CONFIG_NAME = 'typePad';
 
 define(['Article', 'ArticleType'],function (Article, ArticleType) {
-   // 跟打器参数
+   /**
+    * 配置参数
+    */
    class Config {
       constructor() {
          if (this.hasSavedData()){
@@ -34,7 +36,7 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
       save(){
          localStorage.setItem(CONFIG_NAME, JSON.stringify(this));
       }
-      setWithCurrentConfig(engine){
+      applyIn(engine){
          // 根据当前配置文件设置内容
          $('input[type=checkbox]#mode').checked = this.isShuffle;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');

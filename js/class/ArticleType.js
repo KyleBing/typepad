@@ -1,3 +1,7 @@
+/**
+ * 文章类别
+ * @type {{character: string, english: string, word: string, getTypeNameWith(*): (string), article: string}}
+ */
 const ArticleType = {
    character: 'character',
    article: 'article',

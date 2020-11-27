@@ -1,6 +1,7 @@
-// 按键记录
-
 define(['Reg'], function (Reg) {
+   /**
+    * 按键记录
+    */
    class KeyCount {
       constructor() {
          this.all        = 0;

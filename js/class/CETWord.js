@@ -1,3 +1,6 @@
+/**
+ * 英文单词
+ */
 class CETWord{
    constructor(word, translation) {
       this.word = word;

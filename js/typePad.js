@@ -7,53 +7,40 @@
  * Record 每段的打字数据记录
  * Database IndexedDB 相关操作
  * CETWord 单词元素
- *
  */
 
-const template = $('.template p'); // 对照区主 element
+const template        = $('.template p'); // 对照区主 element
 const templateWrapper = $('.template');   // 对照区 容器
-const typingPad = $('#pad');
-const DBName = "TypePad";
+const typingPad       = $('#pad');
+const DBName          = "TypePad";
+
+
+let engine; // 暴露 engine 以用于 html 绑定方法用
 
 // require config
 require.config({
    baseUrl: "./js/class",
    paths: {
-      'ArticleType': 'ArticleType',
-      'Article': 'Article',
-      'Config': 'Config',
-      'KeyCount': 'KeyCount',
-      'Engine': 'Engine',
-      'CETWord': 'CETWord',
-      'Reg': 'Reg',
-      'Record': 'Record',
-      'Database': 'Database',
-      'Utility': 'Utility',
+      'ArticleType' : 'ArticleType',
+      'Article'     : 'Article',
+      'Config'      : 'Config',
+      'Engine'      : 'Engine',
+      'CETWord'     : 'CETWord',
+      'Reg'         : 'Reg',
+      'Database'    : 'Database',
    }
 });
 
-let engine;
 
-require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CETWord', 'Reg', 'Database', 'Utility'],
-   function (ArticleType,
-             Article,
-             KeyCount,
-             Engine,
-             Config,
-             Record,
-             CETWord,
-             Reg,
-             Database,
-             Utility) {
+require(['ArticleType', 'Article', 'Engine', 'Config', 'CETWord', 'Reg', 'Database' ],
+   function ( ArticleType, Article, Engine, Config, CETWord, Reg, Database ) {
 
       engine = new Engine();
-      let record = new Record();
       let config = new Config();
-      let keyCount = new KeyCount();
       let database = new Database();
 
       engine.loadArticleOptions(); // 载入文章选项列表
-      config.setWithCurrentConfig(engine);  // 设置 config
+      config.applyIn(engine);  // 设置 config
       engine.updateInfo(); // 刷新界面
 
       typingPad.onblur = () => {

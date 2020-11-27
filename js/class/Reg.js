@@ -1,3 +1,7 @@
+/**
+ * 按键配置正则表达式
+ * @type {{all: RegExp, ctrl: RegExp, shift: RegExp, alt: RegExp, delete: RegExp, space: RegExp, number: RegExp, backspace: RegExp, meta: RegExp, function: RegExp, az: RegExp, quot: RegExp, semicolon: RegExp}}
+ */
 const Reg = {
    all        : /.*/,
    az         : /^[a-zA-Z]$/,

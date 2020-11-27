@@ -1,5 +1,5 @@
-define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
-   Article, Config, Record, Database, KeyCount) {
+define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], function (
+   Article, Config, Record, Database, KeyCount, Utility) {
    const untypedStringClassName = 'untyped-part';
    const HEIGHT_TEMPLATE = 150; // 对照区高度
 
@@ -8,7 +8,9 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
    let record = new Record();
    let database = new Database()
 
-   // 跟打器内核
+   /**
+    * 跟打器内核
+    */
    class Engine {
       constructor() {
          this.isFinished = false;
@@ -167,7 +169,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
          config.articleType = article.type;
          switch (config.articleType) {
             case ArticleType.character:
-               this.currentOriginWords = config.isShuffle ? shuffle(article.content.split('')) : article.content.split('');
+               this.currentOriginWords = config.isShuffle ? Utility.shuffle(article.content.split('')) : article.content.split('');
                config.article = this.currentOriginWords.join('');
                this.englishModeLeave();
                break;
@@ -247,7 +249,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
          config.isShuffle = $('#mode').checked;
          if (config.articleType === ArticleType.word) {
             if (config.isShuffle) {
-               this.arrayWordAll = shuffle(this.arrayWordAll);
+               this.arrayWordAll = Utility.shuffle(this.arrayWordAll);
             } else {
                this.arrayWordAll = Article.CET4.getWordsArray()
             }
@@ -262,7 +264,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
          } else if (config.articleType === ArticleType.character) {
-            this.currentOriginWords = config.isShuffle ? shuffle(Article[config.articleIdentifier].content.split('')) : Article[config.articleIdentifier].content.split('');
+            this.currentOriginWords = config.isShuffle ? Utility.shuffle(Article[config.articleIdentifier].content.split('')) : Article[config.articleIdentifier].content.split('');
             config.article = this.currentOriginWords.join('');
             this.currentWords = this.currentOriginWords.slice(0, Number(config.count)).join('');
          }
@@ -427,7 +429,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
       wordsShuffle() {
          if (config.articleType !== ArticleType.english && config.articleType !== ArticleType.word) {
             let array = this.currentWords.split('');
-            this.currentWords = shuffle(array).join('');
+            this.currentWords = Utility.shuffle(array).join('');
             template.innerText = this.currentWords;
             this.reset();
             this.isFinished = false;
