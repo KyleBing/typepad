@@ -261,9 +261,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
                return item.word
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
-         } else if (config.articleType === ArticleType.english) {
-            // English
-         } else {
+         } else if (config.articleType === ArticleType.character) {
             this.currentOriginWords = config.isShuffle ? shuffle(Article[config.articleIdentifier].content.split('')) : Article[config.articleIdentifier].content.split('');
             config.article = this.currentOriginWords.join('');
             this.currentWords = this.currentOriginWords.slice(0, Number(config.count)).join('');
