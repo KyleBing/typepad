@@ -1,6 +1,6 @@
 const CONFIG_NAME = 'typePad';
 
-define(['Article'],function (Article) {
+define(['Article', 'ArticleType'],function (Article, ArticleType) {
    // 跟打器参数
    class Config {
       constructor() {
@@ -23,13 +23,13 @@ define(['Article'],function (Article) {
          let config = JSON.parse(localStorage.getItem(CONFIG_NAME));
          this.chapter            = config.chapter;
          this.chapterTotal       = config.chapterTotal;
-         this.isShuffle          = config.isShuffle  === 'true';
-         this.isInEnglishMode    = config.isInEnglishMode  === 'true';
+         this.isShuffle          = config.isShuffle;
+         this.isInEnglishMode    = config.isInEnglishMode;
          this.count              = config.count;
          this.articleIdentifier  = config.articleIdentifier;
          this.articleName        = config.articleName;
          this.article            = config.article;
-         this.darkMode           = config.darkMode  === 'true';
+         this.darkMode           = config.darkMode;
          this.articleType        = config.articleType;
          this.IDBIndex           = config.IDBIndex;
       }
@@ -47,7 +47,8 @@ define(['Article'],function (Article) {
 
          // English Mode
          if (this.isInEnglishMode) {
-            this.englishModeEnter()
+            debugger
+            engine.englishModeEnter()
          }
 
          // Dark Mode
@@ -58,7 +59,25 @@ define(['Article'],function (Article) {
             body.classList.remove('black');
          }
          let darkButton = $('#darkButton');
-         darkButton.innerText = this.darkMode ? '白色' : '暗黑'
+         darkButton.innerText = this.darkMode ? '白色' : '暗黑';
+
+         if (this.articleType === ArticleType.word) {
+            // CET 时
+            engine.arrayWordAll = Article.CET4.getWordsArray();
+            engine.arrayWordDisplaying = engine.arrayWordAll.slice(Number(this.count) * (this.chapter - 1), Number(this.count) * (this.chapter)); // 截取当前需要显示的数组段
+            let arrayCurrentWord = engine.arrayWordDisplaying.map(item => {
+               return item.word
+            }); // 取到英文，数组
+            engine.currentWords = arrayCurrentWord.join(' ');
+         } else {
+            // 其它时
+            if(this.count === 'ALL'){
+               engine.currentWords = engine.currentOriginWords.join('');
+            } else {
+               engine.currentWords = engine.currentOriginWords.slice(Number(this.count) * (this.chapter - 1), Number(this.count) * (this.chapter)).join('');
+            }
+         }
+         template.innerText = engine.currentWords;
       }
 
       getAndSet(){

@@ -98,7 +98,7 @@ define(['Article', 'Config', 'Record', 'Database'], function (
 
       // 改变文章内容
       changeArticle() {
-         let articleName = $('#article').value;
+         let articleName = $('select#article').value;
          let article = Article[articleName];
          config.articleIdentifier = articleName;
          config.articleName = article.name;
@@ -128,6 +128,7 @@ define(['Article', 'Config', 'Record', 'Database'], function (
             default:
                break;
          }
+         config.save();
          this.changePerCount();
       }
 

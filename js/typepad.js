@@ -71,25 +71,6 @@ require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CE
          engine.changePerCount();
       }
 
-      // init
-
-      if (config.articleType === ArticleType.word) {
-         // CET 时
-         engine.arrayWordAll = Article.CET4.getWordsArray();
-         engine.arrayWordDisplaying = engine.arrayWordAll.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)); // 截取当前需要显示的数组段
-         let arrayCurrentWord = engine.arrayWordDisplaying.map(item => {
-            return item.word
-         }); // 取到英文，数组
-         engine.currentWords = arrayCurrentWord.join(' ');
-      } else {
-         // 其它时
-         if(config.count === 'ALL'){
-            engine.currentWords = engine.currentOriginWords.join('');
-         } else {
-            engine.currentWords = engine.currentOriginWords.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)).join('');
-         }
-      }
-      template.innerText = engine.currentWords;
       engine.updateInfo();
 
       typingPad.onblur = () => {
