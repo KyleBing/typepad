@@ -41,7 +41,6 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
          let radios = [...radioNodes];
          radios.forEach(item => {
             item.checked = item.value === this.count
-            console.log(item.value, ':', item.value === this.count)
          })
          $('select#article').value = this.articleIdentifier;
 
@@ -61,6 +60,10 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
          let darkButton = $('#darkButton');
          darkButton.innerText = this.darkMode ? '白色' : '暗黑';
 
+         // 最开始的时候，如果没有检测到存储的数据，初始化
+         if (config.hasSavedData()) {
+            engine.currentOriginWords = config.article.split('');
+         }
          if (this.articleType === ArticleType.word) {
             // CET 时
             engine.arrayWordAll = Article.CET4.getWordsArray();

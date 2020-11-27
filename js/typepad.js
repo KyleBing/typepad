@@ -53,25 +53,11 @@ require(['ArticleType', 'Article', 'KeyCount', 'Engine', 'Config', 'Record', 'CE
       record = new Record();
       config = new Config();
       keyCount = new KeyCount();
-
-
-      // database
-      let DB;
       database = new Database();
 
       engine.loadArticleOptions(); // 载入文章选项列表
-
-      // 最开始的时候，如果没有检测到存储的数据，初始化
-      if (config.hasSavedData()) {
-         config.getAndSet();
-         engine.currentOriginWords = config.article.split('');
-      } else {
-         config.save();
-         config.getAndSet();
-         engine.changePerCount();
-      }
-
-      engine.updateInfo();
+      config.getAndSet();  // 设置 config
+      engine.updateInfo(); // 刷新界面
 
       typingPad.onblur = () => {
          if (engine.isStarted && !engine.isPaused) {

@@ -20,11 +20,12 @@ define(['Article', 'Config', 'Record', 'Database'], function (
          this.handleRefresh;
          this.refreshRate = 500; // ms
 
-         this.correctWordsCount = 0;
-         this.currentWords = '';
-         this.currentOriginWords = [];
-         this.arrayWordAll = [];
-         this.arrayWordDisplaying = [];
+         this.correctWordsCount    = 0;
+         this.currentWords         = '';       // 当前显示的文字
+         this.currentOriginWords   = [];       // 字体拆分的全部数组
+         this.arrayWordAll         = [];       // 全部单词
+         this.arrayWordDisplaying  = [];       // 展示的单词
+
       }
 
       start() {
