@@ -20,11 +20,11 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
          this.handleRefresh;
          this.refreshRate = 500; // ms
 
-         this.correctWordsCount    = 0;
-         this.currentWords         = '';       // 当前显示的文字
-         this.currentOriginWords   = [];       // 字体拆分的全部数组
-         this.arrayWordAll         = [];       // 全部单词
-         this.arrayWordDisplaying  = [];       // 展示的单词
+         this.correctWordsCount = 0;
+         this.currentWords = '';       // 当前显示的文字
+         this.currentOriginWords = [];       // 字体拆分的全部数组
+         this.arrayWordAll = [];       // 全部单词
+         this.arrayWordDisplaying = [];       // 展示的单词
 
 
          // 按键过滤器
@@ -249,7 +249,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
             if (config.isShuffle) {
                this.arrayWordAll = shuffle(this.arrayWordAll);
             } else {
-               this.arrayWordAll = gettWordsArrayWith(Article[config.articleIdentifier].content);
+               this.arrayWordAll = Article.CET4.getWordsArray()
             }
             let tempArrayWordAll = this.arrayWordAll.map(item => {
                return item.word + '\t' + item.translation
@@ -261,6 +261,8 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
                return item.word
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
+         } else if (config.articleType === ArticleType.english) {
+            // English
          } else {
             this.currentOriginWords = config.isShuffle ? shuffle(Article[config.articleIdentifier].content.split('')) : Article[config.articleIdentifier].content.split('');
             config.article = this.currentOriginWords.join('');
@@ -376,13 +378,13 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
          config.save();
       }
 
-      delete(id, sender){
-         database.delete(id,sender)
+      delete(id, sender) {
+         database.delete(id, sender)
       }
 
       // 清除记录
-      clear(sender){
-         if (sender.innerText !== '确定清除'){
+      clear(sender) {
+         if (sender.innerText !== '确定清除') {
             sender.innerText = '确定清除';
             sender.classList.add('danger');
          } else {
@@ -463,7 +465,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
          record.duration = this.duration;
          record.wordCount = this.currentWords.length;
          this.updateInfo();
-         database.insert(record);
+         database.insert(record, config);
       }
 
       // 更新界面信息
@@ -518,5 +520,6 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount'], function (
          $('.chapter-total').innerText = config.chapterTotal;
       }
    }
+
    return Engine
 })
