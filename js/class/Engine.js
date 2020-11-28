@@ -86,7 +86,6 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
                this.start()
             }
          }
-
       }
 
       start() {
@@ -124,6 +123,14 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
             config.chapter--;
             this.reset();
             config.save();
+         } else {
+            console.log('retch bottom')
+            let animateClass = 'shake';
+            let chapterBtn = $('#totalChapter');
+            chapterBtn.classList.add(animateClass);
+            setTimeout(()=>{
+               chapterBtn.classList.remove(animateClass)
+            }, 250)
          }
       }
 
@@ -144,7 +151,13 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
             this.reset();
             config.save();
          } else {
-            // TODO: 没有下一段时，给个动画提示
+            console.log('retch bottom')
+            let animateClass = 'shake';
+            let chapterBtn = $('#totalChapter');
+            chapterBtn.classList.add(animateClass);
+            setTimeout(()=>{
+               chapterBtn.classList.remove(animateClass)
+            }, 250)
          }
       }
 
@@ -197,9 +210,9 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
       }
 
       // 改变数字时
-      changePerCount() {
+      changePerCount(count) {
          let originTol = 0;
-         config.count = $('input[type=radio]:checked').value;
+         config.count = count;
          if (config.articleType === ArticleType.word) { // CET 单词时，count 为单词数
             let count = config.count === 'ALL' ? this.arrayWordAll.length : config.count;
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
