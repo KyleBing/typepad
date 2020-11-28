@@ -8,6 +8,14 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
    let record = new Record();
    let database = new Database()
 
+   // 更新处理
+   // v1.0-> v2.0
+   let IDBIndexV1 = localStorage.getItem('type_pad_idb_index');
+   if (IDBIndexV1){
+      // 如果存在 IDB Index 记录，保存到现有配置文件 Config 中
+      config.IDBIndex = Number(IDBIndexV1);
+   }
+
    /**
     * 跟打器内核
     */
@@ -210,10 +218,10 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
       }
 
       // 改变数字时
-      changePerCount(count) {
+      changePerCount() {
          let originTol = 0;
-         config.count = count;
-         if (config.articleType === ArticleType.word) { // CET 单词时，count 为单词数
+         config.count = $('input[type=radio]:checked').value;;
+         if (config.articleType === ArticleType.word) { // CET 单词模式时，count 为单词数
             let count = config.count === 'ALL' ? this.arrayWordAll.length : config.count;
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
             let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
