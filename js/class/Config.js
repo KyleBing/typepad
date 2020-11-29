@@ -61,10 +61,7 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
          let darkButton = $('#darkButton');
          darkButton.innerText = this.darkMode ? '白色' : '暗黑';
 
-         // 最开始的时候，如果没有检测到存储的数据，初始化
-         if (this.hasSavedData()) {
-            engine.currentOriginWords = this.article.split('');
-         }
+         engine.currentOriginWords = this.article.split('');
          if (this.articleType === ArticleType.word) {
             // CET 时
             engine.arrayWordAll = Article.CET4.getWordsArray();
