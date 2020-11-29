@@ -12,7 +12,6 @@ define(['Utility'], function (Utility) {
          request.onsuccess = e =>{
             if (e.returnValue){
                this.db = request.result;
-               this.fetchAll();
             } else {
             }
          }
@@ -26,7 +25,7 @@ define(['Utility'], function (Utility) {
             } else {
                this.db = request.result;
             }
-            var objectStore = this.db.createObjectStore(OBJECT_NAME, { keyPath: 'id' });
+            let objectStore = this.db.createObjectStore(OBJECT_NAME, { keyPath: 'id' });
          }
       }
       // 添加数据

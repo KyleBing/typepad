@@ -25,7 +25,7 @@ define(['ArticleType'], function () {
          name: '易错易忘字',
          value: 'typo',
          type: ArticleType.character,
-         content: '腻卸凹凸武戒熬曳舟罐戈撩'
+         content: '腻卸凹凸武戒熬曳舟罐戈撩缺'
       },
       loveYourLife: {
          name: 'Love your life',
