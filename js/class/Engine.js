@@ -119,6 +119,11 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
             body.classList.remove('black');
          }
 
+         // Repeat Monitor
+         $('#repeatCountTotal').innerText = config.repeatCountTotal
+         $('#repeatCountCurrent').innerText = config.repeatCountCurrent
+
+
          this.currentOriginWords = config.article.split('');
          if (config.articleType === ArticleType.word) {
             // CET 时
@@ -180,12 +185,8 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
             config.save();
          } else {
             console.log('retch bottom')
-            let animateClass = 'shake';
             let chapterBtn = $('#totalChapter');
-            chapterBtn.classList.add(animateClass);
-            setTimeout(()=>{
-               chapterBtn.classList.remove(animateClass)
-            }, 250)
+            shakeBtn(chapterBtn)
          }
       }
 
@@ -332,6 +333,25 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
       shuffleRepeat(){
          config.isShuffleRepeat = $('#shuffleRepeat').checked;
          config.save();
+      }
+
+      // 重复次数 +
+      repeatCountAdd(){
+         config.repeatCountTotal++;
+         $('#repeatCountTotal').innerText = config.repeatCountTotal;
+         config.save()
+      }
+      // 重复次数 -
+      repeatCountMinus(){
+         if (config.repeatCountTotal > 1){
+            config.repeatCountTotal--;
+            $('#repeatCountTotal').innerText = config.repeatCountTotal;
+            config.save()
+         } else {
+            console.log('can not lower than 1')
+            let btn = $('#repeatMonitor')
+            shakeBtn(btn)
+         }
       }
 
       // 切换乱序模式
@@ -612,6 +632,14 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
          $('.chapter-current').innerText = config.chapter;
          $('.chapter-total').innerText = config.chapterTotal;
       }
+   }
+
+   function shakeBtn(btn){
+      let animateClass = 'shake';
+      btn.classList.add(animateClass);
+      setTimeout(()=>{
+         btn.classList.remove(animateClass)
+      }, 250)
    }
 
    return Engine

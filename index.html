@@ -18,9 +18,7 @@
       <!--time-->
       <div class="time-info info-panel">
          <div class="time number">
-            <div class="minute">00</div>
-            :
-            <div class="second">00</div>
+            <div class="minute">00</div>:<div class="second">00</div>
          </div>
       </div>
 
@@ -206,13 +204,13 @@
             <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
          <div class="btn-group dash">
-            <div class="btn number" onclick="engine.reset()" title="⌘ + K">
-               <span class="chapter-current bold current number">1</span> /
-               <span class="chapter-total number total">1</span>
+            <div id="repeatMonitor" class="btn number animated" onclick="engine.reset()" title="⌘ + K">
+               <span id="repeatCountCurrent" class="chapter-current bold current number">1</span> /
+               <span id="repeatCountTotal" class="chapter-total number total">1</span>
             </div>
             <div class="btn-vertical">
-               <div>+</div>
-               <div>-</div>
+               <div onclick="engine.repeatCountAdd()">+</div>
+               <div onclick="engine.repeatCountMinus()">-</div>
             </div>
          </div>
          <div class="btn-group">
