@@ -3,7 +3,7 @@
  * @type {{all: RegExp, ctrl: RegExp, shift: RegExp, alt: RegExp, delete: RegExp, space: RegExp, number: RegExp, backspace: RegExp, meta: RegExp, function: RegExp, az: RegExp, quot: RegExp, semicolon: RegExp}}
  */
 define(function () {
-   const Reg = {
+   return{
       all        : /.*/,
       az         : /^[a-zA-Z]$/,
       number     : /\d/,
@@ -18,6 +18,4 @@ define(function () {
       semicolon  : /;/,
       quot       : /'/,
    };
-
-   return Reg
 })

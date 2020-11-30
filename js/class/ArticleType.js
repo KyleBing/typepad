@@ -4,7 +4,7 @@
  */
 
 define(function () {
-   const ArticleType = {
+   return {
       character: 'character',
       article: 'article',
       english: 'english',
@@ -19,5 +19,4 @@ define(function () {
          }
       }
    }
-   return ArticleType
 })
