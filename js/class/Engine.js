@@ -1,4 +1,5 @@
-define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], function (
+define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], function (
+   Reg,
    ArticleType,
    Article,
    Config,
@@ -52,7 +53,7 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
                this.reset();
             } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
                e.preventDefault();
-               this.wordsShuffle();
+               this.shuffleCurrent();
             } else if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
                this.prevChapter();
                e.preventDefault();
@@ -99,6 +100,8 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
          $('input[type=checkbox]#shuffleMode').checked = config.isShuffle;
          $('input[type=checkbox]#darkMode').checked = config.darkMode;
          $('input[type=checkbox]#autoNext').checked = config.isAutoNext;
+         $('input[type=checkbox]#autoRepeat').checked = config.isAutoRepeat;
+         $('input[type=checkbox]#shuffleRepeat').checked = config.isShuffleRepeat;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
          let radios = [...radioNodes];
          radios.forEach(item => {
@@ -536,12 +539,14 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
       }
 
       // 乱序当前段
-      wordsShuffle() {
+      shuffleCurrent() {
+         // TODO: 英文单词时，乱序当前词组
          if (config.articleType !== ArticleType.english && config.articleType !== ArticleType.word) {
             let array = this.currentWords.split('');
             this.currentWords = Utility.shuffle(array).join('');
             template.innerText = this.currentWords;
             this.reset();
+            // TODO: 优化处理界面数据刷新的功能
             this.isFinished = false;
             this.updateInfo();
          }
@@ -574,11 +579,26 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
          record.timeStart = this.timeStart;
          record.duration = this.duration;
          record.wordCount = this.currentWords.length;
-         this.updateInfo();
          database.insert(record, config);
-         if (config.isAutoNext){
-            this.nextChapter();
+         if (config.isAutoNext){ // 自动发文
+            if (config.isAutoRepeat){ // 重复发文
+               if (config.repeatCountTotal > config.repeatCountCurrent){ // 还有重复次数
+                  if (config.isShuffleRepeat){ // 需要重复时乱序
+                     this.shuffleCurrent();
+                  } else {
+                     this.reset()
+                  }
+                  config.repeatCountCurrent++;
+               } else {
+                  config.repeatCountCurrent = 1;
+                  this.nextChapter()
+               }
+            } else {
+               config.repeatCountCurrent = 1;
+               this.nextChapter();
+            }
          }
+         this.updateInfo();
       }
 
       // 更新界面信息
@@ -596,6 +616,9 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
          }
          $('.count-total').innerText = this.currentWords.length;
          $('.count-current').innerText = typingPad.value.length;
+
+         // 更新当前重复次数
+         $('#repeatCountCurrent').innerText = config.repeatCountCurrent
 
          // SPEED
          if (!this.isStarted && !this.isFinished) {
