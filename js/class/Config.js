@@ -42,6 +42,14 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             this.articleType        = ArticleType.character;  // 文章类型
             this.IDBIndex           = 1;                      // IndexDB    序号
          }
+
+         // 更新处理
+         // v1.0-> v2.0
+         let IDBIndexV1 = localStorage.getItem('type_pad_idb_index');
+         if (IDBIndexV1){
+            // 如果存在 IDB Index 记录，保存到现有配置文件 Config 中
+            this.IDBIndex = Number(IDBIndexV1);
+         }
       }
       save(){
          localStorage.setItem(CONFIG_NAME, JSON.stringify(this));

@@ -14,14 +14,6 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
    let record = new Record();
    let database = new Database()
 
-   // 更新处理
-   // v1.0-> v2.0
-   let IDBIndexV1 = localStorage.getItem('type_pad_idb_index');
-   if (IDBIndexV1){
-      // 如果存在 IDB Index 记录，保存到现有配置文件 Config 中
-      config.IDBIndex = Number(IDBIndexV1);
-   }
-
    /**
     * 跟打器内核
     */
