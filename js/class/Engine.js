@@ -330,6 +330,18 @@ define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Ut
          config.save();
       }
 
+      // 重复发文
+      autoRepeat(){
+         config.isAutoRepeat = $('#autoRepeat').checked;
+         config.save();
+      }
+
+      // 重复发文时乱序
+      shuffleRepeat(){
+         config.isShuffleRepeat = $('#shuffleRepeat').checked;
+         config.save();
+      }
+
       // 切换乱序模式
       shuffleCurrentArticle() {
          config.isShuffle = $('#shuffleMode').checked;
