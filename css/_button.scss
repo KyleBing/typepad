@@ -29,9 +29,7 @@ $btns: (
   cursor: pointer;
   margin: 0;
   @include border-radius(0);
-  background-color: white;
   border: none;
-  border-right: 1px solid $color-border;
   font-size: $fz-btn;
   padding: $btn-padding-tb $btn-padding-lr ;
   @extend .unselectable;
@@ -46,6 +44,11 @@ $btns: (
     background-color: $red;
     color: white;
   }
+}
+
+.btn-sm{
+  padding: 2px 3px;
+  font-size: $fz-info;
 }
 
 @each $name, $color in $btns {
@@ -136,9 +139,37 @@ input[type=checkbox]:checked + label.checker {
   overflow: hidden;
   border: 1px solid $color-border;
   margin: 0 5px 5px 0;
+  &.dash{
+    border-style: dashed;
+    > * {
+      border-color: inherit;
+      border-right-style: dashed;
+    }
+  }
   > * {
+    border-right: 1px solid $color-border;
+    background-color: white;
     &:last-child{
       border-right: none;
+    }
+  }
+  .btn-vertical{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    > *{
+      @extend .btn;
+      padding: 2px;
+      font-size: 5px;
+      text-align: center;
+      background-color: #fff;
+      border-bottom: 1px solid $color-border;
+      height: 50%;
+      width: 20px;
+      &:last-child{
+        border-bottom: none;
+      }
     }
   }
   &:last-child{
@@ -146,9 +177,6 @@ input[type=checkbox]:checked + label.checker {
   }
   &.no-border{
     border: none !important;
-  }
-  .btn{
-
   }
 }
 

@@ -255,6 +255,7 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
          this.updateInfo();
       }
 
+      // 进入暗黑模式
       enterDarkMode() {
          let body = $('body');
          if (config.darkMode) {
@@ -266,6 +267,12 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
             config.darkMode = true;
             config.save();
          }
+      }
+
+      // 自动发文
+      autoNext(){
+         config.isAutoNext = $('#autoNext').checked;
+         config.save();
       }
 
       // 切换乱序模式
@@ -490,6 +497,9 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
          record.wordCount = this.currentWords.length;
          this.updateInfo();
          database.insert(record, config);
+         if (config.isAutoNext){
+            this.nextChapter();
+         }
       }
 
       // 更新界面信息

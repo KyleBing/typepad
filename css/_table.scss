@@ -60,21 +60,19 @@ tbody{
 
 
 td{
-  padding: 2px $table-padding-lr ;
+  padding: 5px $table-padding-lr ;
   font-size: $fz-info;
   .btn{
+    font-size: $fz-info;
     color: inherit;
     border: 1px solid $color-border;
     background-color: white;
-    @extend .unselectable;
-    padding: $btn-padding-tb - 4 $btn-padding-lr - 4;
-    font-weight: bold;
-    cursor: pointer;
+    padding: 2px 3px;
     @include border-radius(3px);
     &:hover{
       background-color: $red;
-      color: white;
       border-color: $red;
+      color: white;
     }
   }
   &.time{

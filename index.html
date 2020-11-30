@@ -56,6 +56,13 @@
                     <label class="switch" for="shuffleMode"></label>
                 </div>
             </div>
+            <div class="switch-item">
+                <div class="label">自动发文</div>
+                <div class="wrapper">
+                    <input id="autoNext" type="checkbox" onchange="engine.autoNext()">
+                    <label class="switch" for="autoNext"></label>
+                </div>
+            </div>
         </div>
 
         <!--keys-->
@@ -115,25 +122,28 @@
                     <span class="chapter-current bold current number"></span> / <span class="chapter-total number total"></span>
                 </div>
             </div>
-
             <div class="btn-group">
                 <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
                 <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
             </div>
-
             <div class="btn-group">
                 <div class="btn" onclick="engine.wordsShuffle()" title="⌘ + K">打乱</div>
                 <div class="btn" onclick="engine.reset()" title="⌘ + Y">重打</div>
                 <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
                 <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
             </div>
-
-            <div class="btn-group">
-                <div class="btn" onclick="engine.reset()" title="⌘ + K">自动发文 1 次</div>
-                <div class="btn-primary">↑</div>
-                <div class="btn-primary">↓</div>
+            <div class="btn-group dash">
+                <div class="btn" onclick="engine.reset()" title="⌘ + K">重复发文 1 次</div>
+                <div class="btn-vertical">
+                    <div>+</div>
+                    <div>-</div>
+                </div>
             </div>
-
+            <div class="btn-group">
+                <label class="hidden" for="article"></label>
+                <select class="btn" id="article" onchange="engine.changeArticle()">
+                </select>
+            </div>
             <div class="btn-group">
                 <input type="radio" onchange="engine.changePerCount()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>
                 <input type="radio" onchange="engine.changePerCount()" name="count" id="count10" value="10"><label class="btn" for="count10">10</label>
@@ -146,11 +156,6 @@
                 <input type="radio" onchange="engine.changePerCount()" name="count" id="all" value="ALL"><label class="btn hidden-sm" for="all">ALL</label>
             </div>
 
-            <div class="btn-group">
-                <label class="hidden" for="article"></label>
-                <select class="btn" id="article" onchange="engine.changeArticle()">
-                </select>
-            </div>
             <!--手机端显示-->
             <div class="btn-group hidden-big">
                 <div class="btn number"><span class="btn-minute">00</span>:<span class="btn-second">00</span></div>

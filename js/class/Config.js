@@ -12,6 +12,7 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             this.chapterTotal       = config.chapterTotal;
             this.isShuffle          = config.isShuffle;
             this.isInEnglishMode    = config.isInEnglishMode;
+            this.isAutoNext         = config.isAutoNext;
             this.count              = config.count;
             this.articleIdentifier  = config.articleIdentifier;
             this.articleName        = config.articleName;
@@ -24,6 +25,7 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             this.chapterTotal      = 1;                       // 总段数
             this.isShuffle         = false;                   // 是否乱序模式
             this.isInEnglishMode   = false;                   // 是否处于英文打字状态
+            this.isAutoNext        = false;                   // 自动发文
             this.count             = '15';                    // 单条数量
             this.articleName       = Article.top500.name;     // 文章名称
             this.articleIdentifier = 'top500';                // 文章标识
@@ -40,6 +42,7 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
          // 根据当前配置文件设置内容
          $('input[type=checkbox]#shuffleMode').checked = this.isShuffle;
          $('input[type=checkbox]#darkMode').checked = this.darkMode;
+         $('input[type=checkbox]#autoNext').checked = this.isAutoNext;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
          let radios = [...radioNodes];
          radios.forEach(item => {
