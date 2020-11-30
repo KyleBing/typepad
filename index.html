@@ -1,227 +1,286 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name='description' content="玫枫跟打器, 跟打器">
-    <meta name='keywords' content="跟打器,玫枫跟打器,玫枫">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>玫枫跟打器 （Roseo TypePad）</title>
-    <link rel="shortcut icon" href="img/logo.png" type="image/png">
-    <link rel="stylesheet" href="css/typepad.css?v=2.02">
+   <meta charset="UTF-8">
+   <meta name='description' content="玫枫跟打器, 跟打器">
+   <meta name='keywords' content="跟打器,玫枫跟打器,玫枫">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+   <title>玫枫跟打器 （Roseo TypePad）</title>
+   <link rel="shortcut icon" href="img/logo.png" type="image/png">
+   <link rel="stylesheet" href="css/typepad.css?v=2.10">
 </head>
 <body>
 
 <div id="app">
-    <!--侧边信息栏组-->
-    <div class="side-menu hidden-sm">
+   <!--侧边信息栏组-->
+   <div class="side-menu hidden-sm">
 
-        <!--time-->
-        <div class="time-info info-panel">
-            <div class="time number">
-                <div class="minute">00</div>:<div class="second">00</div>
+      <!--time-->
+      <div class="time-info info-panel">
+         <div class="time number">
+            <div class="minute">00</div>
+            :
+            <div class="second">00</div>
+         </div>
+      </div>
+
+      <!--speed-->
+      <div class="speed-info info-panel">
+         <div class="speed">--</div>
+         <div class="count pt-2">
+            <div class="count-item">
+               <p class="count-key-backspace">--</p>
+               <p class="small">回删</p>
             </div>
-        </div>
-
-        <!--speed-->
-        <div class="speed-info info-panel">
-            <div class="speed">--</div>
-            <div class="count pt-2">
-                <div class="count-item">
-                    <p class="count-key-backspace">--</p>
-                    <p class="small">回删</p>
-                </div>
-                <div class="count-item">
-                    <p class="count-key-length">--</p>
-                    <p class="small">码长</p>
-                </div>
-                <div class="count-item">
-                    <p class="count-key-rate">--</p>
-                    <p class="small">击键</p>
-                </div>
+            <div class="count-item">
+               <p class="count-key-length">--</p>
+               <p class="small">码长</p>
             </div>
-        </div>
-
-        <div class="info-panel">
-            <div class="switch-item">
-                <div class="label">暗黑模式</div>
-                <div class="wrapper">
-                    <input id="darkMode" type="checkbox" onchange="engine.enterDarkMode()">
-                    <label class="switch" for="darkMode"></label>
-                </div>
+            <div class="count-item">
+               <p class="count-key-rate">--</p>
+               <p class="small">击键</p>
             </div>
-            <div class="switch-item">
-                <div class="label">全文乱序</div>
-                <div class="wrapper">
-                    <input id="shuffleMode" type="checkbox" onchange="engine.shuffleCurrentArticle()">
-                    <label class="switch" for="shuffleMode"></label>
-                </div>
+         </div>
+      </div>
+
+      <div class="info-panel">
+         <div class="switch-item">
+            <div class="label">暗黑模式</div>
+            <div class="wrapper">
+               <input id="darkMode" type="checkbox" onchange="engine.enterDarkMode()">
+               <label class="switch" for="darkMode"></label>
             </div>
-            <div class="switch-item">
-                <div class="label">自动发文</div>
-                <div class="wrapper">
-                    <input id="autoNext" type="checkbox" onchange="engine.autoNext()">
-                    <label class="switch" for="autoNext"></label>
-                </div>
+         </div>
+         <div class="switch-item">
+            <div class="label">全文乱序</div>
+            <div class="wrapper">
+               <input id="shuffleMode" type="checkbox" onchange="engine.shuffleCurrentArticle()">
+               <label class="switch" for="shuffleMode"></label>
             </div>
-        </div>
-
-        <!--keys-->
-        <div class="key-info info-panel">
-            <div class="key-info-item word-all">      <div>全部按键</div><div><p></p></div></div>
-            <div class="key-info-item word-az">       <div>A-Z</div><div><p></p></div></div>
-            <div class="key-info-item word-space">    <div>空格</div><div><p></p></div></div>
-            <div class="key-info-item word-backspace"><div>回删</div><div><p></p></div></div>
-            <div class="key-info-item word-number">   <div>数字</div><div><p></p></div></div>
-            <div class="key-info-item word-function"> <div>功能键</div><div><p></p></div></div>
-            <div class="key-info-item word-shift">    <div>Shift</div><div><p></p></div></div>
-            <div class="key-info-item word-meta">     <div>Command（⌘）</div><div><p></p></div></div>
-            <div class="key-info-item word-alt">      <div>Option</div><div><p></p></div></div>
-            <div class="key-info-item word-ctrl">     <div>Control</div><div><p></p></div></div>
-            <div class="key-info-item word-semicolon"><div>;</div><div><p></p></div></div>
-            <div class="key-info-item word-quot">     <div>'</div><div><p></p></div></div>
-        </div>
-
-        <!--info-->
-        <div class="info-panel">
-            <a target="_blank" href="https://github.com/KyleBing/typepad" class="logo">
-                <img src="img/logo-inline.png" alt=""><h1>玫枫跟打器<br>(GitHub)</h1>
-            </a>
-            <div class="copyright">
-                <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a><p>v2.02</p><p>2020/11/27</p>
+         </div>
+         <div class="switch-item">
+            <div class="label">自动发文</div>
+            <div class="wrapper">
+               <input id="autoNext" type="checkbox" onchange="engine.autoNext()">
+               <label class="switch" for="autoNext"></label>
             </div>
-        </div>
+         </div>
+      </div>
 
-        <!--notice-->
-        <div class="info-panel">
-            <p>最优体验: 鼠须管输入法，谷歌浏览器、Safari 浏览器，其它平台或浏览器可能会有出入，欢迎反馈至 <a target="_blank" href="https://github.com/KyleBing/typepad">GitHub</a></p>
-            <p>mac 用户推荐用 <a target="_blank" href="https://rime.im/">鼠须管输入法</a>，86版五笔现成的，本人在用的配置方案可以这里找到 <a target="_blank" href="https://github.com/KyleBing/rime-wubi86-jidian">极点码表方案</a></p>
-        </div>
+      <!--keys-->
+      <div class="key-info info-panel">
+         <div class="key-info-item word-all">
+            <div>全部按键</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-az">
+            <div>A-Z</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-space">
+            <div>空格</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-backspace">
+            <div>回删</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-number">
+            <div>数字</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-function">
+            <div>功能键</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-shift">
+            <div>Shift</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-meta">
+            <div>Command（⌘）</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-alt">
+            <div>Option</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-ctrl">
+            <div>Control</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-semicolon">
+            <div>;</div>
+            <div><p></p></div>
+         </div>
+         <div class="key-info-item word-quot">
+            <div>'</div>
+            <div><p></p></div>
+         </div>
+      </div>
 
-        <!--keymap-->
-        <div class="info-panel">
-            <p>光标离开输入区自动暂停，进入输入状态自动恢复计时。</p>
-            <p>快捷键只在编辑区内生效</p>
-            <br>
-            <div class="key-info-item"><div class="binding-key"><kbd>⌘</kbd>+<kbd>J</kbd></div><div>下一段</div></div>
-            <div class="key-info-item"><div class="binding-key"><kbd>⌘</kbd>+<kbd>U</kbd></div><div>上一段</div></div>
-            <div class="key-info-item"><div class="binding-key"><kbd>⌘</kbd>+<kbd>K</kbd></div><div>打乱当前</div></div>
-            <div class="key-info-item"><div class="binding-key"><kbd>⌘</kbd>+<kbd>Y</kbd></div><div>重打当前</div></div>
-            <div class="key-info-item"><div class="binding-key"><kbd>Esc</kbd></div><div>暂停</div></div>
-        </div>
-    </div>
+      <!--info-->
+      <div class="info-panel">
+         <a target="_blank" href="https://github.com/KyleBing/typepad" class="logo">
+            <img src="img/logo-inline.png" alt="">
+            <h1>玫枫跟打器<br>(GitHub)</h1>
+         </a>
+         <div class="copyright">
+            <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
+            <p>v2.10</p>
+            <p>2020/11/30</p>
+         </div>
+      </div>
 
-    <!--内容区-->
-    <div class="type-pad">
-        <!--工具栏-->
-        <div class="tool-bar">
-            <div class="btn-group">
-                <div class="btn number">
-                    <span class="count-current bold current number"></span> / <span class="count-total number total"></span>
-                </div>
-                <div id="totalChapter" class="btn number animated">
-                    <span class="chapter-current bold current number"></span> / <span class="chapter-total number total"></span>
-                </div>
+      <!--notice-->
+      <div class="info-panel">
+         <p>最优体验: 鼠须管输入法，谷歌浏览器、Safari 浏览器，其它平台或浏览器可能会有出入，欢迎反馈至
+            <a target="_blank" href="https://github.com/KyleBing/typepad">GitHub</a></p>
+         <p>mac 用户推荐用 <a target="_blank" href="https://rime.im/">鼠须管输入法</a>，86版五笔现成的，本人在用的配置方案可以这里找到
+            <a target="_blank" href="https://github.com/KyleBing/rime-wubi86-jidian">极点码表方案</a></p>
+      </div>
+
+      <!--keymap-->
+      <div class="info-panel">
+         <p>光标离开输入区自动暂停，进入输入状态自动恢复计时。</p>
+         <p>快捷键只在编辑区内生效</p>
+         <br>
+         <div class="key-info-item">
+            <div class="binding-key"><kbd>⌘</kbd>+<kbd>J</kbd></div>
+            <div>下一段</div>
+         </div>
+         <div class="key-info-item">
+            <div class="binding-key"><kbd>⌘</kbd>+<kbd>U</kbd></div>
+            <div>上一段</div>
+         </div>
+         <div class="key-info-item">
+            <div class="binding-key"><kbd>⌘</kbd>+<kbd>K</kbd></div>
+            <div>打乱当前</div>
+         </div>
+         <div class="key-info-item">
+            <div class="binding-key"><kbd>⌘</kbd>+<kbd>Y</kbd></div>
+            <div>重打当前</div>
+         </div>
+         <div class="key-info-item">
+            <div class="binding-key"><kbd>Esc</kbd></div>
+            <div>暂停</div>
+         </div>
+      </div>
+   </div>
+
+   <!--内容区-->
+   <div class="type-pad">
+      <!--工具栏-->
+      <div class="tool-bar">
+         <div class="btn-group">
+            <div class="btn number">
+               <span class="count-current bold current number"></span> / <span class="count-total number total"></span>
             </div>
-            <div class="btn-group">
-                <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
-                <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
+            <div id="totalChapter" class="btn number animated">
+               <span class="chapter-current bold current number"></span> /
+               <span class="chapter-total number total"></span>
             </div>
-            <div class="btn-group">
-                <div class="btn" onclick="engine.wordsShuffle()" title="⌘ + K">打乱</div>
-                <div class="btn" onclick="engine.reset()" title="⌘ + Y">重打</div>
-                <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
-                <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
+         </div>
+         <div class="btn-group">
+            <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
+            <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
+         </div>
+         <div class="btn-group">
+            <div class="btn" onclick="engine.wordsShuffle()" title="⌘ + K">打乱</div>
+            <div class="btn" onclick="engine.reset()" title="⌘ + Y">重打</div>
+            <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
+            <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
+         </div>
+         <div class="btn-group dash">
+            <div class="btn number" onclick="engine.reset()" title="⌘ + K">重复 1 / 1</div>
+            <div class="btn-vertical">
+               <div>+</div>
+               <div>-</div>
             </div>
-            <div class="btn-group dash">
-                <div class="btn number" onclick="engine.reset()" title="⌘ + K">重复 1 / 1</div>
-                <div class="btn-vertical">
-                    <div>+</div>
-                    <div>-</div>
-                </div>
-            </div>
-            <div class="btn-group">
-                <label class="hidden" for="article"></label>
-                <select class="btn" id="article" onchange="engine.changeArticle()">
-                </select>
-            </div>
-            <div class="btn-group">
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="count10" value="10"><label class="btn" for="count10">10</label>
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="count15" value="15"><label class="btn" for="count15">15</label>
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="count20" value="20"><label class="btn" for="count20">20</label>
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="count50" value="50"><label class="btn hidden-sm" for="count50">50</label>
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="count100" value="100"><label class="btn hidden-sm" for="count100">100</label>
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="count200" value="200"><label class="btn hidden-sm" for="count200">200</label>
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="count500" value="500"><label class="btn hidden-sm" for="count500">500</label>
-                <input type="radio" onchange="engine.changePerCount()" name="count" id="all" value="ALL"><label class="btn hidden-sm" for="all">ALL</label>
-            </div>
+         </div>
+         <div class="btn-group">
+            <label class="hidden" for="article"></label>
+            <select class="btn" id="article" onchange="engine.changeArticle()">
+            </select>
+         </div>
+         <div class="btn-group">
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="count10" value="10"><label class="btn" for="count10">10</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="count15" value="15"><label class="btn" for="count15">15</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="count20" value="20"><label class="btn" for="count20">20</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="count50" value="50"><label class="btn hidden-sm" for="count50">50</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="count100" value="100"><label class="btn hidden-sm" for="count100">100</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="count200" value="200"><label class="btn hidden-sm" for="count200">200</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="count500" value="500"><label class="btn hidden-sm" for="count500">500</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="all" value="ALL"><label class="btn hidden-sm" for="all">ALL</label>
+         </div>
 
-            <!--手机端显示-->
-            <div class="btn-group hidden-big">
-                <div class="btn number"><span class="btn-minute">00</span>:<span class="btn-second">00</span></div>
-                <div class="btn"><span class="btn-speed"></span> 字/分</div>
-            </div>
+         <!--手机端显示-->
+         <div class="btn-group hidden-big">
+            <div class="btn number"><span class="btn-minute">00</span>:<span class="btn-second">00</span></div>
+            <div class="btn"><span class="btn-speed"></span> 字/分</div>
+         </div>
 
-        </div>
+      </div>
 
-        <!--对照区-->
-        <div class="template">
-            <p class="text"></p>
-        </div>
+      <!--对照区-->
+      <div class="template">
+         <p class="text"></p>
+      </div>
 
-        <!--打字区-->
-        <div class="typing">
-            <label for="pad" class="hidden"></label>
-            <textarea class="text" id="pad" rows="3"></textarea>
-        </div>
+      <!--打字区-->
+      <div class="typing">
+         <label for="pad" class="hidden"></label>
+         <textarea class="text" id="pad" rows="3"></textarea>
+      </div>
 
-        <!--成绩列表-->
-        <div class="table-container">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>速度</th>
-                    <th>码长</th>
-                    <th>击键</th>
-                    <th>回退</th>
-                    <th>字数</th>
-                    <th>类型</th>
-                    <th>文章</th>
-                    <th class="hidden-sm">开始时间</th>
-                    <th>用时</th>
-                    <th>操作 <a class="link" onclick="engine.clear(this)">清除</a></th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
+      <!--成绩列表-->
+      <div class="table-container">
+         <table class="table">
+            <thead>
+            <tr>
+               <th>No.</th>
+               <th>速度</th>
+               <th>码长</th>
+               <th>击键</th>
+               <th>回退</th>
+               <th>字数</th>
+               <th>类型</th>
+               <th>文章</th>
+               <th class="hidden-sm">开始时间</th>
+               <th>用时</th>
+               <th>操作 <a class="link" onclick="engine.clear(this)">清除</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+         </table>
+      </div>
+   </div>
 
-    <!--进入全屏按钮-->
-    <div class="full-screen full-screen-btn" onclick="enterFullScreenMode()">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF4AAABeCAYAAACq0qNuAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAXqADAAQAAAABAAAAXgAAAADsPCiCAAABm0lEQVR4Ae3cQWoCARQD0Np7CT16wYO129lMdpnI+FwJnyb2NYuC6OPrpo/n8+fvnX+173d+cXd+beBHf13w4EcCo1qLH8E/Rr0fU3v235XFjyYAHvxIYFRr8eBHAqNaiwc/EhjVWjz4kcCo1uLBjwRGtRYPfiQwqrV48COBUa3Fgx8JjGotHvxIYFRr8eBHAqNaiwc/EhjVWjz4kcCo1uLBjwRGtRYPfiQwqrV48COBUa3Fgx8JqCVAgAABAgQIECBAgAABAgQIECBAgMBHCTzOvk/l9fr1XTbFKXgjpIibosEnneINfBE3RYNPOsUb+CJuigafdIo38EXcFA0+6RRv4Iu4KRp80inewBdxUzT4pFO8gS/ipmjwSad4A1/ETdHgk07xBr6Im6LBJ53iDXwRN0WDTzrFG/gibooGn3SKN/BF3BQNPukUb+CLuCkafNIp3sAXcVM0+KRTvIEv4qZo8EmneANfxE3R4JNO8Qa+iJuiTz8Rkn7oyttdP5li8Veu6NAF/oBx5VPwV2ofusAfMK58Cv5K7UPXPznoDA8I21eUAAAAAElFTkSuQmCC" alt="fullscreen-button" title="进入全屏模式">
-    </div>
+   <!--进入全屏按钮-->
+   <div class="full-screen full-screen-btn" onclick="enterFullScreenMode()">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF4AAABeCAYAAACq0qNuAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAXqADAAQAAAABAAAAXgAAAADsPCiCAAABm0lEQVR4Ae3cQWoCARQD0Np7CT16wYO129lMdpnI+FwJnyb2NYuC6OPrpo/n8+fvnX+173d+cXd+beBHf13w4EcCo1qLH8E/Rr0fU3v235XFjyYAHvxIYFRr8eBHAqNaiwc/EhjVWjz4kcCo1uLBjwRGtRYPfiQwqrV48COBUa3Fgx8JjGotHvxIYFRr8eBHAqNaiwc/EhjVWjz4kcCo1uLBjwRGtRYPfiQwqrV48COBUa3Fgx8JqCVAgAABAgQIECBAgAABAgQIECBAgMBHCTzOvk/l9fr1XTbFKXgjpIibosEnneINfBE3RYNPOsUb+CJuigafdIo38EXcFA0+6RRv4Iu4KRp80inewBdxUzT4pFO8gS/ipmjwSad4A1/ETdHgk07xBr6Im6LBJ53iDXwRN0WDTzrFG/gibooGn3SKN/BF3BQNPukUb+CLuCkafNIp3sAXcVM0+KRTvIEv4qZo8EmneANfxE3R4JNO8Qa+iJuiTz8Rkn7oyttdP5li8Veu6NAF/oBx5VPwV2ofusAfMK58Cv5K7UPXPznoDA8I21eUAAAAAElFTkSuQmCC" alt="fullscreen-button" title="进入全屏模式">
+   </div>
 
-    <!--TIPS-->
-    <p class="full-screen full-screen-tip hidden">Esc 退出全屏模式</p>
+   <!--TIPS-->
+   <p class="full-screen full-screen-tip hidden">Esc 退出全屏模式</p>
 </div>
 
 <script src="js/require_v2.3.6.js"></script>
-<script src="js/typePad.js?v=2.02" ></script>
+<script src="js/typePad.js?v=2.10"></script>
 
 <script>
-    setTimeout(()=>{
-        if (location.href.indexOf('http://a.kylebing.cn') !== -1 || location.href.indexOf('http://localhost') !== -1) {
+   setTimeout(() => {
+      if (location.href.indexOf('http://a.kylebing.cn') !== -1 || location.href.indexOf('http://localhost') !== -1) {
 
-        } else {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?68ab092f69605b8ce99f90c7f1218de3";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        }
-    }, 1000)
+      } else {
+         var hm = document.createElement("script");
+         hm.src = "https://hm.baidu.com/hm.js?68ab092f69605b8ce99f90c7f1218de3";
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(hm, s);
+      }
+   }, 1000)
 </script>
 </body>
 </html>
