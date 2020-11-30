@@ -161,7 +161,7 @@ input[type=checkbox]:checked + label.checker {
     > *{
       @extend .btn;
       padding: 2px;
-      font-size: 5px;
+      font-size: 7px;
       text-align: center;
       background-color: #fff;
       border-bottom: 1px solid $color-border;

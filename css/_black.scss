@@ -163,6 +163,15 @@ body.black {
         color: white;
       }
     }
+    .btn-vertical{
+      > *{
+        border-right: none;
+        border-bottom: 1px solid $black-color-border;
+        &:last-child{
+          border-bottom: none;
+        }
+      }
+    }
   }
 
   input[type=checkbox] + label {
