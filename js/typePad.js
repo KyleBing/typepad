@@ -32,15 +32,12 @@ require.config({
 });
 
 
-require(['ArticleType', 'Article', 'Engine', 'Config', 'CETWord', 'Reg', 'Database' ],
-   function ( ArticleType, Article, Engine, Config, CETWord, Reg, Database ) {
-
+require(['ArticleType', 'Article', 'Engine'],
+   function ( ArticleType, Article, Engine) {
       engine = new Engine();
-      let config = new Config();
-      let database = new Database();
 
       engine.loadArticleOptions(); // 载入文章选项列表
-      config.applyIn(engine);  // 设置 config
+      engine.applyConfig()  // 设置 config
       engine.updateInfo(); // 刷新界面
 
       typingPad.onblur = () => {
@@ -55,8 +52,7 @@ require(['ArticleType', 'Article', 'Engine', 'Config', 'CETWord', 'Reg', 'Databa
       }
 
       // 显示历史记录
-      database.fetchAll();
-
+      engine.fetchAllLog();
    })
 
 function $(selector) {

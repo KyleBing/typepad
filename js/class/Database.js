@@ -30,7 +30,7 @@ define(['Utility'], function (Utility) {
       }
       // 添加数据
       insert(record, config){
-         console.log(config.IDBIndex,record)
+         // console.log(config.IDBIndex,record)
          let request = this.db.transaction([OBJECT_NAME], 'readwrite')
             .objectStore(OBJECT_NAME)
             .add({

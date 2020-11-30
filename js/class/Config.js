@@ -38,50 +38,6 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
       save(){
          localStorage.setItem(CONFIG_NAME, JSON.stringify(this));
       }
-      applyIn(engine){
-         // 根据当前配置文件设置内容
-         $('input[type=checkbox]#shuffleMode').checked = this.isShuffle;
-         $('input[type=checkbox]#darkMode').checked = this.darkMode;
-         $('input[type=checkbox]#autoNext').checked = this.isAutoNext;
-         let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
-         let radios = [...radioNodes];
-         radios.forEach(item => {
-            item.checked = item.value === this.count
-         })
-         $('select#article').value = this.articleIdentifier;
-
-         // English Mode
-         if (this.isInEnglishMode) {
-            engine.englishModeEnter()
-         }
-
-         // Dark Mode
-         let body = $('body');
-         if (this.darkMode) {
-            body.classList.add('black');
-         } else {
-            body.classList.remove('black');
-         }
-
-         engine.currentOriginWords = this.article.split('');
-         if (this.articleType === ArticleType.word) {
-            // CET 时
-            engine.arrayWordAll = Article.CET4.getWordsArray();
-            engine.arrayWordDisplaying = engine.arrayWordAll.slice(Number(this.count) * (this.chapter - 1), Number(this.count) * (this.chapter)); // 截取当前需要显示的数组段
-            let arrayCurrentWord = engine.arrayWordDisplaying.map(item => {
-               return item.word
-            }); // 取到英文，数组
-            engine.currentWords = arrayCurrentWord.join(' ');
-         } else {
-            // 其它时
-            if(this.count === 'ALL'){
-               engine.currentWords = engine.currentOriginWords.join('');
-            } else {
-               engine.currentWords = engine.currentOriginWords.slice(Number(this.count) * (this.chapter - 1), Number(this.count) * (this.chapter)).join('');
-            }
-         }
-         template.innerText = engine.currentWords;
-      }
       // 判断是否存储过配置信息
       hasSavedData(){
          return Boolean(localStorage.getItem(CONFIG_NAME));

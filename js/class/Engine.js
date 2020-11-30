@@ -96,6 +96,55 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
          }
       }
 
+      applyConfig(){
+         // 根据当前配置文件设置内容
+         $('input[type=checkbox]#shuffleMode').checked = config.isShuffle;
+         $('input[type=checkbox]#darkMode').checked = config.darkMode;
+         $('input[type=checkbox]#autoNext').checked = config.isAutoNext;
+         let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
+         let radios = [...radioNodes];
+         radios.forEach(item => {
+            item.checked = item.value === config.count
+         })
+         $('select#article').value = config.articleIdentifier;
+
+         // English Mode
+         if (config.isInEnglishMode) {
+            this.englishModeEnter()
+         }
+
+         // Dark Mode
+         let body = $('body');
+         if (config.darkMode) {
+            body.classList.add('black');
+         } else {
+            body.classList.remove('black');
+         }
+
+         this.currentOriginWords = config.article.split('');
+         if (config.articleType === ArticleType.word) {
+            // CET 时
+            this.arrayWordAll = Article.CET4.getWordsArray();
+            this.arrayWordDisplaying = this.arrayWordAll.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)); // 截取当前需要显示的数组段
+            let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+               return item.word
+            }); // 取到英文，数组
+            this.currentWords = arrayCurrentWord.join(' ');
+         } else {
+            // 其它时
+            if(config.count === 'ALL'){
+               this.currentWords = this.currentOriginWords.join('');
+            } else {
+               this.currentWords = this.currentOriginWords.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)).join('');
+            }
+         }
+         template.innerText = this.currentWords;
+      }
+
+      fetchAllLog(){
+         database.fetchAll();
+      }
+
       start() {
          this.isStarted = true;
          this.timeStart = (new Date()).getTime();
