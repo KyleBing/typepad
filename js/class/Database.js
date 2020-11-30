@@ -17,7 +17,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          }
 
          request.onerror = e => {
-            Utility.show(e);
+            console.log(e);
          }
 
          request.onupgradeneeded = e => {
@@ -47,7 +47,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
                articleType: config.articleType,
             });
          request.onsuccess = e => {
-            Utility.show('insert data success');
+            console.log('insert data success');
             // 插入最后的数据到顶部
             let tr = document.createElement('tr');
             tr.innerHTML = record.getHtml(config);
@@ -58,8 +58,8 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          }
 
          request.onerror = e => {
-            Utility.show(e);
-            Utility.show('insert data error')
+            console.log(e);
+            console.log('insert data error')
          }
       }
 
@@ -84,7 +84,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          };
 
          request.onerror = e => {
-            Utility.show(e);
+            console.log(e);
          }
       }
 
@@ -120,7 +120,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
       delete(id, sender){
          let objectStore = this.db.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
          objectStore.delete(id).onsuccess = e => {
-            Utility.show(`delete data ${id} success`);
+            console.log(`delete data ${id} success`);
             sender.parentElement.parentElement.remove();
          };
       }

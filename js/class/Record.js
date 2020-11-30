@@ -1,17 +1,17 @@
-define(['Utility'], function (Utility) {
+define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
    /**
     * 打字记录
     */
    class Record {
       constructor(speed, codeLength, hitRate, backspace, wordCount, articleName,  timeStart, duration) {
-         this.speed = speed;
-         this.codeLength = codeLength;
-         this.hitRate = hitRate;
-         this.backspace = backspace;
-         this.wordCount = wordCount;
+         this.speed       = speed;
+         this.codeLength  = codeLength;
+         this.hitRate     = hitRate;
+         this.backspace   = backspace;
+         this.wordCount   = wordCount;
          this.articleName = articleName
-         this.timeStart = timeStart;
-         this.duration = duration;
+         this.timeStart   = timeStart;
+         this.duration    = duration;
       }
       getHtml(config){
          let level = Math.floor(this.speed/SPEED_GAP);

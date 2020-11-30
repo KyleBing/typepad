@@ -54,12 +54,7 @@ define(function () {
       return `${mins.toString().padStart(2,'00')}:${seconds.toString().padStart(2,'00')}`;
    }
 
-
-   function show(msg) {
-      console.log(msg)
-   }
-
    return {
-      formatTimeLeft, shuffle, dateFormatter, show
+      formatTimeLeft, shuffle, dateFormatter
    }
 })
