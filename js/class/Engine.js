@@ -1,5 +1,11 @@
-define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], function (
-   Article, Config, Record, Database, KeyCount, Utility) {
+define(['ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], function (
+   ArticleType,
+   Article,
+   Config,
+   Record,
+   Database,
+   KeyCount,
+   Utility) {
    const untypedStringClassName = 'untyped-part';
    const HEIGHT_TEMPLATE = 150; // 对照区高度
 

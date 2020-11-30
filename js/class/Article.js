@@ -1,7 +1,7 @@
 /**
  * 文章列表
  */
-define(['ArticleType', 'CETWord'], function () {
+define(['ArticleType', 'CETWord'], function (ArticleType, CETWord) {
    return {
       top500: {
          name: '常用前500',

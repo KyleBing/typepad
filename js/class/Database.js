@@ -1,7 +1,7 @@
 const OBJECT_NAME = 'TypingRecord';
 const SPEED_GAP   = 30;             // 速度阶梯，每30新增一个颜色
 
-define(['Utility'], function (Utility) {
+define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
    /**
     * IndexedDB 数据库
     */
