@@ -1,12 +1,15 @@
 /**
  * Author: KyleBing(kylebing@163.com)
+ * Date: 2020/05/17 - 2020/11/30
  *
- * Count 所有按键记录
- * Config 用户配置，字数、乱序与否
- * Engine 主程序，开始、结束、暂停
- * Record 每段的打字数据记录
- * Database IndexedDB 相关操作
- * CETWord 单词元素
+ * Article     文章列表
+ * ArticleType 文章类型
+ * Count       所有按键记录
+ * Config      用户配置，字数、乱序与否
+ * Engine      主程序，开始、结束、暂停
+ * Record      每段的打字数据记录
+ * Database    IndexedDB    相关操作
+ * CETWord     单词元素
  */
 
 const template        = $('.template p'); // 对照区主 element
