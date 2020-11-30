@@ -30,35 +30,9 @@
   background-color: transparent;
 }
 
-.key-info{
-  &-item{
-    position: relative;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: space-between;
-    &:before{
-      z-index: 1;
-      content: '';
-      top: 50%;
-      position: absolute;
-      width: 100%;
-      border-bottom: 1px dashed $color-border;
-    }
-    &:last-child{
-      margin-bottom: 0;
-    }
-    h6,p{
-      z-index: $z-mask;
-      background-color: white;
-      font-size: $fz-info;
-    }
-    h6{
-      padding-right: 10px;
-    }
-    p{
-      padding-left: 10px;
-    }
-  }
+.key-info-item{
+  @extend .with-dashline-center;
+  font-size: $fz-info;
 }
 
 .time-info{
@@ -152,5 +126,38 @@ $kbd-text: black;
     background-color: white;
     margin-right: 3px;
     @include box-shadow(1px 2px 0 $kbd-shadow-color);
+  }
+}
+
+
+.switch-item{
+  @extend .with-dashline-center;
+}
+
+.with-dashline-center{
+  margin-bottom: 5px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  > div{
+    z-index: 10;
+    background-color: white;
+    &:first-child{
+      padding-right: 10px;
+    }
+    &:last-child{
+      padding-left: 10px;
+    }
+  }
+  &:before{
+    z-index: 1;
+    content: '';
+    top: 50%;
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px dashed $color-border;
+  }
+  &:last-child{
+    margin-bottom: 0;
   }
 }

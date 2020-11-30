@@ -217,6 +217,11 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
          this.changePerCount();
       }
 
+      // 改变重复次数
+      changeRepeatCount(){
+
+      }
+
       // 改变数字时
       changePerCount() {
          let originTol = 0;
@@ -250,24 +255,22 @@ define(['Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], funct
          this.updateInfo();
       }
 
-      enterDarkMode(sender) {
+      enterDarkMode() {
          let body = $('body');
          if (config.darkMode) {
             body.classList.remove('black');
             config.darkMode = false;
-            sender.innerText = "暗黑"
             config.save();
          } else {
             body.classList.add('black');
             config.darkMode = true;
-            sender.innerText = "白色"
             config.save();
          }
       }
 
       // 切换乱序模式
       shuffleCurrentArticle() {
-         config.isShuffle = $('#mode').checked;
+         config.isShuffle = $('#shuffleMode').checked;
          if (config.articleType === ArticleType.word) {
             if (config.isShuffle) {
                this.arrayWordAll = Utility.shuffle(this.arrayWordAll);

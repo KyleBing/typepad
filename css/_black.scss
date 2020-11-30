@@ -21,6 +21,16 @@ body.black {
     background-color: $black-bg;
     border-color: $black-color-border;
   }
+
+  .with-dashline-center{
+    > div{
+      background-color: $black-bg;
+    }
+    &:before{
+      border-color: lighten($black-color-border, 10%);
+    }
+  }
+
   .key-info{
     &-item{
       &:before{

@@ -38,7 +38,8 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
       }
       applyIn(engine){
          // 根据当前配置文件设置内容
-         $('input[type=checkbox]#mode').checked = this.isShuffle;
+         $('input[type=checkbox]#shuffleMode').checked = this.isShuffle;
+         $('input[type=checkbox]#darkMode').checked = this.darkMode;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
          let radios = [...radioNodes];
          radios.forEach(item => {
@@ -58,8 +59,6 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
          } else {
             body.classList.remove('black');
          }
-         let darkButton = $('#darkButton');
-         darkButton.innerText = this.darkMode ? '白色' : '暗黑';
 
          engine.currentOriginWords = this.article.split('');
          if (this.articleType === ArticleType.word) {
