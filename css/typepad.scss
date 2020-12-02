@@ -75,6 +75,7 @@ body{
 
 .typing{
   textarea{
+    -webkit-appearance: none;
     white-space: pre-wrap;
     border: 1px solid $color-border;
     resize: none;
@@ -109,7 +110,7 @@ body{
     white-space: inherit;
   }
   @media (max-width: $separate-mobile){
-    font-size: 1rem;
+    font-size: $fz-typing-mobile;
   }
 }
 
@@ -190,5 +191,9 @@ $colors  : (
     bottom: 20px;
     font-size: $fz-info;
     color: $text-comment;
+  }
+
+  @media (max-width: $separate-mobile){
+    display: none;
   }
 }

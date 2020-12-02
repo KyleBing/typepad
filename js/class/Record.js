@@ -28,9 +28,9 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
          return `<tr>  
               <td class="text-center roboto-mono">${config.IDBIndex}</td> <!--id-->
               <td class="bold roboto-mono lv-${level}">${this.speed}</td> <!--速度-->
-              <td>${this.codeLength}</td><!--码长-->
-              <td>${this.hitRate}</td><!--击键-->
-              <td>${this.backspace}</td><!--回退-->
+              <td class="hidden-sm">${this.codeLength}</td><!--码长-->
+              <td class="hidden-sm">${this.hitRate}</td><!--击键-->
+              <td class="hidden-sm">${this.backspace}</td><!--回退-->
               <td>${this.wordCount}</td><!--字数-->
               <td class="text-center ${textClass}">${articleType}</td><!--文章类型-->
               <td>${config.articleName}</td><!--文章名称-->

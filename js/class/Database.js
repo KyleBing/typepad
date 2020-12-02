@@ -103,9 +103,9 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          return `<tr>  
               <td class="text-center roboto-mono">${cursor.key}</td>
               <td class="bold roboto-mono lv-${level}">${cursor.value.speed}</td>
-              <td>${cursor.value.codeLength}</td>
-              <td>${cursor.value.hitRate}</td>
-              <td>${cursor.value.backspace}</td>
+              <td class="hidden-sm">${cursor.value.codeLength}</td>
+              <td class="hidden-sm">${cursor.value.hitRate}</td>
+              <td class="hidden-sm">${cursor.value.backspace}</td>
               <td>${cursor.value.wordCount}</td>
               <td class="text-center ${textClass}"">${articleType}</td>
               <td>${cursor.value.articleName ? cursor.value.articleName : ''}</td>

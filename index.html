@@ -7,7 +7,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
    <title>玫枫跟打器 （Roseo Maple TypePad）</title>
    <link rel="shortcut icon" href="img/logo.png" type="image/png">
-   <link rel="stylesheet" href="css/typepad.css?v=2.12">
+   <link rel="stylesheet" href="css/typepad.css?v=2.13">
 </head>
 <body>
 
@@ -139,7 +139,7 @@
          </a>
          <div class="copyright">
             <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
-            <p>v2.12</p>
+            <p>v2.13</p>
             <p>2020/11/30</p>
          </div>
       </div>
@@ -193,17 +193,14 @@
                <span class="chapter-total number total"></span>
             </div>
          </div>
-         <div class="btn-group">
-            <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
-            <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
-         </div>
+
          <div class="btn-group">
             <div class="btn" onclick="engine.shuffleCurrent()" title="⌘ + K">打乱</div>
             <div class="btn" onclick="engine.reset()" title="⌘ + Y">重打</div>
             <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
             <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
-         <div class="btn-group dash">
+         <div class="btn-group dash hidden-sm">
             <div id="repeatMonitor" class="btn number animated" onclick="engine.reset()" title="⌘ + K">
                <span id="repeatCountCurrent" class="chapter-current bold current number">1</span> /
                <span id="repeatCountTotal" class="chapter-total number total">1</span>
@@ -217,6 +214,10 @@
             <label class="hidden" for="article"></label>
             <select class="btn" id="article" onchange="engine.changeArticle()">
             </select>
+         </div>
+         <div class="btn-group">
+            <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
+            <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
          </div>
          <div class="btn-group">
             <input type="radio" onchange="engine.changePerCount()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>
@@ -256,15 +257,15 @@
             <tr>
                <th>No.</th>
                <th>速度</th>
-               <th>码长</th>
-               <th>击键</th>
-               <th>回退</th>
+               <th class="hidden-sm">码长</th>
+               <th class="hidden-sm">击键</th>
+               <th class="hidden-sm">回退</th>
                <th>字数</th>
                <th>类型</th>
                <th>文章</th>
                <th class="hidden-sm">开始时间</th>
                <th>用时</th>
-               <th>操作 <a class="link" onclick="engine.clear(this)">清除</a></th>
+               <th>操作 <a class="link hidden-sm" onclick="engine.clear(this)">清除</a></th>
             </tr>
             </thead>
             <tbody>
@@ -283,7 +284,7 @@
 </div>
 
 <script src="js/require_v2.3.6.js"></script>
-<script src="js/typepad.js?v=2.12"></script>
+<script src="js/typepad.js?v=2.13"></script>
 
 <script>
    setTimeout(() => {

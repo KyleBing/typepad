@@ -1,6 +1,5 @@
 $table-padding-lr: 4px;
 
-
 .table-container{
   overflow-y: auto;
   border: 1px solid $color-border;
@@ -78,6 +77,10 @@ td{
   &.time{
     letter-spacing: 1px;
     @extend .number;
+  }
+
+  @media (max-width: $separate-mobile){
+    padding: 5px 2px;
   }
 }
 

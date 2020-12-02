@@ -12,10 +12,10 @@
  * CETWord     单词元素
  */
 
-const template        = $('.template p'); // 对照区主 element
+const template = $('.template p'); // 对照区主 element
 const templateWrapper = $('.template');   // 对照区 容器
-const typingPad       = $('#pad');
-const DBName          = "TypePad";
+const typingPad = $('#pad');
+const DBName = "TypePad";
 
 
 let engine; // 暴露 engine 以用于 html 绑定方法用
@@ -24,19 +24,19 @@ let engine; // 暴露 engine 以用于 html 绑定方法用
 require.config({
    baseUrl: "./js/class",
    paths: {
-      'ArticleType' : 'ArticleType',
-      'Article'     : 'Article',
-      'Config'      : 'Config',
-      'Engine'      : 'Engine',
-      'CETWord'     : 'CETWord',
-      'Reg'         : 'Reg',
-      'Database'    : 'Database',
+      'ArticleType': 'ArticleType',
+      'Article': 'Article',
+      'Config': 'Config',
+      'Engine': 'Engine',
+      'CETWord': 'CETWord',
+      'Reg': 'Reg',
+      'Database': 'Database',
    }
 });
 
 
 require(['ArticleType', 'Article', 'Engine'],
-   function ( ArticleType, Article, Engine) {
+   function (ArticleType, Article, Engine) {
       engine = new Engine();
 
       engine.loadArticleOptions(); // 载入文章选项列表
@@ -57,6 +57,8 @@ require(['ArticleType', 'Article', 'Engine'],
       // 显示历史记录
       engine.fetchAllLog();
    })
+
+document.addEventListener('touchstart', ()=>{}, false); // 取消移动端的 touch 动作
 
 function $(selector) {
    return document.querySelector(selector)
