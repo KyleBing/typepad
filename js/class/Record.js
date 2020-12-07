@@ -19,10 +19,10 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
          let articleType = ArticleType.getTypeNameWith(config.articleType);
          let textClass = '';
          switch (config.articleType) {
-            case ArticleType.character: textClass = 'text-orange';break;
-            case ArticleType.english: textClass = 'text-green';break;
-            case ArticleType.article: textClass = 'text-blue';break;
-            case ArticleType.word: textClass = 'text-red';break;
+            case ArticleType.character : textClass = 'text-orange';break;
+            case ArticleType.english   : textClass = 'text-green';break;
+            case ArticleType.article   : textClass = 'text-blue';break;
+            case ArticleType.word      : textClass = 'text-red';break;
             default: break;
          }
          return `<tr>  

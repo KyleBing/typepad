@@ -34,17 +34,17 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          let request = this.db.transaction([OBJECT_NAME], 'readwrite')
             .objectStore(OBJECT_NAME)
             .add({
-               id: config.IDBIndex,
-               speed: record.speed,
-               codeLength: record.codeLength,
-               hitRate: record.hitRate,
-               backspace: record.backspace,
-               wordCount: record.wordCount,
-               articleIdentifier: config.articleIdentifier,
-               articleName: config.articleName,
-               timeStart: record.timeStart,
-               duration: record.duration,
-               articleType: config.articleType,
+               id                : config.IDBIndex,
+               speed             : record.speed,
+               codeLength        : record.codeLength,
+               hitRate           : record.hitRate,
+               backspace         : record.backspace,
+               wordCount         : record.wordCount,
+               articleIdentifier : config.articleIdentifier,
+               articleName       : config.articleName,
+               timeStart         : record.timeStart,
+               duration          : record.duration,
+               articleType       : config.articleType,
             });
          request.onsuccess = e => {
             console.log('insert data success');
@@ -94,10 +94,10 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          let articleType = ArticleType.getTypeNameWith(cursor.value.articleType);
          let textClass = '';
          switch (cursor.value.articleType) {
-            case ArticleType.character: textClass = 'text-orange';break;
-            case ArticleType.english: textClass = 'text-green';break;
-            case ArticleType.article: textClass = 'text-blue';break;
-            case ArticleType.word: textClass = 'text-red';break;
+            case ArticleType.character : textClass = 'text-orange';break;
+            case ArticleType.english   : textClass = 'text-green';break;
+            case ArticleType.article   : textClass = 'text-blue';break;
+            case ArticleType.word      : textClass = 'text-red';break;
             default: articleType = '' ;break;
          }
          return `<tr>  

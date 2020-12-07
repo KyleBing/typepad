@@ -517,9 +517,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             $('.second').innerText = second >= 10 ? second : `0${second}`;
             $('.btn-second').innerText = second >= 10 ? second : `0${second}`;
          } else {
-            $('.minute').innerText = '00';
+            $('.minute').innerText     = '00';
             $('.btn-minute').innerText = '00';
-            $('.second').innerText = '00';
+            $('.second').innerText     = '00';
             $('.btn-second').innerText = '00';
          }
       }
@@ -622,12 +622,11 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
          // SPEED
          if (!this.isStarted && !this.isFinished) {
-            $('.speed').innerText = '--';
-            $('.btn-speed').innerText = '--';
-            $('.count-key-rate').innerText = '--';
-            $('.count-key-length').innerText = '--';
+            $('.speed').innerText               = '--';
+            $('.btn-speed').innerText           = '--';
+            $('.count-key-rate').innerText      = '--';
+            $('.count-key-length').innerText    = '--';
             $('.count-key-backspace').innerText = '--';
-
          } else {
             // speed
             record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);

@@ -24,13 +24,13 @@ let engine; // 暴露 engine 以用于 html 绑定方法用
 require.config({
    baseUrl: "./js/class",
    paths: {
-      'ArticleType': 'ArticleType',
-      'Article': 'Article',
-      'Config': 'Config',
-      'Engine': 'Engine',
-      'CETWord': 'CETWord',
-      'Reg': 'Reg',
-      'Database': 'Database',
+      'ArticleType' : 'ArticleType',
+      'Article'     : 'Article',
+      'Config'      : 'Config',
+      'Engine'      : 'Engine',
+      'CETWord'     : 'CETWord',
+      'Reg'         : 'Reg',
+      'Database'    : 'Database',
    }
 });
 
