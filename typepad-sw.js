@@ -40,6 +40,8 @@ self.addEventListener('install', event => {
    )
 })
 
+// TODO: 清除之前版本的数据
+
 self.addEventListener('fetch', event => {
    console.log(event.request.url);
    event.respondWith(
