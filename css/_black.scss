@@ -226,4 +226,46 @@ body.black {
     color: $black-color-text-info;
     @include box-shadow(1px 2px 0 lighten($black-btn-bg, 5%));
   }
+
+  // EDITOR
+  .editor {
+    background-color: rgba(0, 0, 0, 0.5);
+    &-content, &-title{
+      color: $black-color-text;
+      border: 1px solid $color-border;
+      background-color: $black-bg;
+      &:focus{
+        border-color: $green;
+        @include box-shadow(0 0 0 3px transparentize($green, 0.5));
+      }
+    }
+    &-title{
+      font-size: $fz-editor-title;
+    }
+
+    &-toolbar{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  // TEXT
+  $colors  : (
+          'green'      : $green,
+          'dark-green' : $dark-green,
+          'cyan'       : $cyan,
+          'blue'       : $blue,
+          'purple'     : $purple,
+          'roseo'      : $roseo,
+          'red'        : $red,
+          'orange'     : $orange,
+          'yellow'     : $yellow,
+          'gray'       : $gray,
+  );
+
+  @each $name, $color in $colors {
+    .text-#{$name}{
+      color: darken($color, 20%);
+    }
+  }
 }

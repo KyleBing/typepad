@@ -36,13 +36,5 @@
   &-toolbar{
     display: flex;
     justify-content: space-between;
-    .btn-group{
-      .btn{
-        @extend .btn;
-      }
-    }
-    .info{
-
-    }
   }
 }
