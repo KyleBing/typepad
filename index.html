@@ -11,32 +11,35 @@
 </head>
 <body>
 <!--自定义文章内容-->
-<div class="editor">
+<div class="editor hidden">
    <div class="container">
-      <input class="editor-title" type="text" placeholder="标题">
-      <textarea class="editor-content" name="editor" id="editor" cols="30" rows="10" placeholder="这里填写内容"></textarea>
+      <input oninput="editor.changeTitle(this)" class="editor-title" type="text" placeholder="标题">
+      <textarea oninput="editor.changeContent(this)" class="editor-content" name="editor" id="editor" cols="30" rows="10" placeholder="这里填写内容"></textarea>
       <div class="editor-toolbar">
          <div class="btn-group">
             <div class="btn">总字数</div>
-            <div class="btn">1234</div>
+            <div class="btn" id="countCharacter">0</div>
          </div>
 
          <div class="btn-group">
             <div class="btn">英文标点</div>
-            <div class="btn">42</div>
+            <div class="btn" id="countSymbolEn">0</div>
          </div>
          <div class="btn-group">
             <div class="btn">中文标点</div>
-            <div class="btn">234</div>
+            <div class="btn" id="countSymbolZh">0</div>
          </div>
 
+
          <div class="btn-group">
-            <div class="btn">英文标点 -> 中文标点</div>
-            <div class="btn">中文标点 -> 英文标点</div>
+            <div class="btn" onclick="editor.trimReturn()">去除换行</div>
+            <div class="btn" onclick="editor.trimSpace()">去除空格</div>
+            <div class="btn" onclick="editor.toZH()">英文标点 -> 中文标点</div>
+            <div class="btn" onclick="editor.toEN()">中文标点 -> 英文标点</div>
          </div>
          <div class="btn-group">
-            <div class="btn btn-blue">取消</div>
-            <div class="btn btn-blue">确定</div>
+            <div class="btn btn-blue" onclick="editor.hide()">取消</div>
+            <div class="btn btn-blue" onclick="editor.done(engine)">确定</div>
          </div>
 
       </div>
@@ -249,8 +252,10 @@
          </div>
          <div class="btn-group">
             <label class="hidden" for="article"></label>
-            <select class="btn" id="article" onchange="engine.changeArticle()">
-            </select>
+            <select class="btn" id="article" onchange="engine.changeArticle()"></select>
+         </div>
+         <div class="btn-group">
+            <div class="btn" onclick="editor.show()">编辑自定义文章</div>
          </div>
          <div class="btn-group">
             <input type="radio" onchange="engine.changePerCount()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>

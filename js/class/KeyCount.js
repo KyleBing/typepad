@@ -28,7 +28,7 @@ define(['Reg'], function (Reg) {
       countKeys(e) {
          for (let type in this){
             if ( typeof(this[type]) !== 'function' ){
-               if (Reg[type].test(e.key)){
+               if (Reg.KEYS[type].test(e.key)){
                   this[type]++
                }
             }

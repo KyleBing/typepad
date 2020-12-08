@@ -4,13 +4,13 @@
  */
 define(function () {
    const REMOVE = {
-      space: 			[{reg: /( |　)/g, replacement: ""},],
-      return: 		[{reg: /\n/g, replacement: ""},],
-      tab: 				[{reg: /\t/g, replacement: ""},],
-      quot: 			[{reg: /[“”"']/g, replacement: ""},] ,
-      whiteReturn: [{reg: /(^\s*?(\n|\r\n|\r))+/g, replacement: ""},],
-      bracket:		[{reg: /(\(|\)|（|）)/g, replacement: ""},],
-      htmlTag:		[{reg: /<.+?>|<\/.+?>/g, replacement: ""},],
+      space       : [{reg : /( |　)/g                , replacement : ""} , ] ,
+      return      : [{reg : /\n/g                   , replacement : ""} , ] ,
+      tab         : [{reg : /\t/g                   , replacement : ""} , ] ,
+      quot        : [{reg : /[“”"']/g               , replacement : ""} , ] ,
+      whiteReturn : [{reg : /(^\s*?(\n|\r\n|\r))+/g , replacement : ""} , ] ,
+      bracket     : [{reg : /(\(|\)|（|）)/g          , replacement : ""} , ] ,
+      htmlTag     : [{reg : /<.+?>|<\/.+?>/g        , replacement : ""} , ] ,
       all: [].concat(
          this.space, this.return,
          this.quot, this.whiteReturn,

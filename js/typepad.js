@@ -19,6 +19,7 @@ const DBName = "TypePad";
 
 
 let engine; // 暴露 engine 以用于 html 绑定方法用
+let editor;
 
 // require config
 require.config({
@@ -50,9 +51,10 @@ function resizeContent(){
 }
 
 
-require(['ArticleType', 'Article', 'Engine'],
-   function (ArticleType, Article, Engine) {
+require(['ArticleType', 'Article', 'Engine', 'Editor'],
+   function (ArticleType, Article, Engine, Editor) {
       engine = new Engine();
+      editor = new Editor();
 
       engine.loadArticleOptions(); // 载入文章选项列表
       engine.applyConfig()  // 设置 config

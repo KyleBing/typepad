@@ -1,4 +1,4 @@
-define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility'], function (
+define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility', 'Editor'], function (
    Reg,
    ArticleType,
    Article,
@@ -6,14 +6,15 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
    Record,
    Database,
    KeyCount,
-   Utility) {
+   Utility,
+   Editor) {
    const untypedStringClassName = 'untyped-part';
    const HEIGHT_TEMPLATE = 150; // 对照区高度
 
    let keyCount = new KeyCount();
-   let config = new Config();
    let record = new Record();
    let database = new Database()
+   let editor = new Editor()
 
    /**
     * 跟打器内核
@@ -34,6 +35,8 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.currentOriginWords = [];       // 字体拆分的全部数组
          this.arrayWordAll = [];       // 全部单词
          this.arrayWordDisplaying = [];       // 展示的单词
+
+         this.config = new Config();
 
 
          // 按键过滤器
@@ -63,7 +66,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             } else if (e.key === 'Escape') {
                this.pause();
                e.preventDefault();
-            } else if (Reg.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !this.isStarted && !this.isFinished) {
+            } else if (Reg.KEYS.az.test(e.key) && !e.ctrlKey && !e.metaKey && !e.altKey && !this.isStarted && !this.isFinished) {
                this.start()
             }
          }
@@ -95,53 +98,55 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
+
+
       applyConfig(){
          // 根据当前配置文件设置内容
-         $('input[type=checkbox]#shuffleMode').checked = config.isShuffle;
-         $('input[type=checkbox]#darkMode').checked = config.darkMode;
-         $('input[type=checkbox]#autoNext').checked = config.isAutoNext;
-         $('input[type=checkbox]#autoRepeat').checked = config.isAutoRepeat;
-         $('input[type=checkbox]#shuffleRepeat').checked = config.isShuffleRepeat;
+         $('input[type=checkbox]#shuffleMode').checked = this.config.isShuffle;
+         $('input[type=checkbox]#darkMode').checked = this.config.darkMode;
+         $('input[type=checkbox]#autoNext').checked = this.config.isAutoNext;
+         $('input[type=checkbox]#autoRepeat').checked = this.config.isAutoRepeat;
+         $('input[type=checkbox]#shuffleRepeat').checked = this.config.isShuffleRepeat;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
          let radios = [...radioNodes];
          radios.forEach(item => {
-            item.checked = item.value === config.count
+            item.checked = item.value === this.config.count
          })
-         $('select#article').value = config.articleIdentifier;
+         $('select#article').value = this.config.articleIdentifier;
 
          // English Mode
-         if (config.isInEnglishMode) {
+         if (this.config.isInEnglishMode) {
             this.englishModeEnter()
          }
 
          // Dark Mode
          let body = $('body');
-         if (config.darkMode) {
+         if (this.config.darkMode) {
             body.classList.add('black');
          } else {
             body.classList.remove('black');
          }
 
          // Repeat Monitor
-         $('#repeatCountTotal').innerText = config.repeatCountTotal
-         $('#repeatCountCurrent').innerText = config.repeatCountCurrent
+         $('#repeatCountTotal').innerText = this.config.repeatCountTotal
+         $('#repeatCountCurrent').innerText = this.config.repeatCountCurrent
 
 
-         this.currentOriginWords = config.article.split('');
-         if (config.articleType === ArticleType.word) {
+         this.currentOriginWords = this.config.article.split('');
+         if (this.config.articleType === ArticleType.word) {
             // CET 时
             this.arrayWordAll = Article.CET4.getWordsArray();
-            this.arrayWordDisplaying = this.arrayWordAll.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)); // 截取当前需要显示的数组段
+            this.arrayWordDisplaying = this.arrayWordAll.slice(Number(this.config.count) * (this.config.chapter - 1), Number(this.config.count) * (this.config.chapter)); // 截取当前需要显示的数组段
             let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                return item.word
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
          } else {
             // 其它时
-            if(config.count === 'ALL'){
+            if(this.config.count === 'ALL'){
                this.currentWords = this.currentOriginWords.join('');
             } else {
-               this.currentWords = this.currentOriginWords.slice(Number(config.count) * (config.chapter - 1), Number(config.count) * (config.chapter)).join('');
+               this.currentWords = this.currentOriginWords.slice(Number(this.config.count) * (this.config.chapter - 1), Number(this.config.count) * (this.config.chapter)).join('');
             }
          }
          template.innerText = this.currentWords;
@@ -173,19 +178,19 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
       // 上一段
       prevChapter() {
-         if (config.chapter !== 1) {
-            if (config.articleType === ArticleType.word) {
-               this.arrayWordDisplaying = this.arrayWordAll.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)); // 截取当前需要显示的数组段
+         if (this.config.chapter !== 1) {
+            if (this.config.articleType === ArticleType.word) {
+               this.arrayWordDisplaying = this.arrayWordAll.slice(this.config.count * (this.config.chapter - 2), this.config.count * (this.config.chapter - 1)); // 截取当前需要显示的数组段
                let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                   return item.word
                }); // 取到英文，数组
                this.currentWords = arrayCurrentWord.join(' ');
             } else {
-               this.currentWords = this.currentOriginWords.slice(config.count * (config.chapter - 2), config.count * (config.chapter - 1)).join('');
+               this.currentWords = this.currentOriginWords.slice(this.config.count * (this.config.chapter - 2), this.config.count * (this.config.chapter - 1)).join('');
             }
-            config.chapter--;
+            this.config.chapter--;
             this.reset();
-            config.save();
+            this.config.save();
          } else {
             console.log('retch bottom')
             let chapterBtn = $('#totalChapter');
@@ -195,20 +200,20 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
       // 下一段
       nextChapter() {
-         if (config.chapter !== config.chapterTotal) {
-            if (config.articleType === ArticleType.word) {
-               this.arrayWordDisplaying = this.arrayWordAll.slice(config.count * config.chapter, config.count * (config.chapter + 1)); // 截取当前需要显示的数组段
+         if (this.config.chapter !== this.config.chapterTotal) {
+            if (this.config.articleType === ArticleType.word) {
+               this.arrayWordDisplaying = this.arrayWordAll.slice(this.config.count * this.config.chapter, this.config.count * (this.config.chapter + 1)); // 截取当前需要显示的数组段
                let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                   return item.word
                }); // 取到英文，数组
                this.currentWords = arrayCurrentWord.join(' ');
             } else {
-               this.currentWords = this.currentOriginWords.slice(config.count * config.chapter, config.count * (config.chapter + 1)).join('');
+               this.currentWords = this.currentOriginWords.slice(this.config.count * this.config.chapter, this.config.count * (this.config.chapter + 1)).join('');
             }
 
-            config.chapter++;
+            this.config.chapter++;
             this.reset();
-            config.save();
+            this.config.save();
          } else {
             console.log('retch bottom')
             let animateClass = 'shake';
@@ -242,38 +247,37 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       changeArticle() {
          let articleName = $('select#article').value;
          let article = Article[articleName];
-         config.articleIdentifier = articleName;
-         config.articleName = article.name;
-         config.articleType = article.type;
-         switch (config.articleType) {
+         this.config.articleIdentifier = articleName;
+         this.config.articleName = article.name;
+         this.config.articleType = article.type;
+         switch (this.config.articleType) {
             case ArticleType.character:
-               this.currentOriginWords = config.isShuffle ? Utility.shuffle(article.content.split('')) : article.content.split('');
-               config.article = this.currentOriginWords.join('');
+               this.currentOriginWords = this.config.isShuffle ? Utility.shuffle(article.content.split('')) : article.content.split('');
+               this.config.article = this.currentOriginWords.join('');
                this.englishModeLeave();
                break;
             case ArticleType.article:
-               config.article = article.content;
-               this.currentOriginWords = config.article.split('');
+               this.config.article = article.content;
+               this.currentOriginWords = this.config.article.split('');
                this.englishModeLeave();
                break;
             case ArticleType.english:
-               config.article = article.content;
+               this.config.article = article.content;
                this.englishModeEnter();
-               this.currentOriginWords = config.article.split('');
+               this.currentOriginWords = this.config.article.split('');
                break;
             case ArticleType.word:
-               config.article = article.content;
+               this.config.article = article.content;
                this.englishModeEnter();
                this.arrayWordAll = Article.CET4.getWordsArray();
-               this.currentOriginWords = config.article.split('');
+               this.currentOriginWords = this.config.article.split('');
                break;
             case ArticleType.customize:
-
                break;
             default:
                break;
          }
-         config.save();
+         this.config.save();
          this.changePerCount();
       }
 
@@ -285,32 +289,32 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       // 改变数字时
       changePerCount() {
          let originTol = 0;
-         config.count = $('input[type=radio]:checked').value;;
-         if (config.articleType === ArticleType.word) { // CET 单词模式时，count 为单词数
-            let count = config.count === 'ALL' ? this.arrayWordAll.length : config.count;
+         this.config.count = $('input[type=radio]:checked').value;
+         if (this.config.articleType === ArticleType.word) { // CET 单词模式时，count 为单词数
+            let count = this.config.count === 'ALL' ? this.arrayWordAll.length : this.config.count;
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
             let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                return item.word
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
-            originTol = this.arrayWordAll.length / Number(config.count);
+            originTol = this.arrayWordAll.length / Number(this.config.count);
          } else {
-            if (config.count === 'ALL') {
+            if (this.config.count === 'ALL') {
                this.currentWords = this.currentOriginWords.join('');
             } else {
-               this.currentWords = this.currentOriginWords.slice(0, Number(config.count)).join('');
+               this.currentWords = this.currentOriginWords.slice(0, Number(this.config.count)).join('');
             }
-            originTol = this.currentOriginWords.length / Number(config.count);
+            originTol = this.currentOriginWords.length / Number(this.config.count);
          }
-         config.chapter = 1;
+         this.config.chapter = 1;
          let tempTol = Math.floor(originTol);
-         if (config.count === 'ALL') {
-            config.chapterTotal = 1
+         if (this.config.count === 'ALL') {
+            this.config.chapterTotal = 1
          } else {
-            config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
+            this.config.chapterTotal = originTol > tempTol ? tempTol + 1 : tempTol;
          }
 
-         config.save(); // save config
+         this.config.save(); // save this.config
          this.reset();
          this.updateInfo();
       }
@@ -318,47 +322,47 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       // 进入暗黑模式
       enterDarkMode() {
          let body = $('body');
-         if (config.darkMode) {
+         if (this.config.darkMode) {
             body.classList.remove('black');
-            config.darkMode = false;
-            config.save();
+            this.config.darkMode = false;
+            this.config.save();
          } else {
             body.classList.add('black');
-            config.darkMode = true;
-            config.save();
+            this.config.darkMode = true;
+            this.config.save();
          }
       }
 
       // 自动发文
       autoNext(){
-         config.isAutoNext = $('#autoNext').checked;
-         config.save();
+         this.config.isAutoNext = $('#autoNext').checked;
+         this.config.save();
       }
 
       // 重复发文
       autoRepeat(){
-         config.isAutoRepeat = $('#autoRepeat').checked;
-         config.save();
+         this.config.isAutoRepeat = $('#autoRepeat').checked;
+         this.config.save();
       }
 
       // 重复发文时乱序
       shuffleRepeat(){
-         config.isShuffleRepeat = $('#shuffleRepeat').checked;
-         config.save();
+         this.config.isShuffleRepeat = $('#shuffleRepeat').checked;
+         this.config.save();
       }
 
       // 重复次数 +
       repeatCountAdd(){
-         config.repeatCountTotal++;
-         $('#repeatCountTotal').innerText = config.repeatCountTotal;
-         config.save()
+         this.config.repeatCountTotal++;
+         $('#repeatCountTotal').innerText = this.config.repeatCountTotal;
+         this.config.save()
       }
       // 重复次数 -
       repeatCountMinus(){
-         if (config.repeatCountTotal > 1){
-            config.repeatCountTotal--;
-            $('#repeatCountTotal').innerText = config.repeatCountTotal;
-            config.save()
+         if (this.config.repeatCountTotal > 1){
+            this.config.repeatCountTotal--;
+            $('#repeatCountTotal').innerText = this.config.repeatCountTotal;
+            this.config.save()
          } else {
             console.log('can not lower than 1')
             let btn = $('#repeatMonitor')
@@ -368,9 +372,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
       // 切换乱序模式
       shuffleCurrentArticle() {
-         config.isShuffle = $('#shuffleMode').checked;
-         if (config.articleType === ArticleType.word) {
-            if (config.isShuffle) {
+         this.config.isShuffle = $('#shuffleMode').checked;
+         if (this.config.articleType === ArticleType.word) {
+            if (this.config.isShuffle) {
                this.arrayWordAll = Utility.shuffle(this.arrayWordAll);
             } else {
                this.arrayWordAll = Article.CET4.getWordsArray()
@@ -378,21 +382,21 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             let tempArrayWordAll = this.arrayWordAll.map(item => {
                return item.word + '\t' + item.translation
             });
-            config.article = tempArrayWordAll.join('\t\t');
-            let count = config.count === 'ALL' ? this.arrayWordAll.length : config.count;
+            this.config.article = tempArrayWordAll.join('\t\t');
+            let count = this.config.count === 'ALL' ? this.arrayWordAll.length : this.config.count;
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
             let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                return item.word
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
-         } else if (config.articleType === ArticleType.character) {
-            this.currentOriginWords = config.isShuffle ? Utility.shuffle(Article[config.articleIdentifier].content.split('')) : Article[config.articleIdentifier].content.split('');
-            config.article = this.currentOriginWords.join('');
-            this.currentWords = this.currentOriginWords.slice(0, Number(config.count)).join('');
+         } else if (this.config.articleType === ArticleType.character) {
+            this.currentOriginWords = this.config.isShuffle ? Utility.shuffle(Article[this.config.articleIdentifier].content.split('')) : Article[this.config.articleIdentifier].content.split('');
+            this.config.article = this.currentOriginWords.join('');
+            this.currentWords = this.currentOriginWords.slice(0, Number(this.config.count)).join('');
          }
 
-         config.chapter = 1;
-         config.save(); // save config
+         this.config.chapter = 1;
+         this.config.save(); // save this.config
          this.reset();
          this.updateInfo();
       }
@@ -420,7 +424,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             let currentCharacterIsEnglish = /[a-zA-Z]/i.test(current);
 
             // 英文或单词时
-            if (config.articleType === ArticleType.word || config.articleType === ArticleType.english) {
+            if (this.config.articleType === ArticleType.word || this.config.articleType === ArticleType.english) {
                if (currentCharacterIsCorrect) {
                   this.correctWordsCount++;
                   wordsCorrect = wordsCorrect.concat(origin);
@@ -465,7 +469,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          templateWrapper.scrollTo(0, offsetTop - HEIGHT_TEMPLATE / 2);
 
 
-         if (config.articleType === ArticleType.word) {
+         if (this.config.articleType === ArticleType.word) {
             // 获取单词释义
             this.getCurrentCETWordTranslation(arrayTyped.length);
          }
@@ -489,15 +493,15 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       englishModeEnter() {
          typingPad.classList.add('english');
          template.classList.add('english');
-         config.isInEnglishMode = true;
-         config.save();
+         this.config.isInEnglishMode = true;
+         this.config.save();
       }
 
       englishModeLeave() {
          typingPad.classList.remove('english');
          template.classList.remove('english');
-         config.isInEnglishMode = false;
-         config.save();
+         this.config.isInEnglishMode = false;
+         this.config.save();
       }
 
       delete(id, sender) {
@@ -510,7 +514,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             sender.innerText = '确定清除';
             sender.classList.add('danger');
          } else {
-            database.clear(config)
+            database.clear(this.config)
          }
       }
 
@@ -550,7 +554,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       // 乱序当前段
       shuffleCurrent() {
          // TODO: 英文单词时，乱序当前词组
-         if (config.articleType !== ArticleType.english && config.articleType !== ArticleType.word) {
+         if (this.config.articleType !== ArticleType.english && this.config.articleType !== ArticleType.word) {
             let array = this.currentWords.split('');
             this.currentWords = Utility.shuffle(array).join('');
             template.innerText = this.currentWords;
@@ -588,22 +592,22 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          record.timeStart = this.timeStart;
          record.duration = this.duration;
          record.wordCount = this.currentWords.length;
-         database.insert(record, config);
-         if (config.isAutoNext){ // 自动发文
-            if (config.isAutoRepeat){ // 重复发文
-               if (config.repeatCountTotal > config.repeatCountCurrent){ // 还有重复次数
-                  if (config.isShuffleRepeat){ // 需要重复时乱序
+         database.insert(record, this.config);
+         if (this.config.isAutoNext){ // 自动发文
+            if (this.config.isAutoRepeat){ // 重复发文
+               if (this.config.repeatCountTotal > this.config.repeatCountCurrent){ // 还有重复次数
+                  if (this.config.isShuffleRepeat){ // 需要重复时乱序
                      this.shuffleCurrent();
                   } else {
                      this.reset()
                   }
-                  config.repeatCountCurrent++;
+                  this.config.repeatCountCurrent++;
                } else {
-                  config.repeatCountCurrent = 1;
+                  this.config.repeatCountCurrent = 1;
                   this.nextChapter()
                }
             } else {
-               config.repeatCountCurrent = 1;
+               this.config.repeatCountCurrent = 1;
                this.nextChapter();
             }
          }
@@ -627,7 +631,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          $('.count-current').innerText = typingPad.value.length;
 
          // 更新当前重复次数
-         $('#repeatCountCurrent').innerText = config.repeatCountCurrent
+         $('#repeatCountCurrent').innerText = this.config.repeatCountCurrent
 
          // SPEED
          if (!this.isStarted && !this.isFinished) {
@@ -660,8 +664,8 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
 
          // OPTION
-         $('.chapter-current').innerText = config.chapter;
-         $('.chapter-total').innerText = config.chapterTotal;
+         $('.chapter-current').innerText = this.config.chapter;
+         $('.chapter-total').innerText = this.config.chapterTotal;
       }
    }
 
