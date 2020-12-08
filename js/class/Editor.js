@@ -17,7 +17,6 @@ define(['Reg'], function (Reg){
          let app = $('body');
          app.style.height = innerHeight + 'px';
          app.style.overflow = 'hidden';
-
          this.updateInfo();
       }
       done(engine){
