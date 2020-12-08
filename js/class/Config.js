@@ -19,12 +19,15 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             this.darkMode           = config.darkMode;
             this.articleType        = config.articleType;
             this.IDBIndex           = config.IDBIndex;
-            // v2.1
+            // v2.1 自动发文
             this.isAutoNext         = config.isAutoNext;
             this.isAutoRepeat       = config.isAutoRepeat;
             this.isShuffleRepeat    = config.isShuffleRepeat;
             this.repeatCountTotal   = config.repeatCountTotal || 1;
             this.repeatCountCurrent = config.repeatCountCurrent || 1;
+            // v2.2 自定义内容
+            this.customizedContent  = config.customizedContent || '';
+            this.customizedTitle    = config.customizedTitle || '';
          } else {
             this.chapter            = 1;                      // 当前段号
             this.chapterTotal       = 1;                      // 总段数
@@ -37,12 +40,15 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             this.darkMode           = false;                  // 暗黑模式
             this.articleType        = ArticleType.character;  // 文章类型
             this.IDBIndex           = 1;                      // IndexDB    序号
-            // v2.1
+            // v2.1 自动发文
             this.isAutoNext         = false;                  // 自动发文
             this.isAutoRepeat       = false;                  // 重复发文
             this.isShuffleRepeat    = false;                  // 重复发文时乱序
             this.repeatCountTotal   = 1;                      // 总重复数
             this.repeatCountCurrent = 1;                      // 当前重复数
+            // v2.2 自定义内容
+            this.customizedContent  =  '';
+            this.customizedTitle    =  '';
          }
 
          // 更新处理

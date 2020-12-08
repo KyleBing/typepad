@@ -236,7 +236,12 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          let optionHtml = '';
          for (let itemName in Article) {
             let article = Article[itemName];
-            let tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${article.name}</option>`;
+            let tempHtml = '';
+            if (article.type === ArticleType.customize){
+               tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${this.config.customizedTitle}</option>`
+            } else {
+               tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${article.name}</option>`
+            }
             optionHtml += tempHtml;
          }
          $('#article').innerHTML = optionHtml;
@@ -273,6 +278,10 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                this.currentOriginWords = this.config.article.split('');
                break;
             case ArticleType.customize:
+               this.config.article = this.config.customizedContent;
+               this.currentOriginWords = this.config.article.split('');
+               this.config.articleName = this.config.customizedTitle;
+               this.englishModeLeave();
                break;
             default:
                break;

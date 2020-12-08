@@ -98,6 +98,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
             case ArticleType.english   : textClass = 'text-green';break;
             case ArticleType.article   : textClass = 'text-blue';break;
             case ArticleType.word      : textClass = 'text-red';break;
+            case ArticleType.customize : textClass = 'text-roseo';break;
             default: articleType = '' ;break;
          }
          return `<tr>  

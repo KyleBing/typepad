@@ -7,15 +7,22 @@ define(['Reg'], function (Reg){
          this.content = content || '';
          this.symbolEn =  0;
          this.symbolZh =  0;
-         this.charactorAcount =  0;
       }
 
-      show(){
+      show(config){
          $('.editor').classList.remove('hidden');
+         this.title = config.customizedTitle;
+         this.content = config.customizedContent;
+         $('.editor-title').value = this.title;
+         $('.editor-content').value = this.content;
+         this.updateInfo();
       }
       done(engine){
-         engine.config.article = this.content;
-         engine.currentOriginWords = engine.config.article.split('');
+         engine.config.customizedContent = this.content;
+         engine.config.customizedTitle = this.title;
+         engine.config.save();
+         engine.loadArticleOptions();
+         engine.applyConfig();
          this.hide();
       }
       hide(){
@@ -45,7 +52,6 @@ define(['Reg'], function (Reg){
          this.content = this.content.replace(Reg.REMOVE.return[0].reg, Reg.REMOVE.return[0].replacement);
          this.setContent();
       }
-
 
       setContent(){
          $('.editor-content').value = this.content;

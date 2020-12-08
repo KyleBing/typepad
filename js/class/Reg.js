@@ -11,13 +11,14 @@ define(function () {
       whiteReturn : [{reg : /(^\s*?(\n|\r\n|\r))+/g , replacement : ""} , ] ,
       bracket     : [{reg : /(\(|\)|（|）)/g          , replacement : ""} , ] ,
       htmlTag     : [{reg : /<.+?>|<\/.+?>/g        , replacement : ""} , ] ,
-      all: [].concat(
-         this.space, this.return,
-         this.quot, this.whiteReturn,
-         this.bracket, this.tab,
-         this.htmlTag
-      )
+      all: []
    }
+   REMOVE.all = [].concat(
+      REMOVE.space, REMOVE.return,
+      REMOVE.quot, REMOVE.whiteReturn,
+      REMOVE.bracket, REMOVE.tab,
+      REMOVE.htmlTag
+   )
    const TOZH = {
       space: [
          {reg: / /g, replacement: "　"},
@@ -46,13 +47,14 @@ define(function () {
          {reg: /-/g, replacement: "—"},
          {reg: /\.\.\./g, replacement: "…"},
       ],
-      all: [].concat(
-         this.space, this.comma,
-         this.questionmark, this.colon,
-         this.bracket, this.quot,
-         this.connector
-      )
+      all: []
    }
+   TOZH.all = [].concat(
+      TOZH.space, TOZH.comma,
+      TOZH.questionmark, TOZH.colon,
+      TOZH.bracket, TOZH.quot,
+      TOZH.connector
+   )
    const TOEN = {
       space: [
          {reg: /　/g, replacement: " "},
@@ -81,13 +83,14 @@ define(function () {
          {reg: /[－—–]/g, replacement: "-"},
          {reg: /…/g, replacement: "..."},
       ],
-      all: [].concat(
-         this.space, this.comma,
-         this.questionmark, this.colon,
-         this.bracket, this.quot,
-         this.connector
-      )
+      all: []
    }
+   TOEN.all = [].concat(
+      TOEN.space, TOEN.comma,
+      TOEN.questionmark, TOEN.colon,
+      TOEN.bracket, TOEN.quot,
+      TOEN.connector
+   )
    const MATCH = {
       symbolEn: /[,.:;'"!\?\[\]#@%\^\$\(\)\*\-\=\+\_\<\>\/\\{}`~]/g,
       symbolCn: /[，。：；”…“《》、？【】『』、（）￥！・—]/g,
