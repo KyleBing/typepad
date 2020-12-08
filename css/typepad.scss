@@ -173,7 +173,7 @@ $colors  : (
   z-index: $z-modal;
   &-btn {
     opacity: 0.3;
-    width: 25px;
+    width: 20px;
     @include transition(all 0.3s);
     img {
       display: block;

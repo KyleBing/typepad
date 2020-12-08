@@ -1,6 +1,6 @@
 /**
  * Author: KyleBing(kylebing@163.com)
- * Date: 2020/05/17 - 2020/11/30
+ * Date: 2020/05/17 - 2020/12/08
  *
  * Article     文章列表
  * ArticleType 文章类型
@@ -10,6 +10,7 @@
  * Record      每段的打字数据记录
  * Database    IndexedDB    相关操作
  * CETWord     单词元素
+ * Editor      自定义添加文章面板
  */
 
 const template = $('.template p'); // 对照区主 element
