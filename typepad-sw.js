@@ -7,6 +7,7 @@ self.addEventListener('install', event => {
       caches.open(preFix + version).then(cache => {
          return cache.addAll([
             '/tools/typepad',
+            '/tools/typepad/',
             '/tools/typepad/index.html',
             '/tools/typepad/css/_copyright.scss',
             '/tools/typepad/css/_variables.scss',
@@ -48,7 +49,6 @@ self.addEventListener('install', event => {
 // 清除之前版本的数据
 self.addEventListener('activate', event => {
    console.log('sw: activate')
-
    event.waitUntil(
       caches.keys().then( keyList => {
          return Promise.all(keyList.map(item => {
@@ -63,7 +63,6 @@ self.addEventListener('activate', event => {
 })
 
 self.addEventListener('fetch', event => {
-   console.log(event.request.url);
    event.respondWith(
       caches.match(event.request).then(res => {
          return res || fetch(event.request);

@@ -240,7 +240,7 @@
             <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
             <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
-         <div class="btn-group dash hidden-sm">
+         <div class="btn-group hidden-sm">
             <div id="repeatMonitor" class="btn number animated" onclick="engine.reset()" title="⌘ + K">
                <span id="repeatCountCurrent" class="chapter-current bold current number">1</span> /
                <span id="repeatCountTotal" class="chapter-total number total">1</span>
@@ -252,10 +252,10 @@
          </div>
          <div class="btn-group">
             <label class="hidden" for="article"></label>
-            <select class="btn" id="article" onchange="engine.changeArticle()"></select>
+            <select class="btn" id="article" onchange="engine.changeArticle(editor)"></select>
          </div>
          <div class="btn-group">
-            <div class="btn" onclick="editor.show(engine.config)">文章自定义</div>
+            <div class="btn hidden-sm" onclick="editor.show(engine.config)">文章自定义</div>
          </div>
          <div class="btn-group">
             <input type="radio" onchange="engine.changePerCount()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>

@@ -232,7 +232,7 @@ body.black {
     background-color: rgba(0, 0, 0, 0.5);
     &-content, &-title{
       color: $black-color-text;
-      border: 1px solid $color-border;
+      border: 1px solid $black-color-border;
       background-color: $black-bg;
       &:focus{
         border-color: $green;

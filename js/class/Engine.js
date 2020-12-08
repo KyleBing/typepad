@@ -14,7 +14,6 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
    let keyCount = new KeyCount();
    let record = new Record();
    let database = new Database()
-   let editor = new Editor()
 
    /**
     * 跟打器内核
@@ -35,7 +34,6 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.currentOriginWords = [];       // 字体拆分的全部数组
          this.arrayWordAll = [];       // 全部单词
          this.arrayWordDisplaying = [];       // 展示的单词
-
          this.config = new Config();
 
 
@@ -249,7 +247,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
 
       // 改变文章内容
-      changeArticle() {
+      changeArticle(editor) {
          let articleName = $('select#article').value;
          let article = Article[articleName];
          this.config.articleIdentifier = articleName;
@@ -278,10 +276,14 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                this.currentOriginWords = this.config.article.split('');
                break;
             case ArticleType.customize:
-               this.config.article = this.config.customizedContent;
-               this.currentOriginWords = this.config.article.split('');
-               this.config.articleName = this.config.customizedTitle;
-               this.englishModeLeave();
+               if (!this.config.customizedContent){
+                  editor.show(this.config);
+               } else {
+                  this.config.article = this.config.customizedContent;
+                  this.currentOriginWords = this.config.article.split('');
+                  this.config.articleName = this.config.customizedTitle;
+                  this.englishModeLeave();
+               }
                break;
             default:
                break;
