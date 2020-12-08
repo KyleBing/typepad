@@ -122,6 +122,7 @@ body{
   color: inherit;
   &:hover{
     color: $color-main;
+    text-decoration: none;
   }
   &.danger{
     color: $red;
