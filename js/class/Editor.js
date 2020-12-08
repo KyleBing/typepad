@@ -1,6 +1,4 @@
 define(['Reg'], function (Reg){
-
-
    class Editor{
       constructor(title, content) {
          this.title = title || '';
@@ -8,13 +6,18 @@ define(['Reg'], function (Reg){
          this.symbolEn =  0;
          this.symbolZh =  0;
       }
-
       show(config){
          $('.editor').classList.remove('hidden');
          this.title = config.customizedTitle;
          this.content = config.customizedContent;
          $('.editor-title').value = this.title;
          $('.editor-content').value = this.content;
+
+         // 避免主页滚动
+         let app = $('body');
+         app.style.height = innerHeight + 'px';
+         app.style.overflow = 'hidden';
+
          this.updateInfo();
       }
       done(engine){
@@ -27,6 +30,10 @@ define(['Reg'], function (Reg){
       }
       hide(){
          $('.editor').classList.add('hidden');
+         // 放开主页滚动
+         let app = $('body');
+         app.style.height = 'auto';
+         app.style.overflow = 'auto';
       }
 
       // CONVERT SYMBOLS
@@ -55,6 +62,7 @@ define(['Reg'], function (Reg){
 
       setContent(){
          $('.editor-content').value = this.content;
+         this.updateInfo();
       }
 
       // 更新展示数据
@@ -80,7 +88,6 @@ define(['Reg'], function (Reg){
          this.content = sender.value;
          this.updateInfo();
       }
-
    }
    return Editor
 })
