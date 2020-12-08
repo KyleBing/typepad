@@ -1,0 +1,48 @@
+.editor {
+  z-index: $z-toast;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px) saturate(180%);
+  -webkit-backdrop-filter: blur(5px) saturate(180%);
+  overflow-y: auto;
+
+  .container{
+    margin: 0 auto;
+    max-width: $separate-width;
+    padding: 30px;
+  }
+  &-content, &-title{
+    margin-bottom: 20px;
+    border: 1px solid $color-border;
+    display: block;
+    width: 100%;
+    @include border-radius(5px);
+    background-color: white;
+    padding: 10px 12px;
+    transition: box-shadow 0.5s;
+    resize: none;
+    &:focus{
+      border-color: $green;
+      @include box-shadow(0 0 0 3px transparentize($green, 0.5));
+    }
+  }
+  &-title{
+    font-size: $fz-editor-title;
+  }
+
+  &-toolbar{
+    display: flex;
+    justify-content: space-between;
+    .btn-group{
+      .btn{
+        @extend .btn;
+      }
+    }
+    .info{
+
+    }
+  }
+}

@@ -34,6 +34,21 @@ require.config({
    }
 });
 
+window.onload = resizeContent;
+window.onresize = resizeContent;
+
+$('#app').style.overflow = 'hidden'
+
+
+$('.editor').addEventListener('scroll', event => {
+   console.log(event);
+   event.preventDefault()
+}, false)
+
+function resizeContent(){
+   $('.editor').style.height = innerHeight + 'px';
+}
+
 
 require(['ArticleType', 'Article', 'Engine'],
    function (ArticleType, Article, Engine) {

@@ -30,6 +30,7 @@ $btns: (
   margin: 0;
   @include border-radius(0);
   border: none;
+  white-space: nowrap;
   font-size: $fz-btn;
   padding: $btn-padding-tb $btn-padding-lr ;
   @extend .unselectable;

@@ -10,6 +10,38 @@
    <link rel="stylesheet" href="css/typepad.css?v=2.20">
 </head>
 <body>
+<!--自定义文章内容-->
+<div class="editor">
+   <div class="container">
+      <input class="editor-title" type="text" placeholder="标题">
+      <textarea class="editor-content" name="editor" id="editor" cols="30" rows="10" placeholder="这里填写内容"></textarea>
+      <div class="editor-toolbar">
+         <div class="btn-group">
+            <div class="btn">总字数</div>
+            <div class="btn">1234</div>
+         </div>
+
+         <div class="btn-group">
+            <div class="btn">英文标点</div>
+            <div class="btn">42</div>
+         </div>
+         <div class="btn-group">
+            <div class="btn">中文标点</div>
+            <div class="btn">234</div>
+         </div>
+
+         <div class="btn-group">
+            <div class="btn">英文标点 -> 中文标点</div>
+            <div class="btn">中文标点 -> 英文标点</div>
+         </div>
+         <div class="btn-group">
+            <div class="btn btn-blue">取消</div>
+            <div class="btn btn-blue">确定</div>
+         </div>
+
+      </div>
+   </div>
+</div>
 
 <div id="app">
    <!--侧边信息栏组-->
@@ -195,6 +227,11 @@
          </div>
 
          <div class="btn-group">
+            <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
+            <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
+         </div>
+
+         <div class="btn-group">
             <div class="btn" onclick="engine.shuffleCurrent()" title="⌘ + K">打乱</div>
             <div class="btn" onclick="engine.reset()" title="⌘ + Y">重打</div>
             <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
@@ -214,10 +251,6 @@
             <label class="hidden" for="article"></label>
             <select class="btn" id="article" onchange="engine.changeArticle()">
             </select>
-         </div>
-         <div class="btn-group">
-            <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
-            <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
          </div>
          <div class="btn-group">
             <input type="radio" onchange="engine.changePerCount()" name="count" id="count5" value="5"><label class="btn" for="count5">5</label>

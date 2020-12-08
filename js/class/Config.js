@@ -23,8 +23,8 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             this.isAutoNext         = config.isAutoNext;
             this.isAutoRepeat       = config.isAutoRepeat;
             this.isShuffleRepeat    = config.isShuffleRepeat;
-            this.repeatCountTotal   = config.repeatCountTotal ? config.repeatCountTotal: 1;
-            this.repeatCountCurrent = config.repeatCountCurrent? config.repeatCountCurrent: 1;
+            this.repeatCountTotal   = config.repeatCountTotal || 1;
+            this.repeatCountCurrent = config.repeatCountCurrent || 1;
          } else {
             this.chapter            = 1;                      // 当前段号
             this.chapterTotal       = 1;                      // 总段数

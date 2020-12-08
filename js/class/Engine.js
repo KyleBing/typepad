@@ -220,6 +220,12 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
+      // 自定义文章
+      customizeArticle(){
+         $('#app').style.overflow = 'hidden'
+
+      }
+
       // 载入文章列表选项
       loadArticleOptions() {
          let optionHtml = '';
@@ -260,6 +266,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                this.englishModeEnter();
                this.arrayWordAll = Article.CET4.getWordsArray();
                this.currentOriginWords = config.article.split('');
+               break;
+            case ArticleType.customize:
+
                break;
             default:
                break;

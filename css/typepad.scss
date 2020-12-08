@@ -9,6 +9,7 @@
 @import "copyright";
 @import "black";
 @import "animate";
+@import "editor";
 
 
 body{
@@ -168,7 +169,7 @@ $colors  : (
   position: fixed;
   left: 10px;
   bottom: 10px;
-  z-index: $z-toast;
+  z-index: $z-modal;
   &-btn {
     opacity: 0.3;
     width: 25px;
