@@ -570,6 +570,13 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
       // 乱序当前段
       shuffleCurrent() {
+         switch (this.config.articleType){
+            case ArticleType.character:
+            case ArticleType.article:
+            case ArticleType.customize: break
+            case ArticleType.english: break
+            case ArticleType.word: break
+         }
          // TODO: 英文单词时，乱序当前词组
          if (this.config.articleType !== ArticleType.english && this.config.articleType !== ArticleType.word) {
             let array = this.currentWords.split('');
@@ -579,6 +586,8 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             // TODO: 优化处理界面数据刷新的功能
             this.isFinished = false;
             this.updateInfo();
+         } else {
+
          }
       }
 
