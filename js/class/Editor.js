@@ -1,4 +1,4 @@
-define(['Reg'], function (Reg){
+define(['Reg', 'ArticleType'], function (Reg,ArticleType){
    class Editor{
       constructor(title, content) {
          this.title = title || '';
@@ -20,8 +20,22 @@ define(['Reg'], function (Reg){
          this.updateInfo();
       }
       done(engine){
+         if (!this.content.trim()){
+            let elContent = $('.editor-content');
+            elContent.placeholder = '请输入内容';
+            elContent.focus();
+            return
+         }
+         if (!this.title.trim()){
+            let elTitle = $('.editor-title');
+            elTitle.placeholder = '请输入标题';
+            elTitle.focus();
+            return
+         }
          engine.config.customizedContent = this.content;
          engine.config.customizedTitle = this.title;
+         engine.config.articleIdentifier = ArticleType.customize;
+         engine.config.article = this.content;
          engine.config.save();
          engine.loadArticleOptions();
          engine.applyConfig();

@@ -129,7 +129,6 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          $('#repeatCountTotal').innerText = this.config.repeatCountTotal
          $('#repeatCountCurrent').innerText = this.config.repeatCountCurrent
 
-
          this.currentOriginWords = this.config.article.split('');
          if (this.config.articleType === ArticleType.word) {
             // CET 时
@@ -250,6 +249,11 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       changeArticle(editor) {
          let articleName = $('select#article').value;
          let article = Article[articleName];
+         let lastConfig = { // 当编辑自定义文章，取消时使用
+            articleIdentifier: this.config.articleIdentifier,
+            articleName: this.config.articleName,
+            articleType: this.config.articleType,
+         }
          this.config.articleIdentifier = articleName;
          this.config.articleName = article.name;
          this.config.articleType = article.type;
@@ -277,6 +281,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                break;
             case ArticleType.customize:
                if (!this.config.customizedContent){
+                  this.config.articleIdentifier = lastConfig.articleIdentifier;
+                  this.config.articleName = lastConfig.articleName;
+                  this.config.articleType = lastConfig.articleType;
                   editor.show(this.config);
                } else {
                   this.config.article = this.config.customizedContent;
@@ -289,6 +296,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                break;
          }
          this.config.save();
+         this.applyConfig();
          this.changePerCount();
       }
 
