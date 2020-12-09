@@ -3,14 +3,16 @@
 
 <img width="150" src="img/logo.png"/>
 
-
-![Screen Shot 2020-06-12 at 18 55 11](https://user-images.githubusercontent.com/12215982/84495758-4fd07480-acde-11ea-884b-7da0645fd57b.png)
-
-![Screen Shot 2020-06-12 at 18 54 05](https://user-images.githubusercontent.com/12215982/84495767-52cb6500-acde-11ea-9461-be512178c459.png)
-
 ## 线上地址
-
 [https://kylebing.cn/tools/typepad/](https://kylebing.cn/tools/typepad/)
+
+
+### 截图
+
+<img width="1552" alt="Screen Shot 2020-12-09 at 12 10 30" src="https://user-images.githubusercontent.com/12215982/101584048-b4635680-3a17-11eb-8e2a-0a655aa15e3e.png">
+
+<img width="1552" alt="Screen Shot 2020-12-09 at 12 10 26" src="https://user-images.githubusercontent.com/12215982/101584063-bcbb9180-3a17-11eb-86ea-22e00d71483a.png">
+
 
 ## 前言
 自己是个五笔爱好者，也一直在使用五笔，从 `Windows` 转到 `Mac` 之后，也没有有可用的跟打器，每回想练练打字了都需要打开 `Windows` 模拟器来打字。
