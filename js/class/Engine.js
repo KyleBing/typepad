@@ -183,6 +183,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             } else {
                this.currentWords = this.currentOriginWords.slice(this.config.count * (this.config.chapter - 2), this.config.count * (this.config.chapter - 1)).join('');
             }
+            this.config.repeatCountCurrent = 1;
             this.config.chapter--;
             this.reset();
             this.config.save();
@@ -205,7 +206,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             } else {
                this.currentWords = this.currentOriginWords.slice(this.config.count * this.config.chapter, this.config.count * (this.config.chapter + 1)).join('');
             }
-
+            this.config.repeatCountCurrent = 1;
             this.config.chapter++;
             this.reset();
             this.config.save();

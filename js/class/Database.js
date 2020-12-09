@@ -31,6 +31,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
       // 添加数据
       insert(record, config){
          // console.log(config.IDBIndex,record)
+         let articleName = config.isAutoNext ? config.articleName : config.articleName + '-' + config.repeatCountCurrent;
          let request = this.db.transaction([OBJECT_NAME], 'readwrite')
             .objectStore(OBJECT_NAME)
             .add({
@@ -41,7 +42,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
                backspace         : record.backspace,
                wordCount         : record.wordCount,
                articleIdentifier : config.articleIdentifier,
-               articleName       : config.articleName,
+               articleName       : articleName,
                timeStart         : record.timeStart,
                duration          : record.duration,
                articleType       : config.articleType,
