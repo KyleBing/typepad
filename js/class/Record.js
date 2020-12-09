@@ -26,7 +26,7 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
             case ArticleType.customize : textClass = 'text-roseo';break;
             default: break;
          }
-         let articleName = config.isAutoNext ?  config.articleName + '@' + config.repeatCountCurrent : config.articleName;
+         let articleName = config.isAutoRepeat ?  config.articleName + '@' + config.repeatCountCurrent : config.articleName;
          return `<tr>  
               <td class="text-center roboto-mono">${config.IDBIndex}</td> <!--id-->
               <td class="bold roboto-mono lv-${level}">${this.speed}</td> <!--速度-->
