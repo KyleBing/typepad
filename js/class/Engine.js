@@ -115,6 +115,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             this.englishModeEnter()
          }
 
+         // Repeat Status
+         this.setRepeatStatus(this.config);
+
          // Dark Mode
          let body = $('body');
          if (this.config.darkMode) {
@@ -361,12 +364,24 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       autoRepeat(){
          this.config.isAutoRepeat = $('#autoRepeat').checked;
          this.config.save();
+         this.setRepeatStatus(this.config);
       }
 
       // 重复发文时乱序
       shuffleRepeat(){
          this.config.isShuffleRepeat = $('#shuffleRepeat').checked;
          this.config.save();
+      }
+
+      // 更新重复状态
+      setRepeatStatus(config){
+         if (config.isAutoRepeat){
+            $('#panelRepeatController').classList.remove('hidden');
+            $('#panelRepeatShuffle').classList.remove('hidden');
+         } else {
+            $('#panelRepeatController').classList.add('hidden');
+            $('#panelRepeatShuffle').classList.add('hidden');
+         }
       }
 
       // 重复次数 +
