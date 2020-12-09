@@ -580,7 +580,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                template.innerText = this.currentWords;
                this.reset();
                break
-            case ArticleType.english: break
+            case ArticleType.english:
+               this.reset();
+               break
             case ArticleType.word: // 英文单词时，乱序当前词组
                this.arrayWordDisplaying =Utility.shuffle(this.arrayWordDisplaying);
                let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
