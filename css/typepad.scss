@@ -14,7 +14,7 @@
 
 body{
   color: $text-main;
-  background-color: $bg-second;
+  background-color: $bg-body;
   padding-bottom: 50px;
   overflow-y: auto;
   @include transition(background-color 0.5s);
@@ -39,7 +39,7 @@ body{
   padding: 10px;
   border: 1px solid $color-border;
   max-height: 150px;
-  background-color: lighten($bg-second, 5%);
+  background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
   @media (max-width: $separate-mobile){
     margin-bottom: 5px;
@@ -101,8 +101,8 @@ body{
   }
   .correct{
     text-shadow: none;
-    //background-color: $bg-second;
-    color: darken($bg-second, 5%) !important;
+    //background-color: $bg-body;
+    color: darken($bg-body, 5%) !important;
     white-space: inherit;
   }
   .wrong{
