@@ -96,8 +96,6 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
-
-
       applyConfig(){
          // 根据当前配置文件设置内容
          $('input[type=checkbox]#shuffleMode').checked = this.config.isShuffle;

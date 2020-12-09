@@ -1,4 +1,4 @@
-define(['Reg', 'ArticleType'], function (Reg,ArticleType){
+define(['Reg', 'ArticleType', 'Article'], function (Reg,ArticleType, Article){
    class Editor{
       constructor(title, content) {
          this.title = title || '';
@@ -34,7 +34,9 @@ define(['Reg', 'ArticleType'], function (Reg,ArticleType){
          }
          engine.config.customizedContent = this.content;
          engine.config.customizedTitle = this.title;
-         engine.config.articleIdentifier = ArticleType.customize;
+         engine.config.articleIdentifier = Article.customize.value;
+         engine.config.articleName = this.title
+         engine.config.articleType = ArticleType.customize
          engine.config.article = this.content;
          engine.config.save();
          engine.loadArticleOptions();
