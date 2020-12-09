@@ -573,21 +573,23 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          switch (this.config.articleType){
             case ArticleType.character:
             case ArticleType.article:
-            case ArticleType.customize: break
+            case ArticleType.customize:
+               let array = this.currentWords.split('');
+               this.currentWords = Utility.shuffle(array).join('');
+               template.innerText = this.currentWords;
+               this.reset();
+               break
             case ArticleType.english: break
-            case ArticleType.word: break
-         }
-         // TODO: 英文单词时，乱序当前词组
-         if (this.config.articleType !== ArticleType.english && this.config.articleType !== ArticleType.word) {
-            let array = this.currentWords.split('');
-            this.currentWords = Utility.shuffle(array).join('');
-            template.innerText = this.currentWords;
-            this.reset();
-            // TODO: 优化处理界面数据刷新的功能
-            this.isFinished = false;
-            this.updateInfo();
-         } else {
-
+            case ArticleType.word: // 英文单词时，乱序当前词组
+               this.arrayWordDisplaying =Utility.shuffle(this.arrayWordDisplaying);
+               let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+                  return item.word
+               });
+               this.currentWords = arrayCurrentWord.join(' ');
+               this.reset();
+               this.config.save();
+               break
+            default: break;
          }
       }
 
