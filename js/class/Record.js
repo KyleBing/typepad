@@ -34,10 +34,10 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
               <td class="hidden-sm">${this.hitRate}</td><!--击键-->
               <td class="hidden-sm">${this.backspace}</td><!--回退-->
               <td>${this.wordCount}</td><!--字数-->
+              <td class="time">${Utility.formatTimeLeft(this.duration)}</td><!--用时-->
               <td class="text-center ${textClass}">${articleType}</td><!--文章类型-->
               <td>${articleName}</td><!--文章名称-->
               <td class="hidden-sm">${Utility.dateFormatter(new Date(this.timeStart))}</td><!--开始时间-->
-              <td class="time">${Utility.formatTimeLeft(this.duration)}</td><!--用时-->
               <td><button class="btn btn-danger btn-sm" onclick="engine.delete(${config.IDBIndex}, this)" type="button">删除</button></td>
             </tr>`;
       }
