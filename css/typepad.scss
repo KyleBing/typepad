@@ -38,6 +38,7 @@ body{
   margin-bottom: $gap-block;
   padding: 10px;
   border: 1px solid $color-border;
+  min-height: 100px;
   max-height: 150px;
   background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
@@ -80,7 +81,7 @@ body{
     white-space: pre-wrap;
     border: 1px solid $color-border;
     resize: none;
-    height: 100px;
+    height: 150px;
     width: 100%;
     padding: 10px;
     display: block;
