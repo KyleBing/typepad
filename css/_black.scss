@@ -229,7 +229,7 @@ body.black {
 
   // EDITOR
   .editor {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $black-body-bg;
     &-content, &-title{
       color: $black-color-text;
       border: 1px solid $black-color-border;
