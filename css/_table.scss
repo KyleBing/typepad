@@ -62,7 +62,7 @@ td{
   padding: 5px $table-padding-lr ;
   font-size: $fz-info;
   .btn{
-    font-size: $fz-info;
+    font-size: $fz-info - 2;
     color: inherit;
     border: 1px solid $color-border;
     background-color: white;

@@ -1,7 +1,7 @@
-$black-color-border           : lighten(black, 18%);
 $black-color-border-highlight : lighten(black, 22%);
-$black-body-bg                : lighten(black, 7%);
-$black-bg                     : lighten(black, 13%);
+$black-body-bg                : #0f0f13;
+$black-bg                     : #1c1f24;
+$black-color-border           : lighten($black-bg, 5%);
 $black-color-text             : lighten(black, 90%);
 $black-color-text-info        : lighten(black, 65%);
 $black-color-text-subtitle    : lighten(black, 45%);
@@ -9,7 +9,7 @@ $black-color-text-comment     : lighten(black, 55%);
 $black-btn-bg                 : lighten(black, 25%);
 
 
-$black-orange: darken($orange, 20%);
+$black-orange: darken($orange, 10%);
 
 body.black {
   background-color: $black-body-bg;
