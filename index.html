@@ -7,7 +7,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
    <title>玫枫跟打器 （Roseo Maple TypePad）</title>
    <link rel="shortcut icon" href="img/logo.png" type="image/png">
-   <link rel="stylesheet" href="css/typepad.css?v=2.39">
+   <link rel="stylesheet" href="css/typepad.css?v=2.40">
 </head>
 <body>
 <!--自定义文章内容-->
@@ -117,6 +117,13 @@
                <label class="switch" for="shuffleRepeat"></label>
             </div>
          </div>
+         <div class="switch-item">
+            <div class="label">大单字</div>
+            <div class="wrapper">
+               <input id="bigCharacter" type="checkbox" onchange="engine.bigCharacter()">
+               <label class="switch" for="bigCharacter"></label>
+            </div>
+         </div>
       </div>
 
       <!--keys-->
@@ -179,7 +186,7 @@
          </a>
          <div class="copyright">
             <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
-            <p>v2.39</p>
+            <p>v2.40</p>
             <p>2021/06/01</p>
          </div>
       </div>
@@ -254,13 +261,13 @@
          </div>
 
          <div class="btn-group">
-            <div class="btn" onclick="engine.prevChapter()" title="⌘ + U">《</div>
-            <div class="btn" onclick="engine.nextChapter()" title="⌘ + J">》</div>
+            <div class="btn" onclick="engine.prevChapter()" title="⌘ + U, F1">《</div>
+            <div class="btn" onclick="engine.nextChapter()" title="⌘ + J, F2">》</div>
          </div>
 
          <div class="btn-group">
-            <div class="btn" onclick="engine.shuffleCurrent()" title="⌘ + K">打乱</div>
-            <div class="btn" onclick="engine.reset()" title="⌘ + Y">重打</div>
+            <div class="btn" onclick="engine.shuffleCurrent()" title="⌘ + K, F4">打乱</div>
+            <div class="btn" onclick="engine.reset()" title="⌘ + Y, F3">重打</div>
             <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
             <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
@@ -346,7 +353,7 @@
 </div>
 
 <script src="js/require_v2.3.6.js"></script>
-<script src="js/typepad.js?v=2.39"></script>
+<script src="js/typepad.js?v=2.40"></script>
 
 <script>
    setTimeout(() => {

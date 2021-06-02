@@ -42,6 +42,9 @@ body{
   max-height: 150px;
   background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
+  &.big{
+    max-height: 220px;
+  }
   @media (max-width: $separate-mobile){
     margin-bottom: 5px;
     height: auto;
@@ -85,6 +88,9 @@ body{
     width: 100%;
     padding: 10px;
     display: block;
+    &.big{
+      height: 200px;
+    }
     &:focus{
       @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.1));
     }
@@ -106,6 +112,10 @@ body{
     //background-color: $bg-body;
     color: darken($bg-body, 5%) !important;
     white-space: inherit;
+  }
+  /* Big Character mode*/
+  &.big{
+    font-size: 4rem !important;
   }
   .wrong{
     background-color: $red;

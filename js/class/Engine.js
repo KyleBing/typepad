@@ -102,6 +102,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          $('input[type=checkbox]#autoNext').checked = this.config.isAutoNext;
          $('input[type=checkbox]#autoRepeat').checked = this.config.isAutoRepeat;
          $('input[type=checkbox]#shuffleRepeat').checked = this.config.isShuffleRepeat;
+         $('input[type=checkbox]#bigCharacter').checked = this.config.isBigCharacter;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
          let radios = [...radioNodes];
          radios.forEach(item => {
@@ -124,6 +125,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          } else {
             body.classList.remove('black');
          }
+
+         // Big Character Mode
+         this.config.isBigCharacter ? enterBigCharacterMode() : leaveBigCharacterMode();
 
          // Repeat Monitor
          $('#repeatCountTotal').innerText = this.config.repeatCountTotal
@@ -369,6 +373,13 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       // 重复发文时乱序
       shuffleRepeat(){
          this.config.isShuffleRepeat = $('#shuffleRepeat').checked;
+         this.config.save();
+      }
+
+      // 大单字练习时
+      bigCharacter(){
+         this.config.isBigCharacter = $('#bigCharacter').checked;
+         this.config.isBigCharacter ? enterBigCharacterMode() : leaveBigCharacterMode();
          this.config.save();
       }
 
@@ -720,6 +731,18 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       setTimeout(()=>{
          btn.classList.remove(animateClass)
       }, 250)
+   }
+
+   function enterBigCharacterMode(){
+      $('.text').classList.add('big')
+      $('.template').classList.add('big')
+      $('#pad').classList.add('big')
+   }
+
+   function leaveBigCharacterMode(){
+      $('.text').classList.remove('big')
+      $('.template').classList.remove('big')
+      $('#pad').classList.remove('big')
    }
 
    return Engine
