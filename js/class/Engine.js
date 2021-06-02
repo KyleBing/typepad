@@ -39,26 +39,25 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
          // 按键过滤器
          /****
-          **** ⌘ + R: 重打当前段
-          **** ⌘ + L: 打乱当前段
-          **** ⌘ + N: 下一段
-          **** ⌘ + P: 上一段
-          **** ⌘ + H: 重新开始
+          **** ⌘ + Y F3: 重打当前段
+          **** ⌘ + K F4: 打乱当前段
+          **** ⌘ + U F1: 上一段
+          **** ⌘ + J F2: 下一段
           ****/
          typingPad.onkeydown = e => {
             if (e.key === 'Tab' || ((e.metaKey || e.ctrlKey) && (/[nqwefgplt]/.test(e.key)))) {
                // 消除一些默认浏览器快捷键的效果
                e.preventDefault();
-            } else if ((e.metaKey || e.ctrlKey) && e.key === 'y') {
+            } else if (((e.metaKey || e.ctrlKey) && e.key === 'y') || e.key === 'F3') {
                e.preventDefault();
                this.reset();
-            } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            } else if (((e.metaKey || e.ctrlKey) && e.key === 'k') || e.key === 'F4') {
                e.preventDefault();
                this.shuffleCurrent();
-            } else if ((e.metaKey || e.ctrlKey) && e.key === 'u') {
+            } else if (((e.metaKey || e.ctrlKey) && e.key === 'u') || e.key === 'F1') {
                this.prevChapter();
                e.preventDefault();
-            } else if ((e.metaKey || e.ctrlKey) && e.key === 'j') {
+            } else if (((e.metaKey || e.ctrlKey) && e.key === 'j') || e.key === 'F2') {
                this.nextChapter();
                e.preventDefault();
             } else if (e.key === 'Escape') {
