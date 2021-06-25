@@ -7,7 +7,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
    <title>玫枫跟打器 （Roseo Maple TypePad）</title>
    <link rel="shortcut icon" href="img/logo.png" type="image/png">
-   <link rel="stylesheet" href="css/typepad.css?v=2.41">
+   <link rel="stylesheet" href="css/typepad.css?v=2.42">
 </head>
 <body>
 <!--自定义文章内容-->
@@ -186,7 +186,7 @@
          </a>
          <div class="copyright">
             <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
-            <p>v2.41</p>
+            <p>v2.42</p>
             <p>2021/06/14</p>
          </div>
       </div>
@@ -251,10 +251,10 @@
       <!--工具栏-->
       <div class="tool-bar">
          <div class="btn-group">
-            <div class="btn number">
+            <div class="btn no-action number">
                <span class="count-current bold current number"></span> / <span class="count-total number total"></span>
             </div>
-            <div id="totalChapter" class="btn number animated">
+            <div id="totalChapter" class="btn no-action number animated">
                <span class="chapter-current bold current number"></span> /
                <span class="chapter-total number total"></span>
             </div>
@@ -272,7 +272,7 @@
             <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
          <div class="btn-group hidden" id="panelRepeatController">
-            <div id="repeatMonitor" class="btn number animated" onclick="engine.reset()" title="⌘ + K">
+            <div id="repeatMonitor" class="btn no-action number animated" onclick="engine.reset()" title="⌘ + K">
                <span id="repeatCountCurrent" class="chapter-current bold current number">1</span> /
                <span id="repeatCountTotal" class="chapter-total number total">1</span>
             </div>
@@ -353,7 +353,7 @@
 </div>
 
 <script src="js/require_v2.3.6.js"></script>
-<script src="js/typepad.js?v=2.41"></script>
+<script src="js/typepad.js?v=2.42"></script>
 
 <script>
    setTimeout(() => {

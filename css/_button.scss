@@ -37,6 +37,16 @@ $btns: (
   padding: $btn-padding-tb $btn-padding-lr ;
   background-color: white;
   @extend .unselectable;
+  &.no-action{
+    cursor: default;
+    &:hover{
+      background-color: white;
+    }
+    &:active{
+      @include transform(translateY(0px));
+      @include box-shadow(none);
+    }
+  }
   &:hover{
     background-color: darken(white, 5%);
   }
