@@ -261,24 +261,24 @@
          </div>
 
          <div class="btn-group">
-            <div class="btn" onclick="engine.prevChapter()" title="⌘ + U, F1">《</div>
-            <div class="btn" onclick="engine.nextChapter()" title="⌘ + J, F2">》</div>
+            <div class="btn" onclick="engine.prevChapter()" title="上一段：⌘ + U 或 F1">《</div>
+            <div class="btn" onclick="engine.nextChapter()" title="下一段：⌘ + J 或 F2">》</div>
          </div>
 
          <div class="btn-group">
-            <div class="btn" onclick="engine.shuffleCurrent()" title="⌘ + K, F4">打乱</div>
-            <div class="btn" onclick="engine.reset()" title="⌘ + Y, F3">重打</div>
+            <div class="btn" onclick="engine.shuffleCurrent()" title="打乱当前段：⌘ + K 或 F4">打乱</div>
+            <div class="btn" onclick="engine.reset()" title="重打：⌘ + Y 或 F3">重打</div>
             <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
             <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
          <div class="btn-group hidden" id="panelRepeatController">
             <div id="repeatMonitor" class="btn no-action number animated" onclick="engine.reset()" title="⌘ + K">
-               <span id="repeatCountCurrent" class="chapter-current bold current number">1</span> /
-               <span id="repeatCountTotal" class="chapter-total number total">1</span>
+               <span id="repeatCountCurrent" class="chapter-current bold current number" title="当前重打次数">1</span> /
+               <span id="repeatCountTotal" class="chapter-total number total" title="总重打次数">1</span>
             </div>
             <div class="btn-vertical">
-               <div onclick="engine.repeatCountAdd()">+</div>
-               <div onclick="engine.repeatCountMinus()">-</div>
+               <div onclick="engine.repeatCountAdd()" title="增加重打次数">+</div>
+               <div onclick="engine.repeatCountMinus()" title="减少重打次数">-</div>
             </div>
          </div>
          <div class="btn-group">
