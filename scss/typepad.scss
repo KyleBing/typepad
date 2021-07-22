@@ -32,6 +32,7 @@ body{
   max-height: 150px;
   background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
+  @include border-radius($radius-main);
   &.big{
     max-height: 220px;
   }
@@ -93,6 +94,7 @@ body{
   font-size: $fz-typing;
   letter-spacing: 2px;
   white-space: pre-wrap;
+  @include border-radius($radius-main);
   &.english {
     letter-spacing: 0;
     font-size: $fz-typing-english;

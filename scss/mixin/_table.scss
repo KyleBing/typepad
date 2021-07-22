@@ -5,6 +5,7 @@ $table-padding-lr: 4px;
   border: 1px solid $color-border;
   background-color: white;
   margin-top: $gap-block;
+  @include border-radius($radius-main);
 }
 .table{
   width: 100%;
