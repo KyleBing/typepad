@@ -196,7 +196,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          } else {
             console.log('retch bottom')
             let chapterBtn = $('#totalChapter');
-            shakeBtn(chapterBtn)
+            Utility.shakeDom(chapterBtn)
          }
       }
 
@@ -409,7 +409,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          } else {
             console.log('can not lower than 1')
             let btn = $('#repeatMonitor')
-            shakeBtn(btn)
+            Utility.shakeDom(btn)
          }
       }
 
@@ -723,14 +723,6 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          $('.chapter-current').innerText = this.config.chapter;
          $('.chapter-total').innerText = this.config.chapterTotal;
       }
-   }
-
-   function shakeBtn(btn){
-      let animateClass = 'shake';
-      btn.classList.add(animateClass);
-      setTimeout(()=>{
-         btn.classList.remove(animateClass)
-      }, 250)
    }
 
    function enterBigCharacterMode(){

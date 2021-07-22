@@ -254,7 +254,7 @@
             <div class="btn no-action number">
                <span class="count-current bold current number" title="本段已打字数"></span> / <span class="count-total number total" title="本段总字数"></span>
             </div>
-            <div id="totalChapter" class="btn no-action number animated">
+            <div id="totalChapter" class="btn no-action number">
                <span class="chapter-current bold current number" title="当前段数"></span> /
                <span class="chapter-total number total" title="总段数"></span>
             </div>
@@ -272,7 +272,7 @@
             <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
          <div class="btn-group hidden" id="panelRepeatController">
-            <div id="repeatMonitor" class="btn no-action number animated" onclick="engine.reset()" title="⌘ + K">
+            <div id="repeatMonitor" class="btn no-action number" onclick="engine.reset()" title="⌘ + K">
                <span id="repeatCountCurrent" class="chapter-current bold current number" title="当前重打次数">1</span> /
                <span id="repeatCountTotal" class="chapter-total number total" title="总重打次数">1</span>
             </div>
@@ -297,7 +297,7 @@
             <input type="radio" onchange="engine.changePerCount()" name="count" id="count100" value="100"><label class="btn hidden-sm" for="count100">100</label>
             <input type="radio" onchange="engine.changePerCount()" name="count" id="count200" value="200"><label class="btn hidden-sm" for="count200">200</label>
             <input type="radio" onchange="engine.changePerCount()" name="count" id="count500" value="500"><label class="btn hidden-sm" for="count500">500</label>
-            <input type="radio" onchange="engine.changePerCount()" name="count" id="all" value="ALL"><label class="btn hidden-sm" for="all">ALL</label>
+            <input type="radio" onchange="engine.changePerCount()" name="count" id="all" value="ALL"><label class="btn hidden-sm" for="all">全</label>
          </div>
 
          <!--手机端显示-->

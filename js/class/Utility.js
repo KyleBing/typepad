@@ -54,7 +54,18 @@ define(function () {
       return `${mins.toString().padStart(2,'00')}:${seconds.toString().padStart(2,'00')}`;
    }
 
+   // 抖动 dom 元素
+   function shakeDom(dom){
+      let animateClass = 'shake';
+      dom.classList.add('animated');
+      dom.classList.add(animateClass);
+      setTimeout(()=>{
+         dom.classList.remove('animated')
+         dom.classList.remove(animateClass)
+      }, 250)
+   }
+
    return {
-      formatTimeLeft, shuffle, dateFormatter
+      formatTimeLeft, shuffle, dateFormatter, shakeDom
    }
 })

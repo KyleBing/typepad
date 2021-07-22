@@ -1,4 +1,4 @@
-define(['Reg', 'ArticleType', 'Article'], function (Reg,ArticleType, Article){
+define(['Reg', 'ArticleType', 'Article', 'Utility'], function (Reg,ArticleType, Article, Utility){
    class Editor{
       constructor(title, content) {
          this.title = title || '';
@@ -11,7 +11,9 @@ define(['Reg', 'ArticleType', 'Article'], function (Reg,ArticleType, Article){
          this.title = config.customizedTitle;
          this.content = config.customizedContent;
          $('.editor-title').value = this.title;
-         $('.editor-content').value = this.content;
+         let content = $('.editor-content')
+         content.value = this.content;
+         content.style.height = (innerHeight - 60 - 70 - 32 - 30) + 'px'
 
          // 避免主页滚动
          let app = $('body');
@@ -23,12 +25,14 @@ define(['Reg', 'ArticleType', 'Article'], function (Reg,ArticleType, Article){
          if (!this.content.trim()){
             let elContent = $('.editor-content');
             elContent.placeholder = '请输入内容';
+            Utility.shakeDom(elContent);
             elContent.focus();
             return
          }
          if (!this.title.trim()){
             let elTitle = $('.editor-title');
             elTitle.placeholder = '请输入标题';
+            Utility.shakeDom(elTitle);
             elTitle.focus();
             return
          }
