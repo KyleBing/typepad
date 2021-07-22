@@ -1,3 +1,5 @@
+$radius-info-panel: 3px;
+
 .side-menu{
   margin-right: $gap-block;
   flex-shrink: 0;
@@ -14,6 +16,7 @@
   background-color: white;
   border: 1px solid $color-border;
   font-size: $fz-info;
+  @include border-radius($radius-info-panel);
   > p{
     margin-bottom: 5px;
     &:last-child{

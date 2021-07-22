@@ -2,6 +2,8 @@ $padding-top: 3px;
 $padding-lr: 6px;
 $padding-lr-radio: 8px;
 $height-btn: 20px;
+$radius-btn: 3px;
+$radius-switch: 15px;
 
 $fz-btn: 13px;
 
@@ -91,7 +93,7 @@ input[type=checkbox] + label.switch
 {
   position: relative;
   display: block;
-  @include border-radius(15px);
+  @include border-radius($radius-switch);
   background-color: $color-border;
   //border-bottom: 1px solid white;
   @include box-shadow(inset 0 1px 2px rgba(0,0,0,0.1));
@@ -106,7 +108,7 @@ input[type=checkbox] + label.switch
     left: $radio-gap;
     width: $height-radio;
     height: $height-radio;
-    @include border-radius(15px);
+    @include border-radius($radius-switch);
     background-color: white;
     @include box-shadow(1px 1px 2px rgba(0,0,0,0.2));
     @include transition(all 0.3s);
@@ -126,7 +128,7 @@ input[type=checkbox]:checked + label.switch
     right: 0;
     width: $height-radio;
     height: $height-radio;
-    @include border-radius(15px);
+    @include border-radius($radius-switch);
     @include transition(all 0.3s);
   }
 }
@@ -148,7 +150,7 @@ input[type=checkbox]:checked + label.checker {
 
 .btn-group{
   display: flex;
-  @include border-radius(3px);
+  @include border-radius($radius-btn);
   justify-content: flex-start;
   overflow: hidden;
   border: 1px solid $color-border;
