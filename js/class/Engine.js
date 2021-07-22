@@ -194,7 +194,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             this.reset();
             this.config.save();
          } else {
-            console.log('retch bottom')
+            console.log('retch chapter top')
             let chapterBtn = $('#totalChapter');
             Utility.shakeDom(chapterBtn)
          }
@@ -217,13 +217,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             this.reset();
             this.config.save();
          } else {
-            console.log('retch bottom')
-            let animateClass = 'shake';
+            console.log('retch chapter bottom')
             let chapterBtn = $('#totalChapter');
-            chapterBtn.classList.add(animateClass);
-            setTimeout(()=>{
-               chapterBtn.classList.remove(animateClass)
-            }, 250)
+            Utility.shakeDom(chapterBtn)
          }
       }
 

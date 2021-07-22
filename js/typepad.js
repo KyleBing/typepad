@@ -1,6 +1,6 @@
 /**
  * Author: KyleBing(kylebing@163.com)
- * Date: 2020/05/17 - 2020/12/08
+ * Date: 2020/05/17 - 2021/07/22
  *
  * Article     文章列表
  * ArticleType 文章类型
@@ -73,7 +73,7 @@ require(['ArticleType', 'Article', 'Engine', 'Editor'],
       // Service Worker
       if ('serviceWorker' in navigator){
          navigator.serviceWorker
-            .register('/tools/typepad/typepad-sw.js?v=2.43')
+            .register('/tools/typepad/typepad-sw.js?v=2.44')
             .then(()=>{
                console.log('Server Worker has registered');
             })
