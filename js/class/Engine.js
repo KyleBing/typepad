@@ -11,10 +11,6 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
    const untypedStringClassName = 'untyped-part';
    const HEIGHT_TEMPLATE = 150; // 对照区高度
 
-   let keyCount = new KeyCount();
-   let record = new Record();
-   let database = new Database()
-
    /**
     * 跟打器内核
     */
@@ -35,6 +31,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.arrayWordAll = [];       // 全部单词
          this.arrayWordDisplaying = [];       // 展示的单词
          this.config = new Config();
+         this.record = new Record();
+         this.keyCount = new KeyCount();
+         this.database = new Database();
 
 
          // 按键过滤器
@@ -70,7 +69,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          typingPad.onkeyup = e => {
             e.preventDefault();
             if (!this.isFinished && this.isStarted) {
-               keyCount.countKeys(e);
+               this.keyCount.countKeys(e);
                this.compare();
                // 末字时结束的时候
                if (typingPad.value.length >= this.currentWords.length) {
@@ -154,7 +153,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       }
 
       fetchAllLog(){
-         database.fetchAll();
+         this.database.fetchAll();
       }
 
       start() {
@@ -544,7 +543,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       }
 
       delete(id, sender) {
-         database.delete(id, sender)
+         this.database.delete(id, sender)
       }
 
       // 清除记录
@@ -553,7 +552,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             sender.innerText = '确定清除';
             sender.classList.add('danger');
          } else {
-            database.clear(this.config)
+            this.database.clear(this.config)
          }
       }
 
@@ -619,13 +618,13 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
       // 重置计数器
       reset() {
-         record = new Record();
+         this.record = new Record();
          template.innerHTML = this.currentWords;
          this.isPaused = false;
          this.isStarted = false;
          this.isFinished = false;
          typingPad.value = '';
-         keyCount.reset();
+         this.keyCount.reset();
          this.updateInfo();
          this.stopRefresh();
          this.showTime();
@@ -640,11 +639,12 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.timeEnd = (new Date()).getTime();
          this.duration = this.timeEnd - this.timeStart;
          // update record
-         record.backspace = keyCount.backspace;
-         record.timeStart = this.timeStart;
-         record.duration = this.duration;
-         record.wordCount = this.currentWords.length;
-         database.insert(record, this.config);
+         this.record.backspace = this.keyCount.backspace;
+         this.record.timeStart = this.timeStart;
+         this.record.duration = this.duration;
+         this.record.wordCount = this.currentWords.length;
+         this.record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
+         this.database.insert(this.record, this.config);
          if (this.config.isAutoNext){ // 自动发文
             if (this.config.isAutoRepeat){ // 重复发文
                if (this.config.repeatCountTotal > this.config.repeatCountCurrent){ // 还有重复次数
@@ -676,8 +676,8 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
 
          // KEY COUNT
-         for (let type in keyCount) {
-            $(`.word-${type} p`).innerText = keyCount[type];
+         for (let type in this.keyCount) {
+            $(`.word-${type} p`).innerText = this.keyCount[type];
          }
          $('.count-total').innerText = this.currentWords.length;
          $('.count-current').innerText = typingPad.value.length;
@@ -693,26 +693,25 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             $('.count-key-length').innerText    = '--';
             $('.count-key-backspace').innerText = '--';
          } else {
-            // speed
-            record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
-            $('.speed').innerText = record.speed;
-            $('.btn-speed').innerText = record.speed;
+            this.record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
+            $('.speed').innerText = this.record.speed;
+            $('.btn-speed').innerText = this.record.speed;
 
             // key count
-            let allKeyCount = keyCount.all - keyCount.function;
-            record.hitRate = (allKeyCount / this.duration * 1000).toFixed(2);
-            $('.count-key-rate').innerText = record.hitRate;
+            let allKeyCount = this.keyCount.all - this.keyCount.function;
+            this.record.hitRate = (allKeyCount / this.duration * 1000).toFixed(2);
+            $('.count-key-rate').innerText = this.record.hitRate;
 
             // code length
             if (this.correctWordsCount) {
-               record.codeLength = (allKeyCount / this.correctWordsCount).toFixed(2);
+               this.record.codeLength = (allKeyCount / this.correctWordsCount).toFixed(2);
             } else {
-               record.codeLength = 0;
+               this.record.codeLength = 0;
             }
-            $('.count-key-length').innerText = record.codeLength;
+            $('.count-key-length').innerText = this.record.codeLength;
 
             // backspace count
-            $('.count-key-backspace').innerText = keyCount.backspace;
+            $('.count-key-backspace').innerText = this.keyCount.backspace;
          }
 
          // OPTION
