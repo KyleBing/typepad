@@ -1,5 +1,5 @@
 const preFix = 'typepad'
-const version = '245';
+const version = '246';
 
 self.addEventListener('install', event => {
    self.skipWaiting();
@@ -9,7 +9,7 @@ self.addEventListener('install', event => {
             '/tools/typepad',
             '/tools/typepad/',
             '/tools/typepad/index.html',
-            '/tools/typepad/scss/typepad.css?v=2.45',
+            '/tools/typepad/scss/typepad.css?v=2.46',
             '/tools/typepad/js/class/Database.js',
             '/tools/typepad/js/class/Utility.js',
             '/tools/typepad/js/class/KeyCount.js',
@@ -22,7 +22,7 @@ self.addEventListener('install', event => {
             '/tools/typepad/js/class/Record.js',
             '/tools/typepad/js/class/CETWord.js',
             '/tools/typepad/js/require_v2.3.6.js',
-            '/tools/typepad/js/typepad.js?v=2.45',
+            '/tools/typepad/js/typepad.js?v=2.46',
             '/tools/typepad/img/logo.png',
             '/tools/typepad/scss/font/RobotoMono.ttf',
             '/tools/typepad/scss/font/DSDigital.ttf',

@@ -26,6 +26,7 @@ define(['Reg'], function (Reg) {
 
       // Count Key
       countKeys(e) {
+         if(e.key === 'Process') return
          for (let type in this){
             if ( typeof(this[type]) !== 'function' ){
                if (Reg.KEYS[type].test(e.key)){

@@ -28,7 +28,7 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             // v2.3 自定义内容
             this.customizedContent  = config.customizedContent || '';
             this.customizedTitle    = config.customizedTitle || '';
-            // v2.45 大单字练习模式
+            // v2.43 大单字练习模式
             this.isBigCharacter     = config.isBigCharacter;
          } else {
             this.chapter            = 1;                      // 当前段号
@@ -51,7 +51,7 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             // v2.3 自定义内容
             this.customizedTitle    =  '';                    // 自定义文章标题
             this.customizedContent  =  '';                    // 自定义文章内容
-            // v2.45 大单字练习模式
+            // v2.43 大单字练习模式
             this.isBigCharacter     = false;
          }
 
