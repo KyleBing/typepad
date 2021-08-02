@@ -45,6 +45,7 @@ define(['Reg', 'ArticleType', 'Article', 'Utility'], function (Reg,ArticleType, 
          engine.config.save();
          engine.loadArticleOptions();
          engine.applyConfig();
+         engine.changePerCount();
          this.hide();
       }
       hide(){
