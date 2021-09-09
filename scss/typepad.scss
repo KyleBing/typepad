@@ -1,6 +1,4 @@
-
 @import "mixin/mixin";
-
 
 body{
   color: $text-main;
@@ -92,16 +90,15 @@ body{
 .text{
   word-break: break-word;
   font-size: $fz-typing;
-  letter-spacing: 2px;
   white-space: pre-wrap;
   @include border-radius($radius-main);
   &.english {
+    @extend .galvji;
     letter-spacing: 0;
     font-size: $fz-typing-english;
   }
   .correct{
     text-shadow: none;
-    //background-color: $bg-body;
     color: darken($bg-body, 5%) !important;
     white-space: inherit;
   }

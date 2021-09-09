@@ -117,7 +117,7 @@ $kbd-text: black;
   justify-content: space-between;
   kbd{
     line-height: 1;
-    @extend .roboto-mono;
+    @extend .galvji;
     @include border-radius(3px);
     color: $kbd-text;
     text-align: center;

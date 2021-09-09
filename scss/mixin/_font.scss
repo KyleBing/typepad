@@ -8,14 +8,16 @@
   src: url("./font/DSDigital.ttf");
 }
 
+
 @font-face {
-  font-family: "Roboto Mono";
-  src: url("./font/RobotoMono.ttf");
+  font-family: "Galvji";
+  src: url("./font/Galvji.ttc");
 }
 
-.roboto-mono{
-  font-family: 'Roboto Mono', sans-serif !important;
+.galvji{
+  font-family: 'Galvji', sans-serif !important;
 }
+
 
 .number{
   text-shadow: 0 1px 1px rgba(0,0,0,0.1);
@@ -25,9 +27,7 @@
 .impact{
   font-family: 'Impact', sans-serif !important;
 }
-.code{
-  font-family: 'Roboto Mono', sans-serif;
-}
+
 
 .bold{
   font-weight: bold;

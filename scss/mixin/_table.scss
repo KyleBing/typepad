@@ -10,6 +10,11 @@ $table-padding-lr: 4px;
 .table{
   width: 100%;
   color: $text-subtitle;
+  @extend .galvji;
+  .speed{
+    letter-spacing: 1px;
+    padding-right: 20px;
+  }
 }
 
 thead{
@@ -75,10 +80,6 @@ td{
       color: white;
     }
   }
-  &.time{
-    letter-spacing: 1px;
-    @extend .number;
-  }
 
   @media (max-width: $separate-mobile){
     padding: 5px 2px;
@@ -86,13 +87,13 @@ td{
 }
 
 
-$speed-levels : (
- '6' :$purple,
- '5' :$roseo,
- '4' :$orange,
- '3' :$green,
- '2' :$blue,
- '1' :$gray,
+$speed-levels: (
+        '6' :$roseo,
+        '5' :$orange,
+        '4' :$green,
+        '3' :$blue,
+        '2': $purple,
+        '1' :$gray,
 );
 
 @each $level, $color in $speed-levels {

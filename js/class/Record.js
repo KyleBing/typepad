@@ -29,8 +29,8 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
          /* TODO: 在记录列表中添加当前段的成绩时，对应的重复数序号不对，但保存在 IndexDB 中的的序号正确 */
          let articleName = config.isAutoRepeat ?  config.articleName + ' : ' + config.repeatCountCurrent : config.articleName;
          return `<tr>  
-              <td class="text-center roboto-mono">${config.IDBIndex}</td> <!--id-->
-              <td class="bold roboto-mono lv-${level}">${this.speed}</td> <!--速度-->
+              <td class="text-center">${config.IDBIndex}</td> <!--id-->
+              <td class="bold galvji speed text-right lv-${level}">${this.speed}</td> <!--速度-->
               <td class="hidden-sm">${this.codeLength}</td><!--码长-->
               <td class="hidden-sm">${this.hitRate}</td><!--击键-->
               <td class="hidden-sm">${this.backspace}</td><!--回退-->
