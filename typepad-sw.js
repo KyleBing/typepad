@@ -1,5 +1,5 @@
 const preFix = 'typepad'
-const version = '247';
+const version = '248';
 
 self.addEventListener('install', event => {
    self.skipWaiting();
