@@ -470,9 +470,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             if (this.config.articleType === ArticleType.word || this.config.articleType === ArticleType.english) {  // 英文或单词时
                if (currentCharacterIsCorrect) {
                   this.correctWordsCount++;
-                  wordsCorrect = wordsCorrect.concat(originCharacter);
+                  wordsCorrect = wordsCorrect + originCharacter
                } else {
-                  wordsWrong = wordsWrong.concat(originCharacter);
+                  wordsWrong = wordsWrong + originCharacter
                }
             } else { // 汉字内容时
                let lastResult = result[result.length - 1]
@@ -507,12 +507,12 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                         words: currentCharacter
                      })
                   }
-                  wordsWrong = wordsWrong.concat(originCharacter);
+                  wordsWrong = wordsWrong + originCharacter
 /*                     if (tempCharacterLength > 0){ // 存在
                         let wrongPhrase = arrayOrigin.slice(index, index + tempCharacterLength).toString()
                         tempCharacterLength = 0
                         index = index + tempCharacterLength // index 前移多少位
-                        wordsWrong = wordsWrong.concat(wrongPhrase);
+                        wordsWrong = wordsWrong + wrongPhrase
                         lastCharacterIsCorrect = false
                      }*/
                }
@@ -520,9 +520,26 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
          console.log(result)
 
-         let untypedString = this.currentWords.substring(arrayTyped.length)
+         // show result
+         result.forEach((item, index) => {
+            switch (item.type){
+               case ResultType.correct:
+                  html = html + `<span class="correct">${item.words}</span>`
+                  break;
+               case ResultType.wrong:
+                  html = html + `<span class="wrong">${item.words}</span>`
+                  break;
+               case ResultType.pending:
+                  if(index < result.length - 1){
+                     html = html + `<span class="wrong">${item.words}</span>`
+                  }
+                  break;
+            }
+         })
+
+         let untypedString = this.currentWords.substring(arrayTyped.length - tempCharacterLength)
          let untypedHtml = `<span class='${untypedStringClassName}'>${untypedString}</span>`;
-         html = html.concat(untypedHtml)
+         html = html + untypedHtml
          template.innerHTML = html;
 
          // 滚动对照区到当前所输入的位置
