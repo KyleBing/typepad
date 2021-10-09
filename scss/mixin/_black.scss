@@ -266,7 +266,7 @@ body.black {
 
   @each $name, $color in $colors {
     .text-#{$name}{
-      color: darken($color, 20%);
+      color: darken($color, 20%) !important;
     }
   }
 }

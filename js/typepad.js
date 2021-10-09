@@ -53,7 +53,7 @@ require(['ArticleType', 'Article', 'Engine', 'Editor'],
       editor = new Editor();
 
       engine.loadArticleOptions(); // 载入文章选项列表
-      engine.applyConfig()  // 设置 config
+      engine.applyConfig();  // 设置 config
       engine.updateInfo(); // 刷新界面
 
       typingPad.onblur = () => {

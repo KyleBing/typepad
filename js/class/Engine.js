@@ -1,4 +1,4 @@
-define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility', 'Editor'], function (
+define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility', 'Editor', 'Result', 'ResultType'], function (
    Reg,
    ArticleType,
    Article,
@@ -7,7 +7,10 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
    Database,
    KeyCount,
    Utility,
-   Editor) {
+   Editor,
+   Result,
+   ResultType
+) {
    const untypedStringClassName = 'untyped-part';
    const HEIGHT_TEMPLATE = 150; // 对照区高度
 
@@ -439,65 +442,85 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.updateInfo();
       }
 
-      // 对比上屏字
+      // 对比上屏字，主要对比算法 IMPORTANT!
       compare() {
          this.correctWordsCount = 0;
          let typedWords = typingPad.value;
          let arrayOrigin = this.currentWords.split('');
          let arrayTyped = typedWords.split('');
          let html = '';
-         let lastCharacterIsCorrect = false; // 上一个字符是正确的
          let wordsCorrect = '';
          let wordsWrong = '';
          let tempCharacterLength = 0; // 单字或汉字文章时，未上屏结尾英文的长度
+
+         let result = []
+         result.push({type: ResultType.correct, words: ''})
          /**
           * 对与错的词成块化，
           * 如果上一个字跟当前字的对错一致，追加该字到对应字符串，
           * 如果不是，输出相反字符串
           */
-         arrayTyped.forEach((current, index) => {
-            let origin = arrayOrigin[index];
-            origin = origin ? origin : ' '; // 当输入编码多于原字符串时，可能会出现 undefined 字符，这个用于消除它
-            let currentCharacterIsCorrect = current === origin;
-            let currentCharacterIsEnglish = /[a-zA-Z]/i.test(current);
-
-            // 英文或单词时
-            if (this.config.articleType === ArticleType.word || this.config.articleType === ArticleType.english) {
+         for(let index=0; index<arrayTyped.length; index++){
+            const currentCharacter = arrayTyped[index]
+            let originCharacter = arrayOrigin[index]
+            originCharacter = originCharacter ? originCharacter : ' '; // 当输入编码多于原字符串时，可能会出现 undefined 字符，这个用于消除它
+            let currentCharacterIsCorrect = currentCharacter === originCharacter;
+            let currentCharacterIsEnglish = /[a-zA-Z]/i.test(currentCharacter);
+            // 筛选每个字
+            if (this.config.articleType === ArticleType.word || this.config.articleType === ArticleType.english) {  // 英文或单词时
                if (currentCharacterIsCorrect) {
                   this.correctWordsCount++;
-                  wordsCorrect = wordsCorrect.concat(origin);
+                  wordsCorrect = wordsCorrect.concat(originCharacter);
                } else {
-                  wordsWrong = wordsWrong.concat(origin);
+                  wordsWrong = wordsWrong.concat(originCharacter);
                }
-            } else {
-               // 汉字内容时
+            } else { // 汉字内容时
+               let lastResult = result[result.length - 1]
+               console.log(JSON.stringify(lastResult))
                if (currentCharacterIsCorrect) {
                   this.correctWordsCount++;
-                  wordsCorrect = wordsCorrect.concat(origin);
+                  // 如果最后一个结果是正确的，添加当前字符，如果不是新增一个结果集
+                  if (lastResult.type === ResultType.correct){
+                     lastResult.words = lastResult.words + currentCharacter
+                  } else {
+                     result.push({
+                        type: ResultType.correct,
+                        words: currentCharacter
+                     })
+                  }
                } else if (currentCharacterIsEnglish) { // 错误且是英文时，隐藏不显示
                   tempCharacterLength++
+                  if (lastResult.type === ResultType.pending){
+                     lastResult.words = lastResult.words + currentCharacter
+                  } else {
+                     result.push({
+                        type: ResultType.pending,
+                        words: currentCharacter
+                     })
+                  }
                } else { // 错字时显示红色
-                  wordsWrong = wordsWrong.concat(origin);
+                  if (lastResult.type === ResultType.wrong){
+                     lastResult.words = lastResult.words + currentCharacter
+                  } else {
+                     result.push({
+                        type: ResultType.wrong,
+                        words: currentCharacter
+                     })
+                  }
+                  wordsWrong = wordsWrong.concat(originCharacter);
+/*                     if (tempCharacterLength > 0){ // 存在
+                        let wrongPhrase = arrayOrigin.slice(index, index + tempCharacterLength).toString()
+                        tempCharacterLength = 0
+                        index = index + tempCharacterLength // index 前移多少位
+                        wordsWrong = wordsWrong.concat(wrongPhrase);
+                        lastCharacterIsCorrect = false
+                     }*/
                }
             }
+         }
+         console.log(result)
 
-            if (wordsCorrect && !lastCharacterIsCorrect && index) {
-               html = html.concat(`<span class="wrong">${wordsWrong}</span>`);
-               wordsWrong = '';
-            } else if (wordsWrong && lastCharacterIsCorrect && index) {
-               html = html.concat(`<span class="correct">${wordsCorrect}</span>`);
-               wordsCorrect = '';
-            }
-            if ((index + 1) === typedWords.length) {
-               if (wordsCorrect) {
-                  html = html.concat(`<span class="correct">${wordsCorrect}</span>`);
-               } else {
-                  html = html.concat(`<span class="wrong">${wordsWrong}</span>`);
-               }
-            }
-            lastCharacterIsCorrect = current === origin;
-         });
-         let untypedString = this.currentWords.substring(arrayTyped.length - tempCharacterLength)
+         let untypedString = this.currentWords.substring(arrayTyped.length)
          let untypedHtml = `<span class='${untypedStringClassName}'>${untypedString}</span>`;
          html = html.concat(untypedHtml)
          template.innerHTML = html;
