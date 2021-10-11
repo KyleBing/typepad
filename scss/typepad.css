@@ -1097,6 +1097,9 @@ body.black .text-yellow {
 body.black .text-gray {
   color: #5b5b60 !important;
 }
+body.black .text-black {
+  color: black !important;
+}
 
 .animated {
   -webkit-animation-duration: 0.25s;
@@ -1381,6 +1384,10 @@ body {
 
 .text-gray {
   color: #8E8E93 !important;
+}
+
+.text-black {
+  color: #000000 !important;
 }
 
 .full-screen {

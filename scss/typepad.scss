@@ -156,6 +156,7 @@ $colors  : (
   'orange'     : $orange,
   'yellow'     : $yellow,
   'gray'       : $gray,
+  'black'      : $black,
 );
 
 @each $name, $color in $colors {

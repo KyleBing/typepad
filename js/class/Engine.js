@@ -718,11 +718,11 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
       // 更新界面信息
       updateInfo() {
-         // COLOR
+         // COLOR 计时器颜色
          if (this.isStarted && !this.isPaused) {
-            $('.time').classList.add('text-green');
+            $('.time').classList.add('text-black');
          } else {
-            $('.time').classList.remove('text-green');
+            $('.time').classList.remove('text-black');
          }
 
          // KEY COUNT
