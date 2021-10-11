@@ -467,15 +467,30 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             let currentCharacterIsCorrect = currentCharacter === originCharacter;
             let currentCharacterIsEnglish = /[a-zA-Z]/i.test(currentCharacter);
             // 筛选每个字
+            let lastResult = result[result.length - 1]
             if (this.config.articleType === ArticleType.word || this.config.articleType === ArticleType.english) {  // 英文或单词时
                if (currentCharacterIsCorrect) {
                   this.correctWordsCount++;
-                  wordsCorrect = wordsCorrect + originCharacter
+                  if (lastResult.type === ResultType.correct){
+                     lastResult.words = lastResult.words + currentCharacter
+                  } else {
+                     result.push({
+                        type: ResultType.correct,
+                        words: currentCharacter,
+                        start: index
+                     })
+                  }
                } else {
-                  wordsWrong = wordsWrong + originCharacter
-               }
+                  if (lastResult.type === ResultType.wrong){
+                     lastResult.words = lastResult.words + currentCharacter
+                  } else {
+                     result.push({
+                        type: ResultType.wrong,
+                        words: currentCharacter,
+                        start: index
+                     })
+                  }               }
             } else { // 汉字内容时
-               let lastResult = result[result.length - 1]
                if (currentCharacterIsCorrect) {
                   this.correctWordsCount++;
                   // 如果最后一个结果是正确的，添加当前字符，如果不是新增一个结果集
