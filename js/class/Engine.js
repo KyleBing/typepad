@@ -488,7 +488,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                         start: index
                      })
                   }
-                  tempCharacterLength = 0
+                  tempCharacterLength = 0 // 清零前方记录的临时英文编码
                } else if (currentCharacterIsEnglish) { // 错误且是英文时，隐藏不显示
                   tempCharacterLength++
                   if (lastResult.type === ResultType.pending){
@@ -511,18 +511,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                      })
                   }
                   tempCharacterLength = 0
-                  /*                     if (tempCharacterLength > 0){ // 存在
-                                          let wrongPhrase = arrayOrigin.slice(index, index + tempCharacterLength).toString()
-                                          tempCharacterLength = 0
-                                          index = index + tempCharacterLength // index 前移多少位
-                                          wordsWrong = wordsWrong + wrongPhrase
-                                          lastCharacterIsCorrect = false
-                                       }*/
                }
             }
          }
-
-         console.log(result)
 
          // show result
          result.forEach((item, index) => {
