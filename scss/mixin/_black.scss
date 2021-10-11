@@ -262,7 +262,7 @@ body.black {
           'orange'     : $orange,
           'yellow'     : $yellow,
           'gray'       : $gray,
-          'black'      : $black,
+          'black'      : white,
   );
 
   @each $name, $color in $colors {

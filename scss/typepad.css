@@ -1098,7 +1098,7 @@ body.black .text-gray {
   color: #5b5b60 !important;
 }
 body.black .text-black {
-  color: black !important;
+  color: #cccccc !important;
 }
 
 .animated {
