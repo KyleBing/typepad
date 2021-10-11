@@ -26,13 +26,13 @@ body{
   margin-bottom: $gap-block;
   padding: 10px;
   border: 1px solid $color-border;
-  min-height: 100px;
+  min-height: 150px;
   max-height: 250px;
   background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
   @include border-radius($radius-main);
   &.big{
-    max-height: 220px;
+    max-height: 250px;
   }
   @media (max-width: $separate-mobile){
     margin-bottom: 5px;
@@ -73,12 +73,13 @@ body{
     white-space: pre-wrap;
     border: 1px solid $color-border;
     resize: none;
-    height: 150px;
+    min-height: 150px;
+    max-height: 250px;
     width: 100%;
     padding: 10px;
     display: block;
     &.big{
-      height: 200px;
+      max-height: 250px;
     }
     &:focus{
       @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.1));
