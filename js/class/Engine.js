@@ -29,8 +29,8 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.refreshRate = 500; // ms
 
          this.correctWordsCount = 0;
-         this.currentWords = '';       // 当前显示的文字
-         this.currentOriginWords = [];       // 字体拆分的全部数组
+         this.currentWords = '';       // 显示的当前分段对照文字
+         this.currentOriginWords = [];       // 原始对照文字拆分的全部数组
          this.arrayWordAll = [];       // 全部单词
          this.arrayWordDisplaying = [];       // 展示的单词
          this.config = new Config();
@@ -454,7 +454,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          let tempCharacterLength = 0; // 单字或汉字文章时，未上屏结尾英文的长度
 
          let result = []
-         result.push({type: ResultType.correct, words: ''})
+         result.push({type: ResultType.correct, words: '', start: 0})
          /**
           * 对与错的词成块化，
           * 如果上一个字跟当前字的对错一致，追加该字到对应字符串，
@@ -476,7 +476,6 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                }
             } else { // 汉字内容时
                let lastResult = result[result.length - 1]
-               console.log(JSON.stringify(lastResult))
                if (currentCharacterIsCorrect) {
                   this.correctWordsCount++;
                   // 如果最后一个结果是正确的，添加当前字符，如果不是新增一个结果集
@@ -485,9 +484,11 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                   } else {
                      result.push({
                         type: ResultType.correct,
-                        words: currentCharacter
+                        words: currentCharacter,
+                        start: index
                      })
                   }
+                  tempCharacterLength = 0
                } else if (currentCharacterIsEnglish) { // 错误且是英文时，隐藏不显示
                   tempCharacterLength++
                   if (lastResult.type === ResultType.pending){
@@ -495,7 +496,8 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                   } else {
                      result.push({
                         type: ResultType.pending,
-                        words: currentCharacter
+                        words: currentCharacter,
+                        start: index
                      })
                   }
                } else { // 错字时显示红色
@@ -504,20 +506,22 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                   } else {
                      result.push({
                         type: ResultType.wrong,
-                        words: currentCharacter
+                        words: currentCharacter,
+                        start: index
                      })
                   }
-                  wordsWrong = wordsWrong + originCharacter
-/*                     if (tempCharacterLength > 0){ // 存在
-                        let wrongPhrase = arrayOrigin.slice(index, index + tempCharacterLength).toString()
-                        tempCharacterLength = 0
-                        index = index + tempCharacterLength // index 前移多少位
-                        wordsWrong = wordsWrong + wrongPhrase
-                        lastCharacterIsCorrect = false
-                     }*/
+                  tempCharacterLength = 0
+                  /*                     if (tempCharacterLength > 0){ // 存在
+                                          let wrongPhrase = arrayOrigin.slice(index, index + tempCharacterLength).toString()
+                                          tempCharacterLength = 0
+                                          index = index + tempCharacterLength // index 前移多少位
+                                          wordsWrong = wordsWrong + wrongPhrase
+                                          lastCharacterIsCorrect = false
+                                       }*/
                }
             }
          }
+
          console.log(result)
 
          // show result
@@ -527,17 +531,23 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                   html = html + `<span class="correct">${item.words}</span>`
                   break;
                case ResultType.wrong:
-                  html = html + `<span class="wrong">${item.words}</span>`
+                  let originWords = arrayOrigin.slice(item.start, item.words.length + item.start).join('')
+                  html = html + `<span class="wrong">${originWords}</span>`
                   break;
                case ResultType.pending:
-                  if(index < result.length - 1){
-                     html = html + `<span class="wrong">${item.words}</span>`
+                  if(index < result.length - 1){ // pending 不在最后一个，中间的 pending 都是错误的
+                     // 根据 startIndex 来定位在原始文章中的位置
+                     let originWords = arrayOrigin.slice(item.start, item.words.length + item.start).join('')
+                     html = html + `<span class="wrong">${originWords}</span>`
                   }
                   break;
             }
          })
 
-         let untypedString = this.currentWords.substring(arrayTyped.length - tempCharacterLength)
+         let theLastResult = result[result.length - 1]
+         let logLength = theLastResult.start + theLastResult.words.length // 已上屏记录的长度
+
+         let untypedString = this.currentWords.substring(logLength - tempCharacterLength)
          let untypedHtml = `<span class='${untypedStringClassName}'>${untypedString}</span>`;
          html = html + untypedHtml
          template.innerHTML = html;
