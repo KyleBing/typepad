@@ -135,7 +135,7 @@ body.black {
   }
   .text{
     .correct{
-      color: lighten(black, 30%) !important;
+      color: lighten(black, 20%) !important;
     }
     .wrong{
       background-color: $red;

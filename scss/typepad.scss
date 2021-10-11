@@ -27,7 +27,7 @@ body{
   padding: 10px;
   border: 1px solid $color-border;
   min-height: 100px;
-  max-height: 150px;
+  max-height: 250px;
   background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
   @include border-radius($radius-main);

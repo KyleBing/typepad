@@ -966,7 +966,7 @@ body.black .typing textarea:focus {
   box-shadow: inset 1px 1px 5px black;
 }
 body.black .text .correct {
-  color: #4d4d4d !important;
+  color: #333333 !important;
 }
 body.black .text .wrong {
   background-color: #FF3B30;
@@ -1231,7 +1231,7 @@ body {
   padding: 10px;
   border: 1px solid #dddddd;
   min-height: 100px;
-  max-height: 150px;
+  max-height: 250px;
   background-color: #f8f8f8;
   overflow-y: scroll;
   -webkit-border-radius: 6px;
