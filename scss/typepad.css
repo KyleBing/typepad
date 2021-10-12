@@ -1231,7 +1231,7 @@ body {
   padding: 10px;
   border: 1px solid #dddddd;
   min-height: 150px;
-  max-height: 250px;
+  max-height: 200px;
   background-color: #f8f8f8;
   overflow-y: scroll;
   -webkit-border-radius: 6px;
@@ -1239,7 +1239,7 @@ body {
   border-radius: 6px;
 }
 .template.big {
-  max-height: 250px;
+  max-height: 200px;
 }
 @media (max-width: 768px) {
   .template {
@@ -1273,13 +1273,13 @@ body {
   border: 1px solid #dddddd;
   resize: none;
   min-height: 150px;
-  max-height: 250px;
+  max-height: 200px;
   width: 100%;
   padding: 10px;
   display: block;
 }
 .typing textarea.big {
-  max-height: 250px;
+  max-height: 200px;
 }
 .typing textarea:focus {
   -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);

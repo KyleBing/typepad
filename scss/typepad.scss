@@ -27,12 +27,12 @@ body{
   padding: 10px;
   border: 1px solid $color-border;
   min-height: 150px;
-  max-height: 250px;
+  max-height: 200px;
   background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
   @include border-radius($radius-main);
   &.big{
-    max-height: 250px;
+    max-height: 200px;
   }
   @media (max-width: $separate-mobile){
     margin-bottom: 5px;
@@ -74,12 +74,12 @@ body{
     border: 1px solid $color-border;
     resize: none;
     min-height: 150px;
-    max-height: 250px;
+    max-height: 200px;
     width: 100%;
     padding: 10px;
     display: block;
     &.big{
-      max-height: 250px;
+      max-height: 200px;
     }
     &:focus{
       @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.1));
