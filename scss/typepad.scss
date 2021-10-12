@@ -94,7 +94,7 @@ body{
   white-space: pre-wrap;
   @include border-radius($radius-main);
   &.english {
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
     word-spacing: 3px;
     line-height: 1.3;
     @extend .galvji;
