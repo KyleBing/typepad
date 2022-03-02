@@ -21,7 +21,7 @@ define(function () {
         case this.word:
           return "单词";
         case this.customize:
-          return "自定义";
+          return "";
         default:
           break;
       }

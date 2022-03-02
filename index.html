@@ -20,6 +20,7 @@
           oninput="editor.changeTitle(this)"
           class="editor-title"
           type="text"
+          maxlength="15"
           placeholder="标题"
         />
         <textarea
@@ -437,20 +438,6 @@
               type="radio"
               onchange="engine.changePerCount()"
               name="count"
-              id="count15"
-              value="15"
-            /><label class="btn" for="count15">15</label>
-            <input
-              type="radio"
-              onchange="engine.changePerCount()"
-              name="count"
-              id="count20"
-              value="20"
-            /><label class="btn" for="count20">20</label>
-            <input
-              type="radio"
-              onchange="engine.changePerCount()"
-              name="count"
               id="count50"
               value="50"
             /><label class="btn hidden-sm" for="count50">50</label>
@@ -461,20 +448,6 @@
               id="count100"
               value="100"
             /><label class="btn hidden-sm" for="count100">100</label>
-            <input
-              type="radio"
-              onchange="engine.changePerCount()"
-              name="count"
-              id="count200"
-              value="200"
-            /><label class="btn hidden-sm" for="count200">200</label>
-            <input
-              type="radio"
-              onchange="engine.changePerCount()"
-              name="count"
-              id="count500"
-              value="500"
-            /><label class="btn hidden-sm" for="count500">500</label>
             <input
               type="radio"
               onchange="engine.changePerCount()"

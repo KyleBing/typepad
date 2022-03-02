@@ -61,6 +61,8 @@ define([
        **** ⌘ + U F1: 上一段
        **** ⌘ + J F2: 下一段
        ****/
+      console.log(this);
+
       typingPad.onkeydown = (e) => {
         if (
           e.key === "Tab" ||
@@ -304,9 +306,7 @@ define([
         let article = Article[itemName];
         let tempHtml = "";
         if (article.type === ArticleType.customize) {
-          tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(
-            article.type
-          )} - ${this.config.customizedTitle}</option>`;
+          tempHtml = `<option value="${itemName}">${this.config.customizedTitle}</option>`;
         } else {
           tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(
             article.type
@@ -315,6 +315,7 @@ define([
         optionHtml += tempHtml;
       }
       $("#article").innerHTML = optionHtml;
+      ``;
     }
 
     // 改变文章内容
@@ -872,14 +873,15 @@ define([
       this.showTime();
       templateWrapper.scrollTo(0, 0);
     }
-
     // 当前段打完
     finish() {
       //删除打完的错字
       if (this.config.articleName == "错字练习") {
         let l1 = this.currentWords.length;
         let l2 = this.config.wrongContent.length;
+        let l3 = this.config.article.length;
         this.config.wrongContent = this.config.wrongContent.slice(l1, l2);
+        this.config.article = this.config.article.slice(l1, l3);
         this.config.save();
         this.applyConfig();
         this.changePerCount();
