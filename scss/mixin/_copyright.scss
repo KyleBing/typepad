@@ -1,0 +1,31 @@
+
+
+.logo{
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    @extend .unselectable;
+    flex-shrink: 0;
+    width: 50px;
+    display: block;
+  }
+  h1{
+    margin-left: 10px;
+    font-size: $fz-btn;
+    &:hover{
+      color: $orange;
+    }
+  }
+}
+
+
+.copyright{
+  border-top: 1px dashed $color-border;
+  padding: 10px 10px 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: $fz-copyright;
+  color: $text-subtitle;
+}

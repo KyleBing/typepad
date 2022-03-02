@@ -1,0 +1,10 @@
+@for $item from 1 through 6 {
+  .pt-#{$item}{padding-top: $item * 5px;}
+  .pb-#{$item}{padding-bottom: $item * 5px;}
+  .pl-#{$item}{padding-left: $item * 5px;}
+  .pr-#{$item}{padding-right: $item * 5px;}
+  .mt-#{$item}{margin-top: $item * 5px;}
+  .mb-#{$item}{margin-bottom: $item * 5px;}
+  .ml-#{$item}{margin-left: $item * 5px;}
+  .mr-#{$item}{margin-right: $item * 5px;}
+}

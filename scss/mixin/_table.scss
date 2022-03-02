@@ -1,0 +1,103 @@
+$table-padding-lr: 4px;
+
+.table-container{
+  overflow-y: auto;
+  border: 1px solid $color-border;
+  background-color: white;
+  margin-top: $gap-block;
+  @include border-radius($radius-main);
+}
+.table{
+  width: 100%;
+  color: $text-subtitle;
+  @extend .galvji;
+  .speed{
+    letter-spacing: 1px;
+    padding-right: 20px;
+  }
+}
+
+thead{
+  tr{
+    border-bottom: 1px solid lighten($color-border, 5%);
+    th{
+      color: $text-subtitle;
+      text-align: left;
+      padding: 8px $table-padding-lr;
+      font-weight: bold;
+      font-size: $fz-info;
+      &:first-child{
+        padding-left: 10px;
+      }
+      &:last-child{
+        max-width: 60px;
+        padding-right: 10px;
+      }
+      .link{
+        font-size: $fz-copyright;
+      }
+    }
+  }
+}
+tbody{
+  width: 100%;
+  tr {
+    cursor: crosshair;
+    &:nth-child(2n+1) {
+      background-color: darken(white,3%);
+    }
+    &:nth-child(2n) {
+      background-color: white;
+    }
+    &:hover{
+      background-color: darken(white,5%);
+    }
+    td{
+      &:first-child{
+        padding-left: 10px;
+      }
+      &:last-child{
+        padding-right: 10px;
+      }
+    }
+  }
+}
+
+
+td{
+  padding: 5px $table-padding-lr ;
+  font-size: $fz-info;
+  .btn{
+    font-size: $fz-info - 2;
+    color: inherit;
+    border: 1px solid $color-border;
+    background-color: white;
+    padding: 2px 3px;
+    @include border-radius(3px);
+    &:hover{
+      background-color: $red;
+      border-color: $red;
+      color: white;
+    }
+  }
+
+  @media (max-width: $separate-mobile){
+    padding: 5px 2px;
+  }
+}
+
+
+$speed-levels: (
+        '6' :$roseo,
+        '5' :$orange,
+        '4' :$green,
+        '3' :$blue,
+        '2': $purple,
+        '1' :$gray,
+);
+
+@each $level, $color in $speed-levels {
+  .lv-#{$level}{
+    color: $color !important;
+  }
+}

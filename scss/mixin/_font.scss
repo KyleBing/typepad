@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "Impact";
+  src: url("./font/ImpactPureNumber.ttf");
+}
+
+@font-face {
+  font-family: "DS Digital";
+  src: url("./font/DSDigital.ttf");
+}
+
+
+@font-face {
+  font-family: "Galvji";
+  src: url("./font/Galvji.ttc");
+}
+
+.galvji{
+  font-family: 'Galvji', sans-serif !important;
+}
+
+
+.number{
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  font-family: 'DS Digital', sans-serif !important;
+}
+
+.impact{
+  font-family: 'Impact', sans-serif !important;
+}
+
+
+.bold{
+  font-weight: bold;
+}
+
+.text{
+  &-right{
+    text-align: right;
+  }
+  &-left{
+    text-align: left;
+  }
+}
