@@ -51,9 +51,12 @@ define([
       this.record = new Record();
       this.keyCount = new KeyCount();
       this.database = new Database();
+      this.dmp = new diff_match_patch();
       this.wrong = "";
       Article.hard.content = this.config.wrongContent;
-      this.getWrongWords();
+      this.showWrongWords();
+      this.lastTypedWords = "";
+
       // 按键过滤器
       /****
        **** ⌘ + Y F3: 重打当前段
@@ -61,7 +64,6 @@ define([
        **** ⌘ + U F1: 上一段
        **** ⌘ + J F2: 下一段
        ****/
-      console.log(this);
 
       typingPad.onkeydown = (e) => {
         if (
@@ -124,7 +126,9 @@ define([
       typingPad.oninput = (e) => {
         if (!this.isFinished && this.isStarted) {
           this.compare();
-          // this.getWrongWords()
+          this.getWrongWords();
+          this.showWrongWords();
+          this.config.save();
           // 末字时结束的时候
           if (typingPad.value.length >= this.currentWords.length) {
             if (typingPad.value === this.currentWords) {
@@ -675,27 +679,63 @@ define([
         // 获取单词释义
         this.getCurrentCETWordTranslation(arrayTyped.length);
       }
+    }
 
-      //保存文章
-      let currentCharacterIsEnglish = /[a-zA-Z]/i.test(
-        arrayTyped[arrayTyped.length - 1]
-      );
-      if (
-        typingPad.value.length == this.currentWords.length &&
-        !currentCharacterIsEnglish
-      ) {
-        if (this.config.wrongContent.length < 10000) {
-          this.config.wrongContent = this.config.wrongContent.concat(
-            this.wrong.trim()
-          );
+    getWrongWords() {
+      //this.lastTypedWords 上一次打得字
+      //typingPad.value; //自己打的尾字
+      let arrayOrigin = this.currentWords.split(""); //系统出的尾字
+      let words = "";
+      if (this.lastTypedWords !== "") {
+        let d = this.dmp.diff_main(this.lastTypedWords, typingPad.value);
+        words += this.simplediff(d) ? this.simplediff(d) : "";
+      } else {
+        this.lastTypedWords = typingPad.value;
+        for (let i = 0; i < typingPad.value.length; i++) {
+          if (arrayOrigin[i] !== typingPad.value[i]) {
+            words += arrayOrigin[i] ? arrayOrigin[i] : "";
+          }
         }
-        this.getWrongWords();
-        this.config.save();
       }
+      this.config.wrongContent += words;
+      this.lastTypedWords = typingPad.value;
+    }
+
+    //对比并返回错字
+    simplediff(a) {
+      let DIFF_INSERT = 1;
+      let arrayOrigin = this.currentWords.split("");
+      let wrongWord = "";
+      for (
+        var c = /&/g, d = /</g, e = />/g, f = /\n/g, g = 0;
+        g < a.length;
+        g++
+      ) {
+        var h = a[g][0],
+          w = a[g][1]
+            .replace(c, "&amp;")
+            .replace(d, "&lt;")
+            .replace(e, "&gt;")
+            .replace(f, "&para;<br>"),
+          l = a[g][2],
+          z = a[g][3];
+        //获取新增字符及其位置
+        w = w.split("");
+        if (h == DIFF_INSERT) {
+          if (w !== "") {
+            for (let i = 0; i < w.length; i++) {
+              if (arrayOrigin[i + l] !== w[i]) {
+                wrongWord += arrayOrigin[i + l] ? arrayOrigin[i + l] : "";
+              }
+            }
+          }
+        }
+      }
+      return wrongWord;
     }
 
     //错字排序
-    getWrongWords() {
+    showWrongWords() {
       //收集错字
       let obj = [];
       let wrongWords = [];
@@ -884,7 +924,6 @@ define([
         this.config.article = this.config.article.slice(l1, l3);
         this.config.save();
         this.applyConfig();
-        this.changePerCount();
       }
       Article.hard.content = this.config.wrongContent;
       this.isStarted = false;
