@@ -1292,14 +1292,14 @@ body {
   padding: 10px;
   border: 1px solid #dddddd;
   min-height: 150px;
-  height: 150px;
+  height: 200px;
   background-color: #f8f8f8;
   overflow-y: scroll;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
   resize: vertical;
-  overflow: hidden;
+  overflow-y: auto;
 }
 .template.big {
   max-height: 200px;
