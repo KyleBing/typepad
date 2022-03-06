@@ -142,7 +142,11 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          if (this.config.articleType === ArticleType.word) {
             // CET 时
             this.arrayWordAll = Article.CET4.getWordsArray();
-            this.arrayWordDisplaying = this.arrayWordAll.slice(Number(this.config.count) * (this.config.chapter - 1), Number(this.config.count) * (this.config.chapter)); // 截取当前需要显示的数组段
+            if(this.config.count === 'ALL'){
+               this.arrayWordDisplaying = this.arrayWordAll
+            } else {
+               this.arrayWordDisplaying = this.arrayWordAll.slice(Number(this.config.count) * (this.config.chapter - 1), Number(this.config.count) * (this.config.chapter)); // 截取当前需要显示的数组段
+            }
             let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                return item.word
             }); // 取到英文，数组
