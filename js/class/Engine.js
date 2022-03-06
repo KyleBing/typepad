@@ -29,10 +29,12 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.refreshRate = 500; // ms
 
          this.correctWordsCount = 0;
-         this.currentWords = '';       // 显示的当前分段对照文字
-         this.currentOriginWords = [];       // 原始对照文字拆分的全部数组
-         this.arrayWordAll = [];       // 全部单词
-         this.arrayWordDisplaying = [];       // 展示的单词
+
+         this.currentWords = '';        // 显示的当前分段对照文字
+         this.currentOriginWords = [];  // 原始对照文字拆分的全部数组
+         this.arrayWordAll = [];        // 全部单词
+         this.arrayWordDisplaying = []; // 展示的单词
+
          this.config = new Config();
          this.record = new Record();
          this.keyCount = new KeyCount();
@@ -415,6 +417,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       // 切换乱序模式
       shuffleCurrentArticle() {
          this.config.isShuffle = $('#shuffleMode').checked;
+         // 单词模式时
          if (this.config.articleType === ArticleType.word) {
             if (this.config.isShuffle) {
                this.arrayWordAll = Utility.shuffle(this.arrayWordAll);
@@ -425,16 +428,23 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                return item.word + '\t' + item.translation
             });
             this.config.article = tempArrayWordAll.join('\t\t');
-            let count = this.config.count === 'ALL' ? this.arrayWordAll.length : this.config.count;
+
+            // 当为全文时，this.config.count 非数字，而是 'All'，就需要处理一下
+            let count = this.config.count === 'ALL' ? this.arrayWordAll.length : Number(this.config.count);
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
             let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                return item.word
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
          } else if (this.config.articleType === ArticleType.character) {
-            this.currentOriginWords = this.config.isShuffle ? Utility.shuffle(Article[this.config.articleIdentifier].content.split('')) : Article[this.config.articleIdentifier].content.split('');
+            this.currentOriginWords = this.config.isShuffle ?
+                Utility.shuffle(Article[this.config.articleIdentifier].content.split('')) :
+                Article[this.config.articleIdentifier].content.split('');
             this.config.article = this.currentOriginWords.join('');
-            this.currentWords = this.currentOriginWords.slice(0, Number(this.config.count)).join('');
+
+            // 当为全文时，this.config.count 非数字，而是 'All'，就需要处理一下
+            let count = this.config.count === 'ALL' ? this.currentOriginWords.length : Number(this.config.count);
+            this.currentWords = this.currentOriginWords.slice(0, count).join('');
          }
 
          this.config.chapter = 1;
