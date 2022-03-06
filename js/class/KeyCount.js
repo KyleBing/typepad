@@ -4,7 +4,7 @@ define(['Reg'], function (Reg) {
     */
    class KeyCount {
       constructor() {
-         this.all        = 0;
+         this.all        = 0; // 所有按键
          this.az         = 0;
          this.number     = 0;
          this.ctrl       = 0;
@@ -34,6 +34,11 @@ define(['Reg'], function (Reg) {
                }
             }
          }
+      }
+
+      // 最终结束的时候，上屏的那个按钮是无法被记录到 keyCount 中的，所以需要手动 +1
+      plusOne(){
+         this.all++
       }
    }
 

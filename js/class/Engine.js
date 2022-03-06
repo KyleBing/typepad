@@ -88,6 +88,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                // 末字时结束的时候
                if (typingPad.value.length >= this.currentWords.length) {
                   if (typingPad.value === this.currentWords) {
+                     this.keyCount.plusOne() // 最终结束的时候，上屏的那个按钮是无法被记录到 keyCount 中的，所以需要手动 +1
                      this.finish();
                   }
                }
@@ -699,6 +700,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.record.timeStart = this.timeStart;
          this.record.duration = this.duration;
          this.record.wordCount = this.currentWords.length;
+         this.record.codeLength = (this.keyCount.all / this.correctWordsCount).toFixed(2);
          this.record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
          this.database.insert(this.record, this.config);
          if (this.config.isAutoNext){ // 自动发文

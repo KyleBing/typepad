@@ -4,14 +4,14 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
     */
    class Record {
       constructor(speed, codeLength, hitRate, backspace, wordCount, articleName,  timeStart, duration) {
-         this.speed       = speed;
-         this.codeLength  = codeLength;
-         this.hitRate     = hitRate;
-         this.backspace   = backspace;
-         this.wordCount   = wordCount;
-         this.articleName = articleName
-         this.timeStart   = timeStart;
-         this.duration    = duration;
+         this.speed       = speed;       // 速度
+         this.codeLength  = codeLength;  // 码长
+         this.hitRate     = hitRate;     // 击键
+         this.backspace   = backspace;   // 回退
+         this.wordCount   = wordCount;   // 字数
+         this.articleName = articleName; // 文章名字
+         this.timeStart   = timeStart;   // 开始时间
+         this.duration    = duration;    // 打字时长
       }
       getHtml(config){
          let level = Math.floor(this.speed/SPEED_GAP);
