@@ -47,3 +47,9 @@ __目前不支持不在编辑区输入编码的输入法__
 ## 其它问题
 **线上成绩保存**
 之所以没有加，是因为 web 页面的成绩肯定是无法控制的，可以作假，那么就不如自己掌握了，本身跟打器就的主要使命就是自己练习，成绩只是反应你练习好坏的，也不是给别人看的，只是用于自己参考。
+
+
+## 支持
+感谢 [JetBrains](https://www.jetbrains.com/?from=typepad@KyleBing) 提供的工具支持
+
+![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
