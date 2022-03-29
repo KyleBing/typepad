@@ -251,7 +251,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                sortedArticles[key] = articleArray.filter(item => item.type === key)
             }
          }
-         console.log(sortedArticles)
+         // console.log(sortedArticles)
 
          for(const [articleTypeName, articleArray]  of Object.entries(sortedArticles)){
             let tempOptionHtml = ''
@@ -309,8 +309,6 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
                this.englishModeEnter();
                this.arrayWordAll = article.getWordsArray();
                this.currentOriginWords = this.config.article.split('');
-               console.log(article, this.currentOriginWords, this.arrayWordAll)
-
                break;
             case ArticleType.customize:
                if (!this.config.customizedContent){
