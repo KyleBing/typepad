@@ -19,9 +19,9 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
     */
    class Engine {
       constructor() {
-         this.isFinished = false;
-         this.isStarted = false;
-         this.isPaused = false;
+         this.isFinished = false; // 是否结束
+         this.isStarted = false;  // 是否已开始
+         this.isPaused = false;   // 是否暂停
          this.timeStart; //ms
          this.timeEnd; // ms
          this.duration = 0; // ms
@@ -141,7 +141,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.currentOriginWords = this.config.article.split('');
          if (this.config.articleType === ArticleType.word) {
             // CET 时
-            this.arrayWordAll = Article.CET4.getWordsArray();
+            this.arrayWordAll = Article[this.config.articleIdentifier].getWordsArray();
             if(this.config.count === 'ALL'){
                this.arrayWordDisplaying = this.arrayWordAll
             } else {
@@ -244,10 +244,16 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          for (let itemName in Article) {
             let article = Article[itemName];
             let tempHtml = '';
-            if (article.type === ArticleType.customize){
-               tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${this.config.customizedTitle}</option>`
-            } else {
-               tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${article.name}</option>`
+            switch (article.type) {
+               case ArticleType.customize:
+                  tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${this.config.customizedTitle}</option>`
+                  break;
+               case ArticleType.word:
+                  tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${article.name} - ${article.getWordsArray().length}词</option>`
+                  break;
+               default:
+                  tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${article.name}</option>`
+                  break;
             }
             optionHtml += tempHtml;
          }
@@ -286,8 +292,10 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             case ArticleType.word:
                this.config.article = article.content;
                this.englishModeEnter();
-               this.arrayWordAll = Article.CET4.getWordsArray();
+               this.arrayWordAll = article.getWordsArray();
                this.currentOriginWords = this.config.article.split('');
+               console.log(article, this.currentOriginWords, this.arrayWordAll)
+
                break;
             case ArticleType.customize:
                if (!this.config.customizedContent){
@@ -584,6 +592,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
+      // 显示当前
       getCurrentCETWordTranslation(length) {
          let tempString = '';
          this.arrayWordDisplaying.forEach(item => {

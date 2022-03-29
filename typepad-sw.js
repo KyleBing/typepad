@@ -1,5 +1,5 @@
 const preFix = 'typepad'
-const version = '255';
+const version = '256';
 
 self.addEventListener('install', event => {
    self.skipWaiting();
@@ -7,21 +7,31 @@ self.addEventListener('install', event => {
       caches.open(preFix + version).then(cache => {
          return cache.addAll([
             '/tools/typepad/',
-            '/tools/typepad/index.html',
-            '/tools/typepad/scss/typepad.css?v=2.55',
-            '/tools/typepad/js/class/Database.js',
-            '/tools/typepad/js/class/Utility.js',
-            '/tools/typepad/js/class/KeyCount.js',
-            '/tools/typepad/js/class/Config.js',
-            '/tools/typepad/js/class/Editor.js',
-            '/tools/typepad/js/class/Article.js',
-            '/tools/typepad/js/class/ArticleType.js',
-            '/tools/typepad/js/class/Reg.js',
-            '/tools/typepad/js/class/Engine.js',
-            '/tools/typepad/js/class/Record.js',
-            '/tools/typepad/js/class/CETWord.js',
+            '/tools/typepad/index.html?v=2.56',
+            '/tools/typepad/scss/typepad.css?v=2.56',
+
+            // 英文单词
+            '/tools/typepad/js/class/english-vocabulary/CET4.js?v=2.56',
+            '/tools/typepad/js/class/english-vocabulary/CET6.js?v=2.56',
+            '/tools/typepad/js/class/english-vocabulary/ChuZhong.js?v=2.56',
+            '/tools/typepad/js/class/english-vocabulary/GaoZhong.js?v=2.56',
+            '/tools/typepad/js/class/english-vocabulary/KaoYan.js?v=2.56',
+            '/tools/typepad/js/class/english-vocabulary/SAT.js?v=2.56',
+            '/tools/typepad/js/class/english-vocabulary/Toefl.js?v=2.56',
+
+            '/tools/typepad/js/class/Database.js?v=2.56',
+            '/tools/typepad/js/class/Utility.js?v=2.56',
+            '/tools/typepad/js/class/KeyCount.js?v=2.56',
+            '/tools/typepad/js/class/Config.js?v=2.56',
+            '/tools/typepad/js/class/Editor.js?v=2.56',
+            '/tools/typepad/js/class/Article.js?v=2.56',
+            '/tools/typepad/js/class/ArticleType.js?v=2.56',
+            '/tools/typepad/js/class/Reg.js?v=2.56',
+            '/tools/typepad/js/class/Engine.js?v=2.56',
+            '/tools/typepad/js/class/Record.js?v=2.56',
+            '/tools/typepad/js/class/CETWord.js?v=2.56',
             '/tools/typepad/js/require_v2.3.6.js',
-            '/tools/typepad/js/typepad.js?v=2.55',
+            '/tools/typepad/js/typepad.js?v=2.56',
             '/tools/typepad/img/logo.png',
             '/tools/typepad/scss/font/RobotoMono.ttf',
             '/tools/typepad/scss/font/DSDigital.ttf',
