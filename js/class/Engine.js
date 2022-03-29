@@ -469,8 +469,8 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       compare() {
          this.correctWordsCount = 0;
          let typedWords = typingPad.value;
-         let arrayOrigin = this.currentWords.split('');
-         let arrayTyped = typedWords.split('');
+         let arrayOrigin = this.currentWords.split(''); // 对照区的字、字母
+         let arrayTyped = typedWords.split('');         // 已打的字、字母
          let html = '';
          let wordsCorrect = '';
          let wordsWrong = '';
@@ -592,14 +592,16 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
-      // 显示当前
+      // 显示当前单词的释义
       getCurrentCETWordTranslation(length) {
          let tempString = '';
          this.arrayWordDisplaying.forEach(item => {
             let afterString = tempString + item.word + ' ';
             if (length < afterString.length && length > tempString.length) {
                let after = $('.untyped-part');
-               let translationPanel = document.createElement('div');
+               let translationPanel = document.createElement('a');
+               translationPanel.setAttribute('href', `https://www.youdao.com/result?word=${item.word}&lang=en`)
+               translationPanel.setAttribute('target', '_blank')
                translationPanel.innerText = item.translation
                translationPanel.classList.add('translation-panel');
                after.appendChild(translationPanel);
@@ -608,6 +610,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          })
       }
 
+      // 英文模式：进入
       englishModeEnter() {
          typingPad.classList.add('english');
          template.classList.add('english');
@@ -615,6 +618,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.config.save();
       }
 
+      // 英文模式：离开
       englishModeLeave() {
          typingPad.classList.remove('english');
          template.classList.remove('english');

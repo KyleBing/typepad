@@ -1234,6 +1234,7 @@ body {
   max-height: 200px;
   background-color: #f8f8f8;
   overflow-y: scroll;
+  overflow-x: hidden;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -1250,17 +1251,19 @@ body {
 }
 
 .translation-panel {
+  display: block;
   z-index: 100;
   white-space: nowrap;
   position: absolute;
   top: -0.6rem;
   left: 0;
   line-height: 1;
-  padding: 2px 5px;
   color: #00afff;
   font-weight: normal;
   font-size: 12px;
-  text-shadow: 0 1px 0 rgba(0, 175, 255, 0.3);
+}
+.translation-panel:hover {
+  color: #ff2d70;
 }
 
 .untyped-part {

@@ -30,6 +30,7 @@ body{
   max-height: 200px;
   background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
+  overflow-x: hidden;
   @include border-radius($radius-main);
   &.big{
     max-height: 200px;
@@ -45,21 +46,25 @@ body{
 
 }
 .translation-panel{
+  display: block;
   z-index: $z-toast;
   white-space: nowrap;
   position: absolute;
   top: -0.6rem;
   left: 0;
   line-height: 1;
-  padding: 2px 5px;
+  //padding: 3px 5px;
   color: $cyan;
   font-weight: normal;
   font-size: $fz-translation;
-  text-shadow: 0 1px 0 transparentize($cyan, 0.7);
+  //text-shadow: 0 1px 0 transparentize($cyan, 0.7);
   //@include border-radius(2px);
   //border: 1px solid $color-border;
   //background-color: white;
-  //@include box-shadow(1px 1px 3px rgba(0,0,0,0.1))
+  //@include box-shadow(1px 1px 3px rgba(0,0,0,0.1));
+  &:hover{
+    color: $color-main;
+  }
 }
 
 .untyped-part{
