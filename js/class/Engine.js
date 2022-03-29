@@ -240,23 +240,38 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
       // 载入文章列表选项
       loadArticleOptions() {
-         let optionHtml = '';
-         for (let itemName in Article) {
-            let article = Article[itemName];
-            let tempHtml = '';
-            switch (article.type) {
-               case ArticleType.customize:
-                  tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${this.config.customizedTitle}</option>`
-                  break;
-               case ArticleType.word:
-                  tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${article.name} - ${article.getWordsArray().length}词</option>`
-                  break;
-               default:
-                  tempHtml = `<option value="${itemName}">${ArticleType.getTypeNameWith(article.type)} - ${article.name}</option>`
-                  break;
+         let optionHtml = ''; // 插入的 option dom html []
+
+         // 根据 ArticleType 中的分类，细分 Article 到 {word:[Article], english:[Article], article:[Article]...}
+         let sortedArticles = {}
+         let articleArray = Object.entries(Article).map(item => item[1])  // 从 [... [ArticleType: Article]] 筛选出 [Article, Article]
+
+         for(const [key, entity]  of Object.entries(ArticleType)){
+            if (typeof entity !== 'function'){ // 除去 function 对象
+               sortedArticles[key] = articleArray.filter(item => item.type === key)
             }
-            optionHtml += tempHtml;
          }
+         console.log(sortedArticles)
+
+         for(const [articleTypeName, articleArray]  of Object.entries(sortedArticles)){
+            let tempOptionHtml = ''
+            let groupName = ArticleType.getTypeNameWith(articleTypeName)
+            articleArray.forEach(item => {
+               switch (articleTypeName) {
+                  case ArticleType.customize:
+                     tempOptionHtml += `<option value="${item.value}">${this.config.customizedTitle || '未定义'}</option>`
+                       break
+                  case ArticleType.word:
+                     tempOptionHtml += `<option value="${item.value}">${item.name} - ${item.getWordsArray().length}词</option>`
+                       break
+                  default:
+                     tempOptionHtml += `<option value="${item.value}">${item.name}</option>`
+                       break
+               }
+            })
+            optionHtml += `<optgroup label="${groupName}">${tempOptionHtml}</optgroup>`
+         }
+
          $('#article').innerHTML = optionHtml;
       }
 

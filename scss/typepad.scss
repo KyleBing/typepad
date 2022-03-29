@@ -52,8 +52,10 @@ body{
   position: absolute;
   top: -0.6rem;
   left: 0;
+  //@include transform(translate(-5%, 0));
   line-height: 1;
   //padding: 3px 5px;
+  //color: #0078af;
   color: $cyan;
   font-weight: normal;
   font-size: $fz-translation;
