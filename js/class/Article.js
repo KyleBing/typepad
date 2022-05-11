@@ -11,6 +11,7 @@ define([
    'english-vocabulary/KaoYan',
    'english-vocabulary/SAT',
    'english-vocabulary/Toefl',
+    'chinese/HanZi'
 ], function (
     ArticleType,
     CETWord,
@@ -20,7 +21,8 @@ define([
     CET6,
     KaoYan,
     SAT,
-    Toefl
+    Toefl,
+    HanZi
 ) {
 
    // 由文章获取所有单词数组
@@ -58,6 +60,12 @@ define([
          value: 'hard',
          type: ArticleType.character,
          content: '腻卸凹凸武戒熬曳舟罐戈撩缺'
+      },
+      randomHans: {
+         name: '随机500汉字',
+         value: 'randomHans',
+         type: ArticleType.character,
+         content: HanZi
       },
       loveYourLife: {
          name: 'Love your life',
