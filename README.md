@@ -28,7 +28,7 @@
 `无网络的时候也能使用` 》`自定义发文内容` 》 `添加大单字模式，更好的专注于单字练习` 》 `分组显示所有文章列表` 》 `添加大量英文单词`
 
 从这里能看到过程中每个阶段的截图：
-> [https://github.com/KyleBing/typepad/discussions/18](https://github.com/KyleBing/typepad/discussions/18)
+> [各版本截图记录](https://github.com/KyleBing/typepad/discussions/18)
 
 ## 使用说明
 
