@@ -27,6 +27,9 @@
 `v2.0 拆分 js 文件到模块，采用 require.js AMD 形式加载` 》`实现自动发文功能` 》`实现重复发文` 》`重复时乱序当前段` 》
 `无网络的时候也能使用` 》`自定义发文内容` 》 `添加大单字模式，更好的专注于单字练习` 》 `分组显示所有文章列表` 》 `添加大量英文单词`
 
+从这里能看到过程中每个阶段的截图：
+> [https://github.com/KyleBing/typepad/discussions/18](https://github.com/KyleBing/typepad/discussions/18)
+
 ## 使用说明
 
 __推荐在 Chrome 谷歌浏览器中使用__
