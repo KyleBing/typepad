@@ -3,8 +3,11 @@
 
 <img width="150" src="img/logo.png"/>
 
-## 线上地址
+**使用线上地址**
 [https://kylebing.cn/tools/typepad/](https://kylebing.cn/tools/typepad/)
+
+**本地运行**
+也可以直接下载源文件，双击又浏览器打开 `index.html` 即可本地运行
 
 
 ### 截图
