@@ -1,13 +1,13 @@
 # 玫枫跟打器
 > Roseo Maple Type Pad
 
-<img width="150" src="img/logo.png"/>
+<img width="100" src="img/logo.png"/>
 
 **使用线上地址**
-[https://kylebing.cn/tools/typepad/](https://kylebing.cn/tools/typepad/)
+> [https://kylebing.cn/tools/typepad/](https://kylebing.cn/tools/typepad/)
 
-**本地运行**
-也可以直接下载源文件，双击又浏览器打开 `index.html` 即可本地运行
+**也可以本地运行**
+> 直接下载 [源文件](https://github.com/KyleBing/typepad/archive/refs/heads/master.zip)，双击或用浏览器打开 `index.html` 即可本地运行
 
 
 ### 截图
@@ -17,7 +17,7 @@
 <img width="1552" alt="Screen Shot 2020-12-09 at 12 10 26" src="https://user-images.githubusercontent.com/12215982/101584063-bcbb9180-3a17-11eb-86ea-22e00d71483a.png">
 
 
-## 前言
+## 一、由来
 自己是个五笔爱好者，也一直在使用五笔，从 `Windows` 转到 `Mac` 之后，也没有有可用的跟打器，每回想练练打字了都需要打开 `Windows` 模拟器来打字。
 一直一直想有个能在 `macOS` 上运行的跟打器。
 最初是想自己用 `swift` 开发一个原生的 `app`，搭了个框架，准备写的时候发现好多东西不太熟。后来突然的一个周末，突然又想用本行开发一个试试，于是就有了这个。
@@ -33,14 +33,14 @@
 从这里能看到过程中每个阶段的截图：
 > [各版本截图记录](https://github.com/KyleBing/typepad/discussions/18)
 
-## 使用说明
+## 二、使用说明
 
 __推荐在 Chrome 谷歌浏览器中使用__
 
 __目前不支持不在编辑区输入编码的输入法__
 
 
-## 开发说明
+## 三、开发说明
 
 出于个人挑战的目的，想使该项目的文件大小越小越好。
 
@@ -50,12 +50,21 @@ __目前不支持不在编辑区输入编码的输入法__
  - 配置使用 `localStorage` 存储
  - 使用 `service-worker` 处理离线请求
 
-## 其它问题
+该工具参考了添雨跟打器的一些功能
+> [添雨跟打器 旧版](https://github.com/taliove/tygdq)
+
+
+## 四、其它问题
 **线上成绩保存**
 之所以没有加，是因为 web 页面的成绩肯定是无法控制的，可以作假，那么就不如自己掌握了，本身跟打器就的主要使命就是自己练习，成绩只是反应你练习好坏的，也不是给别人看的，只是用于自己参考。
 
+**可能会支持云端记录跟打成绩**
+但应该也只限自己查看，统计等
 
-## 支持
+
+## 五、支持
+
 感谢 [JetBrains](https://www.jetbrains.com/?from=typepad@KyleBing) 提供的工具支持
 
 ![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
+
