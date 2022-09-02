@@ -287,7 +287,7 @@ tt {
 }
 @font-face {
   font-family: "Galvji";
-  src: url("./font/Galvji.ttc");
+  src: url("./font/Galvji.otf");
 }
 .galvji, .table, .binding-key kbd {
   font-family: "Galvji", sans-serif !important;
@@ -864,7 +864,7 @@ td .btn:hover, td .btn-group .btn-vertical > :hover, .btn-group td .btn-vertical
   margin-left: 10px;
   font-size: 13px;
 }
-.logo h1:hover {
+.logo h1 a:hover {
   color: #FF9500;
 }
 

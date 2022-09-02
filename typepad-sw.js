@@ -1,5 +1,5 @@
 const preFix = 'typepad'
-const version = '258';
+const version = '259';
 
 self.addEventListener('install', event => {
    self.skipWaiting();
@@ -7,35 +7,29 @@ self.addEventListener('install', event => {
       caches.open(preFix + version).then(cache => {
          return cache.addAll([
             '/tools/typepad/',
-            '/tools/typepad/index.html?v=2.58',
-            '/tools/typepad/scss/typepad.css?v=2.58',
+            '/tools/typepad/index.html?v=2.59',
+            '/tools/typepad/scss/typepad.css?v=2.59',
 
             // 英文单词
-            '/tools/typepad/js/class/english-vocabulary/CET4.js?v=2.56',
-            '/tools/typepad/js/class/english-vocabulary/CET6.js?v=2.56',
-            '/tools/typepad/js/class/english-vocabulary/ChuZhong.js?v=2.56',
-            '/tools/typepad/js/class/english-vocabulary/GaoZhong.js?v=2.56',
-            '/tools/typepad/js/class/english-vocabulary/KaoYan.js?v=2.56',
-            '/tools/typepad/js/class/english-vocabulary/SAT.js?v=2.56',
-            '/tools/typepad/js/class/english-vocabulary/Toefl.js?v=2.56',
+            '/tools/typepad/js/class/english-vocabulary/CET4.js?v=2.59',
 
-            '/tools/typepad/js/class/Database.js?v=2.58',
-            '/tools/typepad/js/class/Utility.js?v=2.58',
-            '/tools/typepad/js/class/KeyCount.js?v=2.58',
-            '/tools/typepad/js/class/Config.js?v=2.58',
-            '/tools/typepad/js/class/Editor.js?v=2.58',
-            '/tools/typepad/js/class/Article.js?v=2.58',
-            '/tools/typepad/js/class/ArticleType.js?v=2.58',
-            '/tools/typepad/js/class/Reg.js?v=2.58',
-            '/tools/typepad/js/class/Engine.js?v=2.58',
-            '/tools/typepad/js/class/Record.js?v=2.58',
-            '/tools/typepad/js/class/CETWord.js?v=2.58',
+            '/tools/typepad/js/class/Database.js?v=2.59',
+            '/tools/typepad/js/class/Utility.js?v=2.59',
+            '/tools/typepad/js/class/KeyCount.js?v=2.59',
+            '/tools/typepad/js/class/Config.js?v=2.59',
+            '/tools/typepad/js/class/Editor.js?v=2.59',
+            '/tools/typepad/js/class/Article.js?v=2.59',
+            '/tools/typepad/js/class/ArticleType.js?v=2.59',
+            '/tools/typepad/js/class/Reg.js?v=2.59',
+            '/tools/typepad/js/class/Engine.js?v=2.59',
+            '/tools/typepad/js/class/Record.js?v=2.59',
+            '/tools/typepad/js/class/CETWord.js?v=2.59',
             '/tools/typepad/js/require_v2.3.6.js',
-            '/tools/typepad/js/typepad.js?v=2.58',
+            '/tools/typepad/js/typepad.js?v=2.59',
             '/tools/typepad/img/logo.png',
             '/tools/typepad/scss/font/RobotoMono.ttf',
             '/tools/typepad/scss/font/DSDigital.ttf',
-            '/tools/typepad/scss/font/Galvji.ttc',
+            '/tools/typepad/scss/font/Galvji.otf',
             '/tools/typepad/scss/font/ImpactPureNumber.ttf',
          ])
       })

@@ -141,7 +141,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.currentOriginWords = this.config.article.split('');
          if (this.config.articleType === ArticleType.word) {
             // CET 时
-            this.arrayWordAll = Article[this.config.articleIdentifier].getWordsArray();
+            this.arrayWordAll = Article[this.config.articleIdentifier || 'CET4'].getWordsArray();
             if(this.config.count === 'ALL'){
                this.arrayWordDisplaying = this.arrayWordAll
             } else {
