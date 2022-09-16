@@ -932,7 +932,7 @@ body.black .speed-info .speed {
   color: white;
   border-color: #272b32;
 }
-body.black .speed-info .count-item {
+body.black .speed-info .statistic-item {
   color: #e6e6e6;
 }
 body.black .copyright {
@@ -973,23 +973,23 @@ body.black td .btn:hover, body.black td .btn-group .btn-vertical > :hover, .btn-
   color: white;
   background-color: #FF3B30;
 }
-body.black .template {
+body.black .template-container {
   color: #e6e6e6;
   border: 1px solid #272b32;
   background-color: #1c1f24;
 }
-body.black .typing textarea {
+body.black .typing-container textarea {
   border: 1px solid #272b32;
   background-color: #1c1f24;
   color: #737373;
 }
-body.black .typing textarea:focus {
-  -webkit-box-shadow: inset 1px 1px 5px black;
-  -moz-box-shadow: inset 1px 1px 5px black;
-  box-shadow: inset 1px 1px 5px black;
+body.black .typing-container textarea:focus {
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
 }
 body.black .text .correct {
-  color: #333333 !important;
+  color: #363a46 !important;
 }
 body.black .text .wrong {
   background-color: #FF3B30;

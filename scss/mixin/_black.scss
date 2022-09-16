@@ -53,7 +53,7 @@ body.black {
       color: white;
       border-color: $black-color-border;
     }
-    .count{
+    .statistic{
       &-item {
         color: $black-color-text;
       }
@@ -117,25 +117,25 @@ body.black {
   }
 
 //  TEMPLATE
-  .template{
+  .template-container{
     color: $black-color-text;
     border: 1px solid $black-color-border;
     background-color: $black-bg;
   }
 
-  .typing {
+  .typing-container {
     textarea {
       border: 1px solid $black-color-border;
       background-color: $black-bg;
       color: $black-color-text-subtitle;
       &:focus {
-        @include box-shadow(inset 1px 1px 5px rgba(0, 0, 0,1));
+        @include box-shadow(inset 0 0 10px transparentize(black, 0.6));
       }
     }
   }
   .text{
     .correct{
-      color: lighten(black, 20%) !important;
+      color: #363a46 !important;
     }
     .wrong{
       background-color: $red;
