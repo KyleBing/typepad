@@ -29,7 +29,7 @@ self.addEventListener('install', event => {
             '/tools/typepad/img/logo.png',
             '/tools/typepad/scss/font/RobotoMono.ttf',
             '/tools/typepad/scss/font/DSDigital.ttf',
-            '/tools/typepad/scss/font/Galvji.otf',
+            '/tools/typepad/scss/font/Galvji.ttf',
             '/tools/typepad/scss/font/ImpactPureNumber.ttf',
          ])
       })
