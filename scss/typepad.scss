@@ -27,27 +27,6 @@ body{
   width: 100%;
 }
 
-.translation{
-
-}
-
-.translation-panel{
-  display: block;
-  z-index: $z-toast;
-  white-space: nowrap;
-  position: absolute;
-  top: -0.6rem;
-  left: 0;
-  line-height: 1;
-  padding: 3px 5px;
-  color: $cyan;
-  font-weight: normal;
-  font-size: $fz-translation;
-  &:hover{
-    color: $color-main;
-  }
-}
-
 .untyped-part{
   position: relative;
 }
@@ -55,11 +34,12 @@ body{
 .template-container{
   color: $text-main;
   padding: 15px 20px;
+  letter-spacing: 1px;
   border: 1px solid $color-border;
   border-bottom: none;
   min-height: 150px;
   max-height: 200px;
-  background-color: transparentize(white, 0.2);
+  background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
   @include border-radius($radius-main $radius-main 0 0);
@@ -74,14 +54,15 @@ body{
 }
 
 .typing-container{
+  letter-spacing: 1px;
   position: relative;
-
   textarea{
     overflow: hidden;
     @include border-radius(0 0 $radius-main $radius-main);
     -webkit-appearance: none;
     white-space: pre-wrap;
     border: 1px solid $color-border;
+    border-top-width: 2px;
     resize: none;
     min-height: 150px;
     max-height: 200px;
@@ -93,6 +74,7 @@ body{
     }
     &:focus{
       border-color: $color-border-clearly;
+      border-top-color: black;
       @include box-shadow(inset 0 0 10px transparentize(black, 0.8));
     }
   }
@@ -110,7 +92,7 @@ body{
   }
   .correct{
     text-shadow: none;
-    color: darken($bg-body, 5%) !important;
+    color: #d0e5d9   !important;
     white-space: inherit;
   }
   /* Big Character mode*/

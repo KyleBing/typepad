@@ -1205,6 +1205,23 @@ body.black .text-black {
   justify-content: space-between;
 }
 
+.translation-panel {
+  display: block;
+  z-index: 100;
+  white-space: nowrap;
+  position: absolute;
+  top: -0.8rem;
+  left: 0;
+  line-height: 1;
+  padding: 3px 5px;
+  color: #00afff;
+  font-weight: normal;
+  font-size: 12px;
+}
+.translation-panel:hover {
+  color: #ff2d70;
+}
+
 body {
   color: #333;
   background-color: #EBEBEB;
@@ -1229,23 +1246,6 @@ body {
   width: 100%;
 }
 
-.translation-panel {
-  display: block;
-  z-index: 100;
-  white-space: nowrap;
-  position: absolute;
-  top: -0.6rem;
-  left: 0;
-  line-height: 1;
-  padding: 3px 5px;
-  color: #00afff;
-  font-weight: normal;
-  font-size: 12px;
-}
-.translation-panel:hover {
-  color: #ff2d70;
-}
-
 .untyped-part {
   position: relative;
 }
@@ -1253,11 +1253,12 @@ body {
 .template-container {
   color: #333;
   padding: 15px 20px;
+  letter-spacing: 1px;
   border: 1px solid #dddddd;
   border-bottom: none;
   min-height: 150px;
   max-height: 200px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
   -webkit-border-radius: 8px 8px 0 0;
@@ -1276,6 +1277,7 @@ body {
 }
 
 .typing-container {
+  letter-spacing: 1px;
   position: relative;
 }
 .typing-container textarea {
@@ -1286,6 +1288,7 @@ body {
   -webkit-appearance: none;
   white-space: pre-wrap;
   border: 1px solid #dddddd;
+  border-top-width: 2px;
   resize: none;
   min-height: 150px;
   max-height: 200px;
@@ -1298,6 +1301,7 @@ body {
 }
 .typing-container textarea:focus {
   border-color: #bbb;
+  border-top-color: black;
   -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
@@ -1317,7 +1321,7 @@ body {
 }
 .text .correct {
   text-shadow: none;
-  color: #dedede !important;
+  color: #d0e5d9 !important;
   white-space: inherit;
 }
 .text.big {
