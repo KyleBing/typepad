@@ -33,16 +33,17 @@ body{
 
 .template-container{
   color: $text-main;
-  padding: 15px 20px;
+  padding: 10px 15px;
   letter-spacing: 1px;
   border: 1px solid $color-border;
-  border-bottom: none;
+  //border-bottom: none;
   min-height: 150px;
   max-height: 200px;
-  background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
-  @include border-radius($radius-main $radius-main 0 0);
+  margin-bottom: $gap-block;
+  background-color: transparentize(white, 0.3);
+  @include border-radius($radius-main);
   &.big{
     max-height: 200px;
   }
@@ -57,25 +58,23 @@ body{
   letter-spacing: 1px;
   position: relative;
   textarea{
+    padding: 10px 15px;
     overflow: hidden;
-    @include border-radius(0 0 $radius-main $radius-main);
+    @include border-radius($radius-main);
     -webkit-appearance: none;
     white-space: pre-wrap;
     border: 1px solid $color-border;
-    border-top-width: 2px;
     resize: none;
     min-height: 150px;
     max-height: 200px;
     width: 100%;
-    padding: 15px 20px;
     display: block;
     &.big{
       max-height: 200px;
     }
     &:focus{
       border-color: $color-border-clearly;
-      border-top-color: black;
-      @include box-shadow(inset 0 0 10px transparentize(black, 0.8));
+      @include box-shadow(inset 0 0 10px transparentize(black, 0.88));
     }
   }
 }
@@ -85,14 +84,14 @@ body{
   font-size: $fz-typing;
   white-space: pre-wrap;
   &.english {
-    line-height: 1.3;
+    line-height: 1.2;
     font-size: $fz-typing-english;
-    font-family: 'Galvji';
-    letter-spacing: -1px;
+    font-family: '';
+    letter-spacing: 0;
   }
   .correct{
     text-shadow: none;
-    color: #d0e5d9   !important;
+    color: transparentize(black, 0.9)  !important;
     white-space: inherit;
   }
   /* Big Character mode*/

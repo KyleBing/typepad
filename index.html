@@ -31,7 +31,6 @@
             <div class="btn" id="countSymbolZh">0</div>
          </div>
 
-
          <div class="btn-group">
             <div class="btn" onclick="editor.trimReturn()">去除换行</div>
             <div class="btn" onclick="editor.trimSpace()">去除空格</div>
@@ -47,7 +46,6 @@
             <div class="btn" onclick="editor.hide()">取消</div>
             <div class="btn" onclick="editor.done(engine)">确定</div>
          </div>
-
       </div>
    </div>
 </div>
@@ -56,49 +54,44 @@
 
    <!--侧边信息栏-->
    <div class="side-menu hidden-sm">
-
       <div class="tool-bar jc-space-between">
-         <div class="btn-group">
-            <div class="btn no-action number">
-               <span class="count-current bold current number" title="本段已打字数"></span> / <span class="count-total number total" title="本段总字数"></span>
-            </div>
-            <div id="totalChapter" class="btn no-action number">
-               <span class="chapter-current bold current number" title="当前段数"></span> /
-               <span class="chapter-total number total" title="总段数"></span>
-            </div>
-         </div>
-
-         <div class="btn-group">
-            <div class="btn" onclick="engine.prevChapter()" title="上一段：⌘ + U 或 F1">《</div>
-            <div class="btn" onclick="engine.nextChapter()" title="下一段：⌘ + J 或 F2">》</div>
+         <div class="btn-group toolbar-info">
+            <div class="btn" onclick="engine.shuffleCurrent()" title="打乱当前段：⌘ + K 或 F4">打乱</div>
+            <div class="btn" onclick="engine.reset()" title="重打：⌘ + Y 或 F3">重打</div>
+            <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
+            <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
       </div>
 
-      <!--time-->
+      <!--speed-->
+      <div class="speed-info info-panel">
+         <!--speed-->
+         <div class="speed">--</div>
+         <!--statistic-->
+         <div class="statistic">
+            <div class="statistic-item">
+               <p class="title count-key-backspace">--</p>
+               <p class="desc small">回删</p>
+            </div>
+            <div class="statistic-item">
+               <p class="title count-key-length">--</p>
+               <p class="desc small">码长</p>
+            </div>
+            <div class="statistic-item">
+               <p class="title count-key-rate">--</p>
+               <p class="desc small">击键</p>
+            </div>
+         </div>
+      </div>
+
+      <!--TIMER-->
       <div class="time-info info-panel">
          <div class="time number">
             <div class="minute">00</div>:<div class="second">00</div>
          </div>
       </div>
 
-      <!--speed-->
-      <div class="speed-info info-panel">
-         <div class="speed">--</div>
-         <div class="count pt-2">
-            <div class="count-item">
-               <p class="count-key-backspace">--</p>
-               <p class="small">回删</p>
-            </div>
-            <div class="count-item">
-               <p class="count-key-length">--</p>
-               <p class="small">码长</p>
-            </div>
-            <div class="count-item">
-               <p class="count-key-rate">--</p>
-               <p class="small">击键</p>
-            </div>
-         </div>
-      </div>
+      <!--OPTIONS SETUP-->
       <div class="info-panel">
          <div class="switch-item">
             <div class="label">暗黑模式</div>
@@ -144,7 +137,7 @@
          </div>
       </div>
 
-      <!--keys-->
+      <!--HELP INFO : KEYS-->
       <div class="key-info info-panel">
          <div class="key-info-item word-all">
             <div>全部按键</div>
@@ -196,7 +189,7 @@
          </div>
       </div>
 
-      <!--info-->
+      <!--ABOUT INFO-->
       <div class="info-panel">
          <div class="logo">
             <img src="img/logo-inline.png" alt="">
@@ -204,10 +197,11 @@
          </div>
          <div class="copyright">
             <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
-            <p>v2.59</p>
-            <p>2022/09/02</p>
+            <p>v2.60</p>
+            <p>2022/09/16</p>
          </div>
       </div>
+
       <div class="info-panel">
          <div class="key-info-item">
             <div class="binding-key"><kbd>⌘</kbd>+<kbd>J</kbd></div>
@@ -249,19 +243,20 @@
          </div>
       </div>
 
-      <!--keymap-->
+      <!--KEYMAP-->
       <div class="info-panel">
          <p>光标离开输入区自动暂停，进入输入状态自动恢复计时。</p>
          <p>快捷键只在编辑区内生效</p>
       </div>
 
-      <!--notice-->
+      <!--HELP INFO: NOTICE-->
       <div class="info-panel">
          <p>最优体验: 鼠须管输入法，谷歌浏览器、Safari 浏览器，其它平台或浏览器可能会有出入，欢迎反馈至
             <a target="_blank" href="https://github.com/KyleBing/typepad">GitHub</a></p>
          <p>mac 用户推荐用 <a target="_blank" href="https://rime.im/">鼠须管输入法</a>，86版五笔现成的配置方案可以这里找到
             <a target="_blank" href="https://github.com/KyleBing/rime-wubi86-jidian">极点码表方案</a></p>
       </div>
+
    </div>
 
    <!--内容区-->
@@ -269,10 +264,17 @@
       <!--工具栏-->
       <div class="tool-bar">
          <div class="btn-group">
-            <div class="btn" onclick="engine.shuffleCurrent()" title="打乱当前段：⌘ + K 或 F4">打乱</div>
-            <div class="btn" onclick="engine.reset()" title="重打：⌘ + Y 或 F3">重打</div>
-            <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
-            <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
+            <div class="btn no-action number">
+               <span class="count-current bold current number" title="本段已打字数"></span> / <span class="count-total number total" title="本段总字数"></span>
+            </div>
+            <div id="totalChapter" class="btn no-action number">
+               <span class="chapter-current bold current number" title="当前段数"></span> /
+               <span class="chapter-total number total" title="总段数"></span>
+            </div>
+         </div>
+         <div class="btn-group">
+            <div class="btn" onclick="engine.prevChapter()" title="上一段：⌘ + U 或 F1">《</div>
+            <div class="btn" onclick="engine.nextChapter()" title="下一段：⌘ + J 或 F2">》</div>
          </div>
          <div class="btn-group hidden" id="panelRepeatController">
             <div id="repeatMonitor" class="btn no-action number" onclick="engine.reset()" title="⌘ + K">
