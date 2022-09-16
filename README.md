@@ -12,9 +12,7 @@
 
 ### 截图
 
-<img width="1552" alt="Screen Shot 2020-12-09 at 12 10 30" src="https://user-images.githubusercontent.com/12215982/101584048-b4635680-3a17-11eb-8e2a-0a655aa15e3e.png">
-
-<img width="1552" alt="Screen Shot 2020-12-09 at 12 10 26" src="https://user-images.githubusercontent.com/12215982/101584063-bcbb9180-3a17-11eb-86ea-22e00d71483a.png">
+<img width="1415" alt="Screen Shot 2022-09-16 at 23 33 28" src="https://user-images.githubusercontent.com/12215982/190679390-886d4fc4-d526-494b-a35c-7db3a7fc4331.png">
 
 
 ## 一、由来
