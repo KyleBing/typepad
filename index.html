@@ -2,14 +2,15 @@
 <html lang="zh-CN">
 <head>
    <meta charset="UTF-8">
-   <meta name='description' content="玫枫跟打器, 跟打器">
-   <meta name='keywords' content="跟打器, 玫枫跟打器, 玫枫">
+   <meta name='description' content="玫枫跟打器, 跟打器, 五笔跟打器, 五笔练习">
+   <meta name='keywords' content="跟打器, 玫枫跟打器, 五笔跟打器, 五笔练习, 玫枫">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
    <title>玫枫跟打器 （Roseo Maple TypePad）</title>
    <link rel="shortcut icon" href="img/logo.png" type="image/png">
    <link rel="stylesheet" href="scss/typepad.css?v=2.58">
 </head>
 <body>
+
 <!--自定义文章内容-->
 <div class="editor hidden">
    <div class="container">
@@ -52,8 +53,26 @@
 </div>
 
 <div id="app">
-   <!--侧边信息栏组-->
+
+   <!--侧边信息栏-->
    <div class="side-menu hidden-sm">
+
+      <div class="tool-bar jc-space-between">
+         <div class="btn-group">
+            <div class="btn no-action number">
+               <span class="count-current bold current number" title="本段已打字数"></span> / <span class="count-total number total" title="本段总字数"></span>
+            </div>
+            <div id="totalChapter" class="btn no-action number">
+               <span class="chapter-current bold current number" title="当前段数"></span> /
+               <span class="chapter-total number total" title="总段数"></span>
+            </div>
+         </div>
+
+         <div class="btn-group">
+            <div class="btn" onclick="engine.prevChapter()" title="上一段：⌘ + U 或 F1">《</div>
+            <div class="btn" onclick="engine.nextChapter()" title="下一段：⌘ + J 或 F2">》</div>
+         </div>
+      </div>
 
       <!--time-->
       <div class="time-info info-panel">
@@ -80,7 +99,6 @@
             </div>
          </div>
       </div>
-
       <div class="info-panel">
          <div class="switch-item">
             <div class="label">暗黑模式</div>
@@ -190,8 +208,6 @@
             <p>2022/09/02</p>
          </div>
       </div>
-
-
       <div class="info-panel">
          <div class="key-info-item">
             <div class="binding-key"><kbd>⌘</kbd>+<kbd>J</kbd></div>
@@ -214,7 +230,6 @@
             <div>暂停</div>
          </div>
       </div>
-
       <div class="info-panel">
          <div class="key-info-item">
             <div class="binding-key"><kbd>F1</kbd></div>
@@ -233,7 +248,6 @@
             <div>打乱当前</div>
          </div>
       </div>
-
 
       <!--keymap-->
       <div class="info-panel">
@@ -254,21 +268,6 @@
    <div class="type-pad">
       <!--工具栏-->
       <div class="tool-bar">
-         <div class="btn-group">
-            <div class="btn no-action number">
-               <span class="count-current bold current number" title="本段已打字数"></span> / <span class="count-total number total" title="本段总字数"></span>
-            </div>
-            <div id="totalChapter" class="btn no-action number">
-               <span class="chapter-current bold current number" title="当前段数"></span> /
-               <span class="chapter-total number total" title="总段数"></span>
-            </div>
-         </div>
-
-         <div class="btn-group">
-            <div class="btn" onclick="engine.prevChapter()" title="上一段：⌘ + U 或 F1">《</div>
-            <div class="btn" onclick="engine.nextChapter()" title="下一段：⌘ + J 或 F2">》</div>
-         </div>
-
          <div class="btn-group">
             <div class="btn" onclick="engine.shuffleCurrent()" title="打乱当前段：⌘ + K 或 F4">打乱</div>
             <div class="btn" onclick="engine.reset()" title="重打：⌘ + Y 或 F3">重打</div>
@@ -313,12 +312,12 @@
       </div>
 
       <!--对照区-->
-      <div class="template">
+      <div class="template-container">
          <p class="text"></p>
       </div>
 
       <!--打字区-->
-      <div class="typing">
+      <div class="typing-container">
          <label for="pad" class="hidden"></label>
          <textarea class="text" id="pad" rows="3"></textarea>
       </div>

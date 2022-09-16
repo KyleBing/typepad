@@ -820,13 +820,13 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
    function enterBigCharacterMode(){
       $('.text').classList.add('big')
-      $('.template').classList.add('big')
+      $('.template-container').classList.add('big')
       $('#pad').classList.add('big')
    }
 
    function leaveBigCharacterMode(){
       $('.text').classList.remove('big')
-      $('.template').classList.remove('big')
+      $('.template-container').classList.remove('big')
       $('#pad').classList.remove('big')
    }
 
