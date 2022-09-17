@@ -100,6 +100,14 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
+      // 进入专注模式
+      enterStandAloneMode(){
+         $('.type-pad').classList.add('type-pad-standalone')
+      }
+      leaveStandAloneMode(){
+         $('.type-pad-standalone').classList.remove('type-pad-standalone')
+      }
+
       applyConfig(){
          // 根据当前配置文件设置内容
          $('input[type=checkbox]#shuffleMode').checked = this.config.isShuffle;

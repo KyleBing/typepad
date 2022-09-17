@@ -105,8 +105,8 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          return `<tr>  
               <td class="text-center">${cursor.key}</td>
               <td class="bold galvji speed text-right lv-${level}">${cursor.value.speed}</td>
-              <td class="hidden-sm">${cursor.value.codeLength}</td>
               <td class="hidden-sm">${cursor.value.hitRate}</td>
+              <td class="hidden-sm">${cursor.value.codeLength}</td>
               <td class="hidden-sm">${cursor.value.backspace}</td>
               <td>${cursor.value.wordCount}</td>
               <td class="time">${Utility.formatTimeLeft(cursor.value.duration)}</td>

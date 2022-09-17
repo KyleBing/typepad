@@ -260,7 +260,7 @@
    </div>
 
    <!--内容区-->
-   <div class="type-pad">
+   <div class="type-pad-container">
       <!--工具栏-->
       <div class="tool-bar">
          <div class="btn-group">
@@ -311,40 +311,54 @@
             <div class="btn"><span class="btn-speed"></span> 字/分</div>
          </div>
 
+         <!--专注模式-->
+         <div class="btn-group">
+            <div class="btn" onclick="engine.enterStandAloneMode()" title="专注模式">专注模式</div>
+         </div>
+
+
       </div>
 
-      <!--对照区-->
-      <div class="template-container">
-         <p class="text"></p>
-      </div>
+      <div class="type-pad">
+         <div class="tool-bar">
+            <div class="btn-group">
+               <div class="btn" onclick="engine.leaveStandAloneMode()" title="专注模式">退出专注模式</div>
+            </div>
+         </div>
 
-      <!--打字区-->
-      <div class="typing-container">
-         <label for="pad" class="hidden"></label>
-         <textarea class="text" id="pad" rows="3"></textarea>
-      </div>
+         <!--对照区-->
+         <div class="template-container">
+            <p class="text"></p>
+         </div>
 
-      <!--成绩列表-->
-      <div class="table-container">
-         <table class="table">
-            <thead>
-            <tr>
-               <th>No.</th>
-               <th class="speed text-right">速度</th>
-               <th class="hidden-sm">码长</th>
-               <th class="hidden-sm">击键</th>
-               <th class="hidden-sm">回退</th>
-               <th>字数</th>
-               <th>用时</th>
-               <th>类型</th>
-               <th>文章</th>
-               <th class="hidden-sm">开始时间</th>
-               <th>操作 <a class="link hidden-sm" onclick="engine.clear(this)">清除</a></th>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-         </table>
+         <!--打字区-->
+         <div class="typing-container">
+            <label for="pad" class="hidden"></label>
+            <textarea class="text" id="pad" rows="3"></textarea>
+         </div>
+
+         <!--成绩列表-->
+         <div class="table-container">
+            <table class="table">
+               <thead>
+               <tr>
+                  <th>No.</th>
+                  <th class="speed text-right">速度</th>
+                  <th class="hidden-sm">击键</th>
+                  <th class="hidden-sm">码长</th>
+                  <th class="hidden-sm">回退</th>
+                  <th>字数</th>
+                  <th>用时</th>
+                  <th>类型</th>
+                  <th>文章</th>
+                  <th class="hidden-sm">开始时间</th>
+                  <th>操作 <a class="link hidden-sm" onclick="engine.clear(this)">清除</a></th>
+               </tr>
+               </thead>
+               <tbody>
+               </tbody>
+            </table>
+         </div>
       </div>
    </div>
 

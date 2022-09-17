@@ -1261,8 +1261,30 @@ body {
   padding: 10px;
 }
 
-.type-pad {
+.type-pad-container {
   width: 100%;
+}
+
+.type-pad .tool-bar {
+  display: none;
+  justify-content: flex-end;
+}
+
+.type-pad-standalone {
+  padding: 100px;
+  background-color: #EBEBEB;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.type-pad-standalone .tool-bar {
+  display: flex;
+}
+.type-pad-standalone .table-container {
+  height: 300px;
 }
 
 .untyped-part {
