@@ -1,0 +1,36 @@
+.record-container{
+  margin-top: $gap-block;
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+.record-item{
+  margin-right: $gap-block - 5;
+  margin-bottom: $gap-block - 5;
+  padding: 6px 10px;
+  background-color: white;
+  @include border-radius($radius-main);
+  border: 1px solid $color-border;
+  display: flex;
+  align-items: center;
+  font-family: 'JetBrains Mono';
+  .speed{
+    padding-right: 10px;
+    width: 5rem;
+    text-align: right;
+    font-size: 16px;
+  }
+  .meta{
+    border-left: 1px solid $color-border;
+    padding-left: 10px;
+    font-size: $fz-info;
+    line-height: 1.1;
+    .hit-rate{
+
+    }
+    .code-length{
+
+    }
+  }
+}

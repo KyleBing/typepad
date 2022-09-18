@@ -1,0 +1,18 @@
+
+// 专注模式
+.type-pad-standalone{
+  .tool-bar{
+    display: flex;
+  }
+  padding: 100px;
+  background-color: $bg-body;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .table-container{
+    height: 300px;
+  }
+}

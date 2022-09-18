@@ -42,6 +42,28 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
               <td><button class="btn btn-danger btn-sm" onclick="engine.delete(${config.IDBIndex}, this)" type="button">删除</button></td>
             </tr>`;
       }
+
+      getHtmlForRecord(config){
+         let level = Math.floor(this.speed/SPEED_GAP);
+         level = level > 6 ? 6 : level; // 速度等级为 6+ 时按 6 处理
+         let articleType = ArticleType.getTypeNameWith(config.articleType);
+         let textClass = '';
+         switch (config.articleType) {
+            case ArticleType.character : textClass = 'text-orange';break;
+            case ArticleType.english   : textClass = 'text-green';break;
+            case ArticleType.article   : textClass = 'text-blue';break;
+            case ArticleType.word      : textClass = 'text-red';break;
+            case ArticleType.customize : textClass = 'text-roseo';break;
+            default: break;
+         }
+         return `<div class="record-item">
+               <div class="speed lv-${level}">${this.speed}</div>
+               <div class="meta">
+                  <div class="hit-rate">${this.hitRate}</div>
+                  <div class="code-length">${this.codeLength}</div>
+               </div>
+            </div>`;
+      }
    }
 
    return Record
