@@ -103,6 +103,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       // 进入专注模式
       enterStandAloneMode(){
          $('.type-pad').classList.add('type-pad-standalone')
+         // document.documentElement.requestFullscreen()
       }
       leaveStandAloneMode(){
          $('.type-pad-standalone').classList.remove('type-pad-standalone')

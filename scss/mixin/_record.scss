@@ -1,27 +1,32 @@
 .record-container{
+  overflow-y: auto;
   margin-top: $gap-block;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-flow: row wrap;
 }
 
 .record-item{
   margin-right: $gap-block - 5;
   margin-bottom: $gap-block - 5;
-  padding: 6px 10px;
+  padding: 5px 12px;
   background-color: white;
   @include border-radius($radius-main);
   border: 1px solid $color-border;
   display: flex;
   align-items: center;
-  font-family: 'JetBrains Mono';
+  //font-family: 'JetBrains Mono';
+  font-family: 'Galvji';
   .speed{
+    //font-family: 'JetBrains Mono';
     padding-right: 10px;
-    width: 5rem;
+    width: 14px * 4;
     text-align: right;
-    font-size: 16px;
+    font-size: 14px;
   }
   .meta{
+    width: $fz-info * 4;
+    text-align: right;
     border-left: 1px solid $color-border;
     padding-left: 10px;
     font-size: $fz-info;
@@ -30,6 +35,7 @@
 
     }
     .code-length{
+      //color: $text-comment
 
     }
   }

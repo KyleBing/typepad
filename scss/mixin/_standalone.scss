@@ -4,7 +4,7 @@
   .tool-bar{
     display: flex;
   }
-  padding: 100px;
+  padding: 100px 200px;
   background-color: $bg-body;
   z-index: 100;
   position: fixed;
@@ -12,6 +12,18 @@
   left: 0;
   right: 0;
   bottom: 0;
+
+  .template-container{
+    @include border-radius(10px);
+    margin-bottom: $gap-block * 2;
+  }
+  .typing-container{
+    @include border-radius(10px);
+  }
+
+  .record-container{
+    height: 300px;
+  }
   .table-container{
     height: 300px;
   }

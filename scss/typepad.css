@@ -1242,16 +1242,17 @@ body.black .text-black {
 }
 
 .record-container {
+  overflow-y: auto;
   margin-top: 12px;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-flow: row wrap;
 }
 
 .record-item {
   margin-right: 7px;
   margin-bottom: 7px;
-  padding: 6px 10px;
+  padding: 5px 12px;
   background-color: white;
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
@@ -1259,15 +1260,17 @@ body.black .text-black {
   border: 1px solid #dddddd;
   display: flex;
   align-items: center;
-  font-family: "JetBrains Mono";
+  font-family: "Galvji";
 }
 .record-item .speed {
   padding-right: 10px;
-  width: 5rem;
+  width: 56px;
   text-align: right;
-  font-size: 16px;
+  font-size: 14px;
 }
 .record-item .meta {
+  width: 48px;
+  text-align: right;
   border-left: 1px solid #dddddd;
   padding-left: 10px;
   font-size: 12px;
@@ -1368,7 +1371,7 @@ body {
   /* Big Character mode*/
 }
 .text.english {
-  line-height: 1.2;
+  line-height: 1.3;
   font-size: 1.8rem;
   font-family: "";
   letter-spacing: 0;
@@ -1509,7 +1512,7 @@ body {
 }
 
 .type-pad-standalone {
-  padding: 100px;
+  padding: 100px 200px;
   background-color: #EBEBEB;
   z-index: 100;
   position: fixed;
@@ -1520,6 +1523,20 @@ body {
 }
 .type-pad-standalone .tool-bar {
   display: flex;
+}
+.type-pad-standalone .template-container {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+.type-pad-standalone .typing-container {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.type-pad-standalone .record-container {
+  height: 300px;
 }
 .type-pad-standalone .table-container {
   height: 300px;
