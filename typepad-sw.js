@@ -6,7 +6,7 @@ self.addEventListener('install', event => {
    event.waitUntil(
       caches.open(preFix + version).then(cache => {
          return cache.addAll([
-            '/tools/typepad/?v=2.61',
+            '/tools/typepad/',
             '/tools/typepad/index.html?v=2.61',
             '/tools/typepad/scss/typepad.css?v=2.61',
 
