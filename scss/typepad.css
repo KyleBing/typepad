@@ -1252,11 +1252,11 @@ body.black .text-black {
 .record-item {
   margin-right: 7px;
   margin-bottom: 7px;
-  padding: 5px 12px;
+  padding: 4px 6px;
   background-color: white;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   border: 1px solid #dddddd;
   display: flex;
   align-items: center;
@@ -1264,16 +1264,15 @@ body.black .text-black {
 }
 .record-item .speed {
   padding-right: 10px;
-  width: 56px;
+  width: 4rem;
   text-align: right;
-  font-size: 14px;
+  font-size: 15px;
 }
 .record-item .meta {
-  width: 48px;
   text-align: right;
   border-left: 1px solid #dddddd;
   padding-left: 10px;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1.1;
 }
 body {
@@ -1336,7 +1335,6 @@ body {
 }
 
 .typing-container {
-  letter-spacing: 1px;
   position: relative;
 }
 .typing-container textarea {
@@ -1368,6 +1366,7 @@ body {
   word-break: break-word;
   font-size: 2rem;
   white-space: pre-wrap;
+  letter-spacing: 1px;
   /* Big Character mode*/
 }
 .text.english {
