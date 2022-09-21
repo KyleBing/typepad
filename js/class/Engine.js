@@ -100,7 +100,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
-      // 进入专注模式
+      // 进入极简模式
       enterStandAloneMode(){
          $('.type-pad').classList.add('type-pad-standalone')
          // document.documentElement.requestFullscreen()
