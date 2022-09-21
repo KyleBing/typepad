@@ -56,13 +56,12 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
             case ArticleType.customize : textClass = 'text-roseo';break;
             default: break;
          }
-         return `<div class="record-item">
+         return `
                <div class="speed lv-${level}">${this.speed}</div>
                <div class="meta">
                   <div class="hit-rate">${this.hitRate}</div>
                   <div class="code-length">${this.codeLength}</div>
-               </div>
-            </div>`;
+               </div>`;
       }
    }
 

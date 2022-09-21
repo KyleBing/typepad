@@ -1,10 +1,12 @@
 
-// 专注模式
+// 极简模式
 .type-pad-standalone{
+  height: 100%;
+  overflow-y: auto;
   .tool-bar{
     display: flex;
   }
-  padding: 100px;
+  padding: 100px 200px;
   background-color: $bg-body;
   z-index: 100;
   position: fixed;
@@ -12,7 +14,52 @@
   left: 0;
   right: 0;
   bottom: 0;
-  .table-container{
-    height: 300px;
+
+  .template-container{
+    @include border-radius(10px);
+    margin-bottom: $gap-block * 2;
+  }
+  .typing-container{
+    margin-bottom: $gap-block * 2;
+    @include border-radius(10px);
+  }
+
+  $fz-standalone-speed: 20px;
+  .standalone-speed-info{
+    display: flex;
+    font-family: "JetBrains Mono";
+    color: $text-comment;
+    font-size: $fz-standalone-speed;
+    & > *{
+      padding: 2px 10px;
+      border-right: 1px solid $orange;
+      &:last-child{
+        border-right: none;
+      }
+    }
+    .speed{
+      width: $fz-standalone-speed * 6;
+      color: $text-main;
+    }
+    .count-key-length{
+
+    }
+    .count-key-rate{
+
+    }
+    .count-key-backspace{
+
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1300px) {
+    padding: 100px
+
+  }
+  @media (min-width: 500px) and (max-width: 768px){
+    padding: 50px;
+  }
+  @media (max-width: 500px) {
+    padding: 10px;
   }
 }
+

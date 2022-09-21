@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $table-padding-lr: 4px;
 
 .table-container{
@@ -101,3 +103,13 @@ $speed-levels: (
     color: $color !important;
   }
 }
+
+// 颜色操作
+//@for $item from 0 through 10 {
+//  .lv-#{$item}{
+//    margin-right: 15px;
+//    font-weight: bold;
+//    color: color.change(red, $hue: 36deg * $item) !important;
+//  }
+//}
+

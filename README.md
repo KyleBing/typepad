@@ -48,7 +48,7 @@ __目前不支持不在编辑区输入编码的输入法__
 - 配置使用 `localStorage` 存储
 - 使用 `service-worker` 处理离线请求
 
-该工具参考了添雨跟打器的一些功能
+该工具参考了添雨跟打器的一些功能，最初也是在QQ群里用添雨跟打器练字的。
 > [添雨跟打器 旧版](https://github.com/taliove/tygdq)
 
 
@@ -66,3 +66,7 @@ __目前不支持不在编辑区输入编码的输入法__
 
 ![JetBrains](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg?_ga=2.54620846.401568951.1648434626-301403838.1648434626)
 
+
+## 六、历史
+
+2020.05.17 ~ 2022.09.21
