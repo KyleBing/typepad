@@ -135,6 +135,13 @@
                <label class="switch" for="bigCharacter"></label>
             </div>
          </div>
+         <div class="switch-item">
+            <div class="label">历史样式</div>
+            <div class="wrapper">
+               <input id="historyListMode" type="checkbox" onchange="engine.historyListMode()">
+               <label class="switch" for="historyListMode"></label>
+            </div>
+         </div>
       </div>
 
       <!--HELP INFO : KEYS-->
@@ -197,8 +204,8 @@
          </div>
          <div class="copyright">
             <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
-            <p>v2.60</p>
-            <p>2022/09/16</p>
+            <p>v2.61</p>
+            <p>2022/09/21</p>
          </div>
       </div>
 
@@ -322,7 +329,7 @@
       <div class="type-pad">
          <div class="tool-bar">
             <div class="btn-group">
-               <div class="btn" onclick="engine.leaveStandAloneMode()" title="极简模式">退出极简模式</div>
+               <div class="btn" onclick="engine.leaveStandAloneMode()" title="退出极简模式">退出</div>
             </div>
          </div>
 
@@ -338,14 +345,14 @@
          </div>
          <div class="standalone-speed-info">
             <div class="speed">0</div>
-            <div class="count-key-length">0</div>
             <div class="count-key-rate">0</div>
+            <div class="count-key-length">0</div>
             <div class="count-key-backspace">0</div>
          </div>
       </div>
 
       <!--跟打记录 - 新-->
-      <div class="record-container">
+      <div class="record-container hidden">
          <!--            <div class="record-item">-->
          <!--               <div class="speed"></div>-->
          <!--               <div class="meta">-->

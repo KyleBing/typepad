@@ -1247,7 +1247,7 @@ body.black .text-black {
   justify-content: flex-start;
   flex-flow: row wrap;
   align-items: flex-start;
-  display: none;
+  display: flex;
 }
 
 .record-item {
@@ -1265,11 +1265,12 @@ body.black .text-black {
 }
 .record-item .speed {
   padding-right: 8px;
-  width: 75px;
+  width: 67.5px;
   text-align: right;
   font-size: 15px;
 }
 .record-item .meta {
+  width: 40px;
   text-align: right;
   border-left: 1px solid #dddddd;
   padding-left: 8px;
@@ -1543,7 +1544,7 @@ body {
 .type-pad-standalone .standalone-speed-info {
   display: flex;
   font-family: "JetBrains Mono";
-  color: #555;
+  color: #999;
   font-size: 20px;
 }
 .type-pad-standalone .standalone-speed-info > * {
@@ -1556,4 +1557,19 @@ body {
 .type-pad-standalone .standalone-speed-info .speed {
   width: 120px;
   color: #333;
+}
+@media (min-width: 768px) and (max-width: 1300px) {
+  .type-pad-standalone {
+    padding: 100px;
+  }
+}
+@media (min-width: 500px) and (max-width: 768px) {
+  .type-pad-standalone {
+    padding: 50px;
+  }
+}
+@media (max-width: 500px) {
+  .type-pad-standalone {
+    padding: 10px;
+  }
 }

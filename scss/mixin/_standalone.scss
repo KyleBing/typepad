@@ -28,7 +28,7 @@
   .standalone-speed-info{
     display: flex;
     font-family: "JetBrains Mono";
-    color: $text-subtitle;
+    color: $text-comment;
     font-size: $fz-standalone-speed;
     & > *{
       padding: 2px 10px;
@@ -51,4 +51,15 @@
 
     }
   }
+  @media (min-width: 768px) and (max-width: 1300px) {
+    padding: 100px
+
+  }
+  @media (min-width: 500px) and (max-width: 768px){
+    padding: 50px;
+  }
+  @media (max-width: 500px) {
+    padding: 10px;
+  }
 }
+

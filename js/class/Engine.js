@@ -118,6 +118,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          $('input[type=checkbox]#autoRepeat').checked = this.config.isAutoRepeat;
          $('input[type=checkbox]#shuffleRepeat').checked = this.config.isShuffleRepeat;
          $('input[type=checkbox]#bigCharacter').checked = this.config.isBigCharacter;
+         $('input[type=checkbox]#historyListMode').checked = this.config.isHistoryInListMode;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
          let radios = [...radioNodes];
          radios.forEach(item => {
@@ -128,6 +129,15 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          // English Mode
          if (this.config.isInEnglishMode) {
             this.englishModeEnter()
+         }
+
+         // History Mode: LIST | TABLE
+         if (this.config.isHistoryInListMode){
+            $('.record-container').classList.remove('hidden')
+            $('.table-container').classList.add('hidden')
+         } else {
+            $('.table-container').classList.remove('hidden')
+            $('.record-container').classList.add('hidden')
          }
 
          // Repeat Status
@@ -416,6 +426,19 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       bigCharacter(){
          this.config.isBigCharacter = $('#bigCharacter').checked;
          this.config.isBigCharacter ? enterBigCharacterMode() : leaveBigCharacterMode();
+         this.config.save();
+      }
+
+      // 历史记录显示样式： list | table
+      historyListMode(){
+         this.config.isHistoryInListMode = $('#historyListMode').checked;
+         if (this.config.isHistoryInListMode){
+            $('.record-container').classList.remove('hidden')
+            $('.table-container').classList.add('hidden')
+         } else {
+            $('.record-container').classList.add('hidden')
+            $('.table-container').classList.remove('hidden')
+         }
          this.config.save();
       }
 

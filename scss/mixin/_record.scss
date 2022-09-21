@@ -4,7 +4,7 @@
   justify-content: flex-start;
   flex-flow: row wrap;
   align-items: flex-start;
-  display: none;
+  display: flex;
 }
 
 .record-item{
@@ -21,12 +21,12 @@
   .speed{
     //font-family: 'JetBrains Mono';
     padding-right: 8px;
-    width: 15px * 5;
+    width: 15px * 4.5;
     text-align: right;
     font-size: 15px;
   }
   .meta{
-    //width: $fz-info * 4;
+    width: 10px * 4;
     text-align: right;
     border-left: 1px solid $color-border;
     padding-left: 8px;
