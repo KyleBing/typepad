@@ -102,6 +102,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
       // 进入极简模式
       enterStandAloneMode(){
+         let screenHeight = innerHeight
          $('.type-pad').classList.add('type-pad-standalone')
          // document.documentElement.requestFullscreen()
       }
@@ -819,6 +820,13 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
             // backspace count
             $('.count-key-backspace').innerText = this.keyCount.backspace;
+
+            // StandAlone Mode Speed Info
+            $('.standalone-speed-info .speed').innerText = this.record.speed;
+            $('.standalone-speed-info .count-key-length').innerText = this.record.codeLength;
+            $('.standalone-speed-info .count-key-rate').innerText = this.record.hitRate;
+            $('.standalone-speed-info .count-key-backspace').innerText = this.keyCount.backspace;
+
          }
 
          // OPTION

@@ -57,6 +57,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
 
             // RECORD LIST
             let div = document.createElement('div');
+            div.classList.add('record-item')
             div.innerHTML = record.getHtmlForRecord(config);
             let recordContainer = $('.record-container');
             recordContainer.insertBefore(div, recordContainer.firstChild);

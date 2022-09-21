@@ -33,6 +33,9 @@ body{
     display: none;
     justify-content: flex-end;
   }
+  .standalone-speed-info{
+    display: none;
+  }
 }
 
 
@@ -43,7 +46,6 @@ body{
 .template-container{
   color: $text-main;
   padding: 10px 15px;
-  letter-spacing: 1px;
   border: 1px solid $color-border;
   //border-bottom: none;
   min-height: 150px;

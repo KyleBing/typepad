@@ -313,12 +313,12 @@
 
          <!--极简模式-->
          <div class="btn-group">
-            <div class="btn" onclick="engine.enterStandAloneMode()" title="极简模式">极简模式</div>
+            <div class="btn hidden-sm" onclick="engine.enterStandAloneMode()" title="极简模式">极简模式</div>
          </div>
-
-
       </div>
 
+
+<!--      TYPE PAD-->
       <div class="type-pad">
          <div class="tool-bar">
             <div class="btn-group">
@@ -336,17 +336,23 @@
             <label for="pad" class="hidden"></label>
             <textarea class="text" id="pad" rows="3"></textarea>
          </div>
-
-         <!--跟打记录 - 新-->
-         <div class="record-container">
-            <div class="record-item">
-               <div class="speed"></div>
-               <div class="meta">
-                  <div class="hit-rate"></div>
-                  <div class="code-length"></div>
-               </div>
-            </div>
+         <div class="standalone-speed-info">
+            <div class="speed">0</div>
+            <div class="count-key-length">0</div>
+            <div class="count-key-rate">0</div>
+            <div class="count-key-backspace">0</div>
          </div>
+      </div>
+
+      <!--跟打记录 - 新-->
+      <div class="record-container">
+         <!--            <div class="record-item">-->
+         <!--               <div class="speed"></div>-->
+         <!--               <div class="meta">-->
+         <!--                  <div class="hit-rate"></div>-->
+         <!--                  <div class="code-length"></div>-->
+         <!--               </div>-->
+         <!--            </div>-->
       </div>
 
       <!--成绩列表-->

@@ -1,27 +1,27 @@
 .record-container{
   overflow-y: auto;
   margin-top: $gap-block;
-  display: flex;
   justify-content: flex-start;
   flex-flow: row wrap;
   align-items: flex-start;
+  display: none;
 }
 
 .record-item{
   margin-right: $gap-block - 5;
   margin-bottom: $gap-block - 5;
-  padding: 4px 6px;
+  padding: 4px 7px;
   background-color: white;
   @include border-radius(5px);
   border: 1px solid $color-border;
   display: flex;
   align-items: center;
-  //font-family: 'JetBrains Mono';
-  font-family: 'Galvji';
+  font-family: 'JetBrains Mono';
+  //font-family: 'Galvji';
   .speed{
     //font-family: 'JetBrains Mono';
-    padding-right: 10px;
-    width: 4rem;
+    padding-right: 8px;
+    width: 15px * 5;
     text-align: right;
     font-size: 15px;
   }
@@ -29,7 +29,7 @@
     //width: $fz-info * 4;
     text-align: right;
     border-left: 1px solid $color-border;
-    padding-left: 10px;
+    padding-left: 8px;
     font-size: 10px;
     line-height: 1.1;
     .hit-rate{
