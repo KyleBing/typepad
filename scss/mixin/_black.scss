@@ -250,6 +250,31 @@ body.black {
     }
   }
 
+  // STAND ALONE
+  .type-pad-standalone{
+    background-color: $black-body-bg;
+    .standalone-speed-info{
+      .speed{
+        color: $black-color-text;
+      }
+    }
+  }
+
+  // RECORD LIST
+  .record-container{
+    .record-item{
+      background-color: $black-bg;
+      border-color: $black-color-border;
+      .speed{
+      }
+      .meta{
+        color: $black-color-text-comment;
+        border-color: $black-color-border-highlight;
+      }
+    }
+  }
+
+
   // TEXT
   $colors  : (
           'green'      : $green,

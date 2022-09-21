@@ -1090,6 +1090,20 @@ body.black .editor-toolbar {
   display: flex;
   justify-content: space-between;
 }
+body.black .type-pad-standalone {
+  background-color: #0f0f13;
+}
+body.black .type-pad-standalone .standalone-speed-info .speed {
+  color: #e6e6e6;
+}
+body.black .record-container .record-item {
+  background-color: #1c1f24;
+  border-color: #272b32;
+}
+body.black .record-container .record-item .meta {
+  color: #8c8c8c;
+  border-color: #383838;
+}
 body.black .text-green {
   color: #166f47 !important;
 }
