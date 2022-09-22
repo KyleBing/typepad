@@ -1,16 +1,32 @@
-define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility', 'Editor', 'Result', 'ResultType'], function (
-   Reg,
-   ArticleType,
-   Article,
-   Config,
-   Record,
-   Database,
-   KeyCount,
-   Utility,
-   Editor,
-   Result,
-   ResultType
-) {
+define(
+    [
+       'Reg',
+       'ArticleType',
+       'Article',
+       'Config',
+       'Record',
+       'Database',
+       'KeyCount',
+       'Utility',
+       'Editor',
+       'Result',
+       'ResultType',
+       'Score'
+    ],
+    function (
+        Reg,
+        ArticleType,
+        Article,
+        Config,
+        Record,
+        Database,
+        KeyCount,
+        Utility,
+        Editor,
+        Result,
+        ResultType,
+        Score
+    ) {
    const untypedStringClassName = 'untyped-part';
    const HEIGHT_TEMPLATE = 150; // 对照区高度
 
@@ -22,11 +38,12 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.isFinished = false; // 是否结束
          this.isStarted = false;  // 是否已开始
          this.isPaused = false;   // 是否暂停
-         this.timeStart; //ms
-         this.timeEnd; // ms
-         this.duration = 0; // ms
+         this.timeStart;          // ms
+         this.timeEnd;            // ms
+         this.duration = 0;       // ms
          this.handleRefresh;
-         this.refreshRate = 500; // ms
+         this.refreshRate = 500;  // ms
+
 
          this.correctWordsCount = 0;
 
@@ -35,10 +52,12 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.arrayWordAll = [];        // 全部单词
          this.arrayWordDisplaying = []; // 展示的单词
 
-         this.config = new Config();
-         this.record = new Record();
+         this.config   = new Config();
+         this.record   = new Record();
          this.keyCount = new KeyCount();
          this.database = new Database();
+         this.score    = new Score();
+
 
 
          // 按键过滤器
@@ -773,9 +792,54 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.record.timeStart = this.timeStart;
          this.record.duration = this.duration;
          this.record.wordCount = this.currentWords.length;
-         this.record.codeLength = (this.keyCount.all / this.correctWordsCount).toFixed(2);
-         this.record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
+         this.record.codeLength = Number((this.keyCount.all / this.correctWordsCount).toFixed(2));
+         this.record.speed = Number((this.correctWordsCount / this.duration * 1000 * 60).toFixed(2));
+
+         // 保存记录
          this.database.insert(this.record, this.config);
+
+         console.log(this.score)
+         console.log(this.record)
+         console.log(this.config)
+         console.log(this.keyCount.all)
+
+         //
+         // 保存记录值
+         //
+
+         this.score[this.config.articleType].wordCount += this.record.wordCount;
+         this.score[this.config.articleType].keyCount += this.keyCount.all;
+         this.score[this.config.articleType].timeCost += this.record.duration;
+         // 击键 - 平均
+         this.score[this.config.articleType].hitRateAve
+             = this.score[this.config.articleType].keyCount / this.score[this.config.articleType].timeCost * 1000;
+         // 击键 - 最小值
+         if (this.score[this.config.articleType].hitRateMin === 0){
+            this.score[this.config.articleType].hitRateMin = this.record.hitRate
+         }
+         if (this.score[this.config.articleType].hitRateMin > this.record.hitRate){
+            this.score[this.config.articleType].hitRateMin = this.record.hitRate
+         }
+         if (this.score[this.config.articleType].hitRateMax < this.record.hitRate){
+            this.score[this.config.articleType].hitRateMax = this.record.hitRate
+         }
+
+         // 速度 - 平均
+         this.score[this.config.articleType].speedAve
+             = this.score[this.config.articleType].wordCount / this.score[this.config.articleType].timeCost * 1000 * 60;
+         // 速度 - 最小值
+         if (this.score[this.config.articleType].speedMin === 0){
+            this.score[this.config.articleType].speedMin = this.record.speed
+         }
+         if (this.score[this.config.articleType].speedMin > this.record.speed){
+            this.score[this.config.articleType].speedMin = this.record.speed
+         }
+         if (this.score[this.config.articleType].speedMax < this.record.speed){
+            this.score[this.config.articleType].speedMax = this.record.speed
+         }
+
+         this.score.save() // 保存成绩
+
          if (this.config.isAutoNext){ // 自动发文
             if (this.config.isAutoRepeat){ // 重复发文
                if (this.config.repeatCountTotal > this.config.repeatCountCurrent){ // 还有重复次数
@@ -824,18 +888,18 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             $('.count-key-length').innerText    = '--';
             $('.count-key-backspace').innerText = '--';
          } else {
-            this.record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
+            this.record.speed = Number((this.correctWordsCount / this.duration * 1000 * 60).toFixed(2));
             $('.speed').innerText = this.record.speed;
             $('.btn-speed').innerText = this.record.speed;
 
             // key count
             let allKeyCount = this.keyCount.all - this.keyCount.function;
-            this.record.hitRate = (allKeyCount / this.duration * 1000).toFixed(2);
+            this.record.hitRate = Number((allKeyCount / this.duration * 1000).toFixed(2));
             $('.count-key-rate').innerText = this.record.hitRate;
 
             // code length
             if (this.correctWordsCount) {
-               this.record.codeLength = (allKeyCount / this.correctWordsCount).toFixed(2);
+               this.record.codeLength = Number((allKeyCount / this.correctWordsCount).toFixed(2));
             } else {
                this.record.codeLength = 0;
             }

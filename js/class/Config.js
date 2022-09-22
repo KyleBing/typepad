@@ -1,4 +1,4 @@
-const CONFIG_NAME = 'typePad';
+const CONFIG_NAME = 'TypePad';
 
 define(['Article', 'ArticleType'],function (Article, ArticleType) {
    /**
@@ -6,7 +6,11 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
     */
    class Config {
       constructor() {
-         if (this.hasSavedData()){
+         // 移除旧版配置文件 v2.62 之前
+         if (localStorage.getItem('typePad')){
+            localStorage.removeItem('typePad')
+         }
+         if (this.isHasSavedData()){
             let config = JSON.parse(localStorage.getItem(CONFIG_NAME));
             this.chapter              = config.chapter;
             this.chapterTotal         = config.chapterTotal;
@@ -32,7 +36,6 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             this.isBigCharacter       = config.isBigCharacter;
             // v2.61 新历史记录样式
             this.isHistoryInListMode  = config.isHistoryInListMode;
-
          } else {
             this.chapter              = 1;                      // 当前段号
             this.chapterTotal         = 1;                      // 总段数
@@ -59,28 +62,15 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
             // v2.61 新历史记录样式
             this.isHistoryInListMode  = false;
          }
-
-         // 更新处理
-         // v1.0-> v2.0
-         let IDBIndexV1 = localStorage.getItem('type_pad_idb_index');
-         if (IDBIndexV1){
-            // 如果存在 IDB Index 记录，保存到现有配置文件 Config 中
-            this.IDBIndex = Number(IDBIndexV1);
-         }
       }
       save(){
          localStorage.setItem(CONFIG_NAME, JSON.stringify(this));
       }
       // 判断是否存储过配置信息
-      hasSavedData(){
+      isHasSavedData(){
          return Boolean(localStorage.getItem(CONFIG_NAME));
       }
    }
 
    return Config
 })
-
-
-function $(selector){
-   return document.querySelector(selector)
-}
