@@ -1,5 +1,5 @@
 const preFix = 'typepad'
-const version = '261';
+const version = '262';
 
 self.addEventListener('install', event => {
    self.skipWaiting();
@@ -7,25 +7,25 @@ self.addEventListener('install', event => {
       caches.open(preFix + version).then(cache => {
          return cache.addAll([
             '/tools/typepad/',
-            '/tools/typepad/index.html?v=2.61',
-            '/tools/typepad/scss/typepad.css?v=2.61',
+            '/tools/typepad/index.html?v=2.62',
+            '/tools/typepad/scss/typepad.css?v=2.62',
 
             // 英文单词
-            '/tools/typepad/js/class/english-vocabulary/CET4.js?v=2.61',
+            '/tools/typepad/js/class/english-vocabulary/CET4.js?v=2.62',
 
-            '/tools/typepad/js/class/Database.js?v=2.61',
-            '/tools/typepad/js/class/Utility.js?v=2.61',
-            '/tools/typepad/js/class/KeyCount.js?v=2.61',
-            '/tools/typepad/js/class/Config.js?v=2.61',
-            '/tools/typepad/js/class/Editor.js?v=2.61',
-            '/tools/typepad/js/class/Article.js?v=2.61',
-            '/tools/typepad/js/class/ArticleType.js?v=2.61',
-            '/tools/typepad/js/class/Reg.js?v=2.61',
-            '/tools/typepad/js/class/Engine.js?v=2.61',
-            '/tools/typepad/js/class/Record.js?v=2.61',
-            '/tools/typepad/js/class/CETWord.js?v=2.61',
+            '/tools/typepad/js/class/Database.js?v=2.62',
+            '/tools/typepad/js/class/Utility.js?v=2.62',
+            '/tools/typepad/js/class/KeyCount.js?v=2.62',
+            '/tools/typepad/js/class/Config.js?v=2.62',
+            '/tools/typepad/js/class/Editor.js?v=2.62',
+            '/tools/typepad/js/class/Article.js?v=2.62',
+            '/tools/typepad/js/class/ArticleType.js?v=2.62',
+            '/tools/typepad/js/class/Reg.js?v=2.62',
+            '/tools/typepad/js/class/Engine.js?v=2.62',
+            '/tools/typepad/js/class/Record.js?v=2.62',
+            '/tools/typepad/js/class/CETWord.js?v=2.62',
             '/tools/typepad/js/require_v2.3.6.js',
-            '/tools/typepad/js/typepad.js?v=2.61',
+            '/tools/typepad/js/typepad.js?v=2.62',
             '/tools/typepad/img/logo.png',
             '/tools/typepad/scss/font/RobotoMono.ttf',
             '/tools/typepad/scss/font/DSDigital.ttf',

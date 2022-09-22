@@ -823,6 +823,19 @@ define(
          if (this.score[this.config.articleType].hitRateMax < this.record.hitRate){
             this.score[this.config.articleType].hitRateMax = this.record.hitRate
          }
+         // 码长 - 平均
+         this.score[this.config.articleType].codeLengthAve
+             = this.score[this.config.articleType].keyCount / this.score[this.config.articleType].wordCount;
+         // 码长 - 最小值
+         if (this.score[this.config.articleType].codeLengthMin === 0){
+            this.score[this.config.articleType].codeLengthMin = this.record.codeLength
+         }
+         if (this.score[this.config.articleType].codeLengthMin > this.record.codeLength){
+            this.score[this.config.articleType].codeLengthMin = this.record.codeLength
+         }
+         if (this.score[this.config.articleType].codeLengthMax < this.record.codeLength){
+            this.score[this.config.articleType].codeLengthMax = this.record.codeLength
+         }
 
          // 速度 - 平均
          this.score[this.config.articleType].speedAve
