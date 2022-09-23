@@ -7,7 +7,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
    <title>玫枫跟打器 （Roseo Maple TypePad）</title>
    <link rel="shortcut icon" href="img/logo.png" type="image/png">
-   <link rel="stylesheet" href="scss/typepad.css?v=2.62">
+   <link rel="stylesheet" href="scss/typepad.css?v=2.63">
 </head>
 <body>
 
@@ -145,7 +145,7 @@
       </div>
 
       <!--HELP INFO : KEYS-->
-      <div class="key-info info-panel">
+      <div class="key-info hidden info-panel">
          <div class="key-info-item word-all">
             <div>全部按键</div>
             <div><p></p></div>
@@ -196,6 +196,67 @@
          </div>
       </div>
 
+      <!--SCORE SUMMERY-->
+      <div class="score-info info-panel">
+         <div class="title">单字</div>
+         <div class="score-info-item-group">
+            <div class="score-info-item sum-words">
+               <div class="score">2345</div>
+               <div class="desc">总字数</div>
+            </div>
+            <div class="score-info-item sum-key">
+               <div class="score">12345</div>
+               <div class="desc">总击键</div>
+            </div>
+            <div class="score-info-item sum-time">
+               <div class="score">2532</div>
+               <div class="desc">总耗时</div>
+            </div>
+         </div>
+         <div class="score-info-item-group">
+            <div class="score-info-item speed-min">
+               <div class="score">2532</div>
+               <div class="desc">速度最小</div>
+            </div>
+            <div class="score-info-item speed-max">
+               <div class="score">2345</div>
+               <div class="desc">速度最大</div>
+            </div>
+            <div class="score-info-item speed-ave">
+               <div class="score">12345</div>
+               <div class="desc">速度平均</div>
+            </div>
+         </div>
+         <div class="score-info-item-group">
+            <div class="score-info-item hitrate-min">
+               <div class="score">2532</div>
+               <div class="desc">击键最小</div>
+            </div>
+            <div class="score-info-item hitrate-max">
+               <div class="score">2345</div>
+               <div class="desc">击键最大</div>
+            </div>
+            <div class="score-info-item hitrate-ave">
+               <div class="score">12345</div>
+               <div class="desc">击键平均</div>
+            </div>
+         </div>
+         <div class="score-info-item-group">
+            <div class="score-info-item code-length-min">
+               <div class="score">2532</div>
+               <div class="desc">码长最小</div>
+            </div>
+            <div class="score-info-item code-length-max">
+               <div class="score">2345</div>
+               <div class="desc">码长最大</div>
+            </div>
+            <div class="score-info-item code-length-ave">
+               <div class="score">12345</div>
+               <div class="desc">码长平均</div>
+            </div>
+         </div>
+      </div>
+
       <!--ABOUT INFO-->
       <div class="info-panel">
          <div class="logo">
@@ -204,7 +265,7 @@
          </div>
          <div class="copyright">
             <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
-            <p>v2.62</p>
+            <p>v2.63</p>
             <p>2022/09/22</p>
          </div>
       </div>
@@ -397,7 +458,7 @@
 </div>
 
 <script src="js/require_v2.3.6.js"></script>
-<script src="js/typepad.js?v=2.62"></script>
+<script src="js/typepad.js?v=2.63"></script>
 
 <script>
    setTimeout(() => {

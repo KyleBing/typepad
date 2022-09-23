@@ -6,6 +6,7 @@ $black-color-text             : lighten(black, 90%);
 $black-color-text-info        : lighten(black, 65%);
 $black-color-text-subtitle    : lighten(black, 45%);
 $black-color-text-comment     : lighten(black, 55%);
+$black-color-text-ignore      : lighten(black, 35%);
 $black-btn-bg                 : lighten(black, 25%);
 
 
@@ -271,6 +272,22 @@ body.black {
         color: $black-color-text-comment;
         border-color: $black-color-border-highlight;
       }
+    }
+  }
+
+
+  // SCORE
+  .score-info{
+    .title{
+      border-color: $black-color-border;
+    }
+  }
+  .score-info-item{
+    .score{
+      color: $black-color-text-info;
+    }
+    .desc{
+      color: $black-color-text-ignore;
     }
   }
 

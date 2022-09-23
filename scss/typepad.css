@@ -1104,6 +1104,15 @@ body.black .record-container .record-item .meta {
   color: #8c8c8c;
   border-color: #383838;
 }
+body.black .score-info .title {
+  border-color: #272b32;
+}
+body.black .score-info-item .score {
+  color: #a6a6a6;
+}
+body.black .score-info-item .desc {
+  color: #595959;
+}
 body.black .text-green {
   color: #166f47 !important;
 }
@@ -1275,7 +1284,7 @@ body.black .text-black {
   border: 1px solid #dddddd;
   display: flex;
   align-items: center;
-  font-family: "JetBrains Mono";
+  font-family: "Galvji";
 }
 .record-item .speed {
   padding-right: 8px;
@@ -1291,6 +1300,40 @@ body.black .text-black {
   font-size: 10px;
   line-height: 1.1;
 }
+.score-info .title {
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #dddddd;
+}
+
+.score-info-item-group {
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.score-info-item {
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+}
+.score-info-item .score {
+  color: #333;
+  font-family: "JetBrains Mono";
+  font-size: 14px;
+}
+.score-info-item .desc {
+  color: #999;
+  font-weight: normal;
+  font-size: 10px;
+}
+
 body {
   color: #333;
   background-color: #EBEBEB;

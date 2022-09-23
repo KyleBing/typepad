@@ -932,6 +932,27 @@ define(
          // OPTION
          $('.chapter-current').innerText = this.config.chapter;
          $('.chapter-total').innerText = this.config.chapterTotal;
+
+
+         // SCORE
+         $('.score-info .title').innerText = ArticleType.getTypeNameWith(this.config.articleType);
+
+         let currentArticleTypeScore = this.score[this.config.articleType]
+         $('.score-info-item.sum-words .score').innerText = currentArticleTypeScore.wordCount.toFixed(0);
+         $('.score-info-item.sum-key .score').innerText = currentArticleTypeScore.keyCount.toFixed(0);
+         $('.score-info-item.sum-time .score').innerText = (currentArticleTypeScore.timeCost / 1000).toFixed(0) + 's';
+
+         $('.score-info-item.speed-min .score').innerText = currentArticleTypeScore.speedMin.toFixed(1);
+         $('.score-info-item.speed-max .score').innerText = currentArticleTypeScore.speedMax.toFixed(1);
+         $('.score-info-item.speed-ave .score').innerText = currentArticleTypeScore.speedAve.toFixed(1);
+
+         $('.score-info-item.hitrate-min .score').innerText = currentArticleTypeScore.hitRateMin.toFixed(1);
+         $('.score-info-item.hitrate-max .score').innerText = currentArticleTypeScore.hitRateMax.toFixed(1);
+         $('.score-info-item.hitrate-ave .score').innerText = currentArticleTypeScore.hitRateAve.toFixed(1);
+
+         $('.score-info-item.code-length-min .score').innerText = currentArticleTypeScore.codeLengthMin.toFixed(1);
+         $('.score-info-item.code-length-max .score').innerText = currentArticleTypeScore.codeLengthMax.toFixed(1);
+         $('.score-info-item.code-length-ave .score').innerText = currentArticleTypeScore.codeLengthAve.toFixed(1);
       }
    }
 

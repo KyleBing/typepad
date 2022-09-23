@@ -1,0 +1,34 @@
+.score-info{
+  .title{
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed $color-border;
+  }
+}
+.score-info-item-group{
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.score-info-item{
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+  .score{
+    color: $text-main;
+    font-family: 'JetBrains Mono';
+    font-size: 14px;
+  }
+  .desc{
+    color: $text-comment;
+    font-weight: normal;
+    font-size: 10px;
+  }
+}
