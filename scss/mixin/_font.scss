@@ -8,10 +8,13 @@
   src: url("./font/DSDigital.ttf");
 }
 
-
 @font-face {
   font-family: "Galvji";
   src: url("./font/Galvji.ttf");
+}
+@font-face {
+  font-family: "JetBrainsMonoOnlyCharacter";
+  src: url("./font/JetBrainsMonoOnlyCharacter.ttf");
 }
 
 .galvji{
@@ -26,7 +29,6 @@
 .impact{
   font-family: 'Impact', sans-serif !important;
 }
-
 
 .bold{
   font-weight: bold;

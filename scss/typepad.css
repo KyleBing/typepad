@@ -289,6 +289,10 @@ tt {
   font-family: "Galvji";
   src: url("./font/Galvji.ttf");
 }
+@font-face {
+  font-family: "JetBrainsMonoOnlyCharacter";
+  src: url("./font/JetBrainsMonoOnlyCharacter.ttf");
+}
 .galvji, .table, .binding-key kbd {
   font-family: "Galvji", sans-serif !important;
 }
@@ -1325,7 +1329,7 @@ body.black .text-black {
 }
 .score-info-item .score {
   color: #333;
-  font-family: "JetBrains Mono";
+  font-family: "Galvji";
   font-size: 14px;
 }
 .score-info-item .desc {
@@ -1600,7 +1604,7 @@ body {
 }
 .type-pad-standalone .standalone-speed-info {
   display: flex;
-  font-family: "JetBrains Mono";
+  font-family: "JetBrainsMonoOnlyCharacter";
   color: #999;
   font-size: 20px;
 }
