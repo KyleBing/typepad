@@ -34,6 +34,9 @@
 }
 
 .score-statistics-container{
+  .title{
+    margin-bottom: 5px;
+  }
   .score-statistics-list{
     display: flex;
     justify-content: space-evenly;
@@ -49,7 +52,7 @@
         @include border-radius(1px);
         overflow: hidden;
         width: 100%;
-        background-color: $bg-body;
+        background-color: transparentize(black, 0.95);
         height: 60px;
         position: relative;
         .process{
@@ -61,6 +64,7 @@
         }
       }
       .label{
+        margin-top: 2px;
         font-size: 8px;
       }
     }

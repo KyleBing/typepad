@@ -863,17 +863,17 @@ define(
          else if  (this.record.hitRate >= 14   && this.record.hitRate < 15   )  { this.score[this.config.articleType].hitRate14++}
          else if  (this.record.hitRate >= 15   && this.record.hitRate < 16   )  { this.score[this.config.articleType].hitRate15++}
 
-         // KEY LENGTH FILTER
-         if       (this.record.keyLength >= 0  && this.record.keyLength < 2  )  { this.score[this.config.articleType].keyLength1++}
-         else if  (this.record.keyLength >= 2  && this.record.keyLength < 3  )  { this.score[this.config.articleType].keyLength2++}
-         else if  (this.record.keyLength >= 3  && this.record.keyLength < 4  )  { this.score[this.config.articleType].keyLength3++}
-         else if  (this.record.keyLength >= 4  && this.record.keyLength < 5  )  { this.score[this.config.articleType].keyLength4++}
-         else if  (this.record.keyLength >= 5  && this.record.keyLength < 6  )  { this.score[this.config.articleType].keyLength5++}
-         else if  (this.record.keyLength >= 6  && this.record.keyLength < 7  )  { this.score[this.config.articleType].keyLength6++}
-         else if  (this.record.keyLength >= 7  && this.record.keyLength < 8  )  { this.score[this.config.articleType].keyLength7++}
-         else if  (this.record.keyLength >= 8  && this.record.keyLength < 9  )  { this.score[this.config.articleType].keyLength8++}
-         else if  (this.record.keyLength >= 9  && this.record.keyLength < 10 )  { this.score[this.config.articleType].keyLength9++}
-         else if  (this.record.keyLength >= 10 && this.record.keyLength < 11 )  { this.score[this.config.articleType].keyLength10++}
+         // CODE LENGTH FILTER
+         if       (this.record.codeLength >= 0  && this.record.codeLength < 2  )  { this.score[this.config.articleType].codeLength1++}
+         else if  (this.record.codeLength >= 2  && this.record.codeLength < 3  )  { this.score[this.config.articleType].codeLength2++}
+         else if  (this.record.codeLength >= 3  && this.record.codeLength < 4  )  { this.score[this.config.articleType].codeLength3++}
+         else if  (this.record.codeLength >= 4  && this.record.codeLength < 5  )  { this.score[this.config.articleType].codeLength4++}
+         else if  (this.record.codeLength >= 5  && this.record.codeLength < 6  )  { this.score[this.config.articleType].codeLength5++}
+         else if  (this.record.codeLength >= 6  && this.record.codeLength < 7  )  { this.score[this.config.articleType].codeLength6++}
+         else if  (this.record.codeLength >= 7  && this.record.codeLength < 8  )  { this.score[this.config.articleType].codeLength7++}
+         else if  (this.record.codeLength >= 8  && this.record.codeLength < 9  )  { this.score[this.config.articleType].codeLength8++}
+         else if  (this.record.codeLength >= 9  && this.record.codeLength < 10 )  { this.score[this.config.articleType].codeLength9++}
+         else if  (this.record.codeLength >= 10 && this.record.codeLength < 11 )  { this.score[this.config.articleType].codeLength10++}
 
          // RECORD COUNT
          this.score[this.config.articleType].recordCount++
@@ -993,7 +993,11 @@ define(
          hitRateScoreArray.forEach((hitRateScore, index) => {
             let hitRate = currentArticleTypeScore[`hitRate${index+1}`]
             $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.backgroundColor = generateColorForChart(hitRate, 0, 20)
-            $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.height = `${hitRate * 60 / hitRateMax}px`
+            if (hitRateMax === 0){
+               $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.height = 0
+            } else {
+               $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.height = `${hitRate * 60 / hitRateMax}px`
+            }
          })
 
          // CODE LENGTH 图表展示
@@ -1006,7 +1010,11 @@ define(
          codeLengthScoreArray.forEach((hitRateScore, index) => {
             let codeLength = currentArticleTypeScore[`codeLength${index+1}`]
             $(`.score-statistics-item.codelength.level-${index+1} .process`).style.backgroundColor = generateColorForChart(codeLength, 0, 20)
-            $(`.score-statistics-item.codelength.level-${index+1} .process`).style.height = `${codeLength * 60 / hitRateMax}px`
+            if(codeLengthMax === 0){
+               $(`.score-statistics-item.codelength.level-${index+1} .process`).style.height = 0
+            } else {
+               $(`.score-statistics-item.codelength.level-${index+1} .process`).style.height = `${codeLength * 60 / codeLengthMax}px`
+            }
          })
 
       }

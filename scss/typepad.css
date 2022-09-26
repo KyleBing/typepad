@@ -1117,6 +1117,9 @@ body.black .score-info-item .score {
 body.black .score-info-item .desc {
   color: #595959;
 }
+body.black .score-statistics-container .score-statistics-list .score-statistics-item .chart-bar {
+  background-color: #20242a;
+}
 body.black .text-green {
   color: #166f47 !important;
 }
@@ -1338,6 +1341,9 @@ body.black .text-black {
   font-size: 10px;
 }
 
+.score-statistics-container .title {
+  margin-bottom: 5px;
+}
 .score-statistics-container .score-statistics-list {
   display: flex;
   justify-content: space-evenly;
@@ -1357,7 +1363,7 @@ body.black .text-black {
   border-radius: 1px;
   overflow: hidden;
   width: 100%;
-  background-color: #EBEBEB;
+  background-color: rgba(0, 0, 0, 0.05);
   height: 60px;
   position: relative;
 }
@@ -1371,6 +1377,7 @@ body.black .text-black {
   right: 0;
 }
 .score-statistics-container .score-statistics-list .score-statistics-item .label {
+  margin-top: 2px;
   font-size: 8px;
 }
 

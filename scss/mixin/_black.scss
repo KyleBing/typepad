@@ -292,6 +292,22 @@ body.black {
   }
 
 
+  .score-statistics-container{
+    .title{
+    }
+    .score-statistics-list{
+      .score-statistics-item{
+        .chart-bar{
+          background-color: lighten($black-bg, 2%);
+        }
+        .label{
+        }
+      }
+    }
+  }
+
+
+
   // TEXT
   $colors  : (
           'green'      : $green,
