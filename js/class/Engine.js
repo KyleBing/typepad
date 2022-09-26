@@ -985,7 +985,7 @@ define(
 
          // SCORE 图表展示
          let hitRateScoreArray = []
-         for (let i=1;i<=15;i++){
+         for (let i=1;i<=12;i++){
             hitRateScoreArray.push(currentArticleTypeScore[`hitRate${i}`])
          }
          let hitRateMax = Math.max(...hitRateScoreArray)
