@@ -31,7 +31,9 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
 
                      speedAve      : 0, // 速度 - 平均
                      speedMin      : 0, // 速度 - 最小
-                     speedMax      : 0  // 速度 - 最大
+                     speedMax      : 0,  // 速度 - 最大
+
+
                   }
                }
             }
