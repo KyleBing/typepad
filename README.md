@@ -6,8 +6,7 @@ Roseo Maple Type Pad
 
 ## 界面
 
-<img width="1415" alt="Screen Shot 2022-09-16 at 23 33 28" src="https://user-images.githubusercontent.com/12215982/190679390-886d4fc4-d526-494b-a35c-7db3a7fc4331.png">
-
+<img width="1624" alt="Screen Shot 2022-09-26 at 22 33 44" src="https://user-images.githubusercontent.com/12215982/192304108-002676b1-e6b9-4820-8947-25febc223980.png">
 
 ## 下载
 ### 1. 线上地址

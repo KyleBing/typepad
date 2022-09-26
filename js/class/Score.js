@@ -74,6 +74,21 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
                      codeLength8   : 0,
                      codeLength9   : 0,
                      codeLength10  : 0,
+
+                     speed30    : 0, // 1 速度 30 - 410
+                     speed60    : 0, // 2
+                     speed90    : 0, // 3
+                     speed120   : 0, // 4
+                     speed150   : 0, // 5
+                     speed180   : 0, // 6
+                     speed210   : 0, // 7
+                     speed240   : 0, // 8
+                     speed270   : 0, // 9
+                     speed300   : 0, // 10
+                     speed330   : 0, // 11
+                     speed360   : 0, // 12
+                     speed390   : 0, // 13
+                     speed420   : 0, // 14
                   }
                }
             }

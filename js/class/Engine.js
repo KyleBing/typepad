@@ -795,7 +795,7 @@ define(
          this.record.speed = Number((this.correctWordsCount / this.duration * 1000 * 60).toFixed(2));
 
          // 保存记录
-         console.log(this.record, this.config)
+         // console.log(this.record, this.config)
          this.database.insert(this.record, this.config);
 
          //
@@ -874,6 +874,21 @@ define(
          else if  (this.record.codeLength >= 8  && this.record.codeLength < 9  )  { this.score[this.config.articleType].codeLength8++}
          else if  (this.record.codeLength >= 9  && this.record.codeLength < 10 )  { this.score[this.config.articleType].codeLength9++}
          else if  (this.record.codeLength >= 10 && this.record.codeLength < 11 )  { this.score[this.config.articleType].codeLength10++}
+
+         // SPEED FILTER
+         if      ( this.record.speed >= 0   && this.record.speed < 60  )  { this.score[this.config.articleType].speed30++}
+         else if ( this.record.speed >= 60  && this.record.speed < 90  )  { this.score[this.config.articleType].speed60++}
+         else if ( this.record.speed >= 90  && this.record.speed < 120 )  { this.score[this.config.articleType].speed90++}
+         else if ( this.record.speed >= 120 && this.record.speed < 150 )  { this.score[this.config.articleType].speed120++}
+         else if ( this.record.speed >= 150 && this.record.speed < 180 )  { this.score[this.config.articleType].speed150++}
+         else if ( this.record.speed >= 180 && this.record.speed < 210 )  { this.score[this.config.articleType].speed180++}
+         else if ( this.record.speed >= 210 && this.record.speed < 240 )  { this.score[this.config.articleType].speed210++}
+         else if ( this.record.speed >= 240 && this.record.speed < 270 )  { this.score[this.config.articleType].speed240++}
+         else if ( this.record.speed >= 270 && this.record.speed < 300 )  { this.score[this.config.articleType].speed270++}
+         else if ( this.record.speed >= 300 && this.record.speed < 330 )  { this.score[this.config.articleType].speed300++}
+         else if ( this.record.speed >= 330 && this.record.speed < 360 )  { this.score[this.config.articleType].speed330++}
+         else if ( this.record.speed >= 360 && this.record.speed < 390 )  { this.score[this.config.articleType].speed360++}
+         else if ( this.record.speed >= 390 && this.record.speed < 420 )  { this.score[this.config.articleType].speed390++}
 
          // RECORD COUNT
          this.score[this.config.articleType].recordCount++
@@ -983,7 +998,7 @@ define(
          $('.score-info-item.code-length-max .score').innerText = currentArticleTypeScore.codeLengthMax.toFixed(1);
          $('.score-info-item.code-length-ave .score').innerText = currentArticleTypeScore.codeLengthAve.toFixed(1);
 
-         // SCORE 图表展示
+         // SCORE HITRATE 图表展示
          let hitRateScoreArray = []
          for (let i=1;i<=12;i++){
             hitRateScoreArray.push(currentArticleTypeScore[`hitRate${i}`])
@@ -991,12 +1006,13 @@ define(
          let hitRateMax = Math.max(...hitRateScoreArray)
 
          hitRateScoreArray.forEach((hitRateScore, index) => {
-            let hitRate = currentArticleTypeScore[`hitRate${index+1}`]
-            $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.backgroundColor = generateColorForChart(hitRate, 0, 20)
+            let suffix = index + 1
+            let hitRate = currentArticleTypeScore[`hitRate${suffix}`]
+            $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.backgroundColor = generateColorForChart(hitRate, 0, hitRateMax)
             if (hitRateMax === 0){
-               $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.height = 0
+               $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.height = 0
             } else {
-               $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.height = `${hitRate * 60 / hitRateMax}px`
+               $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.height = `${hitRate * 60 / hitRateMax}px`
             }
          })
 
@@ -1008,12 +1024,31 @@ define(
          let codeLengthMax = Math.max(...codeLengthScoreArray)
 
          codeLengthScoreArray.forEach((hitRateScore, index) => {
-            let codeLength = currentArticleTypeScore[`codeLength${index+1}`]
-            $(`.score-statistics-item.codelength.level-${index+1} .process`).style.backgroundColor = generateColorForChart(codeLength, 0, 20)
+            let suffix = index + 1
+            let codeLength = currentArticleTypeScore[`codeLength${suffix}`]
+            $(`.score-statistics-item.codelength.level-${suffix} .process`).style.backgroundColor = generateColorForChart(codeLength, 0, codeLength)
             if(codeLengthMax === 0){
-               $(`.score-statistics-item.codelength.level-${index+1} .process`).style.height = 0
+               $(`.score-statistics-item.codelength.level-${suffix} .process`).style.height = 0
             } else {
-               $(`.score-statistics-item.codelength.level-${index+1} .process`).style.height = `${codeLength * 60 / codeLengthMax}px`
+               $(`.score-statistics-item.codelength.level-${suffix} .process`).style.height = `${codeLength * 60 / codeLengthMax}px`
+            }
+         })
+
+         // SCORE SPEED 图表展示
+         let speedScoreArray = []
+         for (let i=1;i<=14;i++){
+            speedScoreArray.push(currentArticleTypeScore[`speed${i*30}`])
+         }
+         let speedMax = Math.max(...speedScoreArray)
+
+         speedScoreArray.forEach((speedScore, index) => {
+            let suffix = (index + 1) * 3
+            let speed = currentArticleTypeScore[`speed${suffix * 10}`]
+            $(`.score-statistics-item.speed.level-${suffix} .process`).style.backgroundColor = generateColorForChart(speed, 0, speedMax)
+            if (speedMax === 0){
+               $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = 0
+            } else {
+               $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = `${speed * 60 / speedMax}px`
             }
          })
 
