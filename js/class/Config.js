@@ -6,37 +6,48 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
     */
    class Config {
       constructor() {
-         // 移除旧版配置文件 v2.62 之前
+
+         // 移除旧版配置文件 v2.62 之前的配置，配置名： typePad
          if (localStorage.getItem('typePad')){
             localStorage.removeItem('typePad')
          }
+
          if (this.isHasSavedData()){
             let config = JSON.parse(localStorage.getItem(CONFIG_NAME));
-            this.chapter              = config.chapter;
-            this.chapterTotal         = config.chapterTotal;
-            this.isShuffle            = config.isShuffle;
-            this.isInEnglishMode      = config.isInEnglishMode;
-            this.count                = config.count;
-            this.articleIdentifier    = config.articleIdentifier;
-            this.articleName          = config.articleName;
-            this.article              = config.article;
-            this.darkMode             = config.darkMode;
-            this.articleType          = config.articleType;
-            this.IDBIndex             = config.IDBIndex;
-            // v2.1 自动发文
-            this.isAutoNext           = config.isAutoNext;
-            this.isAutoRepeat         = config.isAutoRepeat;
-            this.isShuffleRepeat      = config.isShuffleRepeat;
-            this.repeatCountTotal     = config.repeatCountTotal || 1;
-            this.repeatCountCurrent   = config.repeatCountCurrent || 1;
-            // v2.3 自定义内容
-            this.customizedContent    = config.customizedContent || '';
-            this.customizedTitle      = config.customizedTitle || '';
-            // v2.43 大单字练习模式
-            this.isBigCharacter       = config.isBigCharacter;
-            // v2.61 新历史记录样式
-            this.isHistoryInListMode  = config.isHistoryInListMode;
+            if (config.version){
+               this.chapter              = config.chapter;
+               this.chapterTotal         = config.chapterTotal;
+               this.isShuffle            = config.isShuffle;
+               this.isInEnglishMode      = config.isInEnglishMode;
+               this.count                = config.count;
+               this.articleIdentifier    = config.articleIdentifier;
+               this.articleName          = config.articleName;
+               this.article              = config.article;
+               this.darkMode             = config.darkMode;
+               this.articleType          = config.articleType;
+               this.IDBIndex             = config.IDBIndex;
+               // v2.1 自动发文
+               this.isAutoNext           = config.isAutoNext;
+               this.isAutoRepeat         = config.isAutoRepeat;
+               this.isShuffleRepeat      = config.isShuffleRepeat;
+               this.repeatCountTotal     = config.repeatCountTotal || 1;
+               this.repeatCountCurrent   = config.repeatCountCurrent || 1;
+               // v2.3 自定义内容
+               this.customizedContent    = config.customizedContent || '';
+               this.customizedTitle      = config.customizedTitle || '';
+               // v2.43 大单字练习模式
+               this.isBigCharacter       = config.isBigCharacter;
+               // v2.61 新历史记录样式
+               this.isHistoryInListMode  = config.isHistoryInListMode;
+               // v2.65
+               this.version              = config.version;
+            } else {
+               // 清除配置，刷新页面
+               localStorage.removeItem(CONFIG_NAME)
+               location.reload()
+            }
          } else {
+            this.version              = 'v2.65'                 // 配置版本号
             this.chapter              = 1;                      // 当前段号
             this.chapterTotal         = 1;                      // 总段数
             this.isShuffle            = false;                  // 是否乱序模式

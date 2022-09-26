@@ -73,7 +73,7 @@ require(['ArticleType', 'Article', 'Engine', 'Editor'],
       // Service Worker
       if ('serviceWorker' in navigator){
          navigator.serviceWorker
-            .register('/tools/typepad/typepad-sw.js?v=2.64')
+            .register('/tools/typepad/typepad-sw.js?v=2.65')
             .then(()=>{
                console.log('Server Worker has registered');
             })

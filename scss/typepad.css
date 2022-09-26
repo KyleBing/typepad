@@ -1338,6 +1338,42 @@ body.black .text-black {
   font-size: 10px;
 }
 
+.score-statistics-container .score-statistics-list {
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: row nowrap;
+}
+.score-statistics-container .score-statistics-list .score-statistics-item {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  width: 5px;
+}
+.score-statistics-container .score-statistics-list .score-statistics-item .chart-bar {
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  overflow: hidden;
+  width: 100%;
+  background-color: #EBEBEB;
+  height: 60px;
+  position: relative;
+}
+.score-statistics-container .score-statistics-list .score-statistics-item .chart-bar .process {
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.score-statistics-container .score-statistics-list .score-statistics-item .label {
+  font-size: 8px;
+}
+
 body {
   color: #333;
   background-color: #EBEBEB;

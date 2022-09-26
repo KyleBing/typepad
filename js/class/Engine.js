@@ -59,7 +59,6 @@ define(
          this.score    = new Score();
 
 
-
          // 按键过滤器
          /****
           **** ⌘ + Y F3: 重打当前段
@@ -796,15 +795,11 @@ define(
          this.record.speed = Number((this.correctWordsCount / this.duration * 1000 * 60).toFixed(2));
 
          // 保存记录
+         console.log(this.record, this.config)
          this.database.insert(this.record, this.config);
 
-         console.log(this.score)
-         console.log(this.record)
-         console.log(this.config)
-         console.log(this.keyCount.all)
-
          //
-         // 保存记录值
+         // 保存记录到 SCORE
          //
 
          this.score[this.config.articleType].wordCount += this.record.wordCount;
@@ -851,7 +846,41 @@ define(
             this.score[this.config.articleType].speedMax = this.record.speed
          }
 
+         // HIT RATE FILTER
+         if       (this.record.hitRate >= 0    && this.record.hitRate < 2    )  { this.score[this.config.articleType].hitRate1++}
+         else if  (this.record.hitRate >= 2    && this.record.hitRate < 3    )  { this.score[this.config.articleType].hitRate2++}
+         else if  (this.record.hitRate >= 3    && this.record.hitRate < 4    )  { this.score[this.config.articleType].hitRate3++}
+         else if  (this.record.hitRate >= 4    && this.record.hitRate < 5    )  { this.score[this.config.articleType].hitRate4++}
+         else if  (this.record.hitRate >= 5    && this.record.hitRate < 6    )  { this.score[this.config.articleType].hitRate5++}
+         else if  (this.record.hitRate >= 6    && this.record.hitRate < 7    )  { this.score[this.config.articleType].hitRate6++}
+         else if  (this.record.hitRate >= 7    && this.record.hitRate < 8    )  { this.score[this.config.articleType].hitRate7++}
+         else if  (this.record.hitRate >= 8    && this.record.hitRate < 9    )  { this.score[this.config.articleType].hitRate8++}
+         else if  (this.record.hitRate >= 9    && this.record.hitRate < 10   )  { this.score[this.config.articleType].hitRate9++}
+         else if  (this.record.hitRate >= 10   && this.record.hitRate < 11   )  { this.score[this.config.articleType].hitRate10++}
+         else if  (this.record.hitRate >= 11   && this.record.hitRate < 12   )  { this.score[this.config.articleType].hitRate11++}
+         else if  (this.record.hitRate >= 12   && this.record.hitRate < 13   )  { this.score[this.config.articleType].hitRate12++}
+         else if  (this.record.hitRate >= 13   && this.record.hitRate < 14   )  { this.score[this.config.articleType].hitRate13++}
+         else if  (this.record.hitRate >= 14   && this.record.hitRate < 15   )  { this.score[this.config.articleType].hitRate14++}
+         else if  (this.record.hitRate >= 15   && this.record.hitRate < 16   )  { this.score[this.config.articleType].hitRate15++}
+
+         // KEY LENGTH FILTER
+         if       (this.record.keyLength >= 0  && this.record.keyLength < 2  )  { this.score[this.config.articleType].keyLength1++}
+         else if  (this.record.keyLength >= 2  && this.record.keyLength < 3  )  { this.score[this.config.articleType].keyLength2++}
+         else if  (this.record.keyLength >= 3  && this.record.keyLength < 4  )  { this.score[this.config.articleType].keyLength3++}
+         else if  (this.record.keyLength >= 4  && this.record.keyLength < 5  )  { this.score[this.config.articleType].keyLength4++}
+         else if  (this.record.keyLength >= 5  && this.record.keyLength < 6  )  { this.score[this.config.articleType].keyLength5++}
+         else if  (this.record.keyLength >= 6  && this.record.keyLength < 7  )  { this.score[this.config.articleType].keyLength6++}
+         else if  (this.record.keyLength >= 7  && this.record.keyLength < 8  )  { this.score[this.config.articleType].keyLength7++}
+         else if  (this.record.keyLength >= 8  && this.record.keyLength < 9  )  { this.score[this.config.articleType].keyLength8++}
+         else if  (this.record.keyLength >= 9  && this.record.keyLength < 10 )  { this.score[this.config.articleType].keyLength9++}
+         else if  (this.record.keyLength >= 10 && this.record.keyLength < 11 )  { this.score[this.config.articleType].keyLength10++}
+
+         // RECORD COUNT
+         this.score[this.config.articleType].recordCount++
+
+         // SAVE SCORE
          this.score.save() // 保存成绩
+
 
          if (this.config.isAutoNext){ // 自动发文
             if (this.config.isAutoRepeat){ // 重复发文
@@ -953,7 +982,28 @@ define(
          $('.score-info-item.code-length-min .score').innerText = currentArticleTypeScore.codeLengthMin.toFixed(1);
          $('.score-info-item.code-length-max .score').innerText = currentArticleTypeScore.codeLengthMax.toFixed(1);
          $('.score-info-item.code-length-ave .score').innerText = currentArticleTypeScore.codeLengthAve.toFixed(1);
+
+         // SCORE 图表展示
+         let hitRateScoreArray = []
+         for (let i=1;i<=15;i++){
+            hitRateScoreArray.push(currentArticleTypeScore[`hitRate${i}`])
+         }
+         let hitRateMax = Math.max(...hitRateScoreArray)
+
+         hitRateScoreArray.forEach((hitRateScore, index) => {
+            let hitRate = currentArticleTypeScore[`hitRate${index+1}`]
+            $(`.score-statistics-item.level-${index+1} .process`).style.backgroundColor = generateColorForChart(hitRate, 0, 20)
+            $(`.score-statistics-item.level-${index+1} .process`).style.height = `${hitRate * 60 / hitRateMax}px`
+         })
+
       }
+   }
+
+
+   // 根据数值产出对应的颜色数值
+   function generateColorForChart(value, min, max){
+      let redValue = 255 / (max - min) * value
+      return `rgba(${redValue}, 100, 100, 1)`
    }
 
    function enterBigCharacterMode(){
