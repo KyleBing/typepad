@@ -992,8 +992,21 @@ define(
 
          hitRateScoreArray.forEach((hitRateScore, index) => {
             let hitRate = currentArticleTypeScore[`hitRate${index+1}`]
-            $(`.score-statistics-item.level-${index+1} .process`).style.backgroundColor = generateColorForChart(hitRate, 0, 20)
-            $(`.score-statistics-item.level-${index+1} .process`).style.height = `${hitRate * 60 / hitRateMax}px`
+            $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.backgroundColor = generateColorForChart(hitRate, 0, 20)
+            $(`.score-statistics-item.hitrate.level-${index+1} .process`).style.height = `${hitRate * 60 / hitRateMax}px`
+         })
+
+         // CODE LENGTH 图表展示
+         let codeLengthScoreArray = []
+         for (let i=1;i<=10;i++){
+            codeLengthScoreArray.push(currentArticleTypeScore[`hitRate${i}`])
+         }
+         let codeLengthMax = Math.max(...codeLengthScoreArray)
+
+         codeLengthScoreArray.forEach((hitRateScore, index) => {
+            let codeLength = currentArticleTypeScore[`codeLength${index+1}`]
+            $(`.score-statistics-item.codelength.level-${index+1} .process`).style.backgroundColor = generateColorForChart(codeLength, 0, 20)
+            $(`.score-statistics-item.codelength.level-${index+1} .process`).style.height = `${codeLength * 60 / hitRateMax}px`
          })
 
       }

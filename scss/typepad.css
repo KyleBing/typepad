@@ -1314,7 +1314,7 @@ body.black .text-black {
 }
 
 .score-info-item-group {
-  padding: 5px 0;
+  margin-bottom: 5px;
   display: flex;
   justify-content: space-around;
 }
@@ -1329,7 +1329,7 @@ body.black .text-black {
 }
 .score-info-item .score {
   color: #333;
-  font-family: "Galvji";
+  font-family: "JetBrainsMonoOnlyCharacter";
   font-size: 14px;
 }
 .score-info-item .desc {

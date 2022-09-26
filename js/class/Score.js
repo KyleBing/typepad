@@ -12,10 +12,15 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
 
             if (score.version){ // 是否有版本号
                for (let type in ArticleType){
-                  this[type] = score[type]
+                  if (typeof(ArticleType[type]) !== 'function') { // 过滤掉方法属性
+                     this[type] = score[type]
+                  }
                }
+               this.version = score.version
             } else {
                // 清除成绩，刷新页面
+               console.log('未发现带版本号的程序，清空成绩并刷新：')
+               debugger
                localStorage.removeItem(SCORE_NAME)
                location.reload()
             }
