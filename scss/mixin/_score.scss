@@ -53,7 +53,7 @@
         overflow: hidden;
         width: 100%;
         background-color: transparentize(black, 0.95);
-        height: 60px;
+        height: 50px;
         position: relative;
         .process{
           @include border-radius(1px);

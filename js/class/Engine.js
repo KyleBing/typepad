@@ -27,8 +27,9 @@ define(
         ResultType,
         Score
     ) {
-   const untypedStringClassName = 'untyped-part';
-   const HEIGHT_TEMPLATE = 150; // 对照区高度
+       const untypedStringClassName = 'untyped-part';
+       const HEIGHT_TEMPLATE = 150; // 对照区高度
+       const HEIGHT_BAR = 50; // 成绩图表的柱状图高度
 
    /**
     * 跟打器内核
@@ -1011,7 +1012,7 @@ define(
             if (hitRateMax === 0){
                $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.height = 0
             } else {
-               $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.height = `${hitRate * 60 / hitRateMax}px`
+               $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.height = `${hitRate * HEIGHT_BAR / hitRateMax}px`
             }
          })
 
@@ -1029,7 +1030,7 @@ define(
             if(codeLengthMax === 0){
                $(`.score-statistics-item.codelength.level-${suffix} .process`).style.height = 0
             } else {
-               $(`.score-statistics-item.codelength.level-${suffix} .process`).style.height = `${codeLength * 60 / codeLengthMax}px`
+               $(`.score-statistics-item.codelength.level-${suffix} .process`).style.height = `${codeLength * HEIGHT_BAR / codeLengthMax}px`
             }
          })
 
@@ -1047,7 +1048,7 @@ define(
             if (speedMax === 0){
                $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = 0
             } else {
-               $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = `${speed * 60 / speedMax}px`
+               $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = `${speed * HEIGHT_BAR / speedMax}px`
             }
          })
 

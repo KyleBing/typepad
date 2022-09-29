@@ -1364,7 +1364,7 @@ body.black .text-black {
   overflow: hidden;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.05);
-  height: 60px;
+  height: 50px;
   position: relative;
 }
 .score-statistics-container .score-statistics-list .score-statistics-item .chart-bar .process {
