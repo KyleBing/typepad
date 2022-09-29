@@ -205,5 +205,30 @@ $colors  : (
   }
 }
 
+body{
+  perspective: 3000px;
+}
+
+.animated {
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+
+.animated-flip{
+  animation-name: flip;
+}
+
+@keyframes flip {
+  from {
+    transform-origin: 0 0 0;
+    transform: rotate3d(0,10,0,0) translateY(0);
+  }
+
+  to {
+    transform-origin: 0 0 0;
+    transform: rotate3d(0,10,0,60deg) translateY(10px);
+  }
+}
+
 @import "./mixin/standalone";
 
