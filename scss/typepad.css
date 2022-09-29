@@ -1333,7 +1333,7 @@ body.black .text-black {
 .score-info-item .score {
   color: #333;
   font-family: "JetBrainsMonoOnlyCharacter";
-  font-size: 14px;
+  font-size: 13px;
 }
 .score-info-item .desc {
   color: #999;
@@ -1342,7 +1342,48 @@ body.black .text-black {
 }
 
 .score-statistics-container .title {
+  cursor: pointer;
+  width: 100%;
   margin-bottom: 5px;
+  display: flex;
+  justify-content: flex-start;
+}
+.score-statistics-container .title .btn-img {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  opacity: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  width: 15px;
+}
+.score-statistics-container .title .btn-img img {
+  display: block;
+  width: 100%;
+}
+.score-statistics-container .title .btn-img:active {
+  -webkit-transform: rotate(-1080deg) !important;
+  -moz-transform: rotate(-1080deg) !important;
+  -ms-transform: rotate(-1080deg) !important;
+  -o-transform: rotate(-1080deg) !important;
+  transform: rotate(-1080deg) !important;
+}
+.score-statistics-container .title:hover .btn-img {
+  opacity: 1;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: rotate(-360deg);
+  -moz-transform: rotate(-360deg);
+  -ms-transform: rotate(-360deg);
+  -o-transform: rotate(-360deg);
+  transform: rotate(-360deg);
 }
 .score-statistics-container .score-statistics-list {
   display: flex;

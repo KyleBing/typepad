@@ -95,6 +95,30 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
          }
       }
 
+      // 清除某种类似文章的 某项数据
+      clearScoreFor(articleType, typeOfScore){
+         switch (typeOfScore){
+            case 'HitRate':
+               for (let i = 0; i < 15; i++) {
+                  this[articleType]['hitRate' + (i + 1)] = 0
+               }
+               this.save()
+               break;
+            case 'Speed':
+               for (let i = 0; i < 14; i++) {
+                  this[articleType]['speed' + String((i + 1) * 30)] = 0
+               }
+               this.save()
+               break;
+            case 'CodeLength':
+               for (let i = 0; i < 10; i++) {
+                  this[articleType]['codeLength' + (i + 1)] = 0
+               }
+               this.save()
+               break;
+         }
+      }
+
       save(){
          localStorage.setItem(SCORE_NAME, JSON.stringify(this));
       }

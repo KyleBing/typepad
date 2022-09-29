@@ -1051,7 +1051,12 @@ define(
                $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = `${speed * HEIGHT_BAR / speedMax}px`
             }
          })
+      }
 
+      // 清除某种类似文章的 某项数据
+      clearScoreOf(typeOfScore){
+         this.score.clearScoreFor(this.config.articleType, typeOfScore)
+         this.updateInfo()
       }
    }
 

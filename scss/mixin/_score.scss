@@ -24,7 +24,7 @@
   .score{
     color: $text-main;
     font-family: 'JetBrainsMonoOnlyCharacter';
-    font-size: 14px;
+    font-size: 13px;
   }
   .desc{
     color: $text-comment;
@@ -35,7 +35,32 @@
 
 .score-statistics-container{
   .title{
+    cursor: pointer;
+    width: 100%;
     margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-start;
+    .btn-img{
+      @include border-radius(20px);
+      opacity: 0;
+      @include transition(all 0.3s);
+      cursor: pointer;
+      width: 15px;
+      img{
+        display: block;
+        width: 100%;
+      }
+      &:active{
+        @include transform(rotate(-1080deg) !important);
+      }
+    }
+    &:hover{
+      .btn-img{
+        opacity: 1;
+        @include transition(all 0.3s);
+        @include transform(rotate(-360deg));
+      }
+    }
   }
   .score-statistics-list{
     display: flex;
