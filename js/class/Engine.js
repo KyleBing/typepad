@@ -1051,7 +1051,22 @@ define(
                $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = `${speed * 60 / speedMax}px`
             }
          })
+      }
 
+      addAnimation(){
+         let app = $('#app')
+         if (app.classList.contains('animated-flip-in')){
+            app.classList.remove(['animated-flip-in'])
+         }
+         app.classList.add(['animated-flip-out'])
+      }
+
+      removeAnimation(){
+         let app = $('#app')
+         if (app.classList.contains('animated-flip-out')){
+            app.classList.remove(['animated-flip-out'])
+         }
+         app.classList.add(['animated-flip-in'])
       }
    }
 

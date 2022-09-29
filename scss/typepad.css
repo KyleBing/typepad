@@ -1161,6 +1161,15 @@ body.black .text-black {
   animation-fill-mode: both;
 }
 
+.animated-slow {
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+
+body {
+  perspective: 3000px;
+}
+
 @-webkit-keyframes shake {
   from, to {
     -webkit-transform: translate3d(0, 0, 0);
@@ -1212,6 +1221,34 @@ body.black .text-black {
   animation-name: shake;
 }
 
+.animated-flip-out {
+  animation-name: flip-out;
+  transform-origin: 0 0 0;
+  transform: rotate3d(0, 10, 0, 60deg) translateY(10px);
+}
+
+@keyframes flip-out {
+  from {
+    transform: rotate3d(0, 10, 0, 0) translateY(0);
+  }
+  to {
+    transform: rotate3d(0, 10, 0, 60deg) translateY(10px);
+  }
+}
+.animated-flip-in {
+  animation-name: flip-in;
+  transform-origin: 0 0 0;
+  transform: rotate3d(0, 10, 0, 0) translateY(0);
+}
+
+@keyframes flip-in {
+  from {
+    transform: rotate3d(0, 10, 0, 60deg) translateY(10px);
+  }
+  to {
+    transform: rotate3d(0, 10, 0, 0) translateY(0);
+  }
+}
 .editor {
   z-index: 100;
   position: fixed;
@@ -1618,29 +1655,6 @@ body {
   }
 }
 
-body {
-  perspective: 3000px;
-}
-
-.animated {
-  animation-duration: 2s;
-  animation-timing-function: ease-in-out;
-}
-
-.animated-flip {
-  animation-name: flip;
-}
-
-@keyframes flip {
-  from {
-    transform-origin: 0 0 0;
-    transform: rotate3d(0, 10, 0, 0) translateY(0);
-  }
-  to {
-    transform-origin: 0 0 0;
-    transform: rotate3d(0, 10, 0, 60deg) translateY(10px);
-  }
-}
 .type-pad-standalone {
   height: 100%;
   overflow-y: auto;

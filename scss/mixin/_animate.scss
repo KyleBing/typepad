@@ -4,6 +4,15 @@
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
+.animated-slow {
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+
+body{
+  perspective: 3000px;
+}
+
 
 @-webkit-keyframes shake {
   from, to {
@@ -37,3 +46,38 @@
   -webkit-animation-name: shake;
   animation-name: shake;
 }
+
+$flip-angle: 60deg;
+
+.animated-flip-out{
+  animation-name: flip-out;
+  transform-origin: 0 0 0;
+  transform: rotate3d(0,10,0,$flip-angle) translateY(10px);
+}
+
+@keyframes flip-out {
+  from {
+    transform: rotate3d(0,10,0,0) translateY(0);
+  }
+
+  to {
+    transform: rotate3d(0,10,0,$flip-angle) translateY(10px);
+  }
+}
+
+.animated-flip-in{
+  animation-name: flip-in;
+  transform-origin: 0 0 0;
+  transform: rotate3d(0,10,0,0) translateY(0);
+}
+
+@keyframes flip-in {
+  from {
+    transform: rotate3d(0,10,0,$flip-angle) translateY(10px);
+  }
+
+  to {
+    transform: rotate3d(0,10,0,0) translateY(0);
+  }
+}
+
