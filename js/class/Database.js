@@ -30,8 +30,12 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
       }
       // 添加数据
       insert(record, config){
-         // console.log(config.IDBIndex,record)
-         let articleName = config.isAutoRepeat ?  config.articleName + ' : ' + config.repeatCountCurrent : config.articleName;
+         // 记录当前跟打的重复值，避免 config 被修改，导致产出的记录值不对
+         let lastRepeatCount = config.repeatCountCurrent
+         let articleName =
+             config.isAutoRepeat ?
+             config.articleName + ' : ' + config.repeatCountCurrent :
+             config.articleName;
          let request = this.db.transaction([OBJECT_NAME], 'readwrite')
             .objectStore(OBJECT_NAME)
             .add({
@@ -51,7 +55,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
             console.log('insert data success');
             // 插入最后的数据到顶部
             let tr = document.createElement('tr');
-            tr.innerHTML = record.getHtml(config);
+            tr.innerHTML = record.getHtml(config, lastRepeatCount);
             let tbody = $('tbody');
             tbody.insertBefore(tr, tbody.firstChild);
 

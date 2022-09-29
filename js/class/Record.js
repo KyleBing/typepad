@@ -13,7 +13,7 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
          this.timeStart   = timeStart;   // 开始时间
          this.duration    = duration;    // 打字时长
       }
-      getHtml(config){
+      getHtml(config, lastRepeatCount){
          let level = Math.floor(this.speed/SPEED_GAP);
          level = level > 6 ? 6 : level; // 速度等级为 6+ 时按 6 处理
          let articleType = ArticleType.getTypeNameWith(config.articleType);
@@ -26,8 +26,10 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
             case ArticleType.customize : textClass = 'text-roseo';break;
             default: break;
          }
-         /* TODO: 在记录列表中添加当前段的成绩时，对应的重复数序号不对，但保存在 IndexDB 中的的序号正确 */
-         let articleName = config.isAutoRepeat ?  config.articleName + ' : ' + config.repeatCountCurrent : config.articleName;
+         let articleName =
+             config.isAutoRepeat ?
+                 config.articleName + ' : ' + lastRepeatCount :
+                 config.articleName;
          return `<tr>  
               <td class="text-center">${config.IDBIndex}</td> <!--id-->
               <td class="bold galvji speed text-right lv-${level}">${this.speed}</td> <!--速度-->

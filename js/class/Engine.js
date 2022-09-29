@@ -896,7 +896,6 @@ define(
          // SAVE SCORE
          this.score.save() // 保存成绩
 
-
          if (this.config.isAutoNext){ // 自动发文
             if (this.config.isAutoRepeat){ // 重复发文
                if (this.config.repeatCountTotal > this.config.repeatCountCurrent){ // 还有重复次数
@@ -998,7 +997,7 @@ define(
          $('.score-info-item.code-length-max .score').innerText = currentArticleTypeScore.codeLengthMax.toFixed(1);
          $('.score-info-item.code-length-ave .score').innerText = currentArticleTypeScore.codeLengthAve.toFixed(1);
 
-         // SCORE HITRATE 图表展示
+         // SCORE HIT RATE 图表展示
          let hitRateScoreArray = []
          for (let i=1;i<=12;i++){
             hitRateScoreArray.push(currentArticleTypeScore[`hitRate${i}`])
