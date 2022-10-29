@@ -11,7 +11,7 @@ define([
    'english-vocabulary/KaoYan',
    'english-vocabulary/SAT',
    'english-vocabulary/Toefl',
-    'chinese/HanZi'
+   'chinese/HanZi'
 ], function (
     ArticleType,
     CETWord,
