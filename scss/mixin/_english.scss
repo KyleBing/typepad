@@ -1,0 +1,20 @@
+.translation{
+
+}
+
+.translation-panel{
+  display: block;
+  z-index: $z-toast;
+  white-space: nowrap;
+  position: absolute;
+  top: -0.6rem;
+  left: 0;
+  line-height: 1;
+  padding: 3px 5px;
+  color: $cyan;
+  font-weight: normal;
+  font-size: $fz-translation;
+  &:hover{
+    color: $color-main;
+  }
+}

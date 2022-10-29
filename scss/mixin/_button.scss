@@ -2,7 +2,7 @@ $padding-top: 3px;
 $padding-lr: 6px;
 $padding-lr-radio: 8px;
 $height-btn: 20px;
-$radius-btn: 3px;
+$radius-btn: 5px;
 $radius-switch: 15px;
 
 $fz-btn: 13px;
@@ -13,12 +13,10 @@ $btn-padding-lr: 8px;
 
 .tool-bar{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-flow: row wrap;
 }
-
-
 
 $btns: (
   'green'  : $green,
@@ -154,7 +152,7 @@ input[type=checkbox]:checked + label.checker {
   justify-content: flex-start;
   overflow: hidden;
   border: 1px solid $color-border;
-  margin: 0 5px 5px 0;
+  margin: 0 $gap-block $gap-block 0;
   &.dash{
     border-style: dashed;
     > * {

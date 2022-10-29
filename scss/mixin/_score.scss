@@ -1,0 +1,97 @@
+.score-info{
+  .title{
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed $color-border;
+  }
+}
+.score-info-item-group{
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.score-info-item{
+  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5;
+  .score{
+    color: $text-main;
+    font-family: 'JetBrainsMonoOnlyCharacter';
+    font-size: 13px;
+  }
+  .desc{
+    color: $text-comment;
+    font-weight: normal;
+    font-size: 10px;
+  }
+}
+
+.score-statistics-container{
+  .title{
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-start;
+    .btn-img{
+      @include border-radius(20px);
+      opacity: 0;
+      @include transition(all 0.3s);
+      cursor: pointer;
+      width: 15px;
+      img{
+        display: block;
+        width: 100%;
+      }
+      &:active{
+        @include transform(rotate(-1080deg) !important);
+      }
+    }
+    &:hover{
+      .btn-img{
+        opacity: 1;
+        @include transition(all 0.3s);
+        @include transform(rotate(-360deg));
+      }
+    }
+  }
+  .score-statistics-list{
+    display: flex;
+    justify-content: space-evenly;
+    flex-flow: row nowrap;
+    .score-statistics-item{
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column nowrap;
+      width: 5px;
+      .chart-bar{
+        @include border-radius(1px);
+        overflow: hidden;
+        width: 100%;
+        background-color: transparentize(black, 0.95);
+        height: 50px;
+        position: relative;
+        .process{
+          @include border-radius(1px);
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+      }
+      .label{
+        margin-top: 2px;
+        font-size: 8px;
+      }
+    }
+  }
+}

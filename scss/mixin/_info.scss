@@ -8,6 +8,14 @@
   justify-content: flex-start;
 }
 
+.toolbar-info{
+  width: 100%;
+  &>* {
+    text-align: center;
+    flex-grow: 1;
+  }
+}
+
 .info-panel{
   margin-bottom: $gap-block;
   padding: 15px;
@@ -17,7 +25,7 @@
   font-size: $fz-info;
   @include border-radius($radius-main);
   > p{
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     &:last-child{
       margin-bottom: 0;
     }
@@ -44,7 +52,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+    font-size: 2.2rem;
     .minute{
       @extend .number
     }
@@ -55,7 +63,13 @@
 }
 
 .speed-info{
+  height: 150px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
   .speed{
+    width: 100%;
     color: $text-main;
     font-family: Impact, sans-serif;
     padding: 10px 0;
@@ -63,12 +77,12 @@
     font-size: 2rem;
     border-bottom: 1px dashed $color-border;
   }
-  .count{
+  .statistic{
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-
+    padding: 15px 0;
     &-item{
       text-align: center;
       width: 40px;
@@ -94,15 +108,18 @@
           content: none;
         }
       }
-      p{
-        &:first-child{
-          font-family: Impact, sans-serif;
-          font-weight: bold;
-        }
-        &:last-child{
-          color: $text-comment;
-          font-size: $fz-info - 2;
-        }
+      .title {
+        font-family: Impact, sans-serif;
+        font-weight: bold;
+      }
+      .desc {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 3px;
+        color: $text-comment;
+        font-size: $fz-info - 2;
       }
     }
   }

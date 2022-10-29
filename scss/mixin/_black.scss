@@ -6,6 +6,7 @@ $black-color-text             : lighten(black, 90%);
 $black-color-text-info        : lighten(black, 65%);
 $black-color-text-subtitle    : lighten(black, 45%);
 $black-color-text-comment     : lighten(black, 55%);
+$black-color-text-ignore      : lighten(black, 35%);
 $black-btn-bg                 : lighten(black, 25%);
 
 
@@ -53,7 +54,7 @@ body.black {
       color: white;
       border-color: $black-color-border;
     }
-    .count{
+    .statistic{
       &-item {
         color: $black-color-text;
       }
@@ -117,25 +118,25 @@ body.black {
   }
 
 //  TEMPLATE
-  .template{
+  .template-container{
     color: $black-color-text;
     border: 1px solid $black-color-border;
     background-color: $black-bg;
   }
 
-  .typing {
+  .typing-container {
     textarea {
       border: 1px solid $black-color-border;
       background-color: $black-bg;
       color: $black-color-text-subtitle;
       &:focus {
-        @include box-shadow(inset 1px 1px 5px rgba(0, 0, 0,1));
+        @include box-shadow(inset 0 0 10px transparentize(black, 0.6));
       }
     }
   }
   .text{
     .correct{
-      color: lighten(black, 20%) !important;
+      color: #363a46 !important;
     }
     .wrong{
       background-color: $red;
@@ -249,6 +250,63 @@ body.black {
       justify-content: space-between;
     }
   }
+
+  // STAND ALONE
+  .type-pad-standalone{
+    background-color: $black-body-bg;
+    .standalone-speed-info{
+      .speed{
+        color: $black-color-text;
+      }
+    }
+  }
+
+  // RECORD LIST
+  .record-container{
+    .record-item{
+      background-color: $black-bg;
+      border-color: $black-color-border;
+      .speed{
+      }
+      .meta{
+        color: $black-color-text-comment;
+        border-color: $black-color-border-highlight;
+      }
+    }
+  }
+
+
+  // SCORE
+  .score-info{
+    .title{
+      border-color: $black-color-border;
+    }
+  }
+  .score-info-item{
+    .score{
+      color: $black-color-text-info;
+    }
+    .desc{
+      color: $black-color-text-ignore;
+    }
+  }
+
+
+  .score-statistics-container{
+    .title{
+    }
+    .score-statistics-list{
+      .score-statistics-item{
+        .chart-bar{
+          background-color: lighten($black-bg, 2%);
+        }
+        .label{
+        }
+      }
+    }
+  }
+
+
 
   // TEXT
   $colors  : (

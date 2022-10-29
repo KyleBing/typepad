@@ -30,8 +30,12 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
       }
       // 添加数据
       insert(record, config){
-         // console.log(config.IDBIndex,record)
-         let articleName = config.isAutoRepeat ?  config.articleName + ' : ' + config.repeatCountCurrent : config.articleName;
+         // 记录当前跟打的重复值，避免 config 被修改，导致产出的记录值不对
+         let lastRepeatCount = config.repeatCountCurrent
+         let articleName =
+             config.isAutoRepeat ?
+             config.articleName + ' : ' + config.repeatCountCurrent :
+             config.articleName;
          let request = this.db.transaction([OBJECT_NAME], 'readwrite')
             .objectStore(OBJECT_NAME)
             .add({
@@ -51,9 +55,17 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
             console.log('insert data success');
             // 插入最后的数据到顶部
             let tr = document.createElement('tr');
-            tr.innerHTML = record.getHtml(config);
+            tr.innerHTML = record.getHtml(config, lastRepeatCount);
             let tbody = $('tbody');
             tbody.insertBefore(tr, tbody.firstChild);
+
+            // RECORD LIST
+            let div = document.createElement('div');
+            div.classList.add('record-item')
+            div.innerHTML = record.getHtmlForRecord(config);
+            let recordContainer = $('.record-container');
+            recordContainer.insertBefore(div, recordContainer.firstChild);
+
             // id ++
             config.IDBIndex = config.IDBIndex + 1; config.save();
          }
@@ -71,12 +83,18 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
             if (e.returnValue) {
                let result = request.result;
                let objectStore = this.db.transaction([OBJECT_NAME], 'readwrite').objectStore(OBJECT_NAME);
-               let html = '';
+               let htmlTable = '';
+               let htmlRecordList = '';
                let currentCursor = objectStore.openCursor(IDBKeyRange.upperBound(9999), "prev").onsuccess = e => {
                   let cursor = e.target.result;
                   if (cursor) {
-                     html = html + this.getHtmlWithCursor(cursor);
-                     document.querySelector('tbody').innerHTML = html;
+                     htmlTable = htmlTable + this.getHtmlWithCursor(cursor);
+                     document.querySelector('tbody').innerHTML = htmlTable;
+
+                     // RECORD LIST
+                     htmlRecordList = htmlRecordList + this.getHtmlForRecordWithCursor(cursor);
+                     document.querySelector('.record-container').innerHTML = htmlRecordList;
+
                      cursor.continue(); // 移到下一个位置
                   }
                }
@@ -105,8 +123,8 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          return `<tr>  
               <td class="text-center">${cursor.key}</td>
               <td class="bold galvji speed text-right lv-${level}">${cursor.value.speed}</td>
-              <td class="hidden-sm">${cursor.value.codeLength}</td>
               <td class="hidden-sm">${cursor.value.hitRate}</td>
+              <td class="hidden-sm">${cursor.value.codeLength}</td>
               <td class="hidden-sm">${cursor.value.backspace}</td>
               <td>${cursor.value.wordCount}</td>
               <td class="time">${Utility.formatTimeLeft(cursor.value.duration)}</td>
@@ -115,6 +133,29 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
               <td class="hidden-sm time">${Utility.dateFormatter(new Date(cursor.value.timeStart))}</td>
               <td><button class="btn btn-danger btn-sm" onclick="engine.delete(${cursor.key}, this)" type="button">删除</button></td>
             </tr>`;
+      }
+
+
+      getHtmlForRecordWithCursor(cursor){
+         let level = Math.floor(cursor.value.speed/SPEED_GAP);
+         level = level > 6 ? 6 : level;
+         let articleType = ArticleType.getTypeNameWith(cursor.value.articleType);
+         let textClass = '';
+         switch (cursor.value.articleType) {
+            case ArticleType.character : textClass = 'text-orange';break;
+            case ArticleType.english   : textClass = 'text-green';break;
+            case ArticleType.article   : textClass = 'text-blue';break;
+            case ArticleType.word      : textClass = 'text-red';break;
+            case ArticleType.customize : textClass = 'text-roseo';break;
+            default: articleType = '' ;break;
+         }
+         return `<div class="record-item">
+               <div class="speed lv-${level}">${cursor.value.speed}</div>
+               <div class="meta">
+                  <div class="hit-rate">${cursor.value.hitRate}</div>
+                  <div class="code-length">${cursor.value.codeLength}</div>
+               </div>
+            </div>`;
       }
 
 

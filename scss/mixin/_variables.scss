@@ -16,33 +16,33 @@ $color-text     : #333;
 $color-subtitle : #666;
 
 $color-border:  #dddddd;
+$color-border-clearly:  #ccc;
 
 $bg-body      : #EBEBEB;
 
 
-$text-main      : #333;
-$text-subtitle  : #555;
-$text-comment   : #999;
+$text-main         : #333;
+$text-subtitle     : #555;
+$text-comment      : #999;
 
-$separate-width: 1280px;
-$separate-mobile: 768px;
-
-
-$z-toast: 100;
-$z-modal: 70;
-$z-mask: 50;
+$separate-width    : 1280px;
+$separate-mobile   : 768px;
 
 
-$fz-info: 12px;
-$fz-typing: 2rem;
-$fz-editor-title: 1.2rem;
-$fz-editor-content: 1rem;
-$fz-typing-mobile: 1.5rem;
-$fz-typing-english: 1.8rem;
-$fz-copyright: 10px;
-$fz-translation: 12px;
-
-$gap-block: 10px;
+$z-toast           : 100;
+$z-modal           : 70;
+$z-mask            : 50;
 
 
-$radius-main: 6px; // 全局 radius
+$fz-info           : 12px;
+$fz-typing         : 2rem;
+$fz-editor-title   : 1.2rem;
+$fz-editor-content : 1rem;
+$fz-typing-mobile  : 1.5rem;
+$fz-typing-english : 1.8rem;
+$fz-copyright      : 10px;
+$fz-translation    : 12px;
+
+$gap-block         : 12px;
+$radius-main       : 7px; // 全局 radius
+

@@ -2,14 +2,15 @@
 <html lang="zh-CN">
 <head>
    <meta charset="UTF-8">
-   <meta name='description' content="玫枫跟打器, 跟打器">
-   <meta name='keywords' content="跟打器, 玫枫跟打器, 玫枫">
+   <meta name='description' content="玫枫跟打器, 跟打器, 五笔跟打器, 五笔练习">
+   <meta name='keywords' content="跟打器, 玫枫跟打器, 五笔跟打器, 五笔练习, 玫枫">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
    <title>玫枫跟打器 （Roseo Maple TypePad）</title>
    <link rel="shortcut icon" href="img/logo.png" type="image/png">
-   <link rel="stylesheet" href="scss/typepad.css?v=2.58">
+   <link rel="stylesheet" href="scss/typepad.css?v=2.65build1">
 </head>
 <body>
+
 <!--自定义文章内容-->
 <div class="editor hidden">
    <div class="container">
@@ -30,7 +31,6 @@
             <div class="btn" id="countSymbolZh">0</div>
          </div>
 
-
          <div class="btn-group">
             <div class="btn" onclick="editor.trimReturn()">去除换行</div>
             <div class="btn" onclick="editor.trimSpace()">去除空格</div>
@@ -46,41 +46,52 @@
             <div class="btn" onclick="editor.hide()">取消</div>
             <div class="btn" onclick="editor.done(engine)">确定</div>
          </div>
-
       </div>
    </div>
 </div>
 
 <div id="app">
-   <!--侧边信息栏组-->
-   <div class="side-menu hidden-sm">
 
-      <!--time-->
+   <!--侧边信息栏-->
+   <div class="side-menu hidden-sm">
+      <div class="tool-bar jc-space-between">
+         <div class="btn-group toolbar-info">
+            <div class="btn" onclick="engine.shuffleCurrent()" title="打乱当前段：⌘ + K 或 F4">打乱</div>
+            <div class="btn" onclick="engine.reset()" title="重打：⌘ + Y 或 F3">重打</div>
+            <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
+            <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
+         </div>
+      </div>
+
+      <!--speed-->
+      <div class="speed-info info-panel">
+         <!--speed-->
+         <div class="speed">--</div>
+         <!--statistic-->
+         <div class="statistic">
+            <div class="statistic-item">
+               <p class="title count-key-backspace">--</p>
+               <p class="desc small">回删</p>
+            </div>
+            <div class="statistic-item">
+               <p class="title count-key-length">--</p>
+               <p class="desc small">码长</p>
+            </div>
+            <div class="statistic-item">
+               <p class="title count-key-rate">--</p>
+               <p class="desc small">击键</p>
+            </div>
+         </div>
+      </div>
+
+      <!--TIMER-->
       <div class="time-info info-panel">
          <div class="time number">
             <div class="minute">00</div>:<div class="second">00</div>
          </div>
       </div>
 
-      <!--speed-->
-      <div class="speed-info info-panel">
-         <div class="speed">--</div>
-         <div class="count pt-2">
-            <div class="count-item">
-               <p class="count-key-backspace">--</p>
-               <p class="small">回删</p>
-            </div>
-            <div class="count-item">
-               <p class="count-key-length">--</p>
-               <p class="small">码长</p>
-            </div>
-            <div class="count-item">
-               <p class="count-key-rate">--</p>
-               <p class="small">击键</p>
-            </div>
-         </div>
-      </div>
-
+      <!--OPTIONS SETUP-->
       <div class="info-panel">
          <div class="switch-item">
             <div class="label">暗黑模式</div>
@@ -124,10 +135,17 @@
                <label class="switch" for="bigCharacter"></label>
             </div>
          </div>
+         <div class="switch-item">
+            <div class="label">历史样式</div>
+            <div class="wrapper">
+               <input id="historyListMode" type="checkbox" onchange="engine.historyListMode()">
+               <label class="switch" for="historyListMode"></label>
+            </div>
+         </div>
       </div>
 
-      <!--keys-->
-      <div class="key-info info-panel">
+      <!--HELP INFO : KEYS-->
+      <div class="key-info hidden info-panel">
          <div class="key-info-item word-all">
             <div>全部按键</div>
             <div><p></p></div>
@@ -178,32 +196,146 @@
          </div>
       </div>
 
-      <!--info-->
-      <div class="info-panel">
-         <a target="_blank" href="https://github.com/KyleBing/typepad" class="logo">
-            <img src="img/logo-inline.png" alt="">
-            <h1>玫枫跟打器<br>(GitHub)</h1>
-         </a>
-         <div class="copyright">
-            <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
-            <p>v2.58</p>
-            <p>2022/03/29</p>
+
+      <!--SCORE CHART-->
+      <div class="score-statistics-container info-panel">
+         <div class="title">击键
+            <div onclick="engine.clearScoreOf('HitRate')" class="btn-img ml-1"><img src="./img/reset.png" alt="reset"></div>
+         </div>
+         <div class="score-statistics-list">
+            <div class="score-statistics-item hitrate level-1"><div class="chart-bar"><div class="process"></div></div><div class="label">1</div></div>
+            <div class="score-statistics-item hitrate level-2"><div class="chart-bar"><div class="process"></div></div><div class="label">2</div></div>
+            <div class="score-statistics-item hitrate level-3"><div class="chart-bar"><div class="process"></div></div><div class="label">3</div></div>
+            <div class="score-statistics-item hitrate level-4"><div class="chart-bar"><div class="process"></div></div><div class="label">4</div></div>
+            <div class="score-statistics-item hitrate level-5"><div class="chart-bar"><div class="process"></div></div><div class="label">5</div></div>
+            <div class="score-statistics-item hitrate level-6"><div class="chart-bar"><div class="process"></div></div><div class="label">6</div></div>
+            <div class="score-statistics-item hitrate level-7"><div class="chart-bar"><div class="process"></div></div><div class="label">7</div></div>
+            <div class="score-statistics-item hitrate level-8"><div class="chart-bar"><div class="process"></div></div><div class="label">8</div></div>
+            <div class="score-statistics-item hitrate level-9"><div class="chart-bar"><div class="process"></div></div><div class="label">9</div></div>
+            <div class="score-statistics-item hitrate level-10"><div class="chart-bar"><div class="process"></div></div><div class="label">10</div></div>
+            <div class="score-statistics-item hitrate level-11"><div class="chart-bar"><div class="process"></div></div><div class="label">11</div></div>
+            <div class="score-statistics-item hitrate level-12"><div class="chart-bar"><div class="process"></div></div><div class="label">12</div></div>
          </div>
       </div>
 
-      <!--notice-->
-      <div class="info-panel">
-         <p>最优体验: 鼠须管输入法，谷歌浏览器、Safari 浏览器，其它平台或浏览器可能会有出入，欢迎反馈至
-            <a target="_blank" href="https://github.com/KyleBing/typepad">GitHub</a></p>
-         <p>mac 用户推荐用 <a target="_blank" href="https://rime.im/">鼠须管输入法</a>，86版五笔现成的配置方案可以这里找到
-            <a target="_blank" href="https://github.com/KyleBing/rime-wubi86-jidian">极点码表方案</a></p>
+      <!--SPEED CHART-->
+      <div class="score-statistics-container info-panel">
+         <div class="title">速度 × 10
+            <div onclick="engine.clearScoreOf('Speed')"  class="btn-img ml-1"><img src="./img/reset.png" alt="reset"></div>
+         </div>
+         <div class="score-statistics-list">
+            <div class="score-statistics-item speed level-3"><div class="chart-bar"><div class="process"></div></div><div class="label">3</div></div>
+            <div class="score-statistics-item speed level-6"><div class="chart-bar"><div class="process"></div></div><div class="label">6</div></div>
+            <div class="score-statistics-item speed level-9"><div class="chart-bar"><div class="process"></div></div><div class="label">9</div></div>
+            <div class="score-statistics-item speed level-12"><div class="chart-bar"><div class="process"></div></div><div class="label">12</div></div>
+            <div class="score-statistics-item speed level-15"><div class="chart-bar"><div class="process"></div></div><div class="label">15</div></div>
+            <div class="score-statistics-item speed level-18"><div class="chart-bar"><div class="process"></div></div><div class="label">18</div></div>
+            <div class="score-statistics-item speed level-21"><div class="chart-bar"><div class="process"></div></div><div class="label">21</div></div>
+            <div class="score-statistics-item speed level-24"><div class="chart-bar"><div class="process"></div></div><div class="label">24</div></div>
+            <div class="score-statistics-item speed level-27"><div class="chart-bar"><div class="process"></div></div><div class="label">27</div></div>
+            <div class="score-statistics-item speed level-30"><div class="chart-bar"><div class="process"></div></div><div class="label">30</div></div>
+            <div class="score-statistics-item speed level-33"><div class="chart-bar"><div class="process"></div></div><div class="label">33</div></div>
+            <div class="score-statistics-item speed level-36"><div class="chart-bar"><div class="process"></div></div><div class="label">36</div></div>
+            <div class="score-statistics-item speed level-39"><div class="chart-bar"><div class="process"></div></div><div class="label">39</div></div>
+            <div class="score-statistics-item speed level-42"><div class="chart-bar"><div class="process"></div></div><div class="label">42</div></div>
+         </div>
       </div>
 
-      <!--keymap-->
-      <div class="info-panel">
-         <p>光标离开输入区自动暂停，进入输入状态自动恢复计时。</p>
-         <p>快捷键只在编辑区内生效</p>
+      <!--CODE LENGTH CHART-->
+      <div class="score-statistics-container info-panel">
+         <div class="title">码长
+            <div onclick="engine.clearScoreOf('CodeLength')"  class="btn-img ml-1"><img src="./img/reset.png" alt="reset"></div>
+         </div>
+         <div class="score-statistics-list">
+            <div class="score-statistics-item codelength level-1"><div class="chart-bar"><div class="process"></div></div><div class="label">1</div></div>
+            <div class="score-statistics-item codelength level-2"><div class="chart-bar"><div class="process"></div></div><div class="label">2</div></div>
+            <div class="score-statistics-item codelength level-3"><div class="chart-bar"><div class="process"></div></div><div class="label">3</div></div>
+            <div class="score-statistics-item codelength level-4"><div class="chart-bar"><div class="process"></div></div><div class="label">4</div></div>
+            <div class="score-statistics-item codelength level-5"><div class="chart-bar"><div class="process"></div></div><div class="label">5</div></div>
+            <div class="score-statistics-item codelength level-6"><div class="chart-bar"><div class="process"></div></div><div class="label">6</div></div>
+            <div class="score-statistics-item codelength level-7"><div class="chart-bar"><div class="process"></div></div><div class="label">7</div></div>
+            <div class="score-statistics-item codelength level-8"><div class="chart-bar"><div class="process"></div></div><div class="label">8</div></div>
+            <div class="score-statistics-item codelength level-9"><div class="chart-bar"><div class="process"></div></div><div class="label">9</div></div>
+            <div class="score-statistics-item codelength level-10"><div class="chart-bar"><div class="process"></div></div><div class="label">10</div></div>
+         </div>
       </div>
+
+
+      <!--SCORE SUMMERY-->
+      <div class="score-info info-panel">
+         <div class="title">单字</div>
+         <div class="score-info-item-group">
+            <div class="score-info-item sum-words">
+               <div class="score">0</div>
+               <div class="desc">总字数</div>
+            </div>
+            <div class="score-info-item sum-key">
+               <div class="score">0</div>
+               <div class="desc">总击键</div>
+            </div>
+            <div class="score-info-item sum-time">
+               <div class="score">0</div>
+               <div class="desc">总耗时</div>
+            </div>
+         </div>
+         <div class="score-info-item-group">
+            <div class="score-info-item speed-min">
+               <div class="score">0</div>
+               <div class="desc">速度最小</div>
+            </div>
+            <div class="score-info-item speed-max">
+               <div class="score">0</div>
+               <div class="desc">速度最大</div>
+            </div>
+            <div class="score-info-item speed-ave">
+               <div class="score">0</div>
+               <div class="desc">速度平均</div>
+            </div>
+         </div>
+         <div class="score-info-item-group">
+            <div class="score-info-item hitrate-min">
+               <div class="score">0</div>
+               <div class="desc">击键最小</div>
+            </div>
+            <div class="score-info-item hitrate-max">
+               <div class="score">0</div>
+               <div class="desc">击键最大</div>
+            </div>
+            <div class="score-info-item hitrate-ave">
+               <div class="score">0</div>
+               <div class="desc">击键平均</div>
+            </div>
+         </div>
+         <div class="score-info-item-group">
+            <div class="score-info-item code-length-min">
+               <div class="score">0</div>
+               <div class="desc">码长最小</div>
+            </div>
+            <div class="score-info-item code-length-max">
+               <div class="score">0</div>
+               <div class="desc">码长最大</div>
+            </div>
+            <div class="score-info-item code-length-ave">
+               <div class="score">0</div>
+               <div class="desc">码长平均</div>
+            </div>
+         </div>
+      </div>
+
+
+      <!--ABOUT INFO-->
+      <div class="info-panel">
+         <div class="logo">
+            <img src="img/logo-inline.png" alt="">
+            <h1>玫枫跟打器<br>(<a target="_blank" href="https://github.com/KyleBing/typepad" >GitHub</a>)</h1>
+         </div>
+         <div class="copyright">
+            <a target="_blank" href="https://kylebing.cn" class="link">KyleBing</a>
+            <p>v2.65build1</p>
+            <p>2022/09/22</p>
+         </div>
+      </div>
+
       <div class="info-panel">
          <div class="key-info-item">
             <div class="binding-key"><kbd>⌘</kbd>+<kbd>J</kbd></div>
@@ -226,7 +358,6 @@
             <div>暂停</div>
          </div>
       </div>
-
       <div class="info-panel">
          <div class="key-info-item">
             <div class="binding-key"><kbd>F1</kbd></div>
@@ -245,10 +376,29 @@
             <div>打乱当前</div>
          </div>
       </div>
+
+      <!--KEYMAP-->
+      <div class="info-panel">
+<!--         <p>更新版本之后，可能会显示不正常，请按 <kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>R</kbd> 刷新页面。</p>-->
+         <p>光标离开输入区自动暂停，进入输入状态自动恢复计时。</p>
+         <p>快捷键只在编辑区内生效</p>
+      </div>
+
+      <!--HELP INFO: NOTICE-->
+      <div class="info-panel">
+         <p>如果你想用来练习英文单词，请下载拥有完整 <b>CET4/6</b>，<b>托福</b>等单词的版本：
+            <a href="https://github.com/KyleBing/typepad/releases/tag/v2.58">v2.58</a>
+         </p>
+         <p>最优体验: 鼠须管输入法，谷歌浏览器、Safari 浏览器，其它平台或浏览器可能会有出入，欢迎反馈至
+            <a target="_blank" href="https://github.com/KyleBing/typepad">GitHub</a></p>
+         <p>mac 用户推荐用 <a target="_blank" href="https://rime.im/">鼠须管输入法</a>，86版五笔现成的配置方案可以这里找到
+            <a target="_blank" href="https://github.com/KyleBing/rime-wubi86-jidian">极点码表方案</a></p>
+      </div>
+
    </div>
 
    <!--内容区-->
-   <div class="type-pad">
+   <div class="type-pad-container">
       <!--工具栏-->
       <div class="tool-bar">
          <div class="btn-group">
@@ -260,17 +410,9 @@
                <span class="chapter-total number total" title="总段数"></span>
             </div>
          </div>
-
          <div class="btn-group">
             <div class="btn" onclick="engine.prevChapter()" title="上一段：⌘ + U 或 F1">《</div>
             <div class="btn" onclick="engine.nextChapter()" title="下一段：⌘ + J 或 F2">》</div>
-         </div>
-
-         <div class="btn-group">
-            <div class="btn" onclick="engine.shuffleCurrent()" title="打乱当前段：⌘ + K 或 F4">打乱</div>
-            <div class="btn" onclick="engine.reset()" title="重打：⌘ + Y 或 F3">重打</div>
-            <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
-            <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
          </div>
          <div class="btn-group hidden" id="panelRepeatController">
             <div id="repeatMonitor" class="btn no-action number" onclick="engine.reset()" title="⌘ + K">
@@ -307,17 +449,48 @@
             <div class="btn"><span class="btn-speed"></span> 字/分</div>
          </div>
 
+         <!--极简模式-->
+         <div class="btn-group">
+            <div class="btn hidden-sm" onclick="engine.enterStandAloneMode()" title="极简模式">极简模式</div>
+         </div>
       </div>
 
-      <!--对照区-->
-      <div class="template">
-         <p class="text"></p>
+
+<!--      TYPE PAD-->
+      <div class="type-pad">
+         <div class="tool-bar">
+            <div class="btn-group">
+               <div class="btn" onclick="engine.leaveStandAloneMode()" title="退出极简模式">退出</div>
+            </div>
+         </div>
+
+         <!--对照区-->
+         <div class="template-container">
+            <p class="text"></p>
+         </div>
+
+         <!--打字区-->
+         <div class="typing-container">
+            <label for="pad" class="hidden"></label>
+            <textarea class="text" id="pad" rows="3"></textarea>
+         </div>
+         <div class="standalone-speed-info">
+            <div class="speed">0</div>
+            <div class="count-key-rate">0</div>
+            <div class="count-key-length">0</div>
+            <div class="count-key-backspace">0</div>
+         </div>
       </div>
 
-      <!--打字区-->
-      <div class="typing">
-         <label for="pad" class="hidden"></label>
-         <textarea class="text" id="pad" rows="3"></textarea>
+      <!--跟打记录 - 新-->
+      <div class="record-container hidden">
+         <!--            <div class="record-item">-->
+         <!--               <div class="speed"></div>-->
+         <!--               <div class="meta">-->
+         <!--                  <div class="hit-rate"></div>-->
+         <!--                  <div class="code-length"></div>-->
+         <!--               </div>-->
+         <!--            </div>-->
       </div>
 
       <!--成绩列表-->
@@ -327,8 +500,8 @@
             <tr>
                <th>No.</th>
                <th class="speed text-right">速度</th>
-               <th class="hidden-sm">码长</th>
                <th class="hidden-sm">击键</th>
+               <th class="hidden-sm">码长</th>
                <th class="hidden-sm">回退</th>
                <th>字数</th>
                <th>用时</th>
@@ -354,7 +527,7 @@
 </div>
 
 <script src="js/require_v2.3.6.js"></script>
-<script src="js/typepad.js?v=2.58"></script>
+<script src="js/typepad.js?v=2.65build1"></script>
 
 <script>
    setTimeout(() => {

@@ -1,0 +1,41 @@
+.record-container{
+  overflow-y: auto;
+  margin-top: $gap-block;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  display: flex;
+}
+
+.record-item{
+  margin-right: $gap-block - 5;
+  margin-bottom: $gap-block - 5;
+  padding: 4px 7px;
+  background-color: white;
+  @include border-radius(5px);
+  border: 1px solid $color-border;
+  display: flex;
+  align-items: center;
+  font-family: 'Galvji';
+  .speed{
+    padding-right: 8px;
+    width: 15px * 4.5;
+    text-align: right;
+    font-size: 15px;
+  }
+  .meta{
+    width: 10px * 4;
+    text-align: right;
+    border-left: 1px solid $color-border;
+    padding-left: 8px;
+    font-size: 10px;
+    line-height: 1.1;
+    .hit-rate{
+
+    }
+    .code-length{
+      //color: $text-comment
+
+    }
+  }
+}

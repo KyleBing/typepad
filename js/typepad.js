@@ -13,8 +13,8 @@
  * Editor      自定义添加文章面板
  */
 
-const template = $('.template p'); // 对照区主 element
-const templateWrapper = $('.template');   // 对照区 容器
+const template = $('.template-container p'); // 对照区主 element
+const templateWrapper = $('.template-container');   // 对照区 容器
 const typingPad = $('#pad');
 const DBName = "TypePad";
 
@@ -73,7 +73,7 @@ require(['ArticleType', 'Article', 'Engine', 'Editor'],
       // Service Worker
       if ('serviceWorker' in navigator){
          navigator.serviceWorker
-            .register('/tools/typepad/typepad-sw.js?v=2.57')
+            .register('/tools/typepad/typepad-sw.js?v=2.65build1')
             .then(()=>{
                console.log('Server Worker has registered');
             })

@@ -1,4 +1,13 @@
+@import "./mixin/reset";
+@import "./mixin/variables";
+@import "./mixin/normalize";
+@import "./mixin/gutter";
+@import "./mixin/utility";
+@import "./mixin/font";
+
 @import "mixin/mixin";
+
+
 
 body{
   color: $text-main;
@@ -16,21 +25,35 @@ body{
   padding: 10px;
 }
 
-
-.type-pad{
+.type-pad-container{
   width: 100%;
 }
+.type-pad{
+  .tool-bar{
+    display: none;
+    justify-content: flex-end;
+  }
+  .standalone-speed-info{
+    display: none;
+  }
+}
 
-.template{
-  color: black;
-  margin-bottom: $gap-block;
-  padding: 10px;
+
+.untyped-part{
+  position: relative;
+}
+
+.template-container{
+  color: $text-main;
+  padding: 10px 15px;
   border: 1px solid $color-border;
+  //border-bottom: none;
   min-height: 150px;
   max-height: 200px;
-  background-color: lighten($bg-body, 5%);
   overflow-y: scroll;
   overflow-x: hidden;
+  margin-bottom: $gap-block;
+  background-color: transparentize(white, 0.3);
   @include border-radius($radius-main);
   &.big{
     max-height: 200px;
@@ -42,40 +65,12 @@ body{
   }
 }
 
-.translation{
-
-}
-.translation-panel{
-  display: block;
-  z-index: $z-toast;
-  white-space: nowrap;
-  position: absolute;
-  top: -0.6rem;
-  left: 0;
-  //@include transform(translate(-5%, 0));
-  line-height: 1;
-  padding: 3px 5px;
-  //color: #0078af;
-  color: $cyan;
-  font-weight: normal;
-  font-size: $fz-translation;
-  //text-shadow: 0 1px 0 transparentize($cyan, 0.7);
-  //@include border-radius(2px);
-  //border: 1px solid $color-border;
-  //background-color: white;
-  //@include box-shadow(1px 1px 3px rgba(0,0,0,0.1));
-  &:hover{
-    color: $color-main;
-  }
-}
-
-.untyped-part{
+.typing-container{
   position: relative;
-}
-
-
-.typing{
   textarea{
+    padding: 10px 15px;
+    overflow: hidden;
+    @include border-radius($radius-main);
     -webkit-appearance: none;
     white-space: pre-wrap;
     border: 1px solid $color-border;
@@ -83,13 +78,13 @@ body{
     min-height: 150px;
     max-height: 200px;
     width: 100%;
-    padding: 10px;
     display: block;
     &.big{
       max-height: 200px;
     }
     &:focus{
-      @include box-shadow(inset 1px 1px 5px rgba(0,0,0,0.1));
+      border-color: $color-border-clearly;
+      @include box-shadow(inset 0 0 10px transparentize(black, 0.88));
     }
   }
 }
@@ -98,14 +93,16 @@ body{
   word-break: break-word;
   font-size: $fz-typing;
   white-space: pre-wrap;
-  @include border-radius($radius-main);
+  letter-spacing: 1px;
   &.english {
     line-height: 1.3;
     font-size: $fz-typing-english;
+    font-family: '';
+    letter-spacing: 0;
   }
   .correct{
     text-shadow: none;
-    color: darken($bg-body, 5%) !important;
+    color: transparentize(black, 0.9)  !important;
     white-space: inherit;
   }
   /* Big Character mode*/
@@ -207,3 +204,6 @@ $colors  : (
     display: none;
   }
 }
+
+@import "./mixin/standalone";
+

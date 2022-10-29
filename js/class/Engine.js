@@ -1,18 +1,35 @@
-define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount', 'Utility', 'Editor', 'Result', 'ResultType'], function (
-   Reg,
-   ArticleType,
-   Article,
-   Config,
-   Record,
-   Database,
-   KeyCount,
-   Utility,
-   Editor,
-   Result,
-   ResultType
-) {
-   const untypedStringClassName = 'untyped-part';
-   const HEIGHT_TEMPLATE = 150; // 对照区高度
+define(
+    [
+       'Reg',
+       'ArticleType',
+       'Article',
+       'Config',
+       'Record',
+       'Database',
+       'KeyCount',
+       'Utility',
+       'Editor',
+       'Result',
+       'ResultType',
+       'Score'
+    ],
+    function (
+        Reg,
+        ArticleType,
+        Article,
+        Config,
+        Record,
+        Database,
+        KeyCount,
+        Utility,
+        Editor,
+        Result,
+        ResultType,
+        Score
+    ) {
+       const untypedStringClassName = 'untyped-part';
+       const HEIGHT_TEMPLATE = 150; // 对照区高度
+       const HEIGHT_BAR = 50; // 成绩图表的柱状图高度
 
    /**
     * 跟打器内核
@@ -22,11 +39,12 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.isFinished = false; // 是否结束
          this.isStarted = false;  // 是否已开始
          this.isPaused = false;   // 是否暂停
-         this.timeStart; //ms
-         this.timeEnd; // ms
-         this.duration = 0; // ms
+         this.timeStart;          // ms
+         this.timeEnd;            // ms
+         this.duration = 0;       // ms
          this.handleRefresh;
-         this.refreshRate = 500; // ms
+         this.refreshRate = 500;  // ms
+
 
          this.correctWordsCount = 0;
 
@@ -35,10 +53,11 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.arrayWordAll = [];        // 全部单词
          this.arrayWordDisplaying = []; // 展示的单词
 
-         this.config = new Config();
-         this.record = new Record();
+         this.config   = new Config();
+         this.record   = new Record();
          this.keyCount = new KeyCount();
          this.database = new Database();
+         this.score    = new Score();
 
 
          // 按键过滤器
@@ -100,6 +119,16 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          }
       }
 
+      // 进入极简模式
+      enterStandAloneMode(){
+         let screenHeight = innerHeight
+         $('.type-pad').classList.add('type-pad-standalone')
+         // document.documentElement.requestFullscreen()
+      }
+      leaveStandAloneMode(){
+         $('.type-pad-standalone').classList.remove('type-pad-standalone')
+      }
+
       applyConfig(){
          // 根据当前配置文件设置内容
          $('input[type=checkbox]#shuffleMode').checked = this.config.isShuffle;
@@ -108,6 +137,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          $('input[type=checkbox]#autoRepeat').checked = this.config.isAutoRepeat;
          $('input[type=checkbox]#shuffleRepeat').checked = this.config.isShuffleRepeat;
          $('input[type=checkbox]#bigCharacter').checked = this.config.isBigCharacter;
+         $('input[type=checkbox]#historyListMode').checked = this.config.isHistoryInListMode;
          let radioNodes = document.querySelectorAll('input[name=count][type=radio]');
          let radios = [...radioNodes];
          radios.forEach(item => {
@@ -118,6 +148,15 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          // English Mode
          if (this.config.isInEnglishMode) {
             this.englishModeEnter()
+         }
+
+         // History Mode: LIST | TABLE
+         if (this.config.isHistoryInListMode){
+            $('.record-container').classList.remove('hidden')
+            $('.table-container').classList.add('hidden')
+         } else {
+            $('.table-container').classList.remove('hidden')
+            $('.record-container').classList.add('hidden')
          }
 
          // Repeat Status
@@ -141,7 +180,7 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.currentOriginWords = this.config.article.split('');
          if (this.config.articleType === ArticleType.word) {
             // CET 时
-            this.arrayWordAll = Article[this.config.articleIdentifier].getWordsArray();
+            this.arrayWordAll = Article[this.config.articleIdentifier || 'CET4'].getWordsArray();
             if(this.config.count === 'ALL'){
                this.arrayWordDisplaying = this.arrayWordAll
             } else {
@@ -406,6 +445,19 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
       bigCharacter(){
          this.config.isBigCharacter = $('#bigCharacter').checked;
          this.config.isBigCharacter ? enterBigCharacterMode() : leaveBigCharacterMode();
+         this.config.save();
+      }
+
+      // 历史记录显示样式： list | table
+      historyListMode(){
+         this.config.isHistoryInListMode = $('#historyListMode').checked;
+         if (this.config.isHistoryInListMode){
+            $('.record-container').classList.remove('hidden')
+            $('.table-container').classList.add('hidden')
+         } else {
+            $('.record-container').classList.add('hidden')
+            $('.table-container').classList.remove('hidden')
+         }
          this.config.save();
       }
 
@@ -740,9 +792,111 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
          this.record.timeStart = this.timeStart;
          this.record.duration = this.duration;
          this.record.wordCount = this.currentWords.length;
-         this.record.codeLength = (this.keyCount.all / this.correctWordsCount).toFixed(2);
-         this.record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
+         this.record.codeLength = Number((this.keyCount.all / this.correctWordsCount).toFixed(2));
+         this.record.speed = Number((this.correctWordsCount / this.duration * 1000 * 60).toFixed(2));
+
+         // 保存记录
+         // console.log(this.record, this.config)
          this.database.insert(this.record, this.config);
+
+         //
+         // 保存记录到 SCORE
+         //
+
+         this.score[this.config.articleType].wordCount += this.record.wordCount;
+         this.score[this.config.articleType].keyCount += this.keyCount.all;
+         this.score[this.config.articleType].timeCost += this.record.duration;
+         // 击键 - 平均
+         this.score[this.config.articleType].hitRateAve
+             = this.score[this.config.articleType].keyCount / this.score[this.config.articleType].timeCost * 1000;
+         // 击键 - 最小值
+         if (this.score[this.config.articleType].hitRateMin === 0){
+            this.score[this.config.articleType].hitRateMin = this.record.hitRate
+         }
+         if (this.score[this.config.articleType].hitRateMin > this.record.hitRate){
+            this.score[this.config.articleType].hitRateMin = this.record.hitRate
+         }
+         if (this.score[this.config.articleType].hitRateMax < this.record.hitRate){
+            this.score[this.config.articleType].hitRateMax = this.record.hitRate
+         }
+         // 码长 - 平均
+         this.score[this.config.articleType].codeLengthAve
+             = this.score[this.config.articleType].keyCount / this.score[this.config.articleType].wordCount;
+         // 码长 - 最小值
+         if (this.score[this.config.articleType].codeLengthMin === 0){
+            this.score[this.config.articleType].codeLengthMin = this.record.codeLength
+         }
+         if (this.score[this.config.articleType].codeLengthMin > this.record.codeLength){
+            this.score[this.config.articleType].codeLengthMin = this.record.codeLength
+         }
+         if (this.score[this.config.articleType].codeLengthMax < this.record.codeLength){
+            this.score[this.config.articleType].codeLengthMax = this.record.codeLength
+         }
+
+         // 速度 - 平均
+         this.score[this.config.articleType].speedAve
+             = this.score[this.config.articleType].wordCount / this.score[this.config.articleType].timeCost * 1000 * 60;
+         // 速度 - 最小值
+         if (this.score[this.config.articleType].speedMin === 0){
+            this.score[this.config.articleType].speedMin = this.record.speed
+         }
+         if (this.score[this.config.articleType].speedMin > this.record.speed){
+            this.score[this.config.articleType].speedMin = this.record.speed
+         }
+         if (this.score[this.config.articleType].speedMax < this.record.speed){
+            this.score[this.config.articleType].speedMax = this.record.speed
+         }
+
+         // HIT RATE FILTER
+         if       (this.record.hitRate >= 0    && this.record.hitRate < 2    )  { this.score[this.config.articleType].hitRate1++}
+         else if  (this.record.hitRate >= 2    && this.record.hitRate < 3    )  { this.score[this.config.articleType].hitRate2++}
+         else if  (this.record.hitRate >= 3    && this.record.hitRate < 4    )  { this.score[this.config.articleType].hitRate3++}
+         else if  (this.record.hitRate >= 4    && this.record.hitRate < 5    )  { this.score[this.config.articleType].hitRate4++}
+         else if  (this.record.hitRate >= 5    && this.record.hitRate < 6    )  { this.score[this.config.articleType].hitRate5++}
+         else if  (this.record.hitRate >= 6    && this.record.hitRate < 7    )  { this.score[this.config.articleType].hitRate6++}
+         else if  (this.record.hitRate >= 7    && this.record.hitRate < 8    )  { this.score[this.config.articleType].hitRate7++}
+         else if  (this.record.hitRate >= 8    && this.record.hitRate < 9    )  { this.score[this.config.articleType].hitRate8++}
+         else if  (this.record.hitRate >= 9    && this.record.hitRate < 10   )  { this.score[this.config.articleType].hitRate9++}
+         else if  (this.record.hitRate >= 10   && this.record.hitRate < 11   )  { this.score[this.config.articleType].hitRate10++}
+         else if  (this.record.hitRate >= 11   && this.record.hitRate < 12   )  { this.score[this.config.articleType].hitRate11++}
+         else if  (this.record.hitRate >= 12   && this.record.hitRate < 13   )  { this.score[this.config.articleType].hitRate12++}
+         else if  (this.record.hitRate >= 13   && this.record.hitRate < 14   )  { this.score[this.config.articleType].hitRate13++}
+         else if  (this.record.hitRate >= 14   && this.record.hitRate < 15   )  { this.score[this.config.articleType].hitRate14++}
+         else if  (this.record.hitRate >= 15   && this.record.hitRate < 16   )  { this.score[this.config.articleType].hitRate15++}
+
+         // CODE LENGTH FILTER
+         if       (this.record.codeLength >= 0  && this.record.codeLength < 2  )  { this.score[this.config.articleType].codeLength1++}
+         else if  (this.record.codeLength >= 2  && this.record.codeLength < 3  )  { this.score[this.config.articleType].codeLength2++}
+         else if  (this.record.codeLength >= 3  && this.record.codeLength < 4  )  { this.score[this.config.articleType].codeLength3++}
+         else if  (this.record.codeLength >= 4  && this.record.codeLength < 5  )  { this.score[this.config.articleType].codeLength4++}
+         else if  (this.record.codeLength >= 5  && this.record.codeLength < 6  )  { this.score[this.config.articleType].codeLength5++}
+         else if  (this.record.codeLength >= 6  && this.record.codeLength < 7  )  { this.score[this.config.articleType].codeLength6++}
+         else if  (this.record.codeLength >= 7  && this.record.codeLength < 8  )  { this.score[this.config.articleType].codeLength7++}
+         else if  (this.record.codeLength >= 8  && this.record.codeLength < 9  )  { this.score[this.config.articleType].codeLength8++}
+         else if  (this.record.codeLength >= 9  && this.record.codeLength < 10 )  { this.score[this.config.articleType].codeLength9++}
+         else if  (this.record.codeLength >= 10 && this.record.codeLength < 11 )  { this.score[this.config.articleType].codeLength10++}
+
+         // SPEED FILTER
+         if      ( this.record.speed >= 0   && this.record.speed < 60  )  { this.score[this.config.articleType].speed30++}
+         else if ( this.record.speed >= 60  && this.record.speed < 90  )  { this.score[this.config.articleType].speed60++}
+         else if ( this.record.speed >= 90  && this.record.speed < 120 )  { this.score[this.config.articleType].speed90++}
+         else if ( this.record.speed >= 120 && this.record.speed < 150 )  { this.score[this.config.articleType].speed120++}
+         else if ( this.record.speed >= 150 && this.record.speed < 180 )  { this.score[this.config.articleType].speed150++}
+         else if ( this.record.speed >= 180 && this.record.speed < 210 )  { this.score[this.config.articleType].speed180++}
+         else if ( this.record.speed >= 210 && this.record.speed < 240 )  { this.score[this.config.articleType].speed210++}
+         else if ( this.record.speed >= 240 && this.record.speed < 270 )  { this.score[this.config.articleType].speed240++}
+         else if ( this.record.speed >= 270 && this.record.speed < 300 )  { this.score[this.config.articleType].speed270++}
+         else if ( this.record.speed >= 300 && this.record.speed < 330 )  { this.score[this.config.articleType].speed300++}
+         else if ( this.record.speed >= 330 && this.record.speed < 360 )  { this.score[this.config.articleType].speed330++}
+         else if ( this.record.speed >= 360 && this.record.speed < 390 )  { this.score[this.config.articleType].speed360++}
+         else if ( this.record.speed >= 390 && this.record.speed < 420 )  { this.score[this.config.articleType].speed390++}
+
+         // RECORD COUNT
+         this.score[this.config.articleType].recordCount++
+
+         // SAVE SCORE
+         this.score.save() // 保存成绩
+
          if (this.config.isAutoNext){ // 自动发文
             if (this.config.isAutoRepeat){ // 重复发文
                if (this.config.repeatCountTotal > this.config.repeatCountCurrent){ // 还有重复次数
@@ -791,18 +945,18 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
             $('.count-key-length').innerText    = '--';
             $('.count-key-backspace').innerText = '--';
          } else {
-            this.record.speed = (this.correctWordsCount / this.duration * 1000 * 60).toFixed(2);
+            this.record.speed = Number((this.correctWordsCount / this.duration * 1000 * 60).toFixed(2));
             $('.speed').innerText = this.record.speed;
             $('.btn-speed').innerText = this.record.speed;
 
             // key count
             let allKeyCount = this.keyCount.all - this.keyCount.function;
-            this.record.hitRate = (allKeyCount / this.duration * 1000).toFixed(2);
+            this.record.hitRate = Number((allKeyCount / this.duration * 1000).toFixed(2));
             $('.count-key-rate').innerText = this.record.hitRate;
 
             // code length
             if (this.correctWordsCount) {
-               this.record.codeLength = (allKeyCount / this.correctWordsCount).toFixed(2);
+               this.record.codeLength = Number((allKeyCount / this.correctWordsCount).toFixed(2));
             } else {
                this.record.codeLength = 0;
             }
@@ -810,23 +964,118 @@ define(['Reg','ArticleType','Article', 'Config', 'Record', 'Database', 'KeyCount
 
             // backspace count
             $('.count-key-backspace').innerText = this.keyCount.backspace;
+
+            // StandAlone Mode Speed Info
+            $('.standalone-speed-info .speed').innerText = this.record.speed;
+            $('.standalone-speed-info .count-key-length').innerText = this.record.codeLength;
+            $('.standalone-speed-info .count-key-rate').innerText = this.record.hitRate;
+            $('.standalone-speed-info .count-key-backspace').innerText = this.keyCount.backspace;
+
          }
 
          // OPTION
          $('.chapter-current').innerText = this.config.chapter;
          $('.chapter-total').innerText = this.config.chapterTotal;
+
+
+         // SCORE
+         $('.score-info .title').innerText = ArticleType.getTypeNameWith(this.config.articleType);
+
+         let currentArticleTypeScore = this.score[this.config.articleType]
+         $('.score-info-item.sum-words .score').innerText = currentArticleTypeScore.wordCount.toFixed(0);
+         $('.score-info-item.sum-key .score').innerText = currentArticleTypeScore.keyCount.toFixed(0);
+         $('.score-info-item.sum-time .score').innerText = (currentArticleTypeScore.timeCost / 1000).toFixed(0) + 's';
+
+         $('.score-info-item.speed-min .score').innerText = currentArticleTypeScore.speedMin.toFixed(1);
+         $('.score-info-item.speed-max .score').innerText = currentArticleTypeScore.speedMax.toFixed(1);
+         $('.score-info-item.speed-ave .score').innerText = currentArticleTypeScore.speedAve.toFixed(1);
+
+         $('.score-info-item.hitrate-min .score').innerText = currentArticleTypeScore.hitRateMin.toFixed(1);
+         $('.score-info-item.hitrate-max .score').innerText = currentArticleTypeScore.hitRateMax.toFixed(1);
+         $('.score-info-item.hitrate-ave .score').innerText = currentArticleTypeScore.hitRateAve.toFixed(1);
+
+         $('.score-info-item.code-length-min .score').innerText = currentArticleTypeScore.codeLengthMin.toFixed(1);
+         $('.score-info-item.code-length-max .score').innerText = currentArticleTypeScore.codeLengthMax.toFixed(1);
+         $('.score-info-item.code-length-ave .score').innerText = currentArticleTypeScore.codeLengthAve.toFixed(1);
+
+         // SCORE HIT RATE 图表展示
+         let hitRateScoreArray = []
+         for (let i=1;i<=12;i++){
+            hitRateScoreArray.push(currentArticleTypeScore[`hitRate${i}`])
+         }
+         let hitRateMax = Math.max(...hitRateScoreArray)
+
+         hitRateScoreArray.forEach((hitRateScore, index) => {
+            let suffix = index + 1
+            let hitRate = currentArticleTypeScore[`hitRate${suffix}`]
+            $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.backgroundColor = generateColorForChart(hitRate, 0, hitRateMax)
+            if (hitRateMax === 0){
+               $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.height = 0
+            } else {
+               $(`.score-statistics-item.hitrate.level-${suffix} .process`).style.height = `${hitRate * HEIGHT_BAR / hitRateMax}px`
+            }
+         })
+
+         // CODE LENGTH 图表展示
+         let codeLengthScoreArray = []
+         for (let i=1;i<=10;i++){
+            codeLengthScoreArray.push(currentArticleTypeScore[`hitRate${i}`])
+         }
+         let codeLengthMax = Math.max(...codeLengthScoreArray)
+
+         codeLengthScoreArray.forEach((hitRateScore, index) => {
+            let suffix = index + 1
+            let codeLength = currentArticleTypeScore[`codeLength${suffix}`]
+            $(`.score-statistics-item.codelength.level-${suffix} .process`).style.backgroundColor = generateColorForChart(codeLength, 0, codeLength)
+            if(codeLengthMax === 0){
+               $(`.score-statistics-item.codelength.level-${suffix} .process`).style.height = 0
+            } else {
+               $(`.score-statistics-item.codelength.level-${suffix} .process`).style.height = `${codeLength * HEIGHT_BAR / codeLengthMax}px`
+            }
+         })
+
+         // SCORE SPEED 图表展示
+         let speedScoreArray = []
+         for (let i=1;i<=14;i++){
+            speedScoreArray.push(currentArticleTypeScore[`speed${i*30}`])
+         }
+         let speedMax = Math.max(...speedScoreArray)
+
+         speedScoreArray.forEach((speedScore, index) => {
+            let suffix = (index + 1) * 3
+            let speed = currentArticleTypeScore[`speed${suffix * 10}`]
+            $(`.score-statistics-item.speed.level-${suffix} .process`).style.backgroundColor = generateColorForChart(speed, 0, speedMax)
+            if (speedMax === 0){
+               $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = 0
+            } else {
+               $(`.score-statistics-item.speed.level-${suffix} .process`).style.height = `${speed * HEIGHT_BAR / speedMax}px`
+            }
+         })
       }
+
+      // 清除某种类似文章的 某项数据
+      clearScoreOf(typeOfScore){
+         this.score.clearScoreFor(this.config.articleType, typeOfScore)
+         this.updateInfo()
+      }
+   }
+
+
+   // 根据数值产出对应的颜色数值
+   function generateColorForChart(value, min, max){
+      let redValue = 255 / (max - min) * value
+      return `rgba(${redValue}, 100, 100, 1)`
    }
 
    function enterBigCharacterMode(){
       $('.text').classList.add('big')
-      $('.template').classList.add('big')
+      $('.template-container').classList.add('big')
       $('#pad').classList.add('big')
    }
 
    function leaveBigCharacterMode(){
       $('.text').classList.remove('big')
-      $('.template').classList.remove('big')
+      $('.template-container').classList.remove('big')
       $('#pad').classList.remove('big')
    }
 
