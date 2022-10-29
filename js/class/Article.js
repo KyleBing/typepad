@@ -4,24 +4,12 @@
 define([
    'ArticleType',
    'CETWord',
-   'english-vocabulary/ChuZhong',
-   'english-vocabulary/GaoZhong',
-   'english-vocabulary/CET4',
-   'english-vocabulary/CET6',
-   'english-vocabulary/KaoYan',
-   'english-vocabulary/SAT',
-   'english-vocabulary/Toefl',
+   'english-vocabulary/CET4mini',
    'chinese/HanZi'
 ], function (
     ArticleType,
     CETWord,
-    ChuZhong,
-    GaoZhong,
-    CET4,
-    CET6,
-    KaoYan,
-    SAT,
-    Toefl,
+    CET4mini,
     HanZi
 ) {
 
@@ -91,59 +79,13 @@ define([
          type: ArticleType.english,
          content: "So you have to trust that the dots will somehow connect in your future. You have to trust in something. Your gut, destiny, life, karma, whatever. Because believing that the dots will connect down the road. Will give you the confidence to follow your heart, even when it leads you off the well worn path. And that will make all the difference. Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma: Which is living with the results of other people's thinking. Don't let the noise of other opinions drown out your own inner voices. You've got to find what you love. And that is true for works, as its for your lovers. Your work is gonna fill a large part of your life. And the only way to be truly satisfied. Is to do what you believe is great work. And the only way to do a great work. Is to love what you do. If you haven't found it yet. Keep looking and don't settle. Have the courage to follow your heart and intuition. There somehow, already know. What you truly want to become."
       },
-
-      ChuZhong: {
-         name: '初中',
-         value: 'ChuZhong',
-         type: ArticleType.word,
-         content: ChuZhong.content,
-         getWordsArray() { return getWordsArray(ChuZhong.content)}
-      },
-
-      GaoZhong: {
-         name: '高中',
-         value: 'GaoZhong',
-         type: ArticleType.word,
-         content: GaoZhong.content,
-         getWordsArray() { return getWordsArray(GaoZhong.content)}
-      },
-
       CET4: {
          name: '四级',
          value: 'CET4',
          type: ArticleType.word,
-         content: CET4.content,
-         getWordsArray() { return getWordsArray(CET4.content)}
+         content: CET4mini.content,
+         getWordsArray() { return getWordsArray(CET4mini.content)}
       },
-      CET6: {
-         name: '六级',
-         value: 'CET6',
-         type: ArticleType.word,
-         content: CET6.content,
-         getWordsArray() { return getWordsArray(CET6.content)}
-      },
-      KaoYan: {
-         name: '考研',
-         value: 'KaoYan',
-         type: ArticleType.word,
-         content: KaoYan.content,
-         getWordsArray() { return getWordsArray(KaoYan.content)}
-      },
-      SAT: {
-         name: 'SAT',
-         value: 'SAT',
-         type: ArticleType.word,
-         content: SAT.content,
-         getWordsArray() { return getWordsArray(SAT.content)}
-      },
-      Toefl: {
-         name: '托福',
-         value: 'Toefl',
-         type: ArticleType.word,
-         content: Toefl.content,
-         getWordsArray() { return getWordsArray(Toefl.content)}
-      },
-
       article1: {
          name: '春 - 朱自清',
          value: 'article1',
