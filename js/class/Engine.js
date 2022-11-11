@@ -801,11 +801,11 @@ define(
          switch (this.config.articleType){
             case ArticleType.character:
             case ArticleType.article:
-            case ArticleType.customize:
-               let array = this.currentWords.split('');
-               this.currentWords = Utility.shuffle(array).join('');
-               template.innerText = this.currentWords;
+            case ArticleType.phrase:
+               this.arrayWordDisplaying =Utility.shuffle(this.arrayWordDisplaying);
+               this.currentWords = this.arrayWordDisplaying.join(' ');
                this.reset();
+               this.config.save();
                break
             case ArticleType.english:
                this.reset();
@@ -818,6 +818,12 @@ define(
                this.currentWords = arrayCurrentWord.join(' ');
                this.reset();
                this.config.save();
+               break
+            case ArticleType.customize:
+               let array = this.currentWords.split('');
+               this.currentWords = Utility.shuffle(array).join('');
+               template.innerText = this.currentWords;
+               this.reset();
                break
             default: break;
          }

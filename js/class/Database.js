@@ -111,15 +111,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          let level = Math.floor(cursor.value.speed/SPEED_GAP);
          level = level > 6 ? 6 : level;
          let articleType = ArticleType.getTypeNameWith(cursor.value.articleType);
-         let textClass = '';
-         switch (cursor.value.articleType) {
-            case ArticleType.character : textClass = 'text-orange';break;
-            case ArticleType.english   : textClass = 'text-green';break;
-            case ArticleType.article   : textClass = 'text-blue';break;
-            case ArticleType.word      : textClass = 'text-red';break;
-            case ArticleType.customize : textClass = 'text-roseo';break;
-            default: articleType = '' ;break;
-         }
+         let textClass = ArticleType.getTextClassNameOf(articleType)
          return `<tr>  
               <td class="text-center">${cursor.key}</td>
               <td class="bold galvji speed text-right lv-${level}">${cursor.value.speed}</td>
@@ -140,15 +132,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
          let level = Math.floor(cursor.value.speed/SPEED_GAP);
          level = level > 6 ? 6 : level;
          let articleType = ArticleType.getTypeNameWith(cursor.value.articleType);
-         let textClass = '';
-         switch (cursor.value.articleType) {
-            case ArticleType.character : textClass = 'text-orange';break;
-            case ArticleType.english   : textClass = 'text-green';break;
-            case ArticleType.article   : textClass = 'text-blue';break;
-            case ArticleType.word      : textClass = 'text-red';break;
-            case ArticleType.customize : textClass = 'text-roseo';break;
-            default: articleType = '' ;break;
-         }
+         let textClass = ArticleType.getTextClassNameOf(articleType)
          return `<div class="record-item">
                <div class="speed lv-${level}">${cursor.value.speed}</div>
                <div class="meta">
