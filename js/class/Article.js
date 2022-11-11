@@ -4,11 +4,13 @@
 define([
    'ArticleType',
    'CETWord',
-   'english-vocabulary/CET4mini'
+   'english-vocabulary/CET4mini',
+   'phrase/Phrase'
 ], function (
     ArticleType,
     CETWord,
-    CET4mini
+    CET4mini,
+    Phrase
 ) {
 
    // 字符串 -> []英文单词
@@ -23,7 +25,7 @@ define([
    }
    // 字符串 -> []词条
    function getPhraseArrayFrom(contentStr) {
-      return contentStr.split(' ');
+      return contentStr.split('\n');
    }
 
 
@@ -50,8 +52,8 @@ define([
          name: '常用词条',
          value: 'phrase',
          type: ArticleType.phrase,
-         content: '开始 结束 整合 融合 事例 发送 收件 未读 已读',
-         getPhraseArray(){ return getPhraseArrayFrom(this.content)}
+         content: Phrase.content,
+         getPhraseArray(){ return getPhraseArrayFrom(Phrase.content)}
       },
       hard: {
          name: '易错易忘字',
