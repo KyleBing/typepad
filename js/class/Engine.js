@@ -804,8 +804,8 @@ define(
             case ArticleType.phrase:
                this.arrayWordDisplaying =Utility.shuffle(this.arrayWordDisplaying);
                this.currentWords = this.arrayWordDisplaying.join(' ');
-               this.reset();
                this.config.save();
+               this.reset();
                break
             case ArticleType.english:
                this.reset();
@@ -816,8 +816,8 @@ define(
                   return item.word
                });
                this.currentWords = arrayCurrentWord.join(' ');
-               this.reset();
                this.config.save();
+               this.reset();
                break
             case ArticleType.customize:
                let array = this.currentWords.split('');

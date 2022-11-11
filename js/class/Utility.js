@@ -1,4 +1,5 @@
 define(function () {
+   const RECORD_DISPLAY_ACCURACY = 2 // 显示的成绩小数点精度
    /**
     * 数组乱序算法
     * @param arr
@@ -66,6 +67,7 @@ define(function () {
    }
 
    return {
-      formatTimeLeft, shuffle, dateFormatter, shakeDom
+      formatTimeLeft, shuffle, dateFormatter, shakeDom,
+      RECORD_DISPLAY_ACCURACY
    }
 })
