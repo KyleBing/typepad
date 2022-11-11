@@ -799,8 +799,15 @@ define(
       // 乱序当前段
       shuffleCurrent() {
          switch (this.config.articleType){
+            // 前三个类型的重复时动作一致
             case ArticleType.character:
             case ArticleType.article:
+            case ArticleType.customize:
+               let array = this.currentWords.split('');
+               this.currentWords = Utility.shuffle(array).join('');
+               template.innerText = this.currentWords;
+               this.reset();
+               break
             case ArticleType.phrase:
                this.arrayWordDisplaying =Utility.shuffle(this.arrayWordDisplaying);
                this.currentWords = this.arrayWordDisplaying.join(' ');
@@ -819,12 +826,7 @@ define(
                this.config.save();
                this.reset();
                break
-            case ArticleType.customize:
-               let array = this.currentWords.split('');
-               this.currentWords = Utility.shuffle(array).join('');
-               template.innerText = this.currentWords;
-               this.reset();
-               break
+
             default: break;
          }
       }

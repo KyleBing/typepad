@@ -1329,7 +1329,7 @@ body.black .text-black {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 .score-info-item .score {
   color: #333;
