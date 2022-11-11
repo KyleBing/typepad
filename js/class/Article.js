@@ -11,9 +11,9 @@ define([
     CET4mini
 ) {
 
-   // 由文章获取所有单词数组
-   function getWordsArray(content) {
-      let tempArray = content.split('\n');
+   // 字符串 -> []英文单词
+   function getWordsArrayFrom(contentStr) {
+      let tempArray = contentStr.split('\n');
       let tempArrayAll = [];
       tempArray.forEach(item => {
          let wordArray = item.split('\t');
@@ -21,8 +21,13 @@ define([
       })
       return tempArrayAll
    }
-   return {
+   // 字符串 -> []词条
+   function getPhraseArrayFrom(contentStr) {
+      return contentStr.split(' ');
+   }
 
+
+   return {
       top500: {
          name: '常用前500',
          value: 'top500',
@@ -40,6 +45,13 @@ define([
          value: 'tail500',
          type: ArticleType.character,
          content: '鼓阶孔徐固偏陆诸遗爷述帝闭补编巨透弄尤鲁拥录吴墙货弱敌挑宽迹抽忍折输稳皇桌献蒙纷麻洗评挂童尊舍唯博剧乃混弹附迟敬杯鱼控塞剑厚佳测训牙洞淡盛县芳雅革款横累择乘刺载猛逃构赵杜庆途奔虎巧抗针徒圆闪谷绍聚额健诚鲜泪闲均序震仿缘戴婚篇亡奶忠烦赛闹协杰残懂丹柳妹映桥叹愈旅授享暴偷蓝氏寒宜弃丰延辈抢颜赞典冒眉烧厂唱径库川辞伴怒型纯贝票隔穷拜审伦悲柔启减页纵扫伟迫振瑞丈梁洲枪央触予孤缩洛损促番罢宋奋销幕犹锁珍抬陪妙摸峰劲镜沈夺昨哭讯貌谋泰侧贫扶阻贴申岸彼赏版抵泽插迅凭伊潮咱仙符宇肩尝递燕洁拒郎凝净遭仪薄卡末勒乌森诺呀壮忧沿惯丢季企壁惜婆袋朗零辛忆努舒枝凤灭韩胆灰旦孟陷俗绕疾瞧洪甲帐糊泛皆碰吹码奉箱倾胸堆狂仲圈冬餐厉腿尖括佩鬼欣垂跃港骗融撞塔紫荡敏郑赖滑允鸟课暂瓦祥染滚浮粗刑辆狗扑稍秦扎魂岛腾臣琴悉络摩措域冠竹殊豪呆萨旋喊寄悄倍祝剩督旗返召彻宾甘吐乔腰拔幅违详臂尺饮颗涉逼竞培惠亏叔伏唤鸡邻池怨奥侯骑漫拖俊尾恨贯凌兼询碎晨罚铺浓伍宿泉井繁粉绪筑恢匹尘辉魔仰董描距盗渡勤劝莲坦搭挺踪幽截荒恰慧邦颇焦醉废掩签丧灾鼻侵陶肃裁俱磨析奖匆瓶泥拾凉麦钢涌潜隆津搞蛋奈扰耐傅锦播墨偶捕惑飘屈鸣挤毁斜啦污赤慰饰锋覆汤寿跨羊航'
+      },
+      phrase: {
+         name: '常用词条',
+         value: 'phrase',
+         type: ArticleType.phrase,
+         content: '开始 结束 整合 融合 事例 发送 收件 未读 已读',
+         getPhraseArray(){ return getPhraseArrayFrom(this.content)}
       },
       hard: {
          name: '易错易忘字',
@@ -76,7 +88,7 @@ define([
          value: 'CET4',
          type: ArticleType.word,
          content: CET4mini.content,
-         getWordsArray() { return getWordsArray(CET4mini.content)}
+         getWordsArray() { return getWordsArrayFrom(CET4mini.content)}
       },
       article1: {
          name: '春 - 朱自清',

@@ -178,8 +178,10 @@ define(
          $('#repeatCountCurrent').innerText = this.config.repeatCountCurrent
 
          this.currentOriginWords = this.config.article.split('');
-         if (this.config.articleType === ArticleType.word) {
-            // CET 时
+
+
+         if  // 1. ArticleType.word 时
+         (this.config.articleType === ArticleType.word) {
             this.arrayWordAll = Article[this.config.articleIdentifier || 'CET4'].getWordsArray();
             if(this.config.count === 'ALL'){
                this.arrayWordDisplaying = this.arrayWordAll
@@ -190,8 +192,17 @@ define(
                return item.word
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
-         } else {
-            // 其它时
+         } else // 2. ArticleType.phrase 时
+            if (this.config.articleType === ArticleType.phrase) {
+               this.arrayWordAll = Article[this.config.articleIdentifier].getPhraseArray();
+               if(this.config.count === 'ALL'){
+                  this.arrayWordDisplaying = this.arrayWordAll
+               } else {
+                  this.arrayWordDisplaying = this.arrayWordAll.slice(Number(this.config.count) * (this.config.chapter - 1), Number(this.config.count) * (this.config.chapter)); // 截取当前需要显示的数组段
+               }
+               this.currentWords = this.arrayWordDisplaying.join(' ');
+         } else // 3.其它时
+         {
             if(this.config.count === 'ALL'){
                this.currentWords = this.currentOriginWords.join('');
             } else {
@@ -228,13 +239,19 @@ define(
       // 上一段
       prevChapter() {
          if (this.config.chapter !== 1) {
-            if (this.config.articleType === ArticleType.word) {
+            if (this.config.articleType === ArticleType.word)  // 1. ArticleType.word
+            {
                this.arrayWordDisplaying = this.arrayWordAll.slice(this.config.count * (this.config.chapter - 2), this.config.count * (this.config.chapter - 1)); // 截取当前需要显示的数组段
                let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                   return item.word
                }); // 取到英文，数组
                this.currentWords = arrayCurrentWord.join(' ');
-            } else {
+            } else if (this.config.articleType === ArticleType.phrase) // 2. ArticleType.phrase
+            {
+               this.arrayWordDisplaying = this.arrayWordAll.slice(this.config.count * (this.config.chapter - 2), this.config.count * (this.config.chapter - 1)); // 截取当前需要显示的数组段
+               this.currentWords = this.arrayWordDisplaying.join(' ');
+            } else  // 3. ArticleType.others
+            {
                this.currentWords = this.currentOriginWords.slice(this.config.count * (this.config.chapter - 2), this.config.count * (this.config.chapter - 1)).join('');
             }
             this.config.repeatCountCurrent = 1;
@@ -251,13 +268,19 @@ define(
       // 下一段
       nextChapter() {
          if (this.config.chapter !== this.config.chapterTotal) {
-            if (this.config.articleType === ArticleType.word) {
+            if (this.config.articleType === ArticleType.word) // 1. ArticleType.word
+            {
                this.arrayWordDisplaying = this.arrayWordAll.slice(this.config.count * this.config.chapter, this.config.count * (this.config.chapter + 1)); // 截取当前需要显示的数组段
                let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
                   return item.word
                }); // 取到英文，数组
                this.currentWords = arrayCurrentWord.join(' ');
-            } else {
+            }  else if (this.config.articleType === ArticleType.phrase) // 2. ArticleType.phrase
+            {
+               this.arrayWordDisplaying = this.arrayWordAll.slice(this.config.count * this.config.chapter, this.config.count * (this.config.chapter + 1)); // 截取当前需要显示的数组段
+               this.currentWords = this.arrayWordDisplaying.join(' ');
+            } else // 3. ArticleType.word
+            {
                this.currentWords = this.currentOriginWords.slice(this.config.count * this.config.chapter, this.config.count * (this.config.chapter + 1)).join('');
             }
             this.config.repeatCountCurrent = 1;
@@ -338,6 +361,12 @@ define(
                this.currentOriginWords = this.config.article.split('');
                this.englishModeLeave();
                break;
+            case ArticleType.phrase:
+               this.config.article = article.content;
+               this.arrayWordAll = article.getPhraseArray();
+               this.currentOriginWords = this.config.article.split('');
+               this.englishModeLeave();
+               break;
             case ArticleType.english:
                this.config.article = article.content;
                this.englishModeEnter();
@@ -375,11 +404,13 @@ define(
 
       }
 
-      // 改变数字时
+      // 改变每段跟打数量
       changePerCount() {
          let originTol = 0;
          this.config.count = $('input[type=radio]:checked').value;
-         if (this.config.articleType === ArticleType.word) { // CET 单词模式时，count 为单词数
+
+         // CET 单词模式时，count 为单词数
+         if (this.config.articleType === ArticleType.word) {
             let count = this.config.count === 'ALL' ? this.arrayWordAll.length : this.config.count;
             this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
             let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
@@ -387,6 +418,12 @@ define(
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
             originTol = this.arrayWordAll.length / Number(this.config.count);
+         } else  // 为中文词条时， count 为单词数
+            if (this.config.articleType === ArticleType.phrase){
+               let count = this.config.count === 'ALL' ? this.arrayWordAll.length : this.config.count;
+               this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
+               this.currentWords = this.arrayWordDisplaying.join(' ');
+               originTol = this.arrayWordAll.length / Number(this.config.count);
          } else {
             if (this.config.count === 'ALL') {
                this.currentWords = this.currentOriginWords.join('');
@@ -491,11 +528,12 @@ define(
          }
       }
 
-      // 切换乱序模式
+      // 切换全局内容乱序模式
       shuffleCurrentArticle() {
          this.config.isShuffle = $('#shuffleMode').checked;
-         // 单词模式时
-         if (this.config.articleType === ArticleType.word) {
+         // 1. 单词模式时
+         if (this.config.articleType === ArticleType.word)
+         {
             if (this.config.isShuffle) {
                this.arrayWordAll = Utility.shuffle(this.arrayWordAll);
             } else {
@@ -513,7 +551,25 @@ define(
                return item.word
             }); // 取到英文，数组
             this.currentWords = arrayCurrentWord.join(' ');
-         } else if (this.config.articleType === ArticleType.character) {
+         }
+         // 2. 汉字词组模式时
+         else if (this.config.articleType === ArticleType.phrase)
+         {
+            if (this.config.isShuffle) {
+               this.arrayWordAll = Utility.shuffle(this.arrayWordAll);
+            } else {
+               this.arrayWordAll = Article.phrase.getPhraseArray()
+            }
+            this.config.article = this.arrayWordAll.join(' ');
+
+            // 当为全文时，this.config.count 非数字，而是 'All'，就需要处理一下
+            let count = this.config.count === 'ALL' ? this.arrayWordAll.length : Number(this.config.count);
+            this.arrayWordDisplaying = this.arrayWordAll.slice(0, count); // 截取当前需要显示的数组段
+            this.currentWords = this.arrayWordDisplaying.join(' ');
+         }
+         // 3. 单字模式时
+         else if (this.config.articleType === ArticleType.character)
+         {
             this.currentOriginWords = this.config.isShuffle ?
                 Utility.shuffle(Article[this.config.articleIdentifier].content.split('')) :
                 Article[this.config.articleIdentifier].content.split('');
@@ -523,6 +579,8 @@ define(
             let count = this.config.count === 'ALL' ? this.currentOriginWords.length : Number(this.config.count);
             this.currentWords = this.currentOriginWords.slice(0, count).join('');
          }
+
+         // 4. 文章模式没有全文乱序功能
 
          this.config.chapter = 1;
          this.config.save(); // save this.config
@@ -982,6 +1040,7 @@ define(
          $('.score-info .title').innerText = ArticleType.getTypeNameWith(this.config.articleType);
 
          let currentArticleTypeScore = this.score[this.config.articleType]
+         console.log(currentArticleTypeScore)
          $('.score-info-item.sum-words .score').innerText = currentArticleTypeScore.wordCount.toFixed(0);
          $('.score-info-item.sum-key .score').innerText = currentArticleTypeScore.keyCount.toFixed(0);
          $('.score-info-item.sum-time .score').innerText = (currentArticleTypeScore.timeCost / 1000).toFixed(0) + 's';
