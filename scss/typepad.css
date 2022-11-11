@@ -423,6 +423,7 @@ tt {
   font-weight: bold;
 }
 .speed-info .statistic-item .desc {
+  white-space: nowrap;
   position: absolute;
   top: 20px;
   left: 50%;
