@@ -47,9 +47,11 @@ define(['Article', 'ArticleType'],function (Article, ArticleType) {
                location.reload()
             }
          } else {
+            let initChapterAmount = Math.ceil(500 / 15)      // 计算初始段数，非整数时向上取值
+
             this.version              = 'v2.65'                 // 配置版本号
             this.chapter              = 1;                      // 当前段号
-            this.chapterTotal         = 1;                      // 总段数
+            this.chapterTotal         = initChapterAmount;      // 总段数
             this.isShuffle            = false;                  // 是否乱序模式
             this.isInEnglishMode      = false;                  // 是否处于英文打字状态
             this.count                = '15';                   // 单条数量
