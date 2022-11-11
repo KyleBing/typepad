@@ -16,23 +16,23 @@ define(['Utility', 'ArticleType'], function (Utility,ArticleType) {
       getHtml(config, lastRepeatCount){
          let level = Math.floor(this.speed/SPEED_GAP);
          level = level > 6 ? 6 : level; // 速度等级为 6+ 时按 6 处理
-         let articleType = ArticleType.getTypeNameWith(config.articleType);
-         let textClass = ArticleType.getTextClassNameOf(articleType)
+         let articleTypeName = ArticleType.getTypeNameWith(config.articleType);
+         let textClass = ArticleType.getTextClassNameOf(config.articleType)
          let articleName =
              config.isAutoRepeat ?
                  config.articleName + ' : ' + lastRepeatCount :
                  config.articleName;
          return `<tr>  
-              <td class="text-center">${config.IDBIndex}</td> <!--id-->
-              <td class="bold galvji speed text-right lv-${level}">${this.speed}</td> <!--速度-->
-              <td class="hidden-sm">${this.hitRate}</td><!--击键-->
-              <td class="hidden-sm">${this.codeLength}</td><!--码长-->
-              <td class="hidden-sm">${this.backspace}</td><!--回退-->
-              <td>${this.wordCount}</td><!--字数-->
-              <td class="time">${Utility.formatTimeLeft(this.duration)}</td><!--用时-->
-              <td class="text-center ${textClass}">${articleType}</td><!--文章类型-->
-              <td>${articleName}</td><!--文章名称-->
-              <td class="hidden-sm">${Utility.dateFormatter(new Date(this.timeStart))}</td><!--开始时间-->
+              <td class="text-center">${config.IDBIndex}</td>                               <! --id-->
+              <td class="bold galvji speed text-right lv-${level}">${this.speed}</td>       <! --速度-->
+              <td class="hidden-sm">${this.hitRate}</td>                                    <! --击键-->
+              <td class="hidden-sm">${this.codeLength}</td>                                 <! --码长-->
+              <td class="hidden-sm">${this.backspace}</td>                                  <! --回退-->
+              <td>${this.wordCount}</td>                                                    <! --字数-->
+              <td class="time">${Utility.formatTimeLeft(this.duration)}</td>                <! --用时-->
+              <td class="text-center ${textClass}">${articleTypeName}</td>                      <! --文章类型-->
+              <td>${articleName}</td>                                                       <! --文章名称-->
+              <td class="hidden-sm">${Utility.dateFormatter(new Date(this.timeStart))}</td> <! --开始时间-->
               <td><button class="btn btn-danger btn-sm" onclick="engine.delete(${config.IDBIndex}, this)" type="button">删除</button></td>
             </tr>`;
       }

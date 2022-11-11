@@ -26,12 +26,12 @@ define(function () {
       // 根据内容类型标识，获取跟打记录中类别的字体颜色样式
       getTextClassNameOf(articleType){
          switch (articleType) {
-            case this.character : return 'text-orange' ;
-            case this.article   : return 'text-blue'   ;
-            case this.phrase    : return 'text-cyan'   ;
-            case this.english   : return 'text-green'  ;
-            case this.word      : return 'text-red'    ;
-            case this.customize : return 'text-roseo'  ;
+            case this.character : return 'text-orange';
+            case this.article   : return 'text-blue';
+            case this.phrase    : return 'text-yellow';
+            case this.english   : return 'text-green';
+            case this.word      : return 'text-red';
+            case this.customize : return 'text-roseo';
             default: return '';
          }
       }

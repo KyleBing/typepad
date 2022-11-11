@@ -110,8 +110,8 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
       getHtmlWithCursor(cursor){
          let level = Math.floor(cursor.value.speed/SPEED_GAP);
          level = level > 6 ? 6 : level;
-         let articleType = ArticleType.getTypeNameWith(cursor.value.articleType);
-         let textClass = ArticleType.getTextClassNameOf(articleType)
+         let articleTypeName = ArticleType.getTypeNameWith(cursor.value.articleType);
+         let textClass = ArticleType.getTextClassNameOf(cursor.value.articleType)
          return `<tr>  
               <td class="text-center">${cursor.key}</td>
               <td class="bold galvji speed text-right lv-${level}">${cursor.value.speed}</td>
@@ -120,7 +120,7 @@ define(['Utility', 'ArticleType'], function (Utility, ArticleType) {
               <td class="hidden-sm">${cursor.value.backspace}</td>
               <td>${cursor.value.wordCount}</td>
               <td class="time">${Utility.formatTimeLeft(cursor.value.duration)}</td>
-              <td class="text-center ${textClass}"">${articleType}</td>
+              <td class="text-center ${textClass}">${articleTypeName}</td>
               <td>${cursor.value.articleName ? cursor.value.articleName : ''}</td>
               <td class="hidden-sm time">${Utility.dateFormatter(new Date(cursor.value.timeStart))}</td>
               <td><button class="btn btn-danger btn-sm" onclick="engine.delete(${cursor.key}, this)" type="button">删除</button></td>
