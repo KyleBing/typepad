@@ -1040,7 +1040,6 @@ define(
          $('.score-info .title').innerText = ArticleType.getTypeNameWith(this.config.articleType);
 
          let currentArticleTypeScore = this.score[this.config.articleType]
-         console.log(currentArticleTypeScore)
          $('.score-info-item.sum-words .score').innerText = currentArticleTypeScore.wordCount.toFixed(0);
          $('.score-info-item.sum-key .score').innerText = currentArticleTypeScore.keyCount.toFixed(0);
          $('.score-info-item.sum-time .score').innerText = (currentArticleTypeScore.timeCost / 1000).toFixed(0) + 's';
