@@ -1,12 +1,12 @@
 const preFix = 'typepad'
-const version = '265';
+const version = '2.66b2';
 
 self.addEventListener('install', event => {
    self.skipWaiting();
    event.waitUntil(
       caches.open(preFix + version).then(cache => {
          return cache.addAll([
-            '/tools/typepad/',
+            '/tools/typepad',
             '/tools/typepad/index.html?v=2.66b2',
             '/tools/typepad/scss/typepad.css?v=2.66b2',
 
