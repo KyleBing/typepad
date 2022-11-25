@@ -1333,8 +1333,8 @@ body.black .text-black {
 }
 .score-info-item .score {
   color: #333;
-  font-family: "JetBrainsMonoOnlyCharacter";
-  font-size: 13px;
+  font-family: "JetBrainsMonoOnlyCharacter", sans-serif;
+  font-size: 11px;
 }
 .score-info-item .desc {
   color: #999;

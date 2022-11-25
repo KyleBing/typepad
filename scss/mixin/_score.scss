@@ -23,8 +23,8 @@
   line-height: 1.4;
   .score{
     color: $text-main;
-    font-family: 'JetBrainsMonoOnlyCharacter';
-    font-size: 13px;
+    font-family: 'JetBrainsMonoOnlyCharacter', sans-serif;
+    font-size: 11px;
   }
   .desc{
     color: $text-comment;
