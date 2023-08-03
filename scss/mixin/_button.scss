@@ -171,6 +171,10 @@ input[type=checkbox]:checked + label.checker {
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
     > *{
       @extend .btn;
       padding: 2px;
