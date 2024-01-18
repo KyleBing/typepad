@@ -10,7 +10,7 @@ Roseo Maple Type Pad
 
 ## 下载
 ### 1. 线上地址
-[https://kylebing.cn/tools/typepad/](https://kylebing.cn/tools/typepad/)
+[http://kylebing.cn/tools/typepad/](http://kylebing.cn/tools/typepad/)
 
 ### 2. 本地运行
 直接下载 [源文件](https://github.com/KyleBing/typepad/archive/refs/heads/master.zip)，双击或用浏览器打开 `index.html` 即可本地运行
