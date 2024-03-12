@@ -7,7 +7,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
    <title>玫枫跟打器 （Roseo Maple TypePad）</title>
    <link rel="shortcut icon" href="img/logo.png" type="image/png">
-   <link rel="stylesheet" href="scss/typepad.css?v=2.66b2">
+   <link rel="stylesheet" href="scss/typepad.css?v=2.67">
 </head>
 <body>
 
@@ -56,10 +56,10 @@
    <div class="side-menu hidden-sm">
       <div class="tool-bar jc-space-between">
          <div class="btn-group toolbar-info">
-            <div class="btn" onclick="engine.shuffleCurrent()" title="打乱当前段：⌘ + K 或 F4">打乱</div>
-            <div class="btn" onclick="engine.reset()" title="重打：⌘ + Y 或 F3">重打</div>
             <div class="btn" onclick="engine.pause()" title="离开编辑区">暂停</div>
             <div class="btn" onclick="engine.resume()" title="激活编辑区">继续</div>
+            <div class="btn" onclick="engine.shuffleCurrent()" title="打乱当前段：⌘ + K 或 F4">打乱</div>
+            <div class="btn" onclick="engine.reset()" title="重打：⌘ + Y 或 F3">重打</div>
          </div>
       </div>
 
@@ -331,8 +331,8 @@
          </div>
          <div class="copyright">
             <a target="_blank" href="http://kylebing.cn" class="link">KyleBing</a>
-            <p>v2.66</p>
-            <p>2022.11.25</p>
+            <p>v2.67</p>
+            <p>2024.03.12</p>
          </div>
       </div>
 
@@ -413,6 +413,10 @@
          <div class="btn-group">
             <div class="btn" onclick="engine.prevChapter()" title="上一段：⌘ + U 或 F1">《</div>
             <div class="btn" onclick="engine.nextChapter()" title="下一段：⌘ + J 或 F2">》</div>
+         </div>
+         <div class="btn-group">
+            <div class="btn" onclick="engine.toTopChapter()" title="至第一段">|《</div>
+            <div class="btn" onclick="engine.toEndChapter()" title="至最后一段">》|</div>
          </div>
          <div class="btn-group hidden" id="panelRepeatController">
             <div id="repeatMonitor" class="btn no-action number" onclick="engine.reset()" title="⌘ + K">
@@ -527,7 +531,7 @@
 </div>
 
 <script src="js/require_v2.3.6.js"></script>
-<script src="js/typepad.js?v=2.66b2"></script>
+<script src="js/typepad.js?v=2.67"></script>
 
 <script>
    setTimeout(() => {

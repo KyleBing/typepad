@@ -294,6 +294,32 @@ define(
          }
       }
 
+      toTopChapter(){
+         this.config.repeatCountCurrent = 1;
+         this.config.chapter = 1;
+         if (this.config.articleType === ArticleType.word)  // 1. ArticleType.word
+         {
+            this.arrayWordDisplaying = this.arrayWordAll.slice(0, this.config.count * this.config.chapter); // 截取当前需要显示的数组段
+            let arrayCurrentWord = this.arrayWordDisplaying.map(item => {
+               return item.word
+            }); // 取到英文，数组
+            this.currentWords = arrayCurrentWord.join(' ');
+         } else if (this.config.articleType === ArticleType.phrase) // 2. ArticleType.phrase
+         {
+            this.arrayWordDisplaying = this.arrayWordAll.slice(0, this.config.count * this.config.chapter); // 截取当前需要显示的数组段
+            this.currentWords = this.arrayWordDisplaying.join(' ');
+         } else  // 3. ArticleType.others
+         {
+            this.currentWords = this.currentOriginWords.slice(0, this.config.count * this.config.chapter).join('');
+         }
+         this.reset();
+         this.config.save();
+      }
+      toEndChapter(){
+         this.config.chapter = this.config.chapterTotal - 1
+         this.nextChapter()
+      }
+
       // 自定义文章
       customizeArticle(){
          $('#app').style.overflow = 'hidden'
