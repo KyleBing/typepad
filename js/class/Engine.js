@@ -797,14 +797,10 @@ define(
             let minute = Math.floor(secondAll / 60);
             let second = Math.floor(secondAll % 60);
             $('.minute').innerText = minute >= 10 ? minute : `0${minute}`;
-            $('.btn-minute').innerText = minute >= 10 ? minute : `0${minute}`;
             $('.second').innerText = second >= 10 ? second : `0${second}`;
-            $('.btn-second').innerText = second >= 10 ? second : `0${second}`;
          } else {
             $('.minute').innerText     = '00';
-            $('.btn-minute').innerText = '00';
             $('.second').innerText     = '00';
-            $('.btn-second').innerText = '00';
          }
       }
 
