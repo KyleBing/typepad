@@ -483,6 +483,29 @@ tt {
   margin-bottom: 0;
 }
 
+@media (max-width: 768px) {
+  .info-panel {
+    align-items: center;
+    flex-flow: column nowrap;
+    display: flex;
+    justify-content: center;
+    width: 48.5%;
+  }
+  .info-panel > * {
+    width: 100%;
+  }
+
+  .speed-info-mobile {
+    width: 100%;
+    margin-top: 5px;
+    height: auto;
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  .speed-info-mobile .speed {
+    border-bottom: none;
+  }
+}
 .tool-bar {
   display: flex;
   justify-content: flex-start;
@@ -753,6 +776,11 @@ label.btn, .btn-group .btn-vertical > label {
   padding-right: 6px !important;
 }
 
+@media (max-width: 768px) {
+  .btn-group {
+    margin-bottom: 5px;
+  }
+}
 .option {
   font-size: 1.5rem;
   display: flex;
@@ -933,11 +961,11 @@ body.black .key-info-item h6, body.black .key-info-item p {
 body.black .time-info .time {
   color: #e6e6e6;
 }
-body.black .speed-info .speed {
+body.black .speed-info .speed, body.black .speed-info-mobile .speed {
   color: white;
   border-color: #272b32;
 }
-body.black .speed-info .statistic-item {
+body.black .speed-info .statistic-item, body.black .speed-info-mobile .statistic-item {
   color: #e6e6e6;
 }
 body.black .copyright {
@@ -1009,9 +1037,9 @@ body.black .btn-group .btn, body.black .btn-group .btn-vertical > * {
   border-right: 1px solid #272b32;
 }
 body.black .btn-group .btn:active, body.black .btn-group .btn-vertical > :active {
-  -webkit-box-shadow: inset 0 1px 2px rgb(0, 0, 0);
-  -moz-box-shadow: inset 0 1px 2px rgb(0, 0, 0);
-  box-shadow: inset 0 1px 2px rgb(0, 0, 0);
+  -webkit-box-shadow: inset 0 1px 2px black;
+  -moz-box-shadow: inset 0 1px 2px black;
+  box-shadow: inset 0 1px 2px black;
 }
 body.black .btn-group .btn:hover, body.black .btn-group .btn-vertical > :hover {
   background-color: #383838;
@@ -1660,6 +1688,24 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  #app {
+    flex-flow: row wrap;
+  }
+
+  .side-menu {
+    justify-content: space-between;
+    flex-flow: row wrap;
+    width: 100%;
+  }
+  .side-menu .score-statistics-container {
+    display: none;
+  }
+
+  .template-container {
+    margin-bottom: 10px;
+  }
+}
 .type-pad-standalone {
   height: 100%;
   overflow-y: auto;

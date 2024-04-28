@@ -1031,20 +1031,24 @@ define(
 
          // SPEED
          if (!this.isStarted && !this.isFinished) {
-            $('.speed').innerText               = '--';
-            $('.btn-speed').innerText           = '--';
+            $('.speed-info-pc .speed').innerText               = '--';
+            $('.speed-info-mobile .speed').innerText               = '--';
             $('.count-key-rate').innerText      = '--';
+            $('.speed-info-mobile .count-key-rate').innerText      = '--';
             $('.count-key-length').innerText    = '--';
+            $('.speed-info-mobile .count-key-length').innerText    = '--';
             $('.count-key-backspace').innerText = '--';
+            $('.speed-info-mobile .count-key-backspace').innerText = '--';
          } else {
             this.record.speed = Number((this.correctWordsCount / this.duration * 1000 * 60).toFixed(2));
-            $('.speed').innerText = this.record.speed;
-            $('.btn-speed').innerText = this.record.speed;
+            $('.speed-info-pc .speed').innerText = this.record.speed;
+            $('.speed-info-mobile .speed').innerText = this.record.speed;
 
             // key count
             let allKeyCount = this.keyCount.all - this.keyCount.function;
             this.record.hitRate = Number((allKeyCount / this.duration * 1000).toFixed(2));
-            $('.count-key-rate').innerText = this.record.hitRate;
+            $('.speed-info-pc .count-key-rate').innerText = this.record.hitRate;
+            $('.speed-info-mobile .count-key-rate').innerText = this.record.hitRate;
 
             // code length
             if (this.correctWordsCount) {
@@ -1052,10 +1056,12 @@ define(
             } else {
                this.record.codeLength = 0;
             }
-            $('.count-key-length').innerText = this.record.codeLength;
+            $('.speed-info-pc .count-key-length').innerText = this.record.codeLength;
+            $('.speed-info-mobile .count-key-length').innerText = this.record.codeLength;
 
             // backspace count
-            $('.count-key-backspace').innerText = this.keyCount.backspace;
+            $('.speed-info-pc .count-key-backspace').innerText = this.keyCount.backspace;
+            $('.speed-info-mobile .count-key-backspace').innerText = this.keyCount.backspace;
 
             // StandAlone Mode Speed Info
             $('.standalone-speed-info .speed').innerText = this.record.speed;

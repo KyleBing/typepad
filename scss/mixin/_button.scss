@@ -214,3 +214,10 @@ label.btn{
   padding-right: $btn-padding-lr - 2 !important;
 }
 
+
+// MOBILE
+@media (max-width: $separate-mobile) {
+  .btn-group{
+    margin-bottom: 5px;
+  }
+}

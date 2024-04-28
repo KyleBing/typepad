@@ -205,5 +205,24 @@ $colors  : (
   }
 }
 
+// MOBILE
+@media (max-width: $separate-mobile) {
+  #app{
+    flex-flow: row wrap;
+  }
+  .side-menu{
+    justify-content: space-between;
+    flex-flow: row wrap;
+    width: 100%;
+    .score-statistics-container{
+      display: none;
+    }
+  }
+  .template-container{
+    margin-bottom: 10px;
+  }
+}
+
+
 @import "./mixin/standalone";
 

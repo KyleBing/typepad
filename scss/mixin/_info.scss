@@ -181,3 +181,29 @@ $kbd-text: black;
     margin-bottom: 0;
   }
 }
+
+
+// MOBILE
+@media (max-width: $separate-mobile) {
+  .info-panel{
+    align-items: center;
+    flex-flow: column nowrap;
+    display: flex;
+    justify-content: center;
+    width: 48.5%;
+    >*{
+      width: 100%;
+    }
+  }
+  .speed-info-mobile{
+    width: 100%;
+    margin-top: 5px;
+    height: auto;
+    display: flex;
+    flex-flow: row nowrap;
+    .speed{
+      border-bottom: none;
+    }
+  }
+}
+
