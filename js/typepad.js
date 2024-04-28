@@ -70,14 +70,14 @@ require(['ArticleType', 'Article', 'Engine', 'Editor'],
       // 显示历史记录
       engine.fetchAllLog();
 
-      // Service Worker
+/*      Service Worker
       if ('serviceWorker' in navigator){
          navigator.serviceWorker
             .register('/tools/typepad/typepad-sw.js?v=2.68')
             .then(()=>{
                console.log('Server Worker has registered');
             })
-      }
+      }*/
    })
 
 document.addEventListener('touchstart', ()=>{}, false); // 取消移动端的 touch 动作
