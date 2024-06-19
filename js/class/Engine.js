@@ -174,7 +174,7 @@ define(
          this.config.isBigCharacter ? enterBigCharacterMode() : leaveBigCharacterMode();
 
          // Repeat Monitor
-         $('#repeatCountTotal').innerText = this.config.repeatCountTotal
+         $('#repeatCountTotal').innerText = this.config.repeatCountTotal == Number.MAX_VALUE ? '∞' : this.config.repeatCountTotal
          $('#repeatCountCurrent').innerText = this.config.repeatCountCurrent
 
          this.currentOriginWords = this.config.article.split('');
@@ -537,21 +537,38 @@ define(
 
       // 重复次数 +
       repeatCountAdd(){
-         this.config.repeatCountTotal++;
-         $('#repeatCountTotal').innerText = this.config.repeatCountTotal;
-         this.config.save()
+         if (this.config.repeatCountTotal != Number.MAX_VALUE) {
+            this.config.repeatCountTotal++;
+            $('#repeatCountTotal').innerText = this.config.repeatCountTotal;
+            this.config.save()
+         } else {
+            console.log('cannot be greater than infinity')
+            let btn = $('#repeatMonitor')
+            Utility.shakeDom(btn)
+         }
       }
       // 重复次数 -
       repeatCountMinus(){
-         if (this.config.repeatCountTotal > 1){
+         if (this.config.repeatCountTotal > 1 && this.config.repeatCountTotal != Number.MAX_VALUE){
             this.config.repeatCountTotal--;
             $('#repeatCountTotal').innerText = this.config.repeatCountTotal;
             this.config.save()
          } else {
-            console.log('can not lower than 1')
+            console.log('can not lower than 1 or infinite')
             let btn = $('#repeatMonitor')
             Utility.shakeDom(btn)
          }
+      }
+      // 不限重复次数
+      repeatCountInfinity() {
+         if (this.config.repeatCountTotal != Number.MAX_VALUE) {
+            this.config.repeatCountTotal = Number.MAX_VALUE
+            $('#repeatCountTotal').innerText = '∞';
+         } else {
+            this.config.repeatCountTotal = 1
+            $('#repeatCountTotal').innerText = this.config.repeatCountTotal;
+         }
+         this.config.save()
       }
 
       // 切换全局内容乱序模式
