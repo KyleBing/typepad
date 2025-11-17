@@ -169,6 +169,10 @@ body.black {
       > *{
         border-right: none;
         border-bottom: 1px solid $black-color-border;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
         &:last-child{
           border-bottom: none;
         }
